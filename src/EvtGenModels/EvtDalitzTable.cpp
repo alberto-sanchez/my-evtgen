@@ -91,6 +91,10 @@ void EvtDalitzTable::readXMLDecayFile(const std::string dec_name, bool verbose){
   EvtSpinType::spintype spinType(EvtSpinType::SCALAR);
   double mass(0.), width(0.), FFp(0.), FFr(0.);
   std::vector<EvtFlatteParam> flatteParams;
+  //Nonres parameters
+  double alpha(0.);
+  //LASS parameters
+  double aLass(0.), rLass(0.), BLass(0.), phiBLass(0.), RLass(0.), phiRLass(0.), cutoffLass(-1.);
 
   EvtParserXml parser;
   parser.open(dec_name);
@@ -251,6 +255,20 @@ void EvtDalitzTable::readXMLDecayFile(const std::string dec_name, bool verbose){
         FFp = parser.readAttributeDouble("BlattWeisskopfFactorParent",0.0);
         FFr = parser.readAttributeDouble("BlattWeisskopfFactorResonance",1.5);
 
+        //Shape specific attributes
+        if(shape=="NonRes_Exp") {
+          alpha = parser.readAttributeDouble("alpha",0.0);
+        }
+        if(shape=="LASS") {
+          aLass = parser.readAttributeDouble("a",2.07);
+          rLass = parser.readAttributeDouble("r",3.32);
+          BLass = parser.readAttributeDouble("B",1.0);
+          phiBLass = parser.readAttributeDouble("phiB",0.0);
+          RLass = parser.readAttributeDouble("R",1.0);
+          phiRLass = parser.readAttributeDouble("phiR",0.0);
+          cutoffLass = parser.readAttributeDouble("cutoff",-1.0);
+        }
+
         //Daughter pairs for resonance
         angAndResPairs.clear();
 
@@ -300,7 +318,7 @@ void EvtDalitzTable::readXMLDecayFile(const std::string dec_name, bool verbose){
           std::vector< std::pair<EvtCyclic3::Pair,EvtCyclic3::Pair> >::iterator it = angAndResPairs.begin();
           for( ; it != angAndResPairs.end(); it++) {
             std::pair<EvtCyclic3::Pair,EvtCyclic3::Pair> pairs = *it;
-            EvtDalitzReso resonance = getResonance(shape, dp, pairs.first, pairs.second, spinType, mass, width, FFp, FFr);
+            EvtDalitzReso resonance = getResonance(shape, dp, pairs.first, pairs.second, spinType, mass, width, FFp, FFr, alpha, aLass, rLass, BLass, phiBLass, RLass, phiRLass, cutoffLass);
             dalitzDecay->addResonance(cAmp,resonance);
           }
         }
@@ -330,7 +348,7 @@ void EvtDalitzTable::readXMLDecayFile(const std::string dec_name, bool verbose){
         std::vector< std::pair<EvtCyclic3::Pair,EvtCyclic3::Pair> >::iterator it = angAndResPairs.begin();
         for( ; it != angAndResPairs.end(); it++) {
           std::pair<EvtCyclic3::Pair,EvtCyclic3::Pair> pairs = *it;
-          EvtDalitzReso resonance = getResonance(shape, dp, pairs.first, pairs.second, spinType, mass, width, FFp, FFr);
+          EvtDalitzReso resonance = getResonance(shape, dp, pairs.first, pairs.second, spinType, mass, width, FFp, FFr, alpha, aLass, rLass, BLass, phiBLass, RLass, phiRLass, cutoffLass);
 
           std::vector<EvtFlatteParam>::iterator flatteIt = flatteParams.begin();
           for( ; flatteIt != flatteParams.end(); flatteIt++) {
@@ -412,16 +430,32 @@ std::vector<EvtDalitzDecayInfo> EvtDalitzTable::getDalitzTable(const EvtId& pare
 
 
 EvtDalitzReso EvtDalitzTable::getResonance(std::string shape, EvtDalitzPlot dp, EvtCyclic3::Pair angPair, EvtCyclic3::Pair resPair,
-                                           EvtSpinType::spintype spinType, double mass, double width, double FFp, double FFr) {
+                                           EvtSpinType::spintype spinType, double mass, double width, double FFp, double FFr, double alpha,
+                                           double aLass, double rLass, double BLass, double phiBLass, double RLass, double phiRLass, double cutoffLass) {
   if( shape=="RBW" || shape=="RBW_CLEO") {
     return EvtDalitzReso( dp, angPair, resPair, spinType, mass, width, EvtDalitzReso::RBW_CLEO, FFp, FFr );
   } else if( shape=="RBW_CLEO_ZEMACH" ) {
     return EvtDalitzReso( dp, angPair, resPair, spinType, mass, width, EvtDalitzReso::RBW_CLEO_ZEMACH, FFp, FFr );
-  }else if( shape=="Flatte" ) {
+  } else if( shape=="GS" || shape=="GS_CLEO" ) {
+    return EvtDalitzReso( dp, angPair, resPair, spinType, mass, width, EvtDalitzReso::GS_CLEO, FFp, FFr );
+  } else if( shape=="GS_CLEO_ZEMACH" ) {
+    return EvtDalitzReso( dp, angPair, resPair, spinType, mass, width, EvtDalitzReso::GS_CLEO_ZEMACH, FFp, FFr );
+  } else if( shape=="GAUSS" || shape=="GAUSS_CLEO" ) {
+    return EvtDalitzReso( dp, angPair, resPair, spinType, mass, width, EvtDalitzReso::GAUSS_CLEO, FFp, FFr );
+  } else if( shape=="GAUSS_CLEO_ZEMACH" ) {
+    return EvtDalitzReso( dp, angPair, resPair, spinType, mass, width, EvtDalitzReso::GAUSS_CLEO_ZEMACH, FFp, FFr );
+  } else if( shape=="Flatte" ) {
     return EvtDalitzReso( dp, resPair, mass );
+  } else if( shape=="LASS" ) {
+    return EvtDalitzReso( dp, resPair, mass, width, aLass, rLass, BLass, phiBLass, RLass, phiRLass, cutoffLass, true );
   } else if( shape=="NonRes" ) {
     return EvtDalitzReso( );
+  } else if( shape=="NonRes_Linear" ) {
+    return EvtDalitzReso( dp, resPair, EvtDalitzReso::NON_RES_LIN );
+  } else if( shape=="NonRes_Exp" ) {
+    return EvtDalitzReso( dp, resPair, EvtDalitzReso::NON_RES_EXP, alpha );
   } else { //NBW
+    if( shape!="NBW") report(WARNING,"EvtGen")<<"EvtDalitzTable: shape "<<shape<<" is unknown. Defaulting to NBW."<<endl;
     return EvtDalitzReso( dp, angPair, resPair, spinType, mass, width, EvtDalitzReso::NBW, FFp, FFr );
   }
 }

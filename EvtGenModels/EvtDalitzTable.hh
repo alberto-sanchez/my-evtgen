@@ -55,7 +55,8 @@ protected:
 private:
 
   EvtDalitzReso getResonance(std::string shape, EvtDalitzPlot dp, EvtCyclic3::Pair angPair, EvtCyclic3::Pair resPair,
-                             EvtSpinType::spintype spinType, double mass, double width, double FFp, double FFr);
+                             EvtSpinType::spintype spinType, double mass, double width, double FFp, double FFr, double alpha,
+                             double aLass, double rLass, double BLass, double phiBLass, double RLass, double phiRLass, double cutoffLass);
   int getDaughterPairs(EvtId* resDaughter, EvtId* daughter, std::vector< std::pair<EvtCyclic3::Pair,EvtCyclic3::Pair> >& angAndResPairs);
 
   std::map<EvtId, std::vector<EvtDalitzDecayInfo> > _dalitztable;

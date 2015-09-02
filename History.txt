@@ -4,6 +4,55 @@
 //
 //===========================================================================
 
+R01-03-00-------------------------------------------------------------------
+9th January 2014 John Back
+     New tag version "1.3.0", incorporating all changes below.
+
+     Replaced auto-install script to work with this version as well as
+     the latest versions of all external generator packages.
+     Updated README to mention the new CERN-based web pages for Photos++ 
+     and Tauola++.
+
+8th January 2014 John Back
+     Fix gcc 4.6 and 4.8 compilation warnings, courtesy of 
+     Patrick Robbe (LHCb); main changes are removal of unused variables.
+     Changed the EvtPythiaEngine class and configure script to use new 
+     Pythia 8 header locations; Pythia 8.180 or above is now required.
+
+7th January 2014 John Back
+     Modified EvtBCVFF to correct the Kiselev form factors from 
+     Jack Wimberley (LHCb).
+
+9th October 2013 Daniel Craik
+     Added Gounaris-Sakurai and Gaussian shapes to EvtGenericDalitz 
+     and set sensible defaults for LASS parameters.
+
+19th September 2013 John Back
+     Modified EvtGenExternal/EvtPythiaEngine to keep track of any new 
+     particles that are added to the default Pythia database to avoid
+     duplicating particle/anti-particle entries that could override
+     previously defined Pythia decay chains.
+
+18th September 2013 John Back
+     Added Mac OS flags for the configure script and src/Makefile.
+
+15th July 2013 Daniel Craik
+     Added flag to turn on scaling of LASS amplitude by M/q in EvtDalitzReso
+
+15th July 2013 Daniel Craik
+     EvtParserXML now accepts file names containing environment variables,
+     exponential non-resonant shape in EvtDalitzReso now defined as exp(-alpha*m^2),
+     LASS shape in EvtDalitzReso now takes a cutoff parameter
+
+4th July 2013 Daniel Craik
+     Added LASS, exponential non-resonant and linear non-resonant shapes to EvtGenericDalitz.
+
+3rd July 2013 Daniel Craik
+     Fixed auto-install script for R01-02-00.
+
+1st July 2013 Daniel Craik
+     Added auto-install script for R01-02-00.
+
 R01-02-00-------------------------------------------------------------------
 15th May 2013 John Back
      New tag, version "1.2.0", incorporating all changes below.

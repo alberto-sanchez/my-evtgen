@@ -28,12 +28,6 @@ class EvtVector3R;
 
 class EvtVector4R {
 
-  friend EvtVector4R rotateEuler(const EvtVector4R& rs,
-				 double alpha,double beta,double gamma);
-  friend EvtVector4R boostTo(const EvtVector4R& rs,
-			     const EvtVector4R& p4, bool inverse = false);
-  friend EvtVector4R boostTo(const EvtVector4R& rs,
-			     const EvtVector3R& boost, bool inverse = false);
   
 
   inline friend EvtVector4R operator*(double d,const EvtVector4R& v2); 
@@ -81,6 +75,12 @@ private:
 
 };
 
+EvtVector4R rotateEuler(const EvtVector4R& rs,
+				 double alpha,double beta,double gamma);
+EvtVector4R boostTo(const EvtVector4R& rs,
+		     const EvtVector4R& p4, bool inverse = false);
+EvtVector4R boostTo(const EvtVector4R& rs,
+		     const EvtVector3R& boost, bool inverse = false);
 
 inline EvtVector4R& EvtVector4R::operator=(const EvtVector4R& v2){
 

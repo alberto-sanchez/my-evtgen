@@ -53,7 +53,7 @@ extShLibs+=-L$(LIBDIR_SHARED) $(LIBDIRLIST)
 $(LIB_SHARED) : $(objects)
 	mkdir -p $(LIBDIR_SHARED)
 	@echo creating the shared library $@
-	$(CXX) $(LDFLAGSSHARED) $(objects) -o $@ -shared -Wl,-soname,$(notdir $@) $(FLIBS) \
+	$(CXX) $(LDFLAGSSHARED) $(objects) -o $@ -shared -Wl,$(SOFLAGS),$(notdir $@) $(FLIBS) \
 	$(coreShLibs)
 
 $(LIB_ARCHIVE) : $(objects)
@@ -63,7 +63,7 @@ $(LIB_ARCHIVE) : $(objects)
 $(LIBEXT_SHARED) : $(extobjects)
 	mkdir -p $(LIBDIR_SHARED)
 	@echo creating the shared library $@
-	$(CXX) $(LDFLAGSSHARED) $(extobjects) -o $@ -shared -Wl,-soname,$(notdir $@) $(FLIBS) \
+	$(CXX) $(LDFLAGSSHARED) $(extobjects) -o $@ -shared -Wl,$(SOFLAGS),$(notdir $@) $(FLIBS) \
 	$(extShLibs)
 
 $(LIBEXT_ARCHIVE) : $(extobjects)

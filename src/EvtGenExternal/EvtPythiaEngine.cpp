@@ -29,7 +29,7 @@
 #include "EvtGenBase/EvtExtGeneratorCommandsTable.hh"
 #include "EvtGenExternal/EvtPythia6CommandConverter.hh"
 
-#include "Event.h"
+#include "Pythia8/Event.h"
 
 #include <iostream>
 #include <sstream>
@@ -187,8 +187,7 @@ bool EvtPythiaEngine::doDecay(EvtParticle* theParticle) {
   double m0 = theParticle->mass();
   double E = m0;
 
-  int entryIndex(0);
-  entryIndex = theEvent.append(PDGCode, status, colour, anticolour, px, py, pz, E, m0);
+  theEvent.append(PDGCode, status, colour, anticolour, px, py, pz, E, m0);
 
   // Generate the Pythia event
   int iTrial(0);
@@ -423,6 +422,10 @@ void EvtPythiaEngine::updateParticleLists() {
   int iPDL;
   int nPDL = EvtPDL::entries();
 
+  // Reset the _addedPDGCodes map that keeps track
+  // of any new particles added to the Pythia input data stream
+  _addedPDGCodes.clear();
+
   for (iPDL = 0; iPDL < nPDL; iPDL++) {
 
     EvtId particleId = EvtPDL::getEntry(iPDL);
@@ -452,10 +455,13 @@ void EvtPythiaEngine::updateParticleLists() {
 
       // Find the Pythia particle name given the standard PDG code integer
       std::string dataName = _theParticleData.name(PDGCode);
-      if (dataName == " ") {
+      bool alreadyStored(false);
+      if (_addedPDGCodes.find(abs(PDGCode)) != _addedPDGCodes.end()) {alreadyStored = true;}
 
-	// Particle does not exist in the Pythia database. Create a new particle.
-	// Then create the new decay modes.
+      if (dataName == " " && alreadyStored == false) {
+
+        // Particle and its antiparticle does not exist in the Pythia database.
+	// Create a new particle, then create the new decay modes.
 	this->createPythiaParticle(particleId, PDGCode);
 
       } else {
@@ -473,11 +479,11 @@ void EvtPythiaEngine::updateParticleLists() {
 
   } // Loop over EvtPDL entries
 
-  report(INFO,"EvtGen")<<"Writing out changed generic Pythia decay list"<<endl;
-  _genericPythiaGen->particleData.listChanged();
+  //report(INFO,"EvtGen")<<"Writing out changed generic Pythia decay list"<<endl;
+  //_genericPythiaGen->particleData.listChanged();
 
-  report(INFO,"EvtGen")<<"Writing out changed alias Pythia decay list"<<endl;
-  _aliasPythiaGen->particleData.listChanged();
+  //report(INFO,"EvtGen")<<"Writing out changed alias Pythia decay list"<<endl;
+  //_aliasPythiaGen->particleData.listChanged();
 
 }
 
@@ -723,6 +729,13 @@ void EvtPythiaEngine::createPythiaParticle(EvtId& particleId, int PDGCode) {
   
   // Pass this information to Pythia
   _thePythiaGenerator->readString(oss.str());
+
+  // Also store the absolute value of the PDG entry
+  // to keep track of which new particles have been added,
+  // which also automatically includes the anti-particle.
+  // We need to avoid creating new anti-particles when
+  // they already exist when the particle was added.
+  _addedPDGCodes[absPDGCode] = 1;
 
 }
 

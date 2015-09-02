@@ -29,8 +29,8 @@
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 
-#include "Pythia.h"
-#include "ParticleData.h"
+#include "Pythia8/Pythia.h"
+#include "Pythia8/ParticleData.h"
 
 #include <string>
 #include <vector>
@@ -83,6 +83,8 @@ private:
   bool _convertPhysCodes, _initialised, _useEvtGenRandom;
 
   EvtPythiaRandom* _evtgenRandom;
+
+  std::map<int, int> _addedPDGCodes;
 
 };
 

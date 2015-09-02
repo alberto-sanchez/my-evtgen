@@ -74,7 +74,7 @@ check_dirs() {
   echo "PREFIX = $PREFIX"
 
   hepmcFile=${HEPMCDIR}/include/HepMC/GenParticle.h
-  pythiaFile=${PYTHIADIR}/include/Pythia.h
+  pythiaFile=${PYTHIADIR}/include/Pythia8/Pythia.h
   photosFile=${PHOTOSDIR}/include/Photos/Photos.h
   tauolaFile=${TAUOLADIR}/include/Tauola/Tauola.h
 
@@ -130,7 +130,7 @@ check_extlibs () {
     HEPMCLIBLIST="-lHepMC"
     PHOTOSLIBLIST="-lPhotosCxxInterface -lPhotosFortran"
     TAUOLALIBLIST="-lTauolaCxxInterface -lTauolaFortran"
-    PYTHIALIBLIST="-lpythia8 -llhapdfdummy -lhepmcinterface"
+    PYTHIALIBLIST="-lpythia8 -llhapdfdummy"
 
 }
 
@@ -177,6 +177,7 @@ FFLAGS="${FFLAGS_OPT}"
 CFLAGS="${CFLAGS_OPT}"
 CXXFLAGS="${CXXFLAGS_OPT}"
 FLIBS="-lfrtbegin -lg2c"
+SOFLAGS="-soname"
 
 if [ ${COMPMODE} = OPT ]; then
   FFLAGS="${FFLAGS_OPT}"
@@ -223,6 +224,12 @@ if [ $ARCH = Linux-gcc4 ]; then
   fi
 fi
 
+# Mac OS platform with gcc4
+if [ $ARCH = Darwin-gcc4 ]; then
+  FLIBS="-lgfortran"
+  SOFLAGS="-install_name"
+fi
+
 #Platform & opt/dbg - independent flags and variables:
 
 echo -n "Creating config.mk ... "
@@ -244,6 +251,7 @@ FFLAGS = ${FFLAGS}
 CFLAGS = ${CFLAGS}
 CXX = ${CXX}
 CXXFLAGS = ${CXXFLAGS}
+SOFLAGS = ${SOFLAGS}
 
 EVTGENDIR = $(pwd)
 
