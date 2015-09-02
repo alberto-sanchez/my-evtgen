@@ -1,0 +1,17 @@
+{
+TFile *myFile = new TFile("lnugamma.root","READ");
+myFile->ls();
+
+TCanvas *myCanvas = new TCanvas("c","lnugamma",0,0,800,800);
+myCanvas->Divide(2,2);
+
+TH1F *th1=h1;
+
+th1->Draw();
+
+myCanvas.Update();
+
+myCanvas->Print("lnugamma.eps");
+
+}
+

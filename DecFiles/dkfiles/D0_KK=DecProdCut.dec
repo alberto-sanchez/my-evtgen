@@ -1,0 +1,25 @@
+# $Id: D0_KK=DecProdCut.dec 89921 2010-10-14 12:44:29Z hvc $
+#
+# This is the decay file for the decay D0 -> K- K+
+#
+# EventType: 22162001
+#
+# Descriptor: [D0 -> K- K+]cc
+#
+# NickName: D0_KK=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Phase space decay model
+#
+# Tested: Yes
+# By: Ulrich Kerzel, Harry Cliff
+# Date: 14 Oct 2010
+#
+Decay D0sig
+  1.0   K-  K+   PHSP;
+Enddecay
+CDecay anti-D0sig
+#
+End
+

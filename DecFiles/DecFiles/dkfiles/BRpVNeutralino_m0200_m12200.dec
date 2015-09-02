@@ -1,0 +1,25 @@
+#
+# Author: Neal Gauvin
+# Date: 23 Oct 2008
+#
+# EventType: 46000010
+#
+# Descriptor: pp -> (X -> ~chi_10 -> (l q q, l l l) + jet ... )
+#
+# NickName: BRpVNeutralino_m0200_m12200
+#
+# Physics: Neutralinos from SUSY (mSUGRA) with Bilinear Rp violation in all final states, m0=200GeV, m1/2=200GeV
+#
+# ParticleTable: mSUGRA_m0200_m12200
+#
+# Cuts: PythiaLSP
+# 
+# SUSYModel: mSUGRA_m0200_m12200
+#
+# Tested: Yes
+# By: Neal Gauvin 
+# Date: 2 Oct 2009
+#
+End
+#
+#

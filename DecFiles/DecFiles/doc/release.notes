@@ -1,0 +1,2202 @@
+!------------------------------------------------------------------------------
+! Package      : Gen/DecFiles
+! Responsible	 : Patrick Robbe
+! Purpose      : collection of user decay files and corresponding job options
+!------------------------------------------------------------------------------
+! The documentation for event types can be found at the web address:
+! http://lhcb-comp.web.cern.ch/lhcb-comp/event_types_v2.1.pdf
+!------------------------------------------------------------------------------
+! 2010-16-12 Mark Whitehead fpr Paulo Gandini
+- 2 New Files
+   . 11164041  Bd_Dst-pi,Kpi=DecProdCut
+   . 11164051  Bd_Dst-K,Kpi=DecProdCut
+
+! 2010-16-12 W. Bonivento
+- Modified file names -->  incl_b=DiMuon,forD0MuMu.dec --> 
+                           incl_b=DiMuon,OS,p5GeV,pt750MeV,MassD0.dec
+
+! 2010-14-12
+- Added 2 new decfiles:  W.Bonivento
+     22162002 D0->pipi
+     10012007 bb->dimuons with reepated decays with cuts 
+	      suitable for D0->mumu search
+
+! 2010-12-12
+- Fixed bug in Lb_LambdacPiPiPi=DecProdCut, Lb_LambdacKPiPi=DecProdCut
+  * Sigma_c0, Sigma_c++ --> MySigma_c0 and MySigma_c++
+
+! 2010-12-10 Mariusz Witek
+ - Added 2 new decay files - background for B->Dh study
+    11164402 Bd_Dst-pi+,D-pi0.dec 
+    11164403 Bd_Dst-K+,D-pi0.dec
+
+! 2010-12-10 Mat Charles
+ - Added 4 new decay files for charm:
+   . 27163002 Dst_D0pi,KK=DecProdCut.dec
+   . 27163004 Dst_D0pi,KpiWS=DecProdCut.dec
+   . 27163003 Dst_D0pi,Kpi=DecProdCut.dec
+   . 23163001 Ds+_K+K-pi+=phsp,DecProdCut.dec
+
+! 2010-12-10 Anton Poluektov
+ - Fixed wrong nickname in Lb_D0ppi,Kpi=DecProdCut.dec 
+   and Lb_D0pK,Kpi=DecProdCut.dec
+
+! 2010-12-09 Mark Whitehead
+ - One new decay file
+   . 11264021 Bd_D0pipi,Kpi=DecProdCut.dec	
+
+! 2010-12-08 Anton Poluektov 
+ - Add 4 new decay files for [Lambda_b0 -> D0 p+ K-/pi-]cc: 
+   . 15164010  Lb_D0ppi,Kpi.dec
+   . 15164020  Lb_D0pK,Kpi.dec
+   . 15164011  Lb_D0ppi,Kpi=DecProdCut.dec
+   . 15164021  Lb_D0pK,Kpi=DecProdCut.dec
+
+! 2010-12-06 Mark Whitehead for Tom Latham
+ - Add 9 new decay files for KShh
+   . 13104130  Bs_KSK+K-=phsp	
+   . 12104131  Bs_KSK+K-=phsp,DecProdCut
+   . 11104130  Bd_KpiKS
+   . 11104131  Bd_KpiKS=DecProdCut
+   . 13104120  Bs_KSpi+pi-=phsp
+   . 13104121  Bs_KSpi+pi-=phsp,DecProdCut
+   . 11104111  Bd_K+K-KS=DecProdCut
+   . 13104140  Bs_KSKpi=phsp
+   . 13104141  Bs_KSKpi=phsp,DecProdCut
+
+! 2010-11-19 Rolf Oldeman
+- Add 3 new DEC files
+ * 11296020  Bd_DsDst
+ * 12295000  Bu_DsD0
+ * 15296000  Lb_DsLambdac
+- fixed typo in decay descriptor of Lb_Lambdacpi.dec
+
+! 2010-11-09 Steve Blusk
+- Add 8 new DEC files
+ * 11266002  Bd_D-PiPiPi+=DecProdCut
+ * 13266002  Bs_DsPiPiPi=DecProdCut
+ * 12265002  Bu_D0PiPiPi,KPi=DecProdCut
+ * 15266000  Lb_LambdacPiPiPi=DecProdCut
+ * 11266003  Bd_D-KPiPi+=DecProdCut
+ * 13266003  Bs_DsKPiPi=DecProdCut
+ * 12265003  Bu_D0KPiPi,KPi=DecProdCut
+ * 15266001  Lb_LambdacKPiPi=DecProdCut
+
+! 2010-11-02 - Mark Whitehead for Aurelien Martens
+ - 11164012, Bd_D0rho0,Kpi=DecProdCut
+
+! 2010-10-22 - Patrick Robbe
+ - DECAY.DEC change X(3872) decay modes to declare them properly to Pythia
+
+!========================= DecFiles v23r1 2010-10-19 ==========================
+
+! 2010-10-19 - Gloria CORTI
+ - Modify comment in 11146000, Bd_psi2SKst,Jpsipipi,mm=DecProdCut in agreement
+   with Neus.
+
+! 2010-10-15 - M Needham
+  - Add new event types:
+    . 13144401, Bs_Jpsieta,mm,pipipi=DecProdCut.dec
+    . 13144201, Bs_Jpsietap,mm,rhog=DecProdCut.dec
+    . 13144411, Bs_Jpsietap,mm,etapipi=DecProdCut.dec
+    . 13142401, Bs_Jpsieta,mm,gg=DecProdCut.dec
+
+! 2010-10-15 - Harry Victor Cliff
+  - Add new event type:
+    . 22162001, D0_KK=DecProdCut
+
+! 2010-10-13 - Neus Lopez March and Fred Blanc
+  - Add new event types:
+    . 11146000, Bd_psi2SKst,Jpsipipi,mm=DecProdCut
+    . 11146100, Bd_psi2SKS,Jpsipipi,mm=CPV,DecProdCut
+
+! 2010-10-13 - Roel Aaij and Daan van Eijk
+ - Update 13144003 to working order:
+   - removed yesIncoherentBsMixing
+
+! 2010-10-12 - Patrick Robbe
+ - New event types:
+   . 28142002, incl_psi2S,mm=NoCut
+   . 28144000, incl_psi2S,Jpsipipi=DecProdCut
+   . 28144001, incl_psi2S,Jpsipipi=NoCut
+   . 18112002, incl_Upsilons,mm=NoCut
+   . 28144012, incl_X38721++,Jpsirho,mm=NoCut
+ - DECAY.DEC: remove MSTJ(26)=0 which is not needed
+ - create_options.py: adapt to allow definition of Upsilon event types
+   without generator level cuts.
+
+!========================= DecFiles v23r0 2010-10-07 ==========================
+! 2010-10-07 - Mark Whitehead from K Holubyev
+ - File updated to match new BF in previous commit
+   . 13266000,    Bs_Dspipipi
+
+! 2010-10-05 - Mark Whitehead from K Holubyev
+ - New file added to update Bf and add DecProdCut
+   . 13266001,    Bs_Dspipipi=DecProdCut
+
+! 2010-09-29 - Mark Whitehead from Paolo Gandini
+ - New Event types:
+   . 12463411,    Bu_Dst0K,Kpi=DecProdCut.dec
+   . 12463412,    Bu_Dst0pi,Kpi=DecProdCut.dec
+
+! 2010-09-16 - Philip Hunt
+ - Updated branching fractions of D0 resonances to K3Pi
+   . 12265010,    Bu_D0pi,Kpipipi.dec
+ - Added new event type:
+   . 12265011,    Bu_D0pi,Kpipipi=DecProdCut.dec 
+ 
+!========================= DecFiles v22r1 2010-09-07 ==========================
+! 2010-09-07 - Gloria CORTI from Tara SHEARS
+ - Remove pythia dump of each event for event type 42300000 (W_taunutau) 
+   preventing to use it in production.
+   . Wtaunu.opts 
+ - Add new event type (options were already committed)
+   . 42122032, DrellYan_eejet=5GeV.dec
+
+!========================= DecFiles v22r0 2010-08-27 ==========================
+! 2010-08-27 - Gloria CORTI
+ - Increase major version as event type 42112020 is not identical to 
+   previous versions.
+
+! 2010-08-20 - Patrick Robbe
+ - Add new event types:
+   . 42100020,    Z_tautaujet
+   . 42102011,    DrellYan_tautau=10GeV
+   . 42102012,    DrellYan_tautau=5GeV
+   . 42112020,    Z_mumujet
+   . 42112030,    DrellYan_mumujet=2GeV
+   . 42112031,    DrellYan_mumujet=10GeV
+   . 42112032,    DrellYan_mumujet=5GeV
+   . 42122012,    DrellYan_ee=5GeV
+   . 42122020,    Z_eejet
+   . 42122032,    DrellYan_eejet=5GeV
+   . 42300010,    W_taunujet
+   . 42321010,    W_enujet
+   with corresponding options files.
+
+ - Bug fix for event type 42112020, Z_mumujet
+
+!========================= DecFiles v21r5 2010-08-04 ==========================
+! 2010-07-29 - Gloria CORTI
+ - New event types from Nikolai NIKITIN and Daria SAVRINA with new models
+   they set up. Requires EvtGenExtras >= (i.e. Gauss >= v38r6)
+   . 12113002, Bu_Kmumu=MS,DecProdCut.dec
+   . 11412200, Bd_etamumu=MS,DecProdCut.dec
+   . 12123400, Bu_rhoee=MS,DecProdCut.dec
+   . 11104030, Bd_Ksttautau=MS,DecProdCut.dec
+   . 11112200, Bd_gammamumu=MNT,DecProdCut.dec
+   . 11122200, Bd_gammaee=MNT,DecProdCut.dec
+   . 11124022, Bd_rhoee=MS,DecProdCut.dec
+   . 12123002, Bu_Kee=MS,DecProdCut.dec
+   . 12113400, Bu_rhomumu=MS,DecProdCut.dec
+   . 11112400, Bd_pimumu=MS,DecProdCut.dec
+   . 11124004, Bd_Kstee=MS,DecProdCut.dec
+   . 11114022, Bd_rhomumu=MS,DecProdCut.dec
+   . 13112200, Bs_gammamumu=MNT,DecProdCut.dec
+   . 11114004, Bd_Kstmumu=MS,DecProdCut.dec
+   . 13122200, Bs_gammaee=MNT,DecProdCut.dec
+   . 12113022, Bu_pimumu=MS,DecProdCut.dec
+
+! 2010-07-29 Mark Whitehad
+ - Fixed 19912000, 19912010 and 19912020 by adding signal decays.
+ - Old mixing commands removed from 10 and 20, replaced by setting
+   delta_m to zero.
+
+!========================= DecFiles v21r4 2010-07-13 ==========================
+! 2010-07-08 - Gloria CORTI
+ - Modified options for beam gas in Velo for beam1 and beam2 separately to
+   have z of primary vertices in interval compatible with acceptance: 
+   beam 1 = [-2.0 m, 0.5 m], beam 2 = [0.0 m, 2.0 m]
+   . beamGasVelo,1={Hydrogen,Carbon,Oxygen,Xenon}.dec
+   . beamGasVelo,2={Hydrogen,Carbon,Oxygen,Xenon}.dec
+ - Converted from dos2unix
+   . beamGasVelo,12={Hydrogen,Carbon,Oxygen}.dec
+   . beamGasVelo,{1,2}=Xenon,VtxUniform.dec
+
+!========================= DecFiles v21r3 2010-06-23 ==========================
+! 2010-06-23 - Gloria CORTI
+ - New event type from Nikolai NIKITIN for Bs -> phi mu mu with model BTOSLLMS
+   with transition form factors from the paper: 
+   D.Melikhov, B.Stech, PRD62, 014006 (2000) 
+   . 13114002, Bs_phimumu=MS,DecProdCut
+
+! 2010-06-23 - Mark Whitehead
+ - Changed decay model for B+ -> D0pi to PHSP
+   . 12165123, Bu_D0pi,KSpipi=CPV,DecProdCut
+
+! 2010-06-22 - Patrick Robbe
+ - Add new event types:
+   . 24142004, incl_Jpsi,mm=Longitudinal,NoCut
+   . 24142003, incl_Jpsi,mm=Transverse,NoCut
+ - Two option files:
+   . JpsiLongitudinal.opts: to generate longitudinally polarized Jpsis
+   . JpsiTransverse.opts: to generate transverse polarized Jpsis
+
+! 2010-06-21 - Patrick Robbe
+ - Add new event type:
+   . 24142002, incl_Jpsi,mm=NoCut
+
+! 2010-06-18 - Patrick Robbe
+ - Fix 42122012: DrellYan_ee=5GeV to have the pT lepton cut at 1 GeV
+
+! 2010-06-12 - Mat Charles
+ - Add new event type:
+   . D+_K+K-pi+=res.dec
+
+! 2010-06-09 - Patrick Robbe
+ - Omega_b event types: increase number of repetitions to 100000
+
+!========================= DecFiles v21r2 2010-06-08 ==========================
+! 2010-06-08 - Philip Hunt
+ - Updated the D0 branching fractions in Bu_D0K,Kpipipi and
+   Bu_D0K,Kpipipi=DecProdCut to use PDG 2010 values
+
+! 2010-06-08 - Gloria CORTI for Liming ZHANG
+ - Fix bug for Bd_D0munu,Kpi=cocktail. Option file could not be made because
+   the 'Descriptor' field was missing
+
+! 2010-06-08 - Philip Hunt
+ - Add new event types:
+   . 27265000: Dst_D0pi,Kpipipi=DecProdCut
+
+! 2010-06-07 - Mat Charles  
+ - Add new event type:  
+   . 21263011, D+_K-pi+pi+=res.dec  
+
+! 2010-06-04 - Patrick Robbe
+ - Add new event types:
+   . 16146141, Xib0_JpsiXist,mm,Xipi,Lambdapi=DecProdCut
+   . 16146140, Xib0_JpsiXist,mm,Xipi,Lambdapi
+   . 16145151, Omegab_JpsiOmega,mm,LambdaK=DecProdCut
+   . 16145131, Xib_JpsiXi,mm,Lambdapi=DecProdCut
+   . 12873000, Bu_D0munu,Kpi=cocktail (Update BR)
+   . 11873000, Bd_D0munu,Kpi=cocktail
+   . 13873000, Bs_D0munu,Kpi=cocktail
+
+! 2010-06-02 - Gloria CORTI
+ - Add new event types from Sam Gregson and Chris Jones
+   . 21103100, D+_Kspi+=phsp,DecProdCut
+   . 21103110, D+_KsK+=phsp,DecProdCut
+   . 23103100, Ds+_Kspi+=phsp,DecProdCut
+   . 23103110, Ds+_KsK+=phsp,DecProdCut
+
+! 2010-05-27 - Patrick Robbe
+ - Add new event types:
+   . 24102000, Jpsi_pp=DecProdCut
+   . 28102030, chic0_pp=DecProdCut
+   . 28102040, chic1_pp=DecProdCut
+   . 28102050, chic2_pp=DecProdCut
+ - New rule for event types:
+   . if G=2, S=8, X=3 --> chic0, X=4 --> chic1, X=5 --> chic2
+   . create_option script updated to take this rule into account
+
+! 2010-05-26 - Patrick Robbe
+ - options/Zee.opts: fix option file to switch off Z -> nu nu decays
+ - Add new event types:
+   . 28136120: hc_XiXi,Lambdapi,ppi=DecProdCut
+
+!========================= DecFiles v21r1 2010-05-21 ==========================
+! 2010-05-18 - Mat Charles
+ - Add new event types:
+   . 23263010: Ds+_K+pi-pi+=res,DecProdCut.dec
+   . 23163000: Ds+_K+pi-pi+=phsp,DecProdCut.dec
+   . 23265000: Ds+_K-K+pi-pi+pi+=DecProdCut.dec
+   . 21263010: D+_K-pi+pi+=res,DecProdCut.dec
+   . 21265000: D+_K-pi-pi+pi+pi+=DecProdCut.dec
+   . 21163020: D+_K-pi+pi+=phsp,DecProdCut.dec
+
+! 2010-05-11 - Patrick Robbe
+ - Add new event types:
+   . 13164051: Bs_D0Kst,Kpi=DecProdCut 
+   . 11164210: Bd_Dst0Kst0,D0gamma,Kpi
+   . 11164211: Bd_Dst0Kst0,D0gamma,Kpi=DecProdCut
+   . 11164410: Bd_Dst0Kst0,D0pi0,Kpi
+   . 11164411: Bd_Dst0Kst0,D0pi0,Kpi=DecProdCut
+   . 13164410: Bs_Dst0Kst0,D0pi0,Kpi
+   . 13164411: Bs_Dst0Kst0,D0pi0,Kpi=DecProdCut
+   . 13164412: Bs_Dst0Kst0,D0pi0,Kpi=HELAMP100
+   . 13164413: Bs_Dst0Kst0,D0pi0,Kpi=DecProdCut,HELAMP100
+   . 13164414: Bs_Dst0Kst0,D0pi0,Kpi=HELAMP010
+   . 13164415: Bs_Dst0Kst0,D0pi0,Kpi=DecProdCut,HELAMP010
+   . 13164416: Bs_Dst0Kst0,D0pi0,Kpi=HELAMP001
+   . 13164417: Bs_Dst0Kst0,D0pi0,Kpi=DecProdCut,HELAMP001
+   . 13164210: Bs_Dst0Kst0,D0gamma,Kpi
+   . 13164211: Bs_Dst0Kst0,D0gamma,Kpi=DecProdCut
+   . 13164212: Bs_Dst0Kst0,D0gamma,Kpi=HELAMP100
+   . 13164213: Bs_Dst0Kst0,D0gamma,Kpi=DecProdCut,HELAMP100
+   . 13164214: Bs_Dst0Kst0,D0gamma,Kpi=HELAMP010
+   . 13164215: Bs_Dst0Kst0,D0gamma,Kpi=DecProdCut,HELAMP010
+   . 13164216: Bs_Dst0Kst0,D0gamma,Kpi=HELAMP001
+   . 13164217: Bs_Dst0Kst0,D0gamma,Kpi=DecProdCut,HELAMP001
+
+
+ - Fix event type (bad D0 decay)
+   . 11266000: Bd_D0Kst,Kpipipi
+   . 11266001: Bd_D0Kst,Kpipipi=DecProdCut
+
+! 2010-05-10 - Patrick Robbe
+ - Add new event types:
+   . 11264010: Bd_D-K+
+   . 11264011: Bd_D-K+=DecProdCut
+
+! 2010-05-10 - Patrick Robbe
+ - Change J/psi decay model:
+   . 16145130, Xib_JpsiXi,mm,Lambdapi
+   . 16145150, Omegab_JpsiOmega,mm,LambdaK
+
+
+!========================= DecFiles v21r0 2010-05-09 ==========================
+! 2010-05-05 - Gloria CORTI
+ - Add new event types from Paula Alvarez Cartelle
+   . 11104020, Bd_phiKst0=DecProdCut
+   . 13104002, Bs_Kst0Kst0=LargeCPV,DecProdCut
+
+! 2010-05-03 - Patrick Robbe
+ - SwtichOffPythiaProcesses.opts: also add all flavours of production tools
+ - SwitchOffEvtGen.opts: also switch off the psi(3770) production process
+
+! 2010-04-30 - Mark Whitehead
+ - Update for B_s - K+K- in DECAY.DEC 
+ - PYTHIA fractions then weighted again.
+
+! 2010-04-22 - Patrick Robbe
+ - options/SwitchOffEvtGen.py: add options to switch off EvtGen in production
+
+! 2010-03-02 - Patrick Robbe
+ - add two event types for Perugia tunes, where only default Pythia
+   processes are activated:
+   . 30000011, minbias_Perugia0WithDefaultPythiaProcesses
+   . 30000021, minbias_PerugiaNOCRWithDefaultPythiaProcesses
+
+! 2010-02-25 - Patrick Robbe
+ - add two event types for Pythia8 tests:
+   . 30000090, minbias_Pythia8
+   . 30000091, minbias_Pythia8Diffractive (only diffractive processes
+      activated)
+
+! 2010-02-24 - Patrick Robbe
+ - add new event types:
+   . 30000010, minbias_Perugia0
+   . 30000020, minbias_PerugiaNOCR
+ - add options:
+   . Perugia0.opts: options for Perugia tune 0
+   . PerugiaNOCR.opts: options for Perugia tune NOCR
+   . RevertToPlainPythia.opts: options to run Pythia default settings
+
+!========================= DecFiles v20r4 2010-02-15 ==========================
+! 2010-02-05 - Eduardo Rodrigues
+ - decay files Bs_Kmunu=DecProdCut.dec & Bs_Ksth=cocktail,DecProdCut.dec tested
+
+! 2010-02-04 - Eduardo Rodrigues
+ - new decay files introduced for a couple of B-decay modes:
+   . 13512001, Bs_Kmunu=DecProdCut.dec
+   . 13302401, Bs_Ksth=cocktail,DecProdCut.dec
+
+! 2010-02-01 - Patrick Robbe
+ - New event type:
+   . 33102100: incl_Lambda,ppi
+ - Add Lambda0sig alias to DECAY.DEC
+ - New rules for Lambda0 generation (create_options.py updated)
+   . G=3, S=3: Lambda0
+
+!========================= DecFiles v20r3 2010-01-22 ==========================
+! 2010-01-22 - Gloria CORTI
+ - Extend beam gas in the Velo from -2m to +2m (default = +/-1.5m)
+ - Also introduce $STDOPTS/units.opts as it would not work otherwise...
+   . options/BeamGasVelo.opts
+
+! 2009-01-13 - Patrick Robbe
+ - New event type:
+   . 13436000: Bs_chic0phi=DecProdCut
+
+! 2009-12-15 - Patrick Robbe
+ - New event type:
+   . 27175000: Dst_D0pi,KKmumu=DecProdCut
+
+!========================= DecFiles v20r2 2009-12-03 ==========================
+! 2009-11-27 - Patrick Robbe
+ - New event types:
+   . 13102400: Bs_rho+K-
+   . 13102401: Bs_rho+K-=DecProdCut
+
+! 2009-11-25 - Patrick Robbe
+ - New event type:
+   . 42122012: DrellYan_ee=5GeV
+ - Update event type:
+   . 42122000: Z_ee
+
+! 2009-11-25 - Mark Whitehead
+ - Changed the sign of |Afbar| and arg(q/p) in Bd_JpsiKS,mm=CPV.dec
+
+! 2009-11-25 - Patrick Robbe
+ - New rules for b-baryons generation (create_options.py updated)
+   . G=1, S=6, X=0: Sigma_b- (5112)
+   . G=1, S=6, X=1: Sigma_b0 (5212)
+   . G=1, S=6, X=2: Sigma_b+ (5222)
+   . G=1, S=6, X=3: Xi_b- (5132)
+   . G=1, S=6, X=4: Xi_b0 (5232)
+   . G=1, S=6, X=5: Omega_b- (5332)
+   . G=1, S=6, X=6: bc baryons
+   . G=1, S=6, X=7: bb baryons
+   . G=1, S=6, X=9: the rest
+ - Add Omega_b and Xi_b alias for signal generation in DECAY.DEC
+ - New event types:
+   . 16145150: Omegab_JpsiOmega,mm,Lambdapi
+   . 16145130: Xib_JpsiXi,mm,Lambdapi
+
+!========================= DecFiles v20r1 2009-11-17 ==========================
+! 2009-11-12 - Patrick Koppenburg
+ - Added event types 
+   . dkfiles/incl_b=DiElectron,pt1GeV,m6GeV.dec:# EventType: 10022000
+   . dkfiles/incl_b=DiElectron,pt300MeV,m1GeV.dec:# EventType: 10022010
+   . dkfiles/incl_b=DiMuon,p3GeV,mD.dec:# EventType: 10012006
+   . dkfiles/minbias=DiElectron,pt1GeV,m6GeV.dec:# EventType: 30022000
+   . dkfiles/minbias=DiElectron,pt300MeV,m1GeV.dec:# EventType: 30022010
+  and appropriate options.
+
+! 2009-11-09 - Neal Gauvin
+ - modified
+   . ZZ_bb,bb.dec                      42912002
+     ZZbbbb.opts
+		 Higgs_bb=mH115GeV,onlyl.dec       40911009
+ - add Higgs_bb=mH115GeV,onlyl,10GeV.dec 40911001
+
+! 2009-11-05 - Patrick Robbe
+ - Add new event type:
+   . 27265101, Dst_D0pi,KSKK=res,DecProdCut
+
+!========================= DecFiles v20r0 2009-10-30 ==========================
+
+! 2009-10-28 - Rob Lambert
+ - Add new event type and related options
+	 . 11874011, Bd_Dstmunu,KKpi=cocktail,DmuInAcc
+   . DmuInAcc.opts
+
+! 2009-10-21 - Patrick Robbe
+ - Add new event types:
+   . 11114021, Bd_rhomumu=btosllball,DecProdCut
+   . 12113021, Bd_pimumu=btosllball,DecProdCut
+
+! 2009-10-20 - Marcin Kucharczyk
+ - New settings in option file for Hidden Valley Higgs
+   . HidValleyH.opts
+
+! 2009-10-20 - Thomas BLAKE
+ - create_options.py: modification for dimuon production from inclusive b
+   . Replaced check on ExtraOptions for repeat decay with check on DecayName
+
+! 2009-10-19 - Patrick Robbe
+ - New event types:
+   . 13164011, Bs_DsK,pipipi=DecProdCut
+   . 13164021, Bs_DsK,Kpipi=DecProdCut
+   . 13164031, Bs_Dspi,pipipi=DecProdCut
+   . 13164041, Bs_Dspi,Kpipi=DecProdCut
+   . 32123000, Sigma_pee
+   . 32113000, Sigma_muee
+ - create_options.py: new convention for Sigma production
+   . If General Flag = 3 (minimum bias)
+   . and selection flag = 
+     -- 1 -> tau+/tau-
+     -- 2 -> Sigma+/anti-Sigma-
+ - DECAY.DEC: add Sigma+/anti-Sigma- aliases
+
+!========================= DecFiles v19r2 2009-10-09 ==========================
+! 2009-10-08 - Jibo He
+ - New event type:
+   . 14543002, Bc_Jpsimunu,mm=BcVegPy,DecProdCut 
+
+! 2009-10-06 - Jibo He
+ - Add "sig" after signal particles to avoid crashes
+   . Bc_Jpsimunu,mm=DiLeptonInAcc.dec
+
+! 2009-10-05 - Patrick Robbe
+ - New event types:
+   . 12165122, Bu_D0pi,KSpipi=DecProdCut
+   . 12165123, Bu_D0pi,KSpipi=CPV,DecProdCut
+
+!========================= DecFiles v19r1 2009-10-05 ==========================
+! 2009-10-02 - Neal Gauvin
+ - New event type:
+   . Higgs_bb=mH130GeV,onlyl,10GeV.dec 40911008
+   . WZ_lnul,mumu.dec                  42921002
+     WZlnulmumu.opts
+   . ZZ_bb,bb.dec                      42912002
+     ZZbbbb.opts
+ - Adaptation of all dec files under my responsability according to new
+   standards.
+
+! 2009-10-01 - Patrick Robbe
+ - New event type:
+   . 13144006, Bs_Jpsiphi,mm=LargeCPV,DecProdCut
+   . 21163010, D+_pi+pi-pi+=phsp,DecProdCut
+
+! 2009-02-30 - Patrick Robbe
+ - 13204101, Bs_KSpi+pi-=DecProdCut. Correct decay file to include 
+   the DecProdCut
+
+! 2009-09-27 - Patrick Robbe
+ - 28144011: Speed up X(3872) generation time using UpsilonDaughtersInLHCb
+   cut tool
+
+! 2009-09-21 - Patrick Robbe
+ - New event types:
+   . 28132020, hc_pp=DecProdCut
+
+!========================= DecFiles v19r0 2009-09-18 ==========================
+! 2009-09-16 - Gloria CORTI
+ - Include units from $STDOPTS in order to be able to run with Gauss v37r4
+   . CaloAcceptance.opts
+   . TrackersAcceptance.opts
+   . BeamCurrentStartup.opts
+   . BeamGasExp.opts
+ - Modify creation of options for particle gun and machine induced background
+   to remove sequencing as wrong for Gauss v37r4. The options created cannot
+   be used with earlier versions of Gauss. For this reason increase major
+   version.
+   . create_options.py
+ - Allow decfiles to have a "." in their name otherwise the script would not
+   make the options for the one just added (incl_b=DiMuon,Both,P3GeV,m4.7GeV)
+	 . create_options.py
+
+! 2009-09-16 - Thomas BLAKE
+ - Added new event type, dimuon events with mass cut
+   . incl_b=DiMuon,Both,P3GeV,m4.7GeV
+
+! 2009-09-09 - Thomas BLAKE
+ - Added new event types to allow both muon sign combinations
+   . incl_b=DiMuon,Both,P3GeV
+   . minbias=DiMuon,Both,P3GeV
+
+! 2009-09-03 - Patrick Robbe
+ - Add new event types:
+   . 11952000, Bd_JpsiX,ee=JpsiInAcc
+   . 12952000, Bu_JpsiX,ee=JpsiInAcc
+   . 13952000, Bs_JpsiX,ee=JpsiInAcc
+
+!========================= DecFiles v18r4 2009-09-03 ==========================
+! 2009-09-03 - Gloria CORTI
+ - Add information for web documentation (testing date after Tested, mix
+   between author and date, author keyword without ":")
+   . Bc_Jpsimunu,mm=DiLeptonInAcc.dec
+   . Bc_Jpsipi,mm.dec 
+   . Bc_Jpsipi,mm=BcVegPy,DecProdCut.dec
+   . Bc_Jpsirho,mm=DecProdCut.dec
+   . Bc_mumumunu=DiLeptonInAcc.dec
+   . Bd_D0Kst,Kpipi0{,=DecProdCut}.dec
+   . Bd_D0Kst,Kpipipi{,=DecProdCut}.dec 
+   . Bd_K+Z4430-,psi2Spi,mm{,=DecProdCut}.dec
+   . {Bd,Bu}_psi2SKst,mm=DecProdCut.dec
+   . minbias.dec
+   . incl_b.dec
+
+! 2009-09-02 - Gareth Rogers
+ - Fixed Bu_phiX.dec for multiple decay declaration (Savannah Bug# 54543).
+
+! 2009-09-02 - Gloria CORTI
+ - Add information for web documentation
+   . {e+e-,K+K-,mu+mu-,pi+pi-,p+p-},fixP=TrkAcc.dec
+   . {e+,e-,pi0,pi+pi-},fixP=CaloAcc.dec
+   . gamma,fixE=CaloAcc.dec
+   . Jpsi_mumu,20GeV-140GeV=TrkAcc.dec
+
+! 2009-09-01 - Patrick Robbe
+ - Add pt cut to the following event types:
+   . 42112010, DrellYan_mumu=2GeV
+   . 42112011, DrellYan_mumu=5GeV
+   . 42112012, DrellYan_mumu=10GeV
+
+! 2009-08-21 - Patrick Robbe
+ - Add new event type:
+   . 12145020, Bu_psi2SK,Jpsipipi,mm=DecProdCut
+
+! 2009-08-21 - Gloria CORTI for Nicola SERRA
+ - Add new event types:
+   . 11124002, Bd_Kstee,phsp
+   . 11124003, Bd_Kstee,phsp=DecProdCut
+   . 11114002, Bd_Kstmumu,phsp
+   . 11114003, Bd_Kstmumu,phsp=DecProdCut
+
+! 2009-08-21 - Gloria CORTI
+ - Fix mis-typing in Bd_D0Kpi,hh=DecProdCut.dec preventing identification of
+   signal charged conjugate, hence production (Savannah Bug # 54687)
+
+!========================= DecFiles v18r3 2009-08-19 ==========================
+! 2009-08-19 - Gloria CORTI
+ - Remove creation of table of event types for old (AMGA) book-keeping and
+   example of how to update the book-keeping with this information as it does
+   no longer exist
+   . create_options.py
+   . make_options.{csh,sh}
+
+! 2009-08-18 - Patrick Robbe
+ - Add Upsilon aliases to DECAY.DEC (fix Savannah Bug# 54566) 
+ - create_options.py: add rule for Lambda_c generation
+ - Add new event type:
+   . 25103000, Lc_pKpi=DecProdCut
+
+! 2009-08-12 - Patrick Robbe
+ - Fix Bu_phiX.dec for multiple decay declaration (Savannah Bug# 54543)
+
+! 2009-08-07 - Patrick Robbe
+ - Add new event types, with new convention: 
+     (when selection flag=8, extra flag=2 means h_c, 
+     and general flag is 2)
+  . 28134220, hc_etacgamma,phiphi,KK=DecProdCut
+  . 28134025, hc_phif01500,KK=DecProdCut
+  . 28134020, hc_phif0980,KK=DecProdCut
+  . 28134021, hc_phif0980,pipi=DecProdCut
+  . 28134026, hc_phif21525,KK=DecProdCut
+
+! 2009-08-05 - Patrick Robbe
+ - Add new event types:
+  . 21163000, D+_K+K-pi+=phsp,DecProdCut
+  . 21263000, D+_K+K-pi+=res,DecProdCut
+  . 27363001, Dst_D0pi,hh=DecProdCut
+  . 27165101, Dst_D0pi,KSKK=DecProdCut
+  . 27365100, Dst_D0pi,KSKpi=DecProdCut
+  . 27165100, Dst_D0pi,KSpipi=DecProdCut
+  . 27265100, Dst_D0pi,KSpipi=res,DecProdCut
+
+! 2009-08-04 - Patrick Robbe
+ - Add new event type:
+  . 18122001, incl_Upsilon,ee=DecProdCut
+
+! 2009-08-03 - Patrick Robbe
+ - Add new event types:
+   . 11264400, Bd_D0Kst,Kpipi0
+   . 11264401, Bd_D0Kst,Kpipi0=DecProdCut
+   . 11266000, Bd_D0Kst,Kpipipi
+   . 11266001, Bd_D0Kst,Kpipipi=DecProdCut
+
+! 2009-08-03 - Neal Gauvin (Gueissaz)
+ - Update of for MC09 exotica production
+ - cosmetic changes done in:
+        options/Neutralino.opts
+        options/Kaplan.opts
+        options/Kaplan_hkk.opts
+        options/Kaplan_mk38.opts
+        options/Kaplan_mk98.opts
+        options/Kaplan_mk198.opts
+        options/SusyBRpV.opts
+        BRpVNeutralino_m0200_m12200.dec
+        BRpVNeutralino_m0200_m12200_nubbar.dec
+        BRpVNeutralino_m0200_m12200_numu+mu-.dec
+        dkfiles/BRpVNeutralino_m0400_m12300.dec
+        dkfiles/BRpVNeutralino_m0600_m12400.dec
+        dkfiles/BRpVNeutralino_m01000_m12600.dec
+        dkfiles/BRpVGaugino_m0800_m324000.dec
+ - Add new event types:
+   . 42921001 dkfiles/WZ_nul,bb.dec (merge of WZ_enue,bb.dec, WZ_munumu,bb.dec)
+        new options/WZlnulbb.opts
+   . 42922001 dkfiles/ZZ_ll,bb.dec (merge of ZZ_ee,bb.dec, ZZ_mumu,bb.dec )
+        new options/ZZllbb.opts
+   . 41900003 dkfiles/tt_bbHadrons.dec
+        new options/tt_bbHadrons.opts
+ - dkfiles/BRpVNeutralino_m0200_m12200_lqq.dec has been modified to dkfiles/BRpVNeutralino_m0200_m12200_muqq.dec
+        new lhafiles/mSUGRA_m0200_m12200_muqq.LHspc
+ - 42900000 dkfiles/Z_bb.dec modified to have both b in acceptance.
+        new options/Zbb.opts
+
+! 2009-07-29 - Patrick Robbe
+ - Add new event type:
+   . 11112001, Bd_mumu=DecProdCut
+
+! 2009-07-28 - Patrick Robbe
+ - Add new event type:
+   . 12462600, Bu_Dst0X,2body
+   . 11462600, Bd_Dst0X,2body
+
+! 2009-07-23 - Patrick Koppenburg
+ - Add new event type:
+   . 12153001, Bu_JpsiK,ee=DecProdCut
+
+!========================= DecFiles v18r2 2009-07-17 ==========================
+! 2009-07-17 - Gloria CORTI
+ - Include units from $STDOPTS in order to be able to run with Gauss v37r3
+   as well as v37r2
+   . options/SwitchOffAllPythiaProcesses.opts
+
+! 2009-07-10 - Patrick Robbe
+ - Add new event types:
+   . 21113000, D+_pi+munu=DecProdCut
+   . 27165000, Dst_D0pi,KKpipi=DecProdCut
+   . 27161200, Dst_D0pi,gammagamma=DecProdCut
+   . 27183000, Dst_D0pi,mue=DecProdCut
+   . 27173002, Dst_D0pi,mumu=DecProdCut
+   . 27161400, Dst_D0pi,pi0pi0=DecProdCut
+
+! 2009-07-07 - Patrick Robbe
+ - Add new event type:
+   . 27163001, Dst_D0pi,pipi=DecProdCut
+
+! 2009-07-01 - Patrick Robbe
+ - Correct BR of Bu_D0munu,Kpi=cocktail.dec and Bu_D0munu,Kpi=cocktail,D0muInAcc.dec
+
+! 2009-06-26 - Patrick Robbe
+ - Remove f0 -> K K decays from decay file
+ - Add new event types:
+   . 12145011, Bu_KX3872,Jpsipipi,mm=DecProdCut
+   . 12145003, Bu_KX38721++,Jpsirho,mm=helamp,DecProdCut
+   . 12145004, Bu_KX38722-+,Jpsirho,mm=helamp,DecProdCut
+   . 18114041, incl_Upsilon5S,Upsilonpipi=DecProdCut
+   . 18114042, incl_Upsilon5S,Upsilonrho=DecProdCut
+   . 15144103, Lb_JpsiLambda,mm=phsp,DecProdCut
+   . 12135000, Bu_hcK,phif0980,KK=DecProdCut
+   . 12135001, Bu_hcK,phif0980,pipi=DecProdCut
+   . 12135010, Bu_hcK,phif0500,KK=DecProdCut
+   . 12135200, Bu_hcK,etacgamma,phiphi,KK=DecProdCut
+
+! 2009-06-15 - Patrick Robbe
+ - Add new event types:
+   . 12103014, Bd_phiK=DecProdCut
+   . 12103034, Bd_phipi=DecProdCut
+
+! 2009-06-12 - Patrick Robbe
+ - Add new event types:
+   . 11364011, Bd_D0Kpi,hh=DecProdCut
+   . 42112012, DrellYan_mumu=5GeV
+   . 42300000, W_taunutau
+   . 42100000, Z_tautau
+
+!========================= DecFiles v18r1 2009-06-09 ==========================
+! 2009-06-09 - Patrick Robbe
+ - Add new event types:
+   . 13144005: Bs_Jpsiphi,mm=NoCPV,DecProdCut
+   . 12165501: Bu_D0K,KSpipipi0=DecProdCut (from Loic Esteve)
+ - Update event types with PDG 2008:
+   . 11874001, 27363000
+ - Update SUSY files (from Neal Gueissaz)
+
+!========================= DecFiles v18r0 2009-05-27 ==========================
+! 2009-05-26 - Gloria CORTI
+ - Modify create_options.py to set printing frequency to 100 from GenInit and
+   SimInit for Machine Induce Background events to reduce size of log files
+   in production (Bug# 50870)
+
+! 2009-05-25 - Mark Whitehead
+ - DECAY.DEC: Edit B0/Bs mixing param for latest EvtGen
+
+! 2009-04-23 - Patrick Robbe
+ - Add X3872_1PP.opts to generate inclusive X(3872)/1++ hypothesis
+ - DECAY.DEC: declare X_1(3872) alias to generate inclusive X(3872)
+ - New decay file:
+   . 28144011, incl_X38721++,Jpsirho,mm=DecProdCut, with new convention
+     (when selection flag=8, extra flag=1 means X(3872)/1++, 
+     and general flag is 2)
+
+! 2009-04-17 - Louis Nicolas
+ - Change decay model for event type: 12145002 from helamp to STS
+
+! 2009-04-09 - Patrick Robbe
+ - Add new decay files:
+   . 13202400, Bs_K-pi+pi0
+   . 13202401, Bs_K-pi+pi0=DecProdCut
+   . 13204100, Bs_KSpi+pi-
+   . 13204101, Bs_KSpi+pi-=DecProdCut
+
+! 2009-04-06 - Louis Nicolas
+ - helampls model not in EvtGen:
+   . Remove decay   12145002, Bu_KX38722-+,Jpsirho,mm=helampls.dec
+   . Add decay      12145002, Bu_KX38722-+,Jpsirho,mm=helamp.dec
+
+!========================= DecFiles v17r0 2009-04-05 ==========================
+! 2009-03-16 - Patrick Robbe
+ - DECAY.DEC: remove duplicate entries to please new EvtGen
+
+! 2009-03-14 - Mark Whitehead
+ - DECAY.DEC update with PDG2008 numbers for DC09 production
+ - doc: add documentation of the DECAY.DEC update
+
+! 2009-03-11 - Louis Nicolas
+ - Add three new decays:
+   . 12145001, Bu_KX38721++,Jpsirho,mm=helamp.dec
+   . 12145002, Bu_KX38722-+,Jpsirho,mm=helampls.dec
+   . 12145010, Bu_KX3872,Jpsipipi,mm.dec
+
+! 2009-03-04 - Gloria CORTI
+ - Instead of switching off printout from GenInit and SimInit for particle
+   guns in production, set printing frequency to 100 as this messages are
+   used by the production script to test the successful start and completion
+   of a job (Bug# 447713)
+   . CaloAcceptance.opts
+   . TrackersAcceptance.opts
+
+! 2009-02-26 - Patrick Robbe
+ - DECAY.DEC: add Upsilon(3S) and Upsilon(4S) signal aliases
+ - Upsilon.opts: add specific options for Upsilon generation
+ - create_options.py: modify Upsilon generation to use specific options
+ - SwitchOffAllPythiaProcesses.opts: option file to switch off all 
+   LHCb default processes
+
+! 2009-02-26 - Patrick Robbe
+ - DECAY.DEC: remove VSS_BMIX model for Upsilon(4S)->B0B0bar
+
+! 2009-02-13 - Louis Nicolas & Matt Needham
+ - add new event types:
+   . 11144020, Bd_K+Z4430-,psi2Spi,mm 
+   . 11144021, Bd_K+Z4430-,psi2Spi,mm=DecProd
+ - fixes in Bd_K+Z4430-,psi2Spi,mm decay
+
+!========================= DecFiles v16r1 2009-02-10 ==========================
+! 2009-02-10 - Gloria CORTI
+ - add 1 GeV energy to e+,fixP=CaloAcc.dec, e-,fixP=CaloAcc.dec,
+   gamma,fixE=CaloAcc.dec and pi0,fixP=CaloAcc.dec to produce the corresponding
+   event types:
+   . 51000001, e- of 1 GeV in calo acceptance
+   . 51100001, e+ of 1 GeV in calo acceptance
+   . 56000001, gamma of 1 GeV in calo acceptance
+   . 57000001, pi0 of 1 GeV in calo acceptance
+ - add new decfile for pi+/pi- particle guns at fix momentum in calo acceptance
+   with energies of 1 GeV, 5 GeV, 10 GeV, 16.8 GeV, 33.8 GeV, 50 GeV, 100 GeV,
+   168 GeV
+   . 53200001, 53200005, 53200010, 53200017, 53200034, 53200050, 53200100,
+     53200168
+
+! 2009-02-09 Matt Needham
+ - Add Upsilon(2-5S) to mu mu
+   . 18112011, incl_Upsilon2S,mm=DecProdCut  
+   . 18112021, incl_Upsilon3S,mm=DecProdCut  
+   . 18112031, incl_Upsilon4S,mm=DecProdCut  
+   . 18112041, incl_Upsilon5S,mm=DecProdCut  
+
+! 2009-01-26 - Patrick Robbe
+ - add new event type 
+   . 28142001, incl_psi2S,mm=DecProdCut, using new rule for 
+     event types (when selection flag=8, extra flag=0 means psi(2S), 
+     and general flag is 2)
+ - add new event type 
+   . 18112001, incl_Upsilon,mm=DecProdCut, using new rule for 
+     event types (when selection flag=8, extra flag=0 means Upsilon(1S),
+     and general flag is 1)
+ - adapt script create_options.py to generate the options for these 2 new event
+   types
+ - add new events type: 
+   . 13144011, Bs_Jpsif0,mm=DecProdCut
+   . 13144012, Bs_Jpsif0,mm=CPV,DecProdCut
+   
+! 2009-01-08 - Eduardo Rodrigues
+ - introduced new decay files for LFV tau decays and potential sources of
+   background:
+   . 31113044, tau_muphi,KK=DecProdCut
+   . 31503044, tau_piphinu,KK=DecProdCut
+   . 31503049, tau_Kphinu,KK=DecProdCut
+   . 31503010, tau_pi-pi+pi-nu=DecProdCut
+   . 31503410, tau_pi-pi+pi-pi0nu=DecProdCut
+ - renamed decay file Tau_mumumu=DecProdCut.dec to tau_mumumu=DecProdCut.dec,
+   to follow conventions (signal now defined for tau-, as standard)
+   . 31113001, tau_mumumu=DecProdCut
+ - documented in LHCb note 2009-001
+
+!========================= DecFiles v16r0 2008-12-05 ==========================
+
+ WARNING: This version of DecFiles requires SQLDDDB > v5r0 ! 
+
+! 2008-12-05 - Gloria CORTI
+ - Switch off printout of random seed for each event for particle guns in
+   production
+   . TrackersAcceptance.opts
+   . CaloAcceptance.opts
+
+! 2008-12-03 - Gloria CORTI
+ - Add alias for psi(2S)sig, psi(3770)sig, Upsilonsig and Upsilon(2S)sig to
+   allow for signal production of these mesons.
+   . DECAY.DEC
+ - Remove obsolete files
+   . DECAY_DC06.DEC
+   . DECAY_WithCP.DEC
+ - Introduce new directory to hold lhafiles for special productions and put
+   files for SUSY production with different models and options (provided by
+   Neal GUEISSAZ)
+   . lhafiles/AMSB_m0800_m324000.LHspc
+   . lhafiles/Kaplan_{hkk,mk38,mk98,mk198}_{10,500}ps.LHdec
+   . lhafiles/mSUGRA_m{0200,0400,0600,01000}_m{12200,12300,123400,12600}.LHspc
+   . lhafiles/mSUGRA_m0200_m12200_{nubbar,numu+mu-}.LHspc
+ - Introduce new directory to hold particle properties tables ("OtherFiles"
+   options of ParticlePropertySvc) for special productions and put
+   files for SUSY production with different models and options (provided by
+   Neal GUEISSAZ)
+   . ppfiles/AMSB_m0800_m324000.tbl
+   . ppfiles/Kaplan_{hkk,mk38,mk98,mk198}.tbl
+   . ppfiles/mSUGRA_m{0200,0400,0600,01000}_m{12200,12300,12400,12600}.tbl
+ - New options for SUSY production with different models and options (provided
+   by Neal GUEISSAZ) with Pythia.
+   . options/Neutralino.opts
+   . options/SusyBRpV.opts
+   . options/Kaplan.opts
+   . options/Kaplan_{hkk,mk38,mk98,mk198}.opts
+ - Modify script to make J/Psi particle guns and to allow momentum range for
+   particleguns.
+   Also introduce possibity of SUSY events (G=4) with event type digit S=5 
+   for the Kaplan model and S=6 for SUSY with BRpV (GSDCTNXU).
+   When S = 5: X = 1 (hkk), 2 (mk38), 3 (mk98), 4 (mk198)
+               U = 0 (10ps), 1 (500ps)
+        S = 6: X = 1 (mSUGRA_m0200_m12200), 2 (mSUGRA_m0400_m12300),
+                   3 (mSUGRA_m0600_m12400), 4 (mSUGRA_m01000_m12600)
+                   5 (AMSB_m0800_m324000)
+               U = 0 (none), 1 (nubbar), 2 (numu+mu-)
+   the other digits DCTN have the usual meaning. 
+   . create_options.py
+ - Introduce new dkfile and eventtype for J/Psi->mumu particle gun
+   . 59050001, Jpsi_mumu,20GeV-140GeV=TrkAcc.dec
+ - Introduce new dkfiles and eventtypes for SUSY prodution with different
+   models and options (toghter with Neal GUEISSAZ)
+   . 45000020, KaplanNeutralino,mN=38GeV,tN=10ps
+   . 45000010, KaplanNeutralino,mN=48GeV,tN=10ps     
+   . 45000011, KaplanNeutralino,mN=48GeV,tN=500ps 
+   . 45000030, KaplanNeutralino,mN=98GeV,tN=10ps
+   . 45000040, KaplanNeutralino,mN=198GeV,tN=10ps
+   . 46000040, BRpVNeutralino_m01000_m12600 
+   . 46000010, BRpVNeutralino_m0200_m12200 
+   . 46900011, BRpVNeutralino_m0200_m12200_nubbar 
+   . 46910012, BRpVNeutralino_m0200_m12200_numu+mu- 
+   . 46000020, BRpVNeutralino_m0400_m12300 
+   . 46000030, BRpVNeutralino_m0600_m12400 
+   . 46000050, BRpVGaugino_m0800_m324000
+
+! 2008-11-25 - Patrick Robbe
+ - Add psi(3770) entry in DECAY.DEC
+
+! 2008-11-11 - Gloria CORTI
+ - Add the lines, commented, to update the old and new bookkeeping with
+   event types from the table, to show how it has to be done when releasing
+   the package.
+   . make_options.csh
+
+! 2008-11-11 - Joel CLOSIER
+ - Add a new function to create the file which contain the new syntax for
+   the new BKK. Rename the old one as
+   . create_options.py
+
+! 2008-11-07 - Gloria CORTI for Chris EAMES
+ - Fix bug in Bu_JpsiKst,mm=DecProdCut.dec, event type 12145101 where the
+   decay was set to a Psi(2S) rather then J/Psi(1S)
+
+! 2008-11-03 - Patrick Robbe
+ - Replace DECAY.DEC by updated DC08 one
+
+!========================= DecFiles v15r3 2008-10-29 ==========================
+! 2008-10-23 - Gloria CORTI for Ulrik EGEDE
+ - New decay files for rare decays
+   . Bd_psi2SKst,mm=DecProdCut.dec, event type 11144011
+   . Bu_JpsiKst,mm=DecProdCut.dec, event type 12145101
+   . Bu_psi2SKst,mm=DecProdCut.dec, event type 12145111
+
+!========================= DecFiles v15r2 2008-10-13 ==========================
+! 2008-10-13 - Gloria CORTI
+ - Really fix the bug, reported on 2008-09-26
+
+! 2008-09-26 - Gloria CORTI
+ - Fix bug in create_options.py (reported by Joel Closier) such that eventype
+   set in the options for the particle guns where the eergy is in MeV was 
+   wrong.
+
+!========================= DecFiles v15r1 2008-09-09 ==========================
+! 2008-09-09 - Gloria CORTI
+ - Extend particle gun automatic generation to allow for fixed momentum with
+   tracker acceptance and calorimeter acceptance, for both MeV and GeV.
+   C = 0: fix P/E, calo acc, GeV
+     = 1: fix P/E, trackers acc, GeV
+     = 2: fix P/E, calo acc, MeV
+     = 3: fix P/E, trackers acc, MeV
+   . modify create_options.py
+ - Introduce new decay files for pi+/-, K+/K-, e+/e-, mu+/-, p/p~ in 
+   trackers acceptance for a set of fixed momentum.
+   . New decay files  K+K-,fixP=TrkAcc.dec   (event types 542{1,3}xxxx)
+                      e+e-,fixP=TrkAcc.dec   (event types 512{1,3}xxxx)
+                      mu+mu-,fixP=TrkAcc.dec (event types 522{1,3}xxxx)
+                      p+p-,fixP=TrkAcc.dec   (event types 552{1,3}xxxx)
+                      pi+pi-,fixP=TrkAcc.dec (event types 532{1,3}xxxx)
+   . New options TrackersAcceptance.opts       
+ - Adapt name for gamma, pi0 and electrons particle guns in calo acceptance
+   to reflect this.
+   . Remove         electrons_fixE.dec     
+                    gammas_fixE.dec 
+                    pi0s_fixE.dec         
+                    positrons_fixE.dec
+   . replacing with e-,fixP=CaloAcc.dec    (event types 5100xxxx)  
+                    gamma,fixE=CaloAcc.dec (event types 5100xxxx)
+                    pi0,fixP=CaloAcc.dec   (event types 5600xxxx)
+                    e+,fixP=CaloAcc.dec    (event types 5110xxxx)
+
+ - Modify dkfile for beam gas in Long Straight Sections upstream and 
+   downstream of LHCb to scale with 2009 beam current (i.e. 1/3 of nominal)
+   . beamGasLSSArc=Beta10Startup.dec (event type 60040000 & 62040000)
+   . Add BeamCurrentStartup.opts
+
+!========================= DecFiles v15r0 2008-07-22 ==========================
+! 2008-07-22 - Gloria CORTI
+ - Adap options to new structure of ParticleGun (v5r0)
+   . create_options.py
+   . CaloAcceptance.opts
+
+! 2008-07-15 - Patrick Robbe
+ - DECAY_DC08.dec: temporary file to contain changes for DC08 productions
+
+! 2008-06-24 - Patrick Robbe
+ - new decay files: 13144003, Bs -> Jpsi phi with delta gamma
+
+! 2008-06-24 - Vanya BELYAEV
+ - options/LoKi.opts 
+     remove unnesessary line with DLLs 
+ - options/HidValleyH.opts, options/HidValleyPI.opts  
+     fix the generator settings for Hidden Valley production 
+     add monitoring algorithm to monitor lifetime of particles  
+ - cmt/requirements
+    NO VERSION INCREMENT 
+
+!========================= DecFiles v14r4 2008-06-09 =========================
+! 2008-06-06 - Patrick Robbe
+ - Add new decay file:
+   . 13164001, Bs_D0phi,Kpi=DecProdCut
+
+! 2008-05-29 - Gloria CORTI for Vladimir GLIGOROV
+ - Add new decay file
+   . 12103111, Bu_KSK=DecProdCut.dec
+
+! 2008-05-29 - Gloria CORTI
+ - Fix nickname consistency with file name
+   . beamGasLSSArc=Beta10Startup.dec
+
+! 2008-05-15 - Patrick Robbe
+ - Decay files for Bd -> pp and Bs -> pp tested
+
+!========================= DecFiles v14r3 2008-05-06 =========================
+! 2008-05-05 - Magnus LIENG
+ - Add new event type
+   . 60040000, beamGasLSSArc=Beta10Startup
+ - Modify script to create options for this event type
+   . create_options.py
+   
+! 2008-05-05 - Gloria CORTI
+ - Modify script to set direction of beam to take into account TOF of 
+   beam for time of interaction in case of beam gas (for beam 1&2 at the
+   same time set it arbitrarly to zero).
+ - Add new event types and options for beam gas in the whole beam pipe
+   . BeamGasExp.opts ( flat vertex between -1.9 m and 20 m)
+   . 60012001, beamGasExp,2=Hydrogen
+   . 60012008, beamGasExp,2=Oxygen
+
+! 2008-04-29 - Gloria CORTI for Vladimir GLIGOROV
+ - Add new event type
+   . 15364200, Lb_Dsst+p-=DecProdCut
+
+! 2008-04-28 - Gloria CORTI for Ulrich KERZEL
+ - Add new event type
+   . 12143010, Bu_JpsiPi,mm=DecProdCut
+
+! 2008-04-25 - Gloria CORTI for Ulrich KERZEL
+ - Add new event type
+   . 12101400, Bu_K+pi0=DecProdCut
+
+!========================= DecFiles v14r2 2008-03-27 =========================
+! 2008-03-19 - Patrick Robbe
+ - Add new event types:
+   . 11912010, Bd_D0X,Kpi
+   . 12912010, Bu_D0X,Kpi
+   . 13912010, Bs_D0X,Kpi
+
+! 2008-03-06 - Patrick Robbe
+ - Add new event types:
+   . 12103002, Bu_pi+pi-pi+=phsp,DecProdCut
+   . 12103012, Bu_K+K-K+=phsp,DecProdCut
+   . 12103032, Bu_pi+K-K+=phsp,DecProdCut
+   . 12103051, Bu_pppi=DecProdCut
+   . 12103022, Bu_pi+pi-K+=phsp,DecProdCut
+
+!========================= DecFiles v14r1 2008-02-08 =========================
+! 2008-02-06 - Patrick Robbe
+ - Add new event types:
+   . 11164400, Bd_D-rho+
+   . 11164401, Bd_D-rho+=DecProdCut
+
+!========================= DecFiles v14r0 2008-02-04 =========================
+! 2008-01-08 - Gloria CORTI
+ - Modify options for the following event types (require LbPythia >= v6r0) 
+   allowing choice of type of lepton and their mother via options, provided 
+   by Victor COCO. The options produced will not work with DC06 versions of
+   Gauss < v25r14 (or < v30r6 for post-DC06)
+   . 40911000, Higgs_bb=mH115GeV.dec
+   . 40911001, Higgs_bb=mH115GeV,onlyl.dec
+   . 40911002, Higgs_bb=mH120GeV.dec
+   . 40911006, Higgs_bb=mH120GeV,onlyl,10GeV.dec
+   . 40911003, Higgs_bb=mH120GeV,onlyl.dec
+   . 40911004, Higgs_bb=mH140GeV.dec
+   . 40911007, Higgs_bb=mH140GeV,onlyl,10GeV.dec
+   . 40911005, Higgs_bb=mH140GeV,onlyl.dec
+   . 41900000, tt_bb.dec
+   . 41900001, tt_bb=only1b.dec
+   . 41900002, tt_bb=onlyl,10GeV.dec
+   . 42321000, W_enue.dec
+   . 42311000, W_munumu.dec
+   . 42921000, WZ_enue,bb.dec
+   . 42911000, WZ_munumu,bb.dec
+   . 42122000, Z_ee.dec
+   . 42112000, Z_mumu.dec
+   . 42922000, ZZ_ee,bb.dec
+   . 42912000, ZZ_mumu,bb.dec
+   . 42112011, DrellYan_mumu=10GeV
+   . 42112010, DrellYan_mumu=2GeV
+   . 42311010, W_munujet
+   . 42112020, Z_mumujet
+
+! 2008-01-07 - Gloria CORTI
+ - Add new event types (requires Generators >= v7r6) where signal comes from b,
+   provided by Chris JONES
+   . 77173000, b_Dst_D0pi,Kmunu.dec
+   . 77173001, b_Dst_D0pi,Kmunu=DecProdCut.dec
+ - Modify script to support new value in digit "G". Value = 7 now means that
+   the signal comes b quark.
+   . create_options.py
+
+! 2008-01-02 - Patrick Robbe
+ - Add new event type
+   . 11876001, Bd_Dstmunu,Kpipipi=DecProdCut
+
+!========================= DecFiles v13r17 2007-12-19 =========================
+! 2007-12-19 - Gloria CORTI for Chris JONES
+ - Add new event types
+   . 27173000, Dst_D0pi,Kmunu.dec
+   . 27173001, Dst_D0pi,Kmunu=DecProdCut.dec
+
+! 2007-12-06 - Vanya BELYAEV
+  1) dkfiles/DECAY.DEC
+      add the aliases "tau+sig" and "tau-sig"
+  2) add new event type 
+     31113001 : Tau_mumumu=DecProdCut
+     the inclusive production of tau -> 3mu
+  3) cmt/create_options.py
+     few fixes to allow the production of type "31" (inclusive tau)
+
+!========================= DecFiles v13r16 2007-12-06 =========================
+! 2007-11-29 - Patrick Robbe
+ - Add new event type:
+   . 11102201, Bd_Kstgamma=DecProdCut
+   . 11364000, Bd_Dst-pi+,2body
+   . 11364001, Bd_Dst-pi+,2body=DecProdCut
+   . 11962600, Bd_Dst0X,Kpi
+   . 12962600, Bd_Dst0X,Kpi
+   . 13962600, Bs_Dst0X,Kpi
+
+!========================= DecFiles v13r15 2007-11-06 =========================
+! 2007-11-05 - Patrick Robbe 
+ - Add new event types:
+   . 12115101, Bu_Kstmumu=DecProdCut
+   . 11114101, Bd_KSmumu=DecProdCut
+
+! 2007-10-11 - Patrick Robbe
+ - Add new event types:
+   . 13264201, Bs_Dsstpi=DecProdCut
+   . 13264211, Bs_DsstK=DecProdCut
+
+!========================= DecFiles v13r14 2007-10-09 =========================
+! 2007-10-09 - Gloria Corti
+ - Introduce new event types for beam gas with uniform vertex distribution
+   . 60101054, beamGasVelo,1=Xenon,VtxUniform
+   . 60102054, beamGasVelo,2=Xenon,VtxUniform
+   . BeamGasInjected.opts, options included form above event types
+
+! 2007-01-08 - Patrick Robbe
+ - Add new event types:
+   . 11164021, Bd_D0Kst,KK=DecProdCut
+   . 11164031, Bd_D0Kst,pipi=DecProdCut
+   . 13264011, Bs_DsK=DecProdCut
+
+! 2007-01-04 - Patrick Robbe
+ - Add new event type:
+   . 13264410, Bs_DsKst
+   . 13264411, Bs_DsKst=DecProdCut
+
+! 2007-09-30 - Patrick Robbe
+ - Add new event types:
+   . 12103040 Bu_ppK
+   . 12103041 Bu_ppK=DecProdCut
+
+!========================= DecFiles v13r13 2007-09-28 =======================
+! 2007-09-28 - Gloria Corti
+ - Temporarly remove execution of script to update bookkeeping because they
+   would be executed all the time a "source setup" is done.
+
+! 2007-09-28 - Joel Closier
+ - Introduce script to update bookkeeping database with list of event types
+
+! 2007-09-21 - Patrick Robbe
+ - options/Zmumu.opts: modify ISUBs
+ - dkfiles/W_munumu.dec, options/Wmunu.opts: generation of W -> mu events
+ - New event types:
+    . 42112011: DrellYan_mumu=10GeV
+    . 42112010: DrellYan_mumu=2GeV
+    . 42311010: W_mumujet
+    . 42112020: Z_mumujet
+    . 11152401: Bd_Jpsipi,ee=DecProdCut
+
+!========================= DecFiles v13r12 2007-09-12 =======================
+! 2007-09-11 - Joel Closier
+ - Adapt table for bookkeeping to change in format
+   . create_options.py
+
+! 2007-09-09 - Patrick Robbe
+ - Add new event type:
+   . 14143400: Bc_Jpsirho,mm=DecProdCut
+
+! 2007-09-07 - Patrick Robbe
+ - Add new event types:
+   . 12165110, Bu_D0K,KSK-pi+
+   . 12165111, Bu_D0K,KSK-pi+=DecProdCut
+
+! 2007-08-28 - Gloria Corti
+ - Modify message when "Cuts" keyword does not have a value from WARNING to
+   INFO since the case is possible
+   . create_options.py
+
+!========================= DecFiles v13r11 2007-08-27 =========================
+! 2007-08-27 - Patrick Robbe
+ - Add new event types:
+   . 14513001 Bc_mumumunu=DiLeptonInAcc (BcVegPy)
+   . 14543001 Bc_Jpsimunu,mm=DiLeptonInAcc (BcVegPy)
+
+! 2007-08-26 - Patrick Robbe
+ - Add new event types:
+   . 12163400 Bu_D0K,Kpipi0
+   . 12163401 Bu_D0K,Kpipi0=DecProdCut
+
+! 2007-08-17 - Gloria Corti
+ - create_options.py: add the writing of the entries in the book-keeping tables
+   for MIB event types as well as the header in the option files and adapt
+   dedicated function to do so.
+   Modify function HeaderOptions to pass optionally optsName so to be able
+   to use it when generating multiple option files from a single decay file
+   as in MIB; use modified functions also for particle guns.
+
+! 2007-08-14 - Gloria Corti
+ - create_options.py: modify script to allow generations of event types for
+   Machine Induced Background (MIB) stand alone.
+   More that one option can be generated from a single decay file specifying
+   two Keyword where the list can be provided.
+   The corresponding EventTypes and options are then set in the options files.
+   If the keyword are not given only the event type specified in the decay
+   file is produced.
+   Additional keyword for MIB: 
+   . ParticleType: the keyword allow to generate EventTypes for the different 
+                   particle types of the source files (0: all, 2: muons, 
+                   9:hadrons). 
+   . Configuration: the keyword allow to generate EventTypes for the different
+                    configuration of shield in the tunnel and collimator
+                    source (look into Gen/LbMIB for list of allowed values
+                    and explanation   
+ - Add decay file for new event types for MIB:
+   . haloOnTCT,1.dec - will produce options for EventTypes for beam 1 on
+                       TCTV and TCTH collimators togheter and for Staged
+                       and Design shield in the tunnel with all type of 
+                       particles and with only muons (60051000, 60351000,
+                       62051000, 62351000)
+
+! 2007-05-25 - Gloria CORTI
+ - Add decay file for new event type
+   . 20000000 incl_c.dec
+
+!===================== DecFiles v13r10 2007-05-16 =============================
+! 2007-05-08 - Patrick Robbe
+ - New event types:
+  . 14143011 Bc_Jpsipi,mm=BcVegPy,DecProdCut
+ - create_options.py: mofidy to take into account signal production of Bc with 
+   special generator BcVegPy and pile-up
+ - add DiMuon.opts file to generate DiMuon samples with repeatDecay method
+
+! 2007-05-02 - Patrick Robbe
+ - New event types:
+  . 11104000 Bd_Kst0Kst0.dec
+  . 11104001 Bd_Kst0Kst0=DecProdCut.dec
+  . 13104001 Bs_Kst0Kst0=DecProdCut.dec
+  . 13104000 Bs_Kst0Kst0.dec (update decay parameters)
+
+! 2007-04-27 - Patrick Koppenburg
+ - Bug fix in the new event types Bs_Kstmumu and  Bs_Kstmumu=DecProdCut:
+   Bs->K*~mumu, not K*mumu.
+
+! 2007-04-27 - Patrick Robbe
+ - Add new event types:
+   . 13114010, Bs_Kstmumu
+   . 13114011, Bs_Kstmumu=DecProdCut
+
+! 2007-04-26 - Patrick Robbe
+ - Add new event types:
+   . 12103401, Bu_rho+rho0=DecProdCut
+   . 11102411, Bd_rho+rho-=DecProdCut
+   . 11104011, Bd_rho0rho0=DecProdCut
+
+! 2007-03-27 - Patrick Robbe
+ - Add new event type:
+   . 40911007, Higgs_bb=mH140GeV,onlyl,10GeV
+
+!===================== DecFiles v13r9 2007-03-09 =============================
+! 2007-03-09 - Patrick Robbe
+ - Add new event types:
+   . 10012000, incl_b=DiMuon
+   . 30012000, minbias=DiMuon
+
+! 2007-03-08 - Patrick Robbe
+ - Modify Higgs.opts, Top.opts, Wenue.opts, Wmunumu.opts, WZenuebb.opts,
+   WZmunumubb.opts, Zee.opts, Zmumu.opts, ZZeebb.opts, ZZmumubb.opts to 
+   include proper options for pile-up generation.
+
+! 2007-03-07 - Gloria CORTI
+ - Introduce changes in create_options.py to generate options for Beam Gas
+   in LHCb (Velo). 
+ - Add options for beam gas in Velo with various gases (provided by Daniele
+   GREGORI):
+   . 60000006, beamGasVelo,12=Carbon.dec 
+   . 60000001, beamGasVelo,12=Hydrogen.dec
+   . 60000008, beamGasVelo,12=Oxygen.dec
+   . 60000054, beamGasVelo,12=Xenon.dec
+   . 60001006, beamGasVelo,1=Carbon.dec
+   . 60001001, beamGasVelo,1=Hydrogen.dec
+   . 60001008, beamGasVelo,1=Oxygen.dec
+   . 60001054, beamGasVelo,1=Xenon.dec
+   . 60002006, beamGasVelo,2=Carbon.dec
+   . 60002001, beamGasVelo,2=Hydrogen.dec
+   . 60002008, beamGasVelo,2=Oxygen.dec
+   . 60002054, beamGasVelo,2=Xenon.dec
+ - Remove obsolete decay file for beam gas in Velo (replaced by 60001001)
+   . bkg_gas=VELO.dec
+ - Introduce {} in options written with keyword ParticleTable
+
+! 2007-03-03 - Patrick Robbe
+ - Use ExtraOptions keyword to include "Higgs.opts" instead of being
+   hardwired in create_options.py
+ 
+! 2007-02-22 - Gloria CORTI
+ - Add new decay file for D0_mumu=DecProdCut (event type 22112001), provided
+   by Victor EGORYCHEV
+
+! 2007-03-01 - Patrick Robbe
+ - Modify create_option script to use the "ParticleTable" keyword to
+   add a table to the ParticlePropertySvc instead of overwriting it
+   (linked to the option OtherFiles of the service)
+ - Modify Higgs decay files to use "ParticleValue" to set the mass
+   instead of specific Pythia options.
+
+! 2007-02-27 - Patrick Robbe for Victor Coco
+ - Modify create_option script to handle generation of special Higgs,
+   top, W and Z events
+ - Update decay files for:
+    . 40911001 Higgs_bb=mH115GeV,onlyl
+    . 40911000 Higgs_bb=mH115GeV 
+    . 40911006 Higgs_bb=mH120GeV,onlyl,10GeV
+    . 40911003 Higgs_bb=mH120GeV,onlyl
+    . 40911002 Higgs_bb=mH120GeV
+    . 40911005 Higgs_bb=mH140GeV,onlyl
+    . 40911004 Higgs_bb=mH140GeV
+    . 41900000 tt_bb
+    . 41900001 tt_bb=only1b
+    . 41900002 tt_bb=onlyl,10GeV
+    . 42321000 W_enue
+    . 42311000 W_munumu
+    . 42921000 WZ_enue,bb
+    . 42911000 WZ_munumu,bb
+    . 42122000 Z_ee
+    . 42112000 Z_mumu
+    . 42922000 ZZ_ee,bb
+    . 42912000 ZZ_mumu,bb
+
+!===================== DecFiles v13r8 2007-02-07 =============================
+! 2007-02-07 - Patrick Robbe
+ - Add new event types 12573010 (Bu_D0K,Kmunu) and 12573011 
+   (Bu_D0K,Kmunu=DecProdCut)
+
+! 2007-02-07 - Patrick Robbe
+ - Add event types 15102308 (Lb_gammaLambda=pol,DecProdCut) and 
+   15102228 (Lb_gammaLambda1670=pol,DecProdCut)
+
+! 2007-01-25 - Patrick Robbe
+ - Add event type 12203021, Bu_pi+pi-K+=res,DecProdCut
+
+! 2007-01-24 - Patrick Robbe
+ - Adapt option script for polarized Lambda_b
+
+!===================== DecFiles v13r7 2007-01-23 ==============================
+! 2007-01-23 - Gloria Corti
+ - Remove spread of beam from BeamGasVeLo.opts because it would prevent easy
+   options setting for PilotRun in production.
+ 
+! 2007-01-22 - Patrick Robbe for Alexei Morozov
+ - Fix decay parameters in Bu_phiKgamma and Bu_phiKgamma=DecProdCut
+ - Add new event types:
+   . 12165102: Bu_D0K,KSpipi=DecProdCut
+   . 12165103: Bu_D0K,KSpipi=CPV,DecProdCut
+   . 11102402: Bd_pipipi=CPV,DecProdCut
+   . 15144102: Lb_JpsiLambda,mm=DecProdCut
+
+! 2007-01-18 - Patrick Robbe
+ - Add new event types:
+   . 12123001: Bu_Kee=DecProdCut
+   . 12113001: Bu_Kmumu=DecProdCut
+   . 12103201: Bu_phiKgamma=DecProdCut
+   . 11104101: Bd_phiKS=DecProdCut
+   . 11104102: Bd_phiKS=CPV
+   . 11104103: Bd_phiKS=CPV,DecProdCut
+
+!===================== DecFiles v13r6 2007-01-11 ==============================
+! 2007-01-10 - Patrick Robbe
+ - Modify create_options.py script: for event types with:
+   . G=2, S=7 and X=0 ---> D*+ (431,-431)
+   . G=2, S=7 and X=1 ---> D*0 (423, -423)
+   . G=2, S=7 and X=2 ---> D*s+ (433, -433)
+
+!===================== DecFiles v13r5 2007-01-10 ==============================
+! 2007-01-10 - Gloria CORTI for Alexei MOROZOV
+ - Add new event type:
+   . 12103200  Bu_phiKgamma
+
+! 2007-01-10 - Gloria CORTI for Vanya BELYEAV
+ - Add new event types for Hidden Valley generator through Higgs and 
+   multi v-pion production:
+   . 43900001  Higgs_AA_bbbb,mH=120GeV,mA=35GeV,tA=1ps,HidValley
+   . 43900002  Higgs_AA_bbbb,mH=120GeV,mA=35GeV,tA=10ps,HidValley
+   . 43900003  Higgs_AA_bbbb,mH=120GeV,mA=35GeV,tA=100ps,HidValley
+   . 43900004  Higgs_AA_bbbb,mH=180GeV,mA=35GeV,tA=100ps,HidValley
+   . 43900005  Higgs_AA_bbbb,mH=180GeV,mA=50GeV,tA=10ps,HidValley
+   . 43900006  Higgs_AA_bbbb,mH=180GeV,mA=70GeV,tA=1ps,HidValley 
+   . 44900001  multivpi,mZ=3TeV,mvpi0=35GeV,tvpi0=100ps,tvplus=inf,HidValley
+   . 44900002  multivpi,mZ=3TeV,mvpi0=50GeV,tvpi0=10ps,tvplus=inf,HidValley
+   . 44900003  multivpi,mZ=3TeV,mvpi0=70GeV,tvpi0=1ps,tvplus=inf,HidValley
+   . 44900004  multivpi,mZ=3TeV,mvpi0=120GeV,tvpi0=100fs,tvplus=10ps,HidValley
+   They require the new version of the create_options.py
+
+! 2007-01-10 - Gloria CORTI 
+ - Modify create_options.py to set production as "Special" in the case of 
+   digit G=4,S=3,4 as for Hidden Valley codes. 
+   Also allow one more keyword ParticleValues. The argument will be written
+   as the content of the list of the property ParticlePropertySvc.Particles.
+   Example:
+   # ParticleValues: "NewParticle_1 ..." , "NewParticle_2 ..." 
+    in decay files will translate in the options as
+   ParticlePropertySvc.Particles = { "NewParticle_1 ...", "NewParticle_2 ..." }
+ - Add options to be included by Hidden Valley event types
+   . options/HidValleyH.opts, HidValleyPI.opts
+   
+! 2007-01-09 - Patrick Robbe
+ - event type 13463000: invert D_s1 and D'_s1 definitions to be compatible
+   with DECAY.DEC
+ - add new event types:
+   . 11961000  Bd_Dst+X,incl
+   . 12961000  Bu_Dst+X,incl
+   . 13961000  Bs_Dst+X,incl
+
+!===================== DecFiles v13r4 2006-12-20 ==============================
+! 2006-12-20 - Patrick Robbe
+ - Add new event types:
+   . 11102021  Bd_K+K-=DecProdCut
+   . 11102031  Bd_pp=DecProdCut
+   . 13102021  Bs_pi+pi-=DecProdCut
+   . 13102031  Bs_pp=DecProdCut
+   . 15102001  Lb_pK=DecProdCut
+   . 15102011  Lb_ppi=DecProdCut
+   . 11164011  Bd_D0Kst,Kpi=DecProdCut
+   . 13104011  Bs_phiphi=DecProdCut
+   . 12163011  Bu_D0K,Kpi=DecProdCut
+   . 12163021  Bu_D0K,KK=DecProdCut
+   . 12163031  Bu_D0K,pipi=DecProdCut
+   . 12163001  Bu_D0pi,Kpi=DecProdCut
+   . 11166101  Bd_D0Kst,KSpipi=DecProdCut
+   . 11166111  Bd_D0Kst,KSKK=DecProdCut 
+   . 12265001  Bu_D0K,Kpipipi=DecProdCut
+   . 12165001  Bu_D0K,KKpipi=DecProdCut
+   . 12265101  Bu_D0K,KSKK=DecProdCut
+   . 11104121  Bd_KSpi+pi-=DecProdCut
+
+! 2006-12-19 - Patrick Robbe
+ - Add new event types:
+   . 13336001, Bs_etacphi=DecProdCut
+   . 13264401, Bs_Dsrho=DecProdCut
+   . 13146003, Bs_psi2Sphi,Jpsipipi,mm=CPV,DecProdCut
+   . 11264001, Bd_D-pi+=DecProdCut
+   . 23263001, incl_Ds=DecProdCut
+   . 24152001, incl_Jpsi,ee=DecProdCut
+   . 24142001, incl_Jpsi,mm=DecProdCut
+
+! 2006-12-08 - Patrick Robbe
+ - add event types 12123000 and 12113000 (Bu_Kee and Bu_Kmumu)
+
+!===================== DecFiles v13r3 2006-12-05 ==============================
+! 2006-12-05 - Patrick Robbe
+ - Fix phi_s value in models using PVV_CPLH
+
+! 2006-12-05 - Gloria Corti
+ - Fix vertex spread of beam gas in x and y to 100 microns for 7TeV beams
+   in BeamGasVeLo.opts
+
+! 2006-11-26 - Patrick Robbe
+ - Adjust CP violation parameters
+
+!===================== DecFiles v13r2 2006-11-22 ==============================
+! 2006-11-22 -Patrick Robbe
+ - use CP violation model with cocktail monte carlo
+
+! 2006-11-19 - Patrick Robbe
+ - Add event types:
+   . 11154102, Bd_JpsiKS,ee=CPV
+   . 11154103, Bd_JpsiKS,ee=CPV,DecProdCut
+   . 11144102, Bd_JpsiKS,mm=CPV
+   . 11144103, Bd_JpsiKS,mm=CPV,DecProdCut
+   . 13122000, Bs_ee
+   . 13122001, Bs_ee=DecProdCut
+
+! 2006-11-16 - Patrick Robbe
+ - Add event type for Bs -> J/psi phi, CP violation and decay products in 
+   acceptance (13144002).
+ - Add event types for Bs -> J/psi (e+e-) phi, CP violation (13154001) and
+   decay products in acceptance (13154002).
+
+! 2006-11-09 - Patrick Robbe
+ - Add event types with direct CP violation for B0 -> K pi and Bs -> K pi.
+
+! 2006-11-01 - Patrick Robbe
+ - Add event types with CP violation for B0 -> pi+ pi- and Bs -> K+ K-.
+
+!===================== DecFiles v13r1 2006-10-24 ==============================
+! 2006-10-23 - Patrick Robbe
+ - Correct Dmu cocktail event types and use cut on D0 and mu only.
+
+! 2006-10-23 - Gloria CORTI
+ - Modify script create_options.py to fix bug in production of options for
+   Higgs, extra ";" and remove list of particles to select.
+
+! 2006-10-16 - Patrick Robbe
+ - Add new event type 13144001 for Bs -> J/psi phi with CP Violation.
+ - Remove event type 13144000 (wrong decay model).
+
+!===================== DecFiles v13r0 2006-10-10 ==============================
+! 2006-10-09 - Patrick Robbe
+ - Add B0/B+/Bs/Lb -> J/psi X event types
+ - Add option to select on daughers of J/psi
+
+! 2006-10-01 - Patrick Robbe
+ - Remove event types with PHOTOS
+ - Add new event types for generation with DaughtersInLHCb cut tool.
+
+!===================== DecFiles v12r5 2006-09-25 ==============================
+! 2006-09-23 - Patrick Robbe
+ - Add new event type for Bd_Dstmunu,Kpi=cocktail
+
+!====================== DecFiles v12r4 2006-09-20 =============================
+! 2006-09-12 - Patrick Robbe
+ - Add new decay file Bd_KSpi+pi0 with event type 11104120.
+ - Saturate some BR in DECAY.DEC
+
+! 2006-09-05 - Gloria CORTI
+ - Remove obsolete decay files for gamma particle guns.
+   . REMOVED - gamma_5GeV.dec, gamma_10GeV.dec, gamma_16,8GeV.dec,
+               gamma_33,8GeV.dec, gamma_50GeV.dec, gamma_100GeV.dec,
+               gamma_168GeV.dec 
+ - Introduce general decay file for particle gun of fixed energy for electron,
+   positrons, gammas and pi0 (similar to what used in the past for Calorimeter
+   calibrations). Introduce general CaloAcceptance.opts used by these decay
+   files.
+   . NEW - electrons_fixE.dec, gammas_fixE.dec, pi0s_fixE.dec, 
+           positrons_fixE.dec
+
+! 2006-09-05 - Gloria CORTI for Manuel BARBERA ASIN
+ - Fix bug in create_options.py when producing clean events: options are
+   written in separate file corresponding to modified event type and decfile
+   is not touched.
+ - Introduce handling of particle gun event type for fixed momentum: it has a 
+   special keyword Momentum where list of values has to be given.
+
+! 2006-08-17 - Gloria CORTI
+ - Introduce options to be used when cuts are expressed with LoKi, and new
+   decfile pp_muh.dec for maximum bias events as provided by I.Belyaev
+
+ 2006-07-25 - Patrick Robbe
+ - Add new event type 12565000 for B+ -> D0 tau decays.
+
+! 2006-07-14 - Manuel BARBERA ASIN
+ - Fix bug in create_options.py. 
+   For EventTypes starting 19xxxxxx or 29xxxxxx, the production type 
+	 is "Inclusive"
+
+! 2006-07-13 - Patrick Robbe
+ - Fix event type of D0munu cocktail : the correct one is 12873000
+
+!====================== DecFiles v12r3 2006-07-04 =============================
+! 2006-07-04 - Gloria CORTI
+ - make_options.(c)sh - modify since current directory is no longer in PATH
+
+! 2006-06-27 - Gloria CORTI
+ - create_options.py - fix a bug when using "ExtraOptions" that was adding
+                       a ";"
+                     - eventtype starting with 6 is at the moment of type
+                       MinBias.
+ - dkfiles/bkg_gas=VELO.dec - adapt for new struuture with Pythia
+ - options/BeamGasVeLo.opts - add options to be included by bkg_gas=VELO.dec
+
+! 2006-06-16 - Florence RANJARD for Manuel Barbera Asin
+ - create_options.py - include the case of minbias and inclusive of type
+                       1|2|30xxxxxx.opts
+                     - fix a bug when using the "FullEventCuts" reported by
+                       Vanya. 
+
+!======================= DecFiles v12r2 2006-06-13 ===========================
+! 2006-06-13 - Gloria Corti
+ - Add production keyword in minbias.dec and incl_b.dec (now optional but
+   will become mandatory)
+
+! 2006-06-13 - Patrick Robbe
+ - DECAY.DEC: add decay table for charmed baryons
+ - Add inc_b=Biased event type.
+
+! 2006-06-07 - Patrick Robbe
+ - DECAY.DEC: add Xi_cc*+ and Omega_cc decay tables.
+ - Remove DECAY-DC06.dec
+
+! 2006-05-05 - Patrick Robbe
+ - Add new event type:
+   . 12783000: B+ -> D(*(*)0 mu nu
+
+! 2006-05-03 - Patrick Robbe
+ - DECAY.DEC : add Xi_cc*++ decay table.
+
+! 2006-04-23 - Patrick Robbe
+ - Add new event types:
+  . 15144101: Lambda_b -> J/psi Lambda
+  . 15104101: Lambda_b -> rho Lambda
+  . 15104102: Lambda_b -> rho/omega Lambda (with rho-omega mixing)
+  . 15104121: Lambda_b -> omega Lambda
+ - Change nickname for Lb_JpsiLambda,mm into Lb_JpsiLambda,mm=phsp and
+    Lb_rhoLambda into Lb_rhoLambda=phsp.
+
+! 2006-04-14 - Patrick Robbe
+ - DECAY-DC06.DEC: several minor corrections (sum of BR in B+ decays)
+ - rename DECAY-DC06.DEC as DECAY.DEC
+
+!=========================== DecFiles v12r1 ==============================
+! 2006-04-06 - Manuel BARBERA ASIN
+ - Fix bug in create_options.py. 
+   For 24142000 et 24152000 files (inclusifs J/psi) the script was writing two 
+   values for SignalPIDList ( 443, -433 ) instead of only write the 433 one.
+
+!=========================== DecFile v12r0 ===============================
+! 2006-03-28 - Gloria CORTI
+ - Fix bug in create_options.py that was writing ToolsSvc instead of ToolSvc
+
+! 2006-03-28 - Florence RANJARD
+ - remove old *.opts
+ - replace create_options.py with new_create_options.py
+
+! 2006-03-28 - Gloria CORTI
+ - Replace keyword "Includes" with "ExtraOptions" to avoid confusion in the
+   script.
+
+! 2006-03-22 - Gloria CORTI for Manuel ASIN
+ - new_create_options.py, modify to issue message when Production keyword
+   is not present but to assume "Pythia" as default and continue
+ - fix problem to make options only for files terminaing with .dec (and
+   ignore .dec.~XXX~)
+
+! 2006-03-12 - Patrick Robbe
+ - DECAY-DC06.DEC: re-activate PHOTOS for all decays.
+
+!============================== DecFiles v11r4 =============================
+! 2006-03-01 - Gloria CORTI
+ - Add new event types for particle guns accordingly to convention as in
+   note LHCb-2005-034. Adapted to code for Particle gun as in Gauss v15r22.
+   . 56000005, gamma_5GeV     - replaces 10022_005.0GeV.opts
+   . 56000010, gamma_10GeV    - replaces 10022_010.0GeV.opts
+   . 56000017, gamma_16,8GeV  - replaces 10022_016.8GeV.opts
+   . 56000034, gamma_33,8GeV  - replaces 10022_033.8GeV.opts
+   . 56000050, gamma_50GeV    - replaces 10022_050.0GeV.opts
+   . 56000100, gamma_100GeV   - replaces 10022_100.0GeV.opts
+   . 56000168, gamma_168GeV   - replaces 10022_168.0GeV.opts
+
+! 2006-02-28 - Nicola Serra
+ - B0 and Bs mixing turned off in bb_e+mu-.dec and bb_e-mu+.dec
+
+! 2006-02-28 - Florence Ranjard
+ - update create_options.py to accept "'" in descriptors
+
+! 2006-02-24 - Patrick Robbe
+ - Add new event types:
+   . 11112010, Bd_emu
+   . 13112010, Bs_emu
+   . 23573000, Ds_taunu,mumumu
+   . 15104500, Lb_omegaLambda
+   . 19912010, bb_e+mu-
+   . 19912020, bb_e-mu+
+
+! 2006-02-23 - Patrick Robbe
+ - Add new event types:
+   . 11973000, Bd_tauX,mumumu 
+   . 42900010, 42900020, 42900030: Z0 hadronic
+   . 42900040, 42900050, 42900060: W hadronic
+
+! 2006-02-22 - Patrick Robbe
+ - DECAY-DC06.DEC: remove PHOTOS
+ - Add new event types: 11444000, 12444000, 13444000, 14444000, 13144010, 
+     13146000, 13144420, 13136200, 13136210, 13136220
+
+!================================= DecFiles v11r3 =============================
+! 2006-02-11 - Patrick Robbe
+ - add new event types:
+   . 40911006, Higgs 120 GeV, pT(l) > 10 GeV
+   . 41900002, t/tbar, pT(l) > 10 GeV
+   . 12203020, B+ -> pi+ pi- K+ with resonances
+   . 11114100, B0 -> KS mu+ mu-
+   . 12115100, B+ -> K* mu+ mu-
+   . 11104500, B0 -> eta' KS
+   . 12113010, B+ -> pi+ mu+ mu-
+   . 14543000, B_c+ -> J/psi mu+ nu_mu
+   . 11463000, D* from B0
+   . 12463000, D* from B+
+   . 13463000, D* from Bs
+
+! 2006-02-01 - Patrick Robbe
+ - update DECAY.DEC for DC06 with PDG 2004 BR.
+
+! 2006-01-30 - Patrick Robbe
+ - add 3 new event types:
+   . 12103021, Bu_pi+pi-K+=phsp
+   . 12103031, Bu_pi+K-K+=phsp
+   . 15114100, Lb_Lambdamumu=phsp
+
+! 2006-01-29 - Patrick Robbe
+ - add 3 new event types:
+   . 12235100, Bu_D0K,KSKK
+   . 12103011, Bu_K+K-K+=phsp
+   . 12265010, Bu_D0pi,Kpipipi
+
+! 2006-01-17 - Patrick Robbe
+ - fix DECAY table for DC06.
+
+! 2005-12-12 - Patrick Robbe
+ - add new event type 12165101 (Bu_D0K,KSpipi=CPV)
+
+!========================== DecFiles v11r2 ==============================
+! 2005-12-10 - Patrick Robbe
+ - add new event type 11296010 (Bd_DsD)
+
+! 2005-12-08 - Patrick Robbe
+ - DECAY-DC06.dec: 
+   . add Sigma_b*0 decay modes
+   . switch on PHOTOS for all decay modes
+ - add new event type 12163000 (Bu_D0pi,Kpi)
+ - add new event type 12573000 (Bu_D0munu,Kpi)
+
+!=========================== DecFiles v11r1 ===============================
+! 2005-12-01 - Patrick Robbe
+ - Fix Lambda_b polarization 
+
+!============================ DecFiles v11r0 ===============================
+! 2005-11-10 - Patrick Robbe
+ - Fix polarizations of charmless decay modes.
+
+!============================== DecFiles v10r0 ==============================
+! 2005-11-08 - Patrick Robbe
+ - DECAY.DEC: add K*0 pi0 pi0 decay mode.
+ - add temporary DECAY-DC06.DEC to work with new generator modules.
+
+! 2005-10-30 - Patrick Robbe
+ - add new event type 13774000 for Bs -> Ds(*(*)) mu nu 
+
+! 2005-10-27 - Patrick Robbe
+ - add new event types 42112000 and 42122000 for Z0 -> mu mu and Z0 -> e e
+   production.
+
+! 2005-10-25 - Patrick Robbe
+ - add new event type 13674000, for Bs -> Ds mu nu
+ - add new event type 12165000, for B+ -> D0bar K (D0 -> K K pi pi)
+ - add new event type 11202400, for B0 -> K+ pi- pi0
+ - add new event type 11202410, for B0 -> K+ pi- pi0 pi0
+ - add new event type 11204000, for B0 -> K+ pi- pi+ pi-
+ - add new event type 12203400, for B+ -> K+ pi- pi+ pi0
+ - add new event type 11202420, for B0 -> pi+ pi- pi0 pi0
+ - add new event type 11204010, for B0 -> pi- pi+ pi- pi+
+ - add new event type 12203410, for B+ -> pi+ pi- pi+ pi0
+ - update BR for B0 -> K*+ pi0, B0 -> K+ rho-, B0 -> K*0 pi0 and
+   B0 -> K+ pi- pi0 in Bd_charmless
+ - add B+ -> rho- pi+ pi+ in DECAY.DEC and in Bu_charmless
+
+!==================== DecFiles v9r1 =======================================
+! 2005-10-17 - Patrick Robbe
+ - add new event types 15102303, 15102213, and 15102223 for transversally
+   polarized Lambda_b -> Lambda gamma decays.
+
+! 2005-10-13 - Patrick Robbe
+ - add new event types 42312010, 42312000 and 42711000 for AcerMC
+
+! 2005-10-09 - Patrick Robbe
+ - add new event types 12465500, B+ -> D*0bar (D0 -> Ks pi pi) K and
+   12463410 (B+ -> D*0bar (D0 -> K pi) K.
+
+!==================== DecFiles v9r0 =======================================
+! 2005-09-22 - Patrick Robbe
+ - fix Higgs masses in event types 40911002, 40911003, 40911004, 40911005 
+   option files.
+ - add new event type 11574000, B0 -> D*- mu nu
+
+! 2005-09-21 - Patrick Robbe
+ - add B0 -> p pbar and Bs -> p pbar to DECAY.DEC
+
+! 2005-09-19 - Patrick Robbe
+ - add new decay file for:
+   . 13266000  Bs0 -> Ds pi pi pi
+
+! 2005-09-05 - Patrick Robbe
+ - add new decay files for:
+   . 12103000  B+ -> pi+ pi- pi+ (with resonances and CP violation)
+   . 12103001  B+ -> pi+ pi- pi+ (with phase space)
+ - shorten decay descriptor of Bs_DsDs,cocktail for bookkeeping database.
+
+! 2005-09-01 - Patrick Robbe
+ - add new decay files for:
+   . 12265000   B- -> D0 (K3pi) K-
+   . 11102630   B0 -> p pbar
+   . 13102030   Bs0 -> p pbar
+
+!================== DecFiles v8r1 ========================================
+! 2005-08-12 - Gloria CORTI
+ - modify decay descriptor for minbias and bkg_gas=VELO to be able to use 
+   it with MCDecayFinder
+
+! 2005-08-05 - Gloria CORTI
+ - add dec file for new event type
+   . 13264400 Bs -> Ds rho
+
+! 2005-07-27 - Gloria CORTI
+ - fix 60000000.opts to refer to new nickname bkg_gas=VELO.dec 
+
+!=================== DecFiles v8r0 =======================================
+! 2005-07-11 - Patrick Robbe
+ - fix typo in event types 15102210, 15102220, 15102300 and 15102302
+   for Lambda_b polarization.
+
+! 2005-07-07 - Patrick Robbe
+ - add new event types for Higgs/top/W/Z production:
+   . 41900001  t tbar background for single top
+   . 41900010  single top from W
+   . 41900020  single top from pp
+   . 42911000  Z to beauty W muonic
+   . 42921000  Z to beauty W electronic
+   . 42912000  Z to beauty or muonic
+   . 42922000  Z to beauty or electronic
+   . 42900000  Z to beauty
+   . 42311000  W muonic
+   . 42321000  W electronic
+
+!==================== DecFiles v7r4 =======================================
+! 2005-07-03 - Patrick Robbe
+ - add new event type for inclusive Ds production
+ - add event type 41900001 for ttbar background for single top
+   (only require 1 b in LHCb acceptance).
+
+! 2005-06-27 - Patrick Robbe
+ - change ttbar event type to 41900000
+
+!====================== DecFiles v7r3 ======================================
+! 2005-06-24 - Gloria CORTI
+ - add event type 60000000 for beam gas production in Velo
+
+!====================== DecFiles v7r2 ======================================
+! 2005-06-12 - Patrick Robbe
+ - add event types for Higgs production
+
+!====================== DecFiles v7r1 ======================================
+! 2005-05-27 - Patrick Robbe
+ - add decay file for Bs -> J/psi (ee) eta (gg) , type 13152400
+
+! 2005-05-12 - Anais Bret
+ - adapt to PDG codes being a vector of int instead of a single int
+
+! 2005-05-04 - Patrick Robbe
+ - fix parameters of Lambda_b -> Lambda gamma decay (helicities and 
+   branching fractions)
+
+!======================== DecFiles v7r0 ====================================
+! 2005-03-09 - Patrick Robbe
+ - add decay files for Lambda_b -> Lambda(1520/1600/1670) gamma decays
+ - add these modes to DECAY.DEC
+ - add option files for 15102300, 15102302, 15102210, 15102220 which
+   cannot be deduced from event type number.
+
+! 2005-02-23 - Patrick Robbe
+  - Fix anti-Lambda_b0 decay to anti-Lambda0 gamma in DECAY.DEC
+
+!========================= DecFiles v6r6 =================================
+! 2005-02-06 - Patrick Robbe
+  - add decay file for ttbar generation (event type 40900000)
+
+! ======================== DecFiles v6r5 ===================================
+! 2005-01-21 - Patrick Robbe
+  - add decay file for B0->J/psi(ee) K* generation (event type 11154000)
+
+!=================== DecFiles v6r4 =========================================
+! 2004-12-20 - Patrick Robbe
+  - add decay file and option file for Higgs events generation (event
+   type 40911000)
+
+! 2004-12-02 - Patrick Robbe
+  - dkfiles: add Lambda_b -> Lambda gamma decay file with event type
+   15102300 and add it also to DECAY.DEC
+
+! 2004-11-05 - Patrick Robbe
+  - dkfiles: add decay file for B -> Ds (cocktail) Ds (cocktail) event
+    type = 13491400
+
+!================== DecFiles v6r3 ========================================
+! 2004-09-20 - Patrick Robbe
+ - dkfiles: add decay files for B -> mu X Event types 1x911000 
+
+! 2004-09-07 - Patrick Robbe
+ - dkfiles: add decay file for B0 -> D0 (K0 K+ K-) K*. Can be used with
+   EvtGen >= v6r1. [ Event type 11166110 ]
+
+! 2004-09-03 - Patrick Robbe
+ - dkfiles: correct decay descriptor for the two photons generated by
+   PHOTOS [ {{,gamma} ,gamma} -> {,gamma} {,gamma}
+ - requirements: increase to v6r3
+
+!===================== DecFiles v6r2 =====================================
+! 2004-06-25 - Patrick Robbe
+ - Bu_Kee=photos, Bu_Kmumu=photos: add decay file for B+ -> K+ e+ e-
+   and B+ -> K+ mu+ mu-
+
+! 2004-06-16 - Patrick Robbe
+ - Bd_D*-pi+_incl: add decay file for B0 -> D*- ( D0bar incl. pi-) pi+
+
+!===================== DecFiles v6r1 ====================================
+! 2004-05-12 - Patrick Robbe
+ - Bd_pi+pi-=photos: add decay file for B0 -> pi+ pi- ( g ( g ) )
+
+! 2004-05-11 - Patrick Robbe
+ - dkfiles: add decay separate decay files for signal + photos decay modes.
+ - requirement: increase to v6r1
+
+!====================== DecFiles v6r0 ====================================
+! 2004-05-11 - Patrick Robbe
+ - dkfiles: remove PHOTOS except for J/psi -> mu mu and J/psi -> e e
+ - dkfiles: correct decay descriptor.
+ - requirement: increase to v6r0
+
+!==================== DecFiles v5r3 =======================================
+! 2004-05-05 - Patrick Robbe
+ - dkfiles: add Ds+ pi0 decay mode to the signal D_s*+ forced decays.
+
+! 2004-05-05 - Joel Closier
+ - create_options.py - clean eventtype = eventtype + 5
+
+!===================== DecFiles v5r2 =======================================
+! 2004-05-03 - Patrick Robbe
+ - dkfiles: change nicknames for Bd_Jpsipi,mm and Bc_rho0pi+ 
+
+!====================== DecFiles v5r1 ======================================= 
+! 2004-04-29 - Joel Closier
+ - create_options.py - introduce new rules
+
+! 2004-04-29 - Patrick Robbe
+ - remove D*s -> Ds pi0 from Bs_DsstK.dec
+ - dkfiles: correct decay descriptor to take into account oscillation
+
+! 2004-04-28 - Patrick Robbe
+ - add Bs_cmu,mu and Lb_cmu,mu decay files for Xb -> (Xc -> mu) mu
+ - remove obsolete files.
+
+! 2004-04-27 - Patrick Robbe
+ - DECAY.DEC: rescale Bs BR to add up to one.
+ - DECAY.DEC: put correct decay models for B**s
+ - add bb_mumu.dec decay file
+ - add Bd_cmu,mu and Bu_cm,mu decay files
+
+! 2004-04-26 - Patrick Robbe
+ - Bs_DsDs, Bs_DsstDs: update BR(Ds->phi pi) according to Stephane Monteil
+   and David Borras recomendations.
+ - add option and decay files for charmless cocktails
+
+! 2004-04-25 - Patrick Robbe
+ - dkfiles: new nick names
+
+! 2004-04-24 - Patrick Robbe
+ - cmt/requirements: increase version to v5r1
+ - dkfiles: correct some event types
+
+!========================== DecFiles v5r0 =====================================
+! 2004-04-23 - Florence RANJARD
+ - add Joel setup script to build the option files
+
+! 2004-04-23 - Patrick Robbe
+ - add options for minimum bias and inclusive b/bbar
+
+! 2004-04-22 - Patrick Robbe
+ - add BuToPhiX (inclusive phi from B+) and corresponding 340100.opts option
+   file.
+
+! 2004-04-21 - Patrick Robbe
+ - update BdToPhiX
+ - remove CP violation models from DECAY.DEC (DECAY_WithCP.DEC is a copy
+   of DECAY.DEC with CP violation)
+
+! 2004-04-20 - Patrick Robbe
+ - BsToEtacPhi: modifications by Luis Fernandez to have the correct
+   etac => 4h description.
+ - DECAY.DEC: update eta_c section according to PDG2004 by Luis Fernandez
+ - add D0ToMuMu.dec and 490000.opts for D0 -> mu+ mu- generation. Add it
+   to DECAY.DEC with 10^-12 branching fraction.
+ - DECAY.DEC, BsToMuMu, BsToTauTau : remove SLL decay models. 
+ - add BdToPhiX.dec and 340000.opts for inclusive phi->K+ K-
+
+! 2004-04-19 - Patrick Robbe
+ - add missing signal decay and option files.
+
+! 2004-04-18 - Patrick Robbe
+ - update event type number to new scheme
+ - remove obsolete files
+ - increase version to v5r0
+
+! 2004-04-16 - Patrick Robbe
+ - fix Ds -> phi pi branching fraction in signal decay files.
+ - remove non resonant Ds decay modes.
+ - DECAY.DEC: add Bs -> gamma gamma and B0 -> D0 K*0
+ - add BsToGammaGamma decay file.
+ - add B+ -> D0~ (KK, Kpi, pipi) K+ signal decay files and option files.
+
+! 2004-04-13 - Patrick Robbe
+ - DECAY.DEC: fix some B_s branching fractions.
+
+! 2004-04-09 - Patrick Robbe
+ - DECAY.DEC: add various signal modes to generic table
+ - dkfiles: change decay files to include in header event type (new 
+   definition), descriptor, nickname, physics options.
+ - options: modify current options (with old event type) to use new
+   names of decay files and add some missing option files for signal
+   decay modes.
+
+! 2004-04-08 - Patrick Robbe
+ - DECAY.DEC: split B+ -> K0 pi+ into B+ -> K_S0 pi+ and B+ -> K_L0 pi+
+
+! 2004-04-07 - Patrick Robbe
+ - DECAY.DEC: update B0->pi+pi-, B0->K+pi-, Bs0->K+K-, Bs0->pi+K-,
+   Bs0->pi+pi-, Bs0->K*0K*0b, Bs0->KsKs, Bs0->K*Ks, Lambda_b->pK and
+   Lambda_b->p pi according to Vincenzo Vagnoni prescriptions
+ - add decay and option files for Bs -> K*0K*0, Bs -> KsKs,
+   Bs -> K*Ks, Lambda_b->p K, Lambda_b -> p pi.
+
+! 2004-04-05 - Patrick Robbe
+ - DECAY.DEC: add B0 -> omega gamma and Bs0 -> phi gamma
+ - 211000.opts and 211100.opts correct job options for prompt charmonium
+    production
+
+! 2004-04-02 - Patrick Robbe
+ - add Bs -> (ccbar)phi pi+ pi- and Bs -> (ccbar)phi pi0 pi0 in DECAY.DEC 
+
+! 2004-03-31 - Patrick Robbe
+ - add Bs -> mu mu in DECAY.DEC
+
+! 2004-03-29 - Patrick Robbe
+ - add decay file 611110 (Bs -> J/psi eta'(-> rho gamma))
+ - invert order of arguments for SVV_HELAMP model for anti-particle decay
+  (CDecay does not work for it)
+
+! 2004-03-27 - Patrick Robbe
+ - remove CP violation models from decay files
+ - set default to repeated hadronization (except for B_c and prompt J/psi)
+
+! 2004-03-25 - Patrick Robbe for Arnaud Robert
+ - add decay file and option file for B_s0 -> J/psi (mu+mu-) eta (pi+pi-pi0)
+
+! 2004-03-24 - Patrick Robbe
+ - add B0 -> K0 pi0 and anti-B0 -> anti-K0 pi0 with 0 BR 
+   in order not to produce it with Pythia 
+
+! 2004-03-22 - Patrick Robbe
+ - split B0 -> K0 pi0 into B0 -> K_s0 pi0 and B0 -> K_L0 pi0
+
+! 2004-03-17 - Gloria CORTI
+ - add 211000.opts and 211100.opts for prompt J/psi production
+
+! 2004-03-17 - Patrick Robbe
+ - fix wrong name in B02D0B_K+K-_Kstar0_K+PI-.dec
+ - requirements : increase to version v4r5
+ - add JPSITOMU+MU-.dec and JPSITOE+E-.dec for prompt J/psi production
+ - add missing decay files and corresponding options
+
+!====================== DecFiles v4r4 ===================================
+! 2004-03-15 - Florence RANJARD
+ - add 61.opts
+
+! 2004-03-11 - Patrick Robbe
+ - update decay and option files to include in comments the event type
+   number, a short description and the ASCII descriptor of the generated
+   decay chain.
+
+! 2004-03-10 - Patrick Robbe
+ - DECAY.DEC: add decay table for excited B hadrons (copy of the Pythia
+     decay table.)
+
+! 2004-03-09 - Patrick Robbe
+ - B+2D0_K0SPI-PI+_K+.dec : new decay file for B+ -> D0 K+, D0 -> Ks pi+ pi-,
+     Ks -> pi+ pi-, provided and tested by Ulrik Egede
+ - requirements : increase to version number v4r4
+
+!====================== DecFiles v4r3 ========================================
+! 2004-03-08 - Patrick Robbe
+ - DECAY.DEC : activate B/Bs mixing and set default values as in PDG 2004
+    and change D**s names in order to follow ParticlePropertySvc definitions
+
+! 2004-02-17 - Vanya BELYAEV
+
+ - options/10111_*GeV.opts files 
+          force pi0->gamam gamma decay by EvtGen
+ - cmt/requirements   
+          increment the version number to v4r3 
+
+!======================= DecFiles v4r2 ====================================
+! 2004-02-11 - Patrick Robbe
+ - scripts/displayEvtTable.py : use evt.pdl file in scripts directory
+ - scripts/evt.pdl : add file to remove "use ParamFiles" statement in 
+   cmt/requirements
+ - cmt/requirements : remove "use ParamFiles"
+ - This version of DecFiles depends on ParamFiles and will work only
+   with ParamFiles >= v3r1
+
+! 2004-02-11 - Vanya BELYAEV
+ - options            add 10111* files for Calo Particle Gun production with pi0 
+ - cmt/requirements   increase the version to v4r2 
+
+!========================= DecFiles v4r1 ====================================
+! 2004-01-22 - Vanya BELYAEV
+	- options	     add particle gun options for Calo productions 
+  - cmt/requirements         increase the version to v4r1 
+
+!========================== DecFiles v4r0 ===================================
+! 2004-01-12 - Patrick Robbe
+ - new version of DECAY.DEC coming with new EvtGen from BaBar
+ 
+! 2003-12-09 - Patrick Robbe
+ - do B/Bbar mixture by default
+ - add event type 414000 (B0->D0K*0)
+
+! 2003-11-20 - Patrick Robbe
+ - add script to transform a decay file into a more human readable format:
+     scripts/displayEvtTable.py via a latex file (see code comments for 
+     details)
+
+!=========================== DecFiles v3r0 ======================================
+! 2003-10-21 - Patrick Robbe
+ - assign charge conjugates to themselves for CP eigenstates aliases
+
+! 2003-10-16 - Patrick Robbe
+ - change decay and option files to new format (replace B by Bsig which
+   is an alias to B)
+
+! 2003-10-13 - Patrick Robbe
+ - decay and option files for some B_s signal decay modes.
+
+!=========================== DecFiles v2r0 02-10-2003 ===========================
+! 2003-10-02 Witek Pokorski
+ - small change in the structure of the options due to the change in 
+   GeneratorModules v9r0
+ - add decay files for BBbar inclusive channel (now possible)
+ - update generic DECAY.DEC decay file for EvtGen >= v4r0 (P.Robbe)
+ - add new signal decay files (P. Robbe)
+
+!=========================== DecFiles v1r0 09-07-2003 ===========================
+! 2003-07-09 Witek Pokorski
+  - creation of the package, one decay file included
+

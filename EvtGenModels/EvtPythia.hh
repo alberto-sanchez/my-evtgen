@@ -37,9 +37,9 @@ public:
   EvtPythia();
   virtual ~EvtPythia();
   
-  void getName(std::string& name);
-  EvtDecayBase* clone();
-  void decay(EvtParticle *p); 
+  virtual std::string getName( );
+  virtual EvtDecayBase* clone();
+  virtual void decay(EvtParticle *p); 
   
   std::string commandName();
   void command(std::string cmd);

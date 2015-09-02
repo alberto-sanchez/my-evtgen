@@ -2,13 +2,13 @@
 
 #Package-specific:>
 
-GENERATOR=evtgenlhc
+GENERATOR=EvtGen
 #VERSION=8.16
 
 # === Default values of input parameters ====
-PATH_TO_EXTERNAL=/afs/cern.ch/sw/lcg/external
-CLHEP_VERSION=1.9.3.1
-LCGPLATFORM=slc4_ia32_gcc34         #LCG platform. Can be needed if external libraries are specified
+PATH_TO_EXTERNAL=
+CLHEP_VERSION=
+LCGPLATFORM=         #LCG platform. Can be needed if external libraries are specified
 COMPMODE=OPT                        # Default: compiler optimization mode
 
 #<
@@ -24,9 +24,7 @@ check_arguments () {
       "\nUsage: ./configure [options] , where options are:\n\n"\
       "--help                       : prints this help\n"\
       "--enable-debug               : turns on debugging flags\n"\
-      "--with-clhep=/path/to/clhep/ : ${PATH_TO_EXTERNAL}/clhep/${CLHEP_VERSION}/${LCGPLATFORM} by default\n"\
-      "--with-clhepversion=VERSION  : ${CLHEP_VERSION} by default (Used if /path/to/clhep is not set)\n"\
-      "--lcgplatform=LCGPLATFORM    : ${LCGPLATFORM} by default (Used if /path/to/clhep is not set)\n"
+      "--lcgplatform=LCGPLATFORM    : ${LCGPLATFORM} by default\n"
       exit
     else
       if [ "x${arg}" = "x${arg/=/}" ] ; then
@@ -34,11 +32,7 @@ check_arguments () {
       else
         option=${arg/=*/}
         value=${arg/*=/}
-	if   [ "x${option}" = "x--with-clhepversion" ] ; then
-            CLHEP_VERSION=${value}
-	elif [ "x${option}" = "x--with-clhep" ] ; then
-	    CLHEP_PATH=${value}
-	elif [ "x${option}" = "x--lcgplatform" ] ; then
+	if [ "x${option}" = "x--lcgplatform" ] ; then
 	    LCGPLATFORM=${value}
 	else
 	  echo "${arg}: wrong option. Ignored." >&2
@@ -53,30 +47,18 @@ check_arguments () {
 
 check_arguments $* 
 
-# CLHEP_PATH
-: ${CLHEP_PATH:=${PATH_TO_EXTERNAL}/clhep/${CLHEP_VERSION}/${LCGPLATFORM}}  #set PATH if it is not defined
-[ -d ${CLHEP_PATH} ] || { echo "Directory ${CLHEP_PATH} does not exist. Exiting!" ; exit 1; }
-
-echo  "CLHEP_PATH is ${CLHEP_PATH}"
 echo  "Compilation mode is ${COMPMODE}"
 
 #Package-specific:>
-
-INCLUDE_CLHEP_PATH=${CLHEP_PATH}/include
-INCLUDE_CLHEP=" -I${INCLUDE_CLHEP_PATH} "
-LIBS_CLHEP_PATH=${CLHEP_PATH}/lib
-LIBS_CLHEP=" -lCLHEP -L${LIBS_CLHEP_PATH} "
-LIBS_CLHEP_STATIC=" ${LIBS_CLHEP_PATH}/libCLHEP.a "
-echo "Assuming libCLHEP* reside in ${LIBS_CLHEP_PATH}"
-echo "Assuming CLHEP header files reside in ${INCLUDE_CLHEP_PATH}"
 
 #
 # User-changeable part, experts  -----------------------------
 #
 FFLAGS_OPT="-O2 -Wuninitialized"
-FFLAGS_DBG=-g
+FFLAGS_DBG="-g"
 CFLAGS_OPT=-O2
 CFLAGS_DBG=-g
+CXX="g++"
 CXXFLAGS_OPT="-O2 -Wall"
 CXXFLAGS_DBG="-g -Wall"
  
@@ -90,15 +72,15 @@ LDFLAGSSHARED="${CXXFLAGS_OPT} -pthread -fPIC"
 # Find platform.
 #
 ARCH=`uname`
-theGcc=`g++ --version | head -1 | awk '{print$3}' | awk -F . '{print $1}'`
+theGcc=`g++ --version | grep '[0-9]\.[0-9]\.[0-9]' -o | head -1 | awk -F . '{print $1}'`
 if [ ${theGcc} = 4 ]; then
   ARCH=${ARCH}-gcc4
 fi
 echo "Platform is $ARCH"
 
 #default platform settings:
-FC=g77
-CC=gcc
+FC=gfortran
+CC=g++
 FFLAGS="${FFLAGS_OPT}"
 CFLAGS="${CFLAGS_OPT}"
 CXXFLAGS="${CXXFLAGS_OPT}"
@@ -114,7 +96,7 @@ if [ ${COMPMODE} = DBG ]; then
   CXXFLAGS="${CXXFLAGS_DBG}"
 fi
 if [ $ARCH = Linux ]; then
-  FC=g77
+  FC=gfortran
   FFLAGS="${FFLAGS_OPT} -Wno-globals"
   CFLAGS="${CFLAGS_OPT}"
   CXXFLAGS="${CXXFLAGS_OPT}"
@@ -165,7 +147,8 @@ ARCH = ${ARCH}
 LCGPLATFORM = ${LCGPLATFORM}
 FC = ${FC} 
 FFLAGS = ${FFLAGS} 
-CFLAGS = ${CFLAGS} 
+CFLAGS = ${CFLAGS}
+CXX = ${CXX}
 CXXFLAGS = ${CXXFLAGS} -DEVTSTANDALONE
 
 TOPDIR = $(pwd)
@@ -191,19 +174,13 @@ FLIBS = ${FLIBS}
 
 #Package-specific:>
 
-INCLUDE_CLHEP_PATH = ${INCLUDE_CLHEP_PATH}
-INCLUDE_CLHEP = ${INCLUDE_CLHEP}
-LIBS_CLHEP_PATH = ${LIBS_CLHEP_PATH}
-LIBS_CLHEP = ${LIBS_CLHEP}
-LIBS_CLHEP_STATIC = ${LIBS_CLHEP_STATIC}
-
 #<
 EOT
 
 echo " done"
 
 set -v
-mkdir -p tmp/ lib/ lib/archive/
+mkdir -p tmp/ tmp/EvtGenBase tmp/EvtGenModels lib/ lib/archive/
 set +v 
 
 echo -e  "\n\nType 'make' to build everything or 'make help' to list build targets.\n\n"

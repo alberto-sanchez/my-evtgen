@@ -1,0 +1,30 @@
+{
+gROOT->SetStyle("Plain");
+Int_t nbin(30);
+
+TFile *myFile = new TFile("bsmix.root","READ");
+
+myFile->ls();
+
+TH1F *tmix=new TH1F(*h1);
+TH1F *tnomix=new TH1F(*h2);
+
+TCanvas *myCanvas = new TCanvas("c","bsmix",0,0,600,300);
+
+myCanvas->Divide(2,1);
+
+myCanvas->cd(1);
+tmix->Draw();
+
+myCanvas->cd(2);
+tnomix->Draw();
+
+
+
+myCanvas->Print("bsmix.eps");
+
+
+
+}
+
+

@@ -1,0 +1,32 @@
+# $Id: Bs_Dspi,Kpipi=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay BS0 -> DS-(-> PI+ PI- K-) PI+
+#
+# EventType: 13164041
+#
+# Descriptor: {[[B_s0]nos -> (D_s- -> pi+ pi- K-) pi+]cc, [[B_s0]os -> (D_s+ -> pi- pi+ K+) pi-]cc}
+#
+# NickName: Bs_Dspi,Kpipi=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Tested: Yes
+# By: V. Gligorov 
+# Date: 06 Sept 2009
+#    
+Alias      MyD_s-     D_s-
+Alias      MyD_s+     D_s+
+ChargeConj MyD_s+     MyD_s-
+#
+Decay B_s0sig
+  1.000     MyD_s-     pi+      PHSP;
+Enddecay
+CDecay anti-B_s0sig
+#
+Decay MyD_s-
+  1.000     pi+    pi-     K-          PHSP;
+Enddecay
+CDecay MyD_s+
+#
+End
+

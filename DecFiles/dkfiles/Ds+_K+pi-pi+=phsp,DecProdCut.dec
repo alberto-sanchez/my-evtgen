@@ -1,0 +1,24 @@
+# $Id: Ds+_K+pi-pi+=phsp,DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is a decay file for the SCS mode Ds+ -> K+ pi- pi+
+#
+# EventType: 23163000
+#
+# Descriptor: [D_s+ -> K+ pi- pi+]cc
+#
+# NickName: Ds+_K+pi-pi+=phsp,DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Decay products in acceptance, phase space decay model
+#
+# Tested: Yes
+# By: Mat Charles
+# Date: 14 May 2010
+#
+Decay D_s+sig
+  1.000        K+        pi-        pi+             PHSP;
+Enddecay
+CDecay D_s-sig
+#
+End

@@ -1,0 +1,30 @@
+# $Id: incl_Upsilon3S,mm=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author M Needham
+# Date   2009-02-07
+#
+# This is the decay file for the decay Upsilon(3S) -> mu+ mu- 
+#
+# EventType: 18112021
+#
+# Cuts: UpsilonDaughtersInLHCb
+#
+# ExtraOptions: Upsilon
+#
+# Descriptor: Upsilon(3S) -> mu+ mu- {,gamma} {,gamma}
+#
+# NickName: incl_Upsilon3S,mm=DecProdCut
+#
+# Physics: Upsilon(3S) daughters in acceptance
+#
+# Tested: 
+# By: 
+# Date: 
+#
+#
+Decay Upsilon(3S)sig
+  1.000         mu+        mu-        VLL;
+Enddecay
+#
+End
+#

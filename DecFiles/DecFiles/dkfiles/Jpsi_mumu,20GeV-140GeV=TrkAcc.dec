@@ -1,0 +1,29 @@
+# $Id: Jpsi_mumu,20GeV-140GeV=TrkAcc.dec 89808 2010-10-12 10:17:29Z robbep $
+# 
+# Author Gloria CORTI
+# Date   2008-08-24
+# 
+# Decay file for (particle gun) J/Psi->mumu in given energy range and 
+# in Trackers acceptance
+#
+# EventType: 59050001
+#
+# Descriptor: J/psi(1S) -> mu+ mu- {,gamma} {,gamma}
+#
+# NickName: Jpsi_mumu,20GeV-140GeV=TrkAcc
+# 
+# MomentumRange: 20.0*GeV  140.0*GeV
+#
+# Physics: Particle gun J/Psi -> mumu, includes radiative mode
+#
+# Tested: Yes
+# By:     Gloria Corti
+# Date:   02 Dec 2008
+#
+#
+Decay J/psisig
+  1.000         mu+        mu-        PHOTOS VLL;
+Enddecay
+#
+End
+#

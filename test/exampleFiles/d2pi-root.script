@@ -1,0 +1,19 @@
+{
+TFile *myFile = new TFile("d2pi.root","READ");
+myFile->ls();
+TCanvas *myCanvas = new TCanvas("c","D2PI",0,0,600,400);
+myCanvas->Divide(1,2);
+myCanvas->cd(1);
+
+TH1F *hist1=h1;
+TH1F *hist3=h3;
+
+hist1->Draw();
+myCanvas.Update();
+myCanvas->cd(2);
+hist3->Draw();
+myCanvas.Update();
+
+myCanvas->Print("d2pi.eps");
+
+}

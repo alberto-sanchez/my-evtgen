@@ -1,0 +1,50 @@
+# $Id: Omegab_JpsiOmega,mm,LambdaK.dec 89808 2010-10-12 10:17:29Z robbep $
+# 
+# This is the decay file for the decay Omega_b -> Omega- (-> Lambda0 K- ) J/psi (mu mu)
+#
+# EventType: 16145150
+#
+# Descriptor: [Omega_b- -> (Omega- -> Lambda0 K-) (J/psi(1S) -> mu+ mu-)]cc
+#
+# NickName: Omegab_JpsiOmega,mm,LambdaK
+#
+# Physics: 
+#
+# ExtraOptions: NRepetitions=100000
+#
+# Tested: Yes
+# By: Yasmine Amhis
+# Date: 11-23-09
+#
+Alias      MyOmega      Omega-
+Alias      Myanti-Omega anti-Omega+
+ChargeConj Myanti-Omega MyOmega
+#
+Alias      MyLambda      Lambda0
+Alias      Myanti-Lambda anti-Lambda0
+ChargeConj Myanti-Lambda MyLambda
+#
+Alias      MyJ/psi       J/psi
+ChargeConj MyJ/psi       MyJ/psi
+# 
+Decay Omega_b-sig 
+  1.000    MyOmega          MyJ/psi      PHSP;
+Enddecay
+CDecay anti-Omega_b+sig
+#
+Decay MyOmega
+  1.000    MyLambda  K-                      PHSP;
+Enddecay
+CDecay Myanti-Omega
+#
+Decay MyJ/psi
+  1.000     mu+  mu-                    PHOTOS VLL;
+Enddecay
+#
+Decay MyLambda
+  1.000   p+          pi-                PHSP;
+Enddecay
+CDecay Myanti-Lambda
+#
+End
+#

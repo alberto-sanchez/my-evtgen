@@ -1,0 +1,22 @@
+{
+TFile *myFile = new TFile("kstarstargamma.root","READ");
+myFile->ls();
+
+TCanvas *myCanvas = new TCanvas("c","kstarstargamma",0,0,600,400);
+myCanvas->Divide(2,2);
+
+TH1F *th1=h1;
+TH1F *th2=h2;
+
+myCanvas->cd(1);
+th1->Draw();
+myCanvas->cd(2);
+th2->Draw();
+myCanvas.Update();
+
+myCanvas->Print("kstarstargamma.eps");
+
+
+
+}
+

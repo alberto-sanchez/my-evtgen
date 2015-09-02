@@ -1,0 +1,31 @@
+# $Id: D+_KsK+=phsp,DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is a decay file for D+ -> K0s(-> pi- pi+) K+
+#
+# EventType: 21103110
+#
+# Descriptor: [D+ -> (KS0 -> pi+ pi-) K+]cc
+#
+# NickName: D+_KsK+=phsp,DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Decay products in acceptance, phase space decay model
+#
+# Tested: Yes
+# By: C. Jones
+# Date: 27/10/2009
+#
+Alias        MyK0s   K_S0
+ChargeConj   MyK0s   MyK0s
+#
+Decay D+sig
+  1.000        MyK0s         K+              PHSP;
+Enddecay
+CDecay D-sig
+#
+Decay MyK0s
+  1.000        pi+           pi-             PHSP;
+Enddecay
+#
+End

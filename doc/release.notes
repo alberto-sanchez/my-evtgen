@@ -1,8 +1,154 @@
 !-----------------------------------------------------------------------------
 ! Package     : EvtGen
-! Responsible : Patrick Robbe 
+! Responsible : Patrick Robbe, Mark Whitehead 
 ! Purpose     : 
 !-----------------------------------------------------------------------------
+
+! 2011-01-05 - John Back
+ - EvtTensor4C.cpp: Correction to EvtTensor4C::cont() from Anders Ryd
+ - EvtParticle.cpp: Removed assert from generateMassTree()
+
+!========================= EvtGen v12r0 2010-12-09 ==========================
+! 2010-12-09 - John Back
+ Below is a summary of the merge between the latest BaBar & LHCb EvtGen code.
+ - EvtCPUtil.cpp: Class interface changed to use static instance and not
+   static functions. There are now two OtherB functions for coherent and 
+   incoherent B pairs (set to incoherent by default for LHCb).
+ - EvtGen.cpp: Added extra integer argument in constructor to choose 
+   EvtCPUtil OtherB function type. Default is set to incoherent B pairs.
+   Removed CLHEP includes.
+ - All CP violation model classes: changes for new EvtCPUtil::OtherB()
+   interface.
+ - EvtLASSAmp.cpp: Added two sub-amplitude types LASS_ELASTIC and 
+   LASS_RESONANT. The constructor takes an additional string to specify
+   what amplitude is used (default is set to LASS, the original version).
+ - Added EvtBaryonPCR and EvtBaryonPCRFF models for baryonic semileptonic 
+   decays using more realistic dynamics.
+ - EvtModelReg.cpp: Added EvtBaryonPCR model.
+ - Added EvtSemiLeptonicBaryonAmp.cpp for the above baryon models.
+ - EvtSemiLeptonicFF.hh: Added getdiracff() and getraritaff() methods for 
+   the new baryon models. Since other semileptonic models (ModelNameFF.cpp) 
+   use this class, they also need to implement these new methods (which
+   actually do no extra calculations).
+ - Changed EvtWilsonCoeficients to EvtWilsonCoefficients, used in 
+   EvtGenModels/EvtLb2Lll.hh.
+
+!========================= EvtGen v11r10 2010-10-12 ==========================
+! 2010-10-12 - Patrick Robbe
+ - EvtPythia.cpp: correct destructor to reset vector of Pythia commands
+
+!========================== EvtGen v11r9 2010-07-08 ==========================
+! 2010-06-24 - Mark Whitehead
+ - EvtModelReg.cpp Turned EvtBToDDalitzCPK model back on
+
+!========================= EvtGen v11r8p1 2010-05-09 =========================
+! 2010-05-05 - Patrick Robbe
+ - EvtPythia.cpp: use temporary file name to store Pythia new decay table
+
+!========================== EvtGen v11r8 2010-01-26 ==========================
+! 2010-01-26 - Patrick Robbe
+ - EvtModelReg.cpp: reactivates Direct CPV
+
+! 2010-01-22 - Patrick Robbe
+ - EvtBTo3piCP.cpp: use OtherB function with 4 arguments to have this
+   model working correctly in LHCb.
+ - EvtCPUtil.cpp: abort when using EvtCPUtil::OtherB with 3 arguments as
+   this does not work for hadronic environment
+ - EvtBTo3pi.F: reintroduce changes made long time ago for 64 bits
+
+!========================== EvtGen v11r7 2009-12-17 ==========================
+! 2009-12-17 - Mark Whitehead
+ - CPV Fix moved from EvtIncoherentMixing.cpp to EvtCPUtil.cpp so
+   calls to the 4 paramater EvtCPUtil::OtherB from all decay models 
+   can be tested.     
+
+! 2009-11-27 - Mark Whitehead
+ - Fix to EvtIncoherentMixing.cpp for slc5: <stdlib.h> included.
+
+! 2009-11-24 - Mark Whitehead
+ - Reintroduce file EvtIncoherentMixing.cpp to fix CPV problems.
+ - EvtSSDCP.cpp: Swap EvtCPUtils::OtherB for EvtIncoherentMixing::OtherB. 
+ - EvtSSDCP.cpp: Changes by Liming to fix CPV behaviour.
+
+!========================== EvtGen v11r6 2009-11-04 ==========================
+! 2009-10-19 - Patrick Robbe 
+ - Fix gcc4.3 compilation, mainly dealing with scope of friend functions
+
+!========================== EvtGen v11r5 2009-10-05 ==========================
+! 2009-09-19 - Patrick Robbe for Marwa Jahjah Hussein
+ - EvtLambdaB2LambdaV.h/.cpp: correct decay model
+
+!========================== EvtGen v11r4 2009-09-18 ==========================
+! 2009-09-03 - Patrick Robbe
+ - EvtbTosllAli.cpp, EvtbTosllBall.cpp: correct bug in use of
+   initializePhaseSpace function (missing 3rd argument)
+
+! 2009-08-14 - Patrick Robbe
+ - EvtModelReg: reactivate direct CPV model
+
+!========================== EvtGen v11r3 2009-07-15 ==========================
+! 2009-07-13 - Greig Cowan
+ - Fixed EvtPVVCPLH model to use the new framework. Added getDeltaGamma() and
+   getDeltaM() methods to EvtCPUtil.cpp. Added EvtPVVCPLH into the list of 
+   allowed decay models.
+
+!========================== EvtGen v11r2 2009-06-03 ==========================
+! 2009-06-03 - Patrick Robbe
+ - EvtParticle.cpp: Allow mixing of aliases
+
+!========================== EvtGen v11r1 2009-05-27 ==========================
+! 2009-05-25 - Mark Whitehead
+ - EvtCPUtil.cpp: Bugs in incoherentmix routine fixed.
+
+! 2009-04-14 - Patrick Robbe
+ - EvtModelReg.cpp: reintroduce EvtLambdaB2LambdaV decay model
+
+!========================== EvtGen v11r0 2009-04-08 ==========================
+! 2009-04-08 - Patrick Robbe
+ - Pythia.F: fix decay routine (wrong index when calling PYSHOW routine)
+
+! 2009-04-02 - Patrick Robbe
+ - Fix compilation warnings for slc4 at various places.
+
+! 2009-03-28 - Patrick Robbe
+ - EvtPythia.cpp: reintroduce LHCb Pythia model
+
+! 2009-03-16 - Patrick Robbe
+ - Move to new EvtGen version from Anders Ryd after merging BaBar
+   and LHCb changes. 
+
+! 2009-02-26 - Patrick Robbe
+ - EvtParticleDecayList.cpp: fix case when decay mode is forced
+
+!========================== EvtGen v10r2 2009-02-09 ==========================
+! 2009-01-20 - Will REECE
+ - EvtGen, EvtModelReg. Adds a hook so new decay models can be passed in from
+   an external pacakge - in this case EvtGenExtras
+
+!========================== EvtGen v10r1 2009-01-13 ==========================
+! 2008-12-16 - Patrick Robbe
+ - EvtGen, EvtModel, EvtPythia: fix memory leaks reported by valgrind
+
+! 2008-12-11 - Patrick Robbe
+ - EvtRanf: use double instead of float to be able to run in debug
+   mode on 64 bit machines
+ - EvtBTo3Pi.F: use double precision evtranf function for 64 bit 
+   computers
+
+!========================== EvtGen v10r0 2008-10-10 ==========================
+! 2008-09-20 - Patrick Robbe
+ - EvtGen/EvtGen.hh, src/EvtGen.cpp: remove CLHEP dependancy (remove 2 
+   obsolete functions)
+ - src/EvtConst.cpp: update pi value to be equal to the GAUDI one
+ - src/EvtPythiaPart.F: remove "external pydata" since it is done in GENSER 
+   package
+ - src/EvtVub.cpp, EvtVubdGamma.cpp: start to remove CLHEP dependancy (usage 
+   of CLHEP physical constants replaced by EvtConst::pi)
+ - src/Pythia.F: update for Pythia6.4
+
+!========================== EvtGen v9r2 2008-07-18 ===========================
+! 2008-07-10 - Patrick Robbe
+ - Remove compilation warnings
 
 !========================== EvtGen v9r1 2008-03-20 ===========================
 ! 2008-03-20 - Gloria CORTI

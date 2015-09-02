@@ -1,0 +1,28 @@
+# $Id: incl_Jpsi,mm=NoCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author Patrick Robbe
+# Date   2004-03-17
+#
+# This is the decay file for the decay prompt J/psi -> mu+ mu- 
+#
+# EventType: 24142002
+#
+# Cuts: 
+#
+# Descriptor: J/psi(1S) -> mu+ mu- {,gamma} {,gamma}
+#
+# NickName: incl_Jpsi,mm=NoCut
+#
+# Physics: No acceptance cuts
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 21 Jun 2010
+#
+#
+Decay J/psisig
+  1.000         mu+        mu-        VLL;
+Enddecay
+#
+End
+#

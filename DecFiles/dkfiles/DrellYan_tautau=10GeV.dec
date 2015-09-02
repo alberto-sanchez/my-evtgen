@@ -1,0 +1,22 @@
+# $Id $
+#
+# EventType: 42102011
+#
+# Descriptor: pp -> (Z0/gamma* -> tau+ tau-) ... 
+#
+# NickName: DrellYan_tautau=10GeV
+#
+# Physics: 1 lepton
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonIsFromMother true NumberOfbquarks -1 LeptonPtMin 1.0*GeV
+#
+# ExtraOptions: DrellYantautau10GeV
+#
+# Tested: Yes
+# By: Karol Hennessy
+# Date: 27 August 2007
+#
+End
+#

@@ -1,0 +1,21 @@
+#
+# Author: Neal Gauvin
+# Date: 3 august 2009
+#
+# EventType: 42900001
+#
+# Descriptor: pp -> (Z0 -> b b~) ... 
+#
+# NickName: Z_2binacc
+#
+# Physics: Z decays into b bbar with both b in acceptance
+#
+# Cuts: PythiaLSP
+#
+# ExtraOptions: Zbb
+#
+# Tested: Yes
+# By: Neal Gauvin (Gueissaz)
+# Date: 3 august 2009
+#
+End

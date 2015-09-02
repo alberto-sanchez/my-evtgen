@@ -1,0 +1,7 @@
+#include "$DECFILESROOT/options/RevertToPlainPythia.opts"
+
+Generation.MinimumBias.PythiaProduction.Commands += { 
+  "pysubs msel 1" ,
+  "pypars mstp 5 320" 
+};
+

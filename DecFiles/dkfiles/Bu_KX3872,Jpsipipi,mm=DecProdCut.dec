@@ -1,0 +1,45 @@
+# $Id: Bu_KX3872,Jpsipipi,mm=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author Nicola Mangiafave
+# Date   2008-12-04
+#
+# This is the decay file for the decay B+ -> K+ X(3872)(-> J/psi(-> MU+ MU-) PI+ PI-)
+#
+# EventType: 12145011
+#
+# Descriptor: [B+ -> K+ (X_1(3872) -> (J/psi(1S) -> mu+ mu- {,gamma} {,gamma}) pi+ pi-)]cc
+#
+# NickName: Bu_KX3872,Jpsipipi,mm=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Includes radiative mode, decay products in acceptance
+#
+# Tested: Yes
+# By: Nicola Mangiafave
+# Date: 04 Dec 2008
+#
+Alias      MyJ/psi  J/psi
+Alias      MyX_1(3872)  X_1(3872)
+ChargeConj MyX_1(3872)  MyX_1(3872)
+ChargeConj MyJ/psi  MyJ/psi
+#
+#
+#
+Decay B+sig
+  1.000    MyX_1(3872)   K+         PHSP;
+Enddecay
+CDecay B-sig
+#
+Decay MyX_1(3872)
+  1.000         MyJ/psi         pi+   pi-         PHSP;
+Enddecay
+#
+Decay MyJ/psi
+  1.000         mu+        mu-        PHOTOS VLL;
+Enddecay
+#
+End
+#
+
+

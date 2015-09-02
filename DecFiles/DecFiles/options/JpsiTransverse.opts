@@ -1,0 +1,4 @@
+ToolSvc.EvtGenDecay.PolarizedCharmonium = true ;
+ToolSvc.EvtGenDecay.RealHelOne = 1.0 ;
+ToolSvc.EvtGenDecay.RealHelZero = 0. ;
+

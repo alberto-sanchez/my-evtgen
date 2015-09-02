@@ -38,6 +38,14 @@ class EvtISGWFF : public EvtSemiLeptonicFF {
                        double t, double mass, double *hf,
                        double *kf, double *bpf, double *bmf );
 
+  void getbaryonff(EvtId, EvtId, double, double, double*, 
+		   double*, double*, double*);
+
+  void getdiracff(EvtId, EvtId, double, double, double*, double*,
+                  double*, double*, double*, double*);
+
+  void getraritaff(EvtId, EvtId, double, double, double*, double*, 
+		   double*, double*, double*, double*, double*, double*);
 
     // getscalarff, getvectorff, and gettensorff call the
     // correct isgw form factor routine which computes 

@@ -1,0 +1,30 @@
+# $Id: Bs_KSK+K-=phsp.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay B_s0 -> K+ K- K0S(-> PI+ PI-)
+#
+# EventType: 13104130
+#
+# Descriptor: [B_s0 -> K+ K- (KS0 -> pi+ pi-)]cc
+#
+# NickName: Bs_KSK+K-=phsp
+#
+# Physics: Non resonant, K0s forced into pi+ pi-
+#
+# Tested: Yes
+# By: Tom Latham
+# Date:  3 Dec 2010
+#
+Alias      MyKs    K_S0
+ChargeConj MyKs    MyKs
+#
+Decay B_s0sig
+  1.000        K+     K-      MyKs        PHSP;
+Enddecay
+CDecay anti-B_s0sig
+#
+Decay MyKs
+  1.000        pi+      pi-                 PHSP;
+Enddecay
+#
+End
+

@@ -1,0 +1,14 @@
+{
+TFile *myFile = new TFile("ddalitz.root","READ");
+myFile->ls();
+TCanvas *myCanvas = new TCanvas("c","DDALITZ",0,0,600,400);
+
+
+TH2F *hist1=h1;
+
+hist1->Draw();
+myCanvas.Update();
+
+myCanvas->Print("ddalitz.eps");
+
+}

@@ -1,0 +1,17 @@
+{
+TFile *myFile = new TFile("lambda.root","READ");
+myFile->ls();
+TCanvas *myCanvas = new TCanvas("c","LAMBDA",0,0,600,400);
+
+TH1F *hist1=h1;
+
+hist1->Fit("pol1");
+
+hist1->Draw();
+myCanvas.Update();
+
+myCanvas->Print("lambda.eps");
+
+
+}
+

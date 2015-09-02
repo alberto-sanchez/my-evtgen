@@ -1,0 +1,28 @@
+# $Id: Jpsi_pp=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author Sergey Barsuk
+# Date   2010-05-27
+#
+# This is the decay file for the decay prompt  J/psi(1S) -> p+ p- 
+#
+# EventType: 24102000
+#
+# Cuts: DaughtersInLHCb
+#
+# Descriptor: J/psi(1S) -> p+ p- 
+#
+# NickName: Jpsi_pp=DecProdCut 
+#
+# Physics: J/psi daughters in acceptance
+#
+# Tested: Yes
+# By: Sergey Barsuk
+# Date: 27 May 2010
+#
+#
+Decay J/psisig
+  1.000         p+        anti-p-        PHSP;
+Enddecay
+#
+End
+#

@@ -1,10 +1,9 @@
-#! /bin/bash
+#!/bin/sh
 #
-
-. .scripts/platform_functions
-lcgplatform=$(check_platform)
-
-./configure --lcgplatform=${lcgplatform} --with-clhepversion=1.9.3.1 
-
-exit
-
+# GENSER configuration:
+#
+. TOOLS/lcg_platform.sh
+lcg_platform #<-- here LCG_PLATFORM is set
+#INSTALL_DIR=${MCGENERATORS}/evtgenlhc/10.0/${LCG_PLATFORM}
+export FFLAGS="-O2 -fPIC -Wuninitialized"
+./configure --lcgplatform=${LCG_PLATFORM}

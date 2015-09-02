@@ -39,15 +39,18 @@ public:
 
   ~EvtParticleDecayList();
 
-  int getNMode(){return _nmode;}
+  EvtParticleDecayList& operator=(const EvtParticleDecayList &o);
+
+  int getNMode() const {return _nmode;}
 
   void setNMode(int nmode);
 
   EvtDecayBase* getDecayModel(EvtParticle *p);
-  EvtDecayBase* getDecayModel(int imode) {
-    return _decaylist[imode]->getDecayModel();}
+  EvtDecayBase* getDecayModel(int imode) {return _decaylist[imode]->getDecayModel();}
+  const EvtDecayBase* getDecayModel(int imode) const {return _decaylist[imode]->getDecayModel();}
 
-  EvtParticleDecay& getDecay(int nchannel);
+
+  EvtParticleDecay& getDecay(int nchannel) const;
 
   double getRawBrfrSum() {return _rawbrfrsum;}
   void setRawBrfrSum(double rawbrfrsum) {_rawbrfrsum=rawbrfrsum;}
@@ -60,13 +63,14 @@ public:
     _decaylist= new EvtParticleDecayPtr[nmode];
   }
 
+  void removeMode(EvtDecayBase* decay);
+
   void addMode(EvtDecayBase* decay,double brfr,double massmin);
   void finalize();
 
   void printSummary();
 
-  bool isJetSet() ;
-  
+  bool isJetSet() const ;
 
 private:
 

@@ -1,0 +1,20 @@
+# $Id: minbias_Perugia0WithDefaultPythiaProcesses.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author: Patrick Robbe
+# Date:   2004-04-29
+#
+# EventType: 30000011
+#
+# Descriptor: pp => ?
+#
+# NickName: minbias_Perugia0WithDefaultPythiaProcesses
+#
+# ExtraOptions: Perugia0_DefaultPythiaProcesses
+#
+# Physics:
+#
+# Tested: No
+# By:     
+# Date: 
+#
+End

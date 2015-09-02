@@ -1,0 +1,17 @@
+# $Id: beamGasExp,2=Hydrogen.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This decay file contains the steering for beam gas (on Hydrogen.
+# It can be used with both Pythia and Hijing as production engine.
+# It is for beam 2.
+# Author Gloria Corti
+# Date   2008-04-29
+#
+# EventType: 60012001
+#
+# Descriptor: p H1[0,0] => ?
+#
+# NickName: beamGasExp,2=Hydrogen
+#
+# ExtraOptions: BeamGasExp
+#
+End

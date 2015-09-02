@@ -1,0 +1,25 @@
+#
+# Author: Neal Gauvin
+# Date: 3 august 2009
+#
+# EventType: 42912001
+#
+# Descriptor: pp -> (Z0 -> l+ l-) (Z0 -> b b~) ... 
+#
+# NickName: ZZ_ll,bb
+#
+# Physics: 1 lepton with pT > 10 GeV and 2 b quarks with pz > 0
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 10*GeV LeptonIsFromMother true NumberOfbquarks 0 MotherOfThebquarks "Z0"
+#
+# ExtraOptions: ZZllbb
+#
+# Tested: Yes
+# By: Neal Gauvin (Gueissaz)
+# Date: 3 august 2009
+#
+End
+#
+

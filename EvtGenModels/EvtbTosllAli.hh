@@ -32,10 +32,10 @@ class EvtbTosllAli:public  EvtDecayAmp  {
 
 public:
 
-  EvtbTosllAli() {}
+  EvtbTosllAli(): _aliffmodel(0), _calcamp(0) {}
   virtual ~EvtbTosllAli();
 
-  void getName(std::string& name);
+  std::string getName();
   EvtDecayBase* clone();
 
   void decay(EvtParticle *p);

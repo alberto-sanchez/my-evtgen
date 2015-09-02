@@ -33,6 +33,21 @@ public:
                        double t, double mass, double *a1f,
                        double *a2f, double *vf, double *a0f );
 
+  void getscalarff(EvtId, EvtId, double, double, double*, 
+		   double*);
+
+  void gettensorff(EvtId, EvtId, double, double, double*, 
+		   double*, double*, double*);
+
+  void getbaryonff(EvtId, EvtId, double, double, double*, 
+		   double*, double*, double*);
+
+  void getdiracff(EvtId, EvtId, double, double, double*, double*,
+                  double*, double*, double*, double*);
+
+  void getraritaff(EvtId, EvtId, double, double, double*, double*, 
+		   double*, double*, double*, double*, double*, double*);
+
 private:
   int whichfit;
 

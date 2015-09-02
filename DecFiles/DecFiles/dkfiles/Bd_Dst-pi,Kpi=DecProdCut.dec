@@ -1,0 +1,42 @@
+# This is the decay file for the decay  [B0 -> (D∗(2010)- -> (D~0 -> K+ pi-) pi-) pi+]cc
+#
+# EventType: 11164041
+#
+# Descriptor: [B0 -> (D∗(2010)- -> (D~0 -> K+ pi-) pi-) pi+]cc
+#
+# NickName: Bd_Dst-pi,Kpi=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: D*+  bkg
+#
+# Tested: Yes
+# By: Paolo Gandini
+# Date: 22 Nov 2010
+#
+#
+Alias MyD*+       D*+
+Alias MyD*-       D*-
+ChargeConj MyD*+  MyD*-
+Alias MyD0        D0
+Alias Myanti-D0   anti-D0
+ChargeConj MyD0   Myanti-D0
+##
+Decay B0sig
+  1.000    MyD*-  pi+    SVS;
+Enddecay
+CDecay anti-B0sig
+Decay MyD*+
+  1.000    MyD0       pi+          VSS;
+Enddecay
+Decay MyD*-
+  1.000    Myanti-D0  pi-          VSS;
+Enddecay
+#
+Decay MyD0
+  1.000     K-  pi+        PHSP;
+Enddecay
+CDecay Myanti-D0
+#
+End
+

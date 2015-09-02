@@ -1,0 +1,23 @@
+# $Id: incl_b=DiElectron,pt1GeV,m6GeV.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author: Patrick Koppenburg
+# Date:   2009-10-27
+#
+# EventType: 10022000
+#
+# Descriptor: pp => [<Xb>]cc ...
+#
+# NickName: incl_b=DiElectron,pt1GeV,m6GeV
+#
+# FullEventCuts: DiLeptonInAcceptance
+#
+# ExtraOptions: DiElectronPt1GeVMass6GeV
+# 
+# Physics: Di-electron filter (high Pt, mass up to B)
+#
+# Tested: Yes
+# By:     Patrick Koppenburg
+# Date:   2009-09-27
+#
+End
+#

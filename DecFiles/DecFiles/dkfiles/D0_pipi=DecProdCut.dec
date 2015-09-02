@@ -1,0 +1,24 @@
+#
+# This is the decay file for the decay D0 -pi pi+
+#
+# EventType: 22162002
+#
+# Descriptor: [D0 -> pi- pi+]cc
+#
+# NickName: D0_pipi=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Phase space decay model
+#
+# Tested: Yes
+# By: W.bonivento
+# Date: 29 Oct 2010
+#
+Decay D0sig
+  1.0   pi-  pi+   PHSP;
+Enddecay
+CDecay anti-D0sig
+#
+End
+

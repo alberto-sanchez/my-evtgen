@@ -1,0 +1,23 @@
+# $Id: W_taunutau.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# EventType: 42300000
+#
+# Descriptor: pp -> [W+ -> tau+ nu_tau]cc ... 
+#
+# NickName: W_taunutau
+#
+# Physics: 1 lepton with pT > 4 GeV 
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromMother true NumberOfbquarks -1
+#
+# ExtraOptions: Wtaunu
+#
+# Tested: 
+# By: Tara Shears
+# Date: 
+#
+End
+#
+

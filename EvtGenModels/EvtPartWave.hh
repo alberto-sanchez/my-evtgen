@@ -32,10 +32,10 @@ class EvtPartWave:public  EvtDecayAmp{
 
 public:
 
-  EvtPartWave() {}
+  EvtPartWave() : _evalHelAmp(0) {}
   virtual ~EvtPartWave();
 
-  void getName(std::string& name);
+  std::string getName();
   EvtDecayBase* clone();
 
   void init();
@@ -49,9 +49,6 @@ private:
   void fillHelicity(int* lambda2,int n,int J2);
 
   EvtEvalHelAmp* _evalHelAmp;
-  EvtComplexPtr * _HBC ;
-  int _nB ;
-  
 
 };
 

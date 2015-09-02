@@ -1,0 +1,23 @@
+# $Id: incl_b=DiMuon,p3GeV,mD.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author Patrick Koppenburg
+# Date   2009-10-29
+#
+# EventType: 10012006
+#
+# Descriptor: pp => [<Xb>]cc ...
+#
+# NickName: incl_b=DiMuon,p3GeV,mD
+#
+# FullEventCuts: DiLeptonInAcceptance
+#
+# ExtraOptions: DiMuonDMass
+# 
+# Physics: Di-muon filter
+#
+# Tested: Yes
+# By:     Patrick Koppenburg
+# Date:   2009-10-29
+#
+#
+End

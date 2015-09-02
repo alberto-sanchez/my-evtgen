@@ -1,0 +1,33 @@
+# $Id: Bd_D0Rho0,Kpi=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay B0 -> D0B(-> K+ PI-) rho*0(-> PI+ PI-)
+#
+# EventType: 11164012
+#
+# Descriptor: {[[B0]nos -> (D~0 -> K+ pi-)(rho(770)0 -> pi+ pi-)]cc, [[B0]os -> (D0 -> K- pi+) (rho(770)0 -> pi+ pi-)]cc}
+#
+# NickName: Bd_D0rho0,Kpi=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+#
+# Tested: 
+# By: 
+# Date: 
+#
+Alias      Myanti-D0   anti-D0
+Alias      MyD0        D0
+ChargeConj MyD0        Myanti-D0
+#
+Decay B0sig
+  1.000        rho0     Myanti-D0              SVS;
+Enddecay
+CDecay anti-B0sig
+#
+Decay Myanti-D0
+  1.000        K+        pi-                    PHSP;
+Enddecay
+CDecay MyD0
+#
+End
+

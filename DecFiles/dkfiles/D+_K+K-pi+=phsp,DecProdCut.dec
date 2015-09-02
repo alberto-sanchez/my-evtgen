@@ -1,0 +1,24 @@
+# $Id: D+_K+K-pi+=phsp,DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is a decay file for D+ -> K+ K- pi+
+#
+# EventType: 21163000
+#
+# Descriptor: [D+ -> K+ K- pi+]cc
+#
+# NickName: D+_K+K-pi+=phsp,DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Decay products in acceptance, phase space decay model
+#
+# Tested: Yes
+# By: Malcolm John
+# Date: 18 Oct 2008
+#
+Decay D+sig
+  1.000        K+        K-        pi+             PHSP;
+Enddecay
+CDecay D-sig
+#
+End

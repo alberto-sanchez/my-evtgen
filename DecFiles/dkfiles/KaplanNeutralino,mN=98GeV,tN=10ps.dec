@@ -1,0 +1,25 @@
+#
+# Author: Neal Gauvin
+# Date: 23 Oct 2008
+#
+# EventType: 45000030
+#
+# Descriptor: pp -> (X -> ~chi_10 -> (u, d, s, c, b) + jet ... )
+#
+# NickName: KaplanNeutralino,mN=98GeV,tN=10ps
+#
+# Physics: Neutralino from SUSY (Kaplan model) in all final states, M=98GeV, t=10ps
+#
+# ParticleTable: Kaplan_mk98
+#
+# Cuts: PythiaLSP
+# 
+# SUSYModel: Kaplan_mk98 10ps
+#
+# Tested: Yes
+# By: Neal Gauvin
+# Date: 2 Oct 2009
+#
+End
+#
+#

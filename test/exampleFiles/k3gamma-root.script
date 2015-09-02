@@ -1,0 +1,13 @@
+{
+TFile *myFile = new TFile("k3gamma.root","READ");
+myFile->ls();
+TCanvas *myCanvas = new TCanvas("c","K3GAMMA",0,0,600,400);
+
+TH1F *hist1=h1;
+
+hist1->Draw();
+myCanvas.Update();
+
+myCanvas->Print("k3gamma.eps");
+
+}

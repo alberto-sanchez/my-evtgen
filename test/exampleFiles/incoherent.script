@@ -1,0 +1,21 @@
+{
+TFile *myFile = new TFile("incoherent.root","READ");
+myFile->ls();
+
+TCanvas *myCanvas = new TCanvas("c","INCOHERENT",0,0,600,400);
+myCanvas->Divide(2,2);
+myCanvas->cd(1);
+
+
+Int_t type=111;
+
+TH1F *h1=h1;
+TH1F *h2=h2;
+
+h1->Draw();
+myCanvas->cd(2);
+h2->Draw();
+
+myCanvas->Print("incoherent.eps");
+
+}

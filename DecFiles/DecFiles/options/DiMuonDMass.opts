@@ -1,0 +1,12 @@
+#units "$STDOPTS/units.opts"
+
+Generation.SampleGenerationTool = "RepeatDecay" ;
+Generation.RepeatDecay.NRedecay =  50 ;
+Generation.RepeatDecay.Inclusive.ProductionTool = "PythiaProduction";
+Generation.FullGenEventCutTool = "DiLeptonInAcceptance" ;
+Generation.DiLeptonInAcceptance.RequireOppositeSign = true ;
+Generation.DiLeptonInAcceptance.RequireSameSign = false ;
+Generation.DiLeptonInAcceptance.MinMass = 1765*MeV ;
+Generation.DiLeptonInAcceptance.MinMass = 1965*MeV ;
+Generation.DiLeptonInAcceptance.LeptonOnePMin = 3*GeV ;
+Generation.DiLeptonInAcceptance.LeptonTwoPMin = 3*GeV ;

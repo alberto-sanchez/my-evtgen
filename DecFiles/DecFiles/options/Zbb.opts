@@ -1,0 +1,93 @@
+/** @file
+ *  Options to include to produce Z->bbbar.
+ *
+ *  @author Neal Gauvin (Gueissaz)
+ *  @date   3 august 2009
+ */
+
+//Pile-up and luminosity
+Generation.PileUpTool = "FixedLuminosityForRareProcess";
+
+// list of particles to be printed using PyList(12)
+Generation.Special.PythiaProduction.PDTList = { 23, 24 };
+
+Generation.Special.PythiaProduction.Commands +=
+  {
+    //"pyinit pyliste 3"
+    
+    "pysubs msel 0" ,
+    "pysubs msub 1 1" ,
+    "pysubs msub 2 0" ,
+    "pysubs msub 15 1" ,
+    "pysubs msub 16 0" ,
+    "pysubs msub 19 1" ,
+    "pysubs msub 20 0" ,
+    "pysubs msub 22 1" ,
+    "pysubs msub 23 1" , //Fi fjbar->Z+W
+    "pysubs msub 25 0" ,
+    "pysubs msub 30 1" ,
+    "pysubs msub 31 0" ,
+    
+    //Only Z production
+    "pypars mstp 43 2" ,
+    
+    //Z->bbbar
+    "pydat3 mdme 120 1 0" ,
+    "pydat3 mdme 121 1 0" ,
+    "pydat3 mdme 122 1 0" ,
+    "pydat3 mdme 123 1 0" ,
+    "pydat3 mdme 124 1 1" ,
+    "pydat3 mdme 125 1 0" ,
+    "pydat3 mdme 126 1 0" ,
+    "pydat3 mdme 127 1 0" ,
+    "pydat3 mdme 128 1 0" ,
+    "pydat3 mdme 129 1 0" ,
+    "pydat3 mdme 130 1 0" ,
+    "pydat3 mdme 131 1 0" ,
+    "pydat3 mdme 132 1 0" ,
+    "pydat3 mdme 133 1 0" ,
+    "pydat3 mdme 134 1 0" ,
+    "pydat3 mdme 135 1 0"  
+    
+    //W->Hadrons
+    "pydat3 mdme 136 1 1" ,
+    "pydat3 mdme 137 1 1" ,
+    "pydat3 mdme 138 1 1" ,
+    "pydat3 mdme 139 1 0" ,
+    "pydat3 mdme 140 1 1" ,
+    "pydat3 mdme 141 1 1" ,
+    "pydat3 mdme 142 1 1" ,
+    "pydat3 mdme 143 1 0" ,
+    "pydat3 mdme 144 1 1" ,
+    "pydat3 mdme 145 1 1" ,
+    "pydat3 mdme 146 1 1" ,
+    "pydat3 mdme 147 1 0" ,
+    "pydat3 mdme 148 1 0" ,
+    "pydat3 mdme 149 1 0" ,
+    "pydat3 mdme 150 1 0" ,
+    "pydat3 mdme 151 1 0",
+    "pydat3 mdme 152 1 0", //enu
+    "pydat3 mdme 153 1 0", //munu
+    "pydat3 mdme 154 1 0",
+    "pydat3 mdme 155 1 0"
+    
+  } ;
+
+//Cut Tool options : >= 4 b in acceptance
+//Generation.ParticlesInAcceptance.PartCond = 1 ;
+//Generation.ParticlesInAcceptance.NbPart = 4 ;
+//Generation.ParticlesInAcceptance.AtLeast = true ;
+//Generation.ParticlesInAcceptance.EtaMax = 1000.;
+//Generation.ParticlesInAcceptance.PartID = { 3,4,5 } ;
+
+//Cut Tool options
+Generation.Special.PythiaLSP.LSPID = { 5 };
+Generation.Special.PythiaLSP.LSPCond = 1 ;//following daughters in acc
+//Generation.Special.PythiaLSP.DgtsInAcc = { 5 };
+Generation.Special.PythiaLSP.NbLSP = 4 ;
+Generation.Special.PythiaLSP.EtaMax = 1000.;
+Generation.Special.PythiaLSP.OutputLevel = 3;
+
+
+//set off unwanted processes
+#include "$DECFILESROOT/options/SwitchOffAllPythiaProcesses.opts"

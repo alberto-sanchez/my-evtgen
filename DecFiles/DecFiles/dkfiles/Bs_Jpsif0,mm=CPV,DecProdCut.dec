@@ -1,0 +1,47 @@
+# $Id: Bs_Jpsif0,mm=CPV,DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+# 
+# This is the decay file for the decay BS0 -> PSI(-> MU+ MU-) f0(980)(-> PI+ PI-)
+#
+# EventType: 13144012
+#
+# Descriptor: [B_s0 -> (J/psi(1S) -> mu+ mu- {,gamma} {,gamma}) (f_0(980) -> pi+ pi-)]cc
+#
+# NickName: Bs_Jpsif0,mm=CPV,DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Includes radiative mode, CP violation, different lifetimes, decay products in acceptance
+#
+# Tested: Yes
+# By: Liming Zhang
+# Date: 01 Dec 2008
+#
+# Parameters are:
+# P(1) = deltaM = 20e12
+# P(2) = dg/g = 0.1
+# P(3) = |q/p| = 1
+# P(4) = arg(q/p) = 0.04
+# P(5) = |Af| = 1.0
+# P(6) = arg(Af) = 0.
+# P(7) = |Abarf| = -1.0
+# P(8) = arg(Abarf) = 0.
+# 
+Alias      MyJ/psi  J/psi
+ChargeConj MyJ/psi  MyJ/psi
+Alias      Myf_0    f_0
+ChargeConj Myf_0    Myf_0
+#
+#
+Decay B_s0sig
+  1.000    Myf_0     MyJ/psi   SSD_CP 20.e12 0.1 1.0 0.04 1.0 0. -1.0 0.;
+Enddecay
+CDecay anti-B_s0sig
+#
+Decay Myf_0
+  1.000         pi+       pi-            PHSP;
+Enddecay
+#
+Decay MyJ/psi
+  1.000         mu+       mu-            VLL;
+Enddecay
+End

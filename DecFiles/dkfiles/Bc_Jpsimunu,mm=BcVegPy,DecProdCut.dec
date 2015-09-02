@@ -1,0 +1,36 @@
+# $Id: Bc_Jpsimunu,mm=BcVegPy,DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+# 
+# Author: Diego Martinez Santos, Jibo HE
+# Date:   2009-10-06
+# 
+# Decay file for B_c+->J/PSI(mu+mu-) mu nu
+#
+# EventType: 14543002
+#
+# Descriptor: [B_c+ -> (J/psi(1S) -> mu+ mu- {,gamma} {,gamma}) mu+ nu_mu]cc
+#
+# NickName: Bc_Jpsimunu,mm=BcVegPy,DecProdCut
+#
+# Production: BcVegPy
+#
+# Cuts: BcDaughtersInLHCb
+#
+# Physics: uses BcVegPy generator, and includes radiative mode
+#
+# Tested: Yes
+# By:   Jibo He
+# Date: 06 Oct 2009
+#
+Alias      MyJ/psi  J/psi
+ChargeConj MyJ/psi  MyJ/psi
+#
+Decay B_c+sig
+  1.000         MyJ/psi   mu+   nu_mu          PHOTOS PHSP;
+Enddecay
+CDecay B_c-sig
+#
+Decay MyJ/psi
+  1.000         mu+       mu-            PHOTOS VLL;
+Enddecay
+#
+End

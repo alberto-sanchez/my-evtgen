@@ -1,0 +1,21 @@
+# $Id: gamma,fixE=CaloAcc.dec 89808 2010-10-12 10:17:29Z robbep $
+# 
+# Author: Gloria CORTI
+# Date:   2008-07-24
+# 
+# Physics: Decay file for (particle gun) gammas of different energies in Calorimeters acceptance
+#
+# EventType: 56000000
+#
+# Descriptor: gamma => ? 
+#
+# NickName: gamma,fixE=CaloAcc
+# 
+# Momentum: 1.0*GeV 5.0*GeV  10.0*GeV  16.8*GeV  33.8*GeV  50.0*GeV  100.0*GeV  168.0*GeV
+#
+# Tested: Yes
+# By:     Gloria Corti
+# Date:   2009-02-07
+#
+End
+#

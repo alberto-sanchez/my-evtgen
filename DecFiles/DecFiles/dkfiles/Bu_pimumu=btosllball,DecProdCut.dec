@@ -1,0 +1,27 @@
+# $Id: Bu_pimumu=btosllball,DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $ 
+#
+# This is the decay file for the decay B+ -> MU+ MU- pi (gamma)  
+#                                              
+# EventType: 12113021
+#
+# Descriptor: [B+ -> pi+ mu+ mu-]cc
+#
+# NickName: Bu_pimumu=btosllball,DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: BTosll Ball model
+#
+# Tested: Yes
+# By: Sophie Redford
+# Date: 2009_10_19
+#
+Decay B+sig
+  1.000        pi+     mu+     mu-     BTOSLLBALL;
+Enddecay
+Decay B-sig
+  1.000        pi-     mu+     mu-     BTOSLLBALL;
+Enddecay
+#
+End
+#                          

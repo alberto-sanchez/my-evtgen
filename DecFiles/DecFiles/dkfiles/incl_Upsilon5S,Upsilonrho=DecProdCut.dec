@@ -1,0 +1,43 @@
+# $Id: incl_Upsilon5S,Upsilonrho=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author M Needham
+# Date   2009-02-07
+#
+# This is the decay file for the decay Upsilon(5S) -> mu+ mu- 
+#
+# EventType: 18114042
+#
+# Cuts: UpsilonDaughtersInLHCb
+#
+# ExtraOptions: Upsilon
+#
+# Descriptor: Upsilon(5S) -> (Upsilon(1S) -> mu+ mu-) (rho0 -> pi+ pi-)
+#
+# NickName: incl_Upsilon5S,Upsilonrho=DecProdCut
+#
+# Physics: Upsilon(5S) daughters in acceptance
+#
+# Tested: 
+# By: 
+# Date: 
+#
+#
+Alias MyUpsilon Upsilon
+ChargeConj MyUpsilon MyUpsilon
+Alias MyRho0 rho0
+ChargeConj MyRho0 MyRho0
+#
+Decay Upsilon(5S)sig
+  1.000         MyUpsilon   MyRho0        PHSP;
+Enddecay
+#
+Decay MyUpsilon
+  1.000         mu+        mu-        VLL;
+Enddecay
+#
+Decay MyRho0
+  1.000         pi+        pi-        VSS;
+Enddecay
+#
+End
+#

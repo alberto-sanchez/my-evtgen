@@ -1,0 +1,25 @@
+# $Id: Bd_rhomumu=btosllball,DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay B0 -> MU+ MU- rho0 (gamma)
+#
+# EventType: 11114021
+#
+# Descriptor: [B0 -> rho(770)0 mu+ mu-]cc
+#
+# NickName: Bd_rhomumu=btosllball,DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: BToSll Ball model
+#
+# Tested: Yes
+# By: Sophie Redford
+# Date: 2009_10_19 
+#
+Decay B0sig
+  1.000     rho0     mu+     mu-     BTOSLLBALL;
+Enddecay
+CDecay anti-B0sig
+#
+End
+#

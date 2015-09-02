@@ -1,0 +1,49 @@
+# This is the decay file for the decay B+ -> Psi(2S) (-> MU+ MU-) K*+ (-> K0S pi+) 
+#
+# Author: U.Egede
+# Date:   2008-10-10
+#
+# EventType: 12145111
+#
+# Descriptor: [B+ -> (psi(2S) -> mu+ mu-) (K*+ -> K0S pi+)]cc
+#
+# NickName: Bu_psi2SKst,mm=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Tested: Yes
+# By:     U.Egede
+# Date:   2008-10-10
+#
+Define PKHplus  0.159
+Define PKHzero  0.775
+Define PKHminus 0.612
+Define PKphHplus  1.563
+Define PKphHzero  0.0
+Define PKphHminus 2.712
+#
+Alias      Mypsi(2S)  psi(2S)
+Alias      MyK*+      K*+
+Alias      MyK*-      K*-
+Alias      MyKs       K_S0
+ChargeConj MyK*+      MyK*-
+ChargeConj Mypsi(2S)  Mypsi(2S)
+ChargeConj MyKs       MyKs
+#
+Decay B+sig
+1.000     Mypsi(2S)  MyK*+             SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus;
+Enddecay
+Decay B-sig
+1.000     Mypsi(2S)  MyK*-             SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus;
+Enddecay
+#
+Decay Mypsi(2S)
+1.000   mu+  mu-                       PHOTOS  VLL;
+Enddecay
+#
+Decay MyK*+
+1.000      MyKs  pi+                        VSS;
+Enddecay
+CDecay MyK*-
+#
+End

@@ -1,0 +1,30 @@
+# This is the decay file for the decay B+ -> PSI(-> MU+ MU-) Pi+
+#
+# EventType: 12143010
+#
+# Descriptor: [B+ -> Pi+ (J/psi(1S) -> mu+ mu- {,gamma} {,gamma})]cc
+#
+# NickName: Bu_JpsiPi,mm=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Includes radiative mode
+#
+# Tested: No
+# By: Ulrich Kerzel
+# Date: 21 April 2008
+#
+Alias      MyJ/psi J/psi
+ChargeConj MyJ/psi MyJ/psi
+#
+Decay B+sig
+  1.000     MyJ/psi  pi+                   SVS;
+Enddecay
+CDecay B-sig
+#
+Decay MyJ/psi
+  1.000     mu+  mu-                      PHOTOS  VLL;
+Enddecay
+#
+End
+

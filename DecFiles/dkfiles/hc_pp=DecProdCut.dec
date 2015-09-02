@@ -1,0 +1,26 @@
+# $Id: hc_pp=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay hc -> p+ anti-p-
+#
+# EventType: 28132020
+#
+# Descriptor: h_c(1P) -> p+ anti-p-
+#
+# NickName: hc_pp=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# ExtraOptions: hc
+#
+# Physics: Decay products in acceptance 
+#
+# Tested: Yes
+# By: Sergey Barsuk
+# Date: 21 Sep 2009
+#
+Decay h_csig
+  1.000    p+  anti-p-  PHSP;
+Enddecay
+
+End
+#

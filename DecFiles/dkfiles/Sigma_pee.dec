@@ -1,0 +1,25 @@
+# $Id: Sigma_pee.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay Sigma -> p e+ e- 
+#
+# EventType:  32123000
+#
+# Descriptor: [Sigma+ -> p+ e- e+]cc
+#
+# NickName:   Sigma_pee
+#
+# Physics: Decay file for the decay Sigma+ -> p+ e- e+, Phase space decay model
+#
+# Tested: Yes
+# By:     Konstantin Belous
+# Date:   7 Oct 2009
+#
+Decay Sigma+sig
+  1.0000    p+  e-   e+                   PHSP;
+Enddecay
+#
+Decay anti-Sigma-sig
+  1.0000    anti-p-  e+   e-              PHSP;
+Enddecay
+#
+End

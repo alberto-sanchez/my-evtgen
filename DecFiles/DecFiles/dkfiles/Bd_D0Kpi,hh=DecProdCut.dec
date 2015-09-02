@@ -1,0 +1,88 @@
+# $Id: Bd_D0Kpi,hh=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay B0 -> D0B(-> KK/Kpi/piK/pipi) K+ PI-
+#
+# EventType: 11364011
+#
+# Descriptor: {[[B0]nos => K+ pi- (D~0 -> {K+ pi-,K- pi+, K- K+, pi- pi+})]cc, [[B0]os => K- pi+ (D0 -> {K- pi+, K+ pi-, K- K+, pi+ pi-})]cc}
+#
+# NickName: Bd_D0Kpi,hh=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: B0 Dalitz decay, daughters in LHCb acceptance 
+#
+# Tested: Yes
+# By: Mike Williams 
+# Date: 12 June 2009
+#
+
+Alias MyD0       D0
+Alias Myanti-D0  anti-D0
+ChargeConj MyD0  Myanti-D0
+
+
+Decay B0sig
+1.0   Myanti-D0 K+ pi-              PTO3P
+
+        MAXPDF 0.330
+	#SCANPDF 50000
+
+        AMPLITUDE	RESONANCE	BC	 K*0
+        ANGULAR		CA
+        TYPE		RBW_CLEO
+	DVFF		BLATTWEISSKOPF	1.5
+        COEFFICIENT	POLAR_RAD	1.00	 0.00
+
+        AMPLITUDE	RESONANCE	BC	 K_0*0
+        ANGULAR		CA
+        TYPE		RBW_CLEO
+	DVFF		BLATTWEISSKOPF	1.5
+        COEFFICIENT	POLAR_RAD	0.460	-1.33
+
+        AMPLITUDE	RESONANCE	BC	 K_2*0
+        ANGULAR		CA
+        TYPE		RBW_CLEO
+	DVFF		BLATTWEISSKOPF	1.5
+        COEFFICIENT	POLAR_RAD	0.0743	-2.43
+
+        AMPLITUDE	RESONANCE	BC	 K''*0
+        ANGULAR		CA
+        TYPE		RBW_CLEO
+	DVFF		BLATTWEISSKOPF	1.5
+        COEFFICIENT	POLAR_RAD	0.671	 2.23
+
+        AMPLITUDE	RESONANCE	CA	 D_0*-
+        ANGULAR		BC
+        TYPE		RBW_CLEO
+	DVFF		BLATTWEISSKOPF	1.5
+        COEFFICIENT	POLAR_RAD	11.43	-1.62
+
+        AMPLITUDE	RESONANCE	CA	 D_2*-
+        ANGULAR		BC
+        TYPE		RBW_CLEO
+	DVFF		BLATTWEISSKOPF	1.5
+        COEFFICIENT	POLAR_RAD	0.480	-0.61
+
+        AMPLITUDE	PHASESPACE
+        COEFFICIENT	POLAR_RAD	8.556	 2.44
+
+	;
+Enddecay
+CDecay anti-B0sig
+
+Decay MyD0
+0.8766   K-  pi+                        PHSP;
+0.0886   K+  K-                         PHSP;
+0.0315   pi+  pi-                       PHSP;
+0.0033   K+  pi-                        PHSP;
+Enddecay
+
+Decay Myanti-D0
+0.8766   K+  pi-                        PHSP;
+0.0886   K+  K-                         PHSP;
+0.0315   pi+  pi-                       PHSP;
+0.0033   K-  pi+                        PHSP;
+Enddecay
+
+End

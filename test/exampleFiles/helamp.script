@@ -1,0 +1,30 @@
+{
+TFile *myFile = new TFile("helamp.root","READ");
+myFile->ls();
+
+TCanvas *myCanvas = new TCanvas("c","partwave2",0,0,800,800);
+myCanvas->Divide(2,2);
+
+TH1F *th1=h1;
+
+TF1 *f1=new TF1("f1", "[0]*(1.0+[1]*x+[2]*x*x)/(2+[2])",-1.0,1.0);
+
+myCanvas->cd(1);
+th1->Fit("f1");
+
+
+TH1F *th2=h2;
+
+TF1 *f2=new TF1("f2", "[0]*(1.0+[1]*x+[2]*x*x)/(2+[2])",-1.0,1.0);
+
+myCanvas->cd(2);
+th2->Fit("f2");
+
+
+
+myCanvas.Update();
+
+myCanvas->Print("helamp.eps");
+
+}
+

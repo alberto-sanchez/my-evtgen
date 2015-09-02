@@ -1,0 +1,46 @@
+# $Id: Bu_D0K,KSpipipi0=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay B+ -> D0bar (-> Ks pi+ pi- pi0) K+
+#
+# EventType: 12165501
+#
+# Descriptor: [B+ -> (D~0 -> (KS0 -> pi+ pi-) pi+ pi- pi0) K+]cc
+#
+# NickName: Bu_D0K,KSpipipi0=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: K0s forced into pi+ pi-, D0 decay without resonance, decay products
+# in acceptance
+#
+# Tested: yes
+# By: Loic Esteve
+# Date: 12 Feb 2009
+#
+Alias MyD0        D0
+Alias Myanti-D0   anti-D0
+Alias myK_S0  K_S0
+Alias Mypi0 pi0
+ChargeConj        MyD0       Myanti-D0
+ChargeConj myK_S0 myK_S0
+ChargeConj Mypi0 Mypi0
+
+##
+Decay B+sig
+1.000     Myanti-D0  K+               PHSP;
+Enddecay
+CDecay B-sig
+#
+Decay MyD0
+1.000     myK_S0 pi+  pi-  Mypi0     PHSP;
+Enddecay
+CDecay Myanti-D0
+#
+Decay myK_S0
+1.000     pi+  pi-                      PHSP;
+Enddecay
+Decay Mypi0
+  1.000   gamma gamma  PHSP;
+Enddecay
+#
+End

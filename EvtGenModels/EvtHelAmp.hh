@@ -1,7 +1,3 @@
-//
-//     This code is still under development, not ready for use!
-//     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//
 //--------------------------------------------------------------------------
 //
 // Environment:
@@ -36,10 +32,10 @@ class EvtHelAmp:public  EvtDecayAmp{
 
 public:
 
-  EvtHelAmp() {}
+  EvtHelAmp(): _evalHelAmp(0) {}
   virtual ~EvtHelAmp();
 
-  void getName(std::string& name);
+  std::string getName();
   EvtDecayBase* clone();
 
   void init();
@@ -50,7 +46,7 @@ public:
 
 private:
 
-  void fillHelicity(int* lambda2,int n,int J2);
+  void fillHelicity(int* lambda2,int n,int J2, EvtId id);
 
   EvtEvalHelAmp* _evalHelAmp;
 

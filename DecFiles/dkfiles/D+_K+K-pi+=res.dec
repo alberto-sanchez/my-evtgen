@@ -1,0 +1,54 @@
+# $Id: D+_K+K-pi+=res.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is a decay file for D+ -> K+ K- pi+
+#
+# EventType: 21263001
+#
+# Descriptor: [D+ => K+ K- pi+]cc
+#
+# NickName: D+_K+K-pi+=res
+#
+# Physics: NOT REQUIRING Decay products in acceptance, simplified resonance structure
+#
+# Tested: Yes
+# By: Mat Charles
+# Date: 12 Jun 2010
+#
+
+Alias      Myphi          phi
+ChargeConj Myphi          Myphi
+Alias      MyK*0          K*0
+Alias      Myanti-K*0     anti-K*0
+ChargeConj MyK*0          Myanti-K*0
+Alias      MyK_2*0        K_2*0
+Alias      Myanti-K_2*0   anti-K_2*0
+ChargeConj MyK_2*0        Myanti-K_2*0
+Alias      Myf_0          f_0
+ChargeConj Myf_0          Myf_0
+#
+Decay D-sig
+  0.00306   Myphi pi-                 SVS;
+  0.00290   MyK*0 K-                  SVS;
+  0.00360   MyK_2*0 K-                STS;
+Enddecay
+CDecay D+sig
+#
+Decay Myphi
+  1.000 K+   K-                    VSS;
+Enddecay
+#
+Decay MyK*0
+  1.000 K+   pi-                   VSS;
+Enddecay
+CDecay Myanti-K*0
+#
+Decay MyK_2*0
+  1.000 K+   pi-                   PHSP;
+Enddecay
+CDecay Myanti-K_2*0
+#
+Decay Myf_0
+ 1.000  K+         K-                  PHSP;
+Enddecay
+#
+End

@@ -1,0 +1,28 @@
+# $Id: chic0_pp=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# Author Sergey Barsuk
+# Date   2010-05-27
+#
+# This is the decay file for the decay prompt Chi_c0 -> p+ p- 
+#
+# EventType: 28102030
+#
+# Cuts: DaughtersInLHCb
+#
+# Descriptor: chi_c0 -> p+ p- 
+#
+# NickName: chic0_pp=DecProdCut
+#
+# Physics: Chi_c0 daughters in acceptance
+#
+# Tested: Yes
+# By: Sergey Barsuk
+# Date: 27 May 2010
+#
+#
+Decay chi_c0sig
+  1.000         p+        anti-p-        PHSP;
+Enddecay
+#
+End
+#

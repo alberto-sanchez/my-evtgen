@@ -1,0 +1,35 @@
+# $Id: Dst_D0pi,mumu=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay D* -> D0 pi+, D0 -> mu+ mu-
+#
+# EventType: 27173002
+#
+# Descriptor: [D*(2010)+ -> (D0 -> {mu+ mu-}) pi+]cc
+#
+# NickName: Dst_D0pi,mumu=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Forces the D* decay in generic b-bbar / c-cbar events + Requires products to be in LHCb acceptance
+#
+# Tested: Yes
+# By:     Bonivento
+# Date:   9/7/09
+#
+
+Alias MyD0 D0
+Alias MyantiD0 anti-D0
+ChargeConj MyD0 MyantiD0
+
+Decay D*+sig
+  1.000 MyD0  pi+    VSS;
+Enddecay
+CDecay D*-sig
+
+Decay MyD0
+  1.000 mu+ mu- PHSP;  
+Enddecay
+CDecay MyantiD0
+#
+End
+

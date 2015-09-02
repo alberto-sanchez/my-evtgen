@@ -1,0 +1,43 @@
+# $Id: Bu_hcK,phif0980,KK=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay B+ -> (h_c -> (phi -> K+ K-) (f0980 -> K+ K-)) K+
+# 
+# EventType: 12135000
+#
+# Descriptor: [B+ -> (h_c -> (phi -> K+ K-) (f0980 -> K+ K-)) K+]cc
+#
+# NickName: Bu_hcK,phif0980,KK=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Decay products in acceptance 
+#
+# Tested: Yes
+# By: Mitesh Patel
+# Date: 7 Feb 2007
+#
+Alias      Myhc      h_c
+Alias      Myf       f_0
+Alias      MyPhi     phi
+ChargeConj Myhc      Myhc
+ChargeConj Myf       Myf
+ChargeConj MyPhi     MyPhi
+#
+Decay B+sig
+  1.000     Myhc  K+               PHSP;
+Enddecay
+CDecay B-sig
+#
+Decay Myhc
+  1.000    MyPhi     Myf  PHSP;
+Enddecay
+
+Decay Myf
+  1.000    K+        K-  PHSP;
+Enddecay
+
+Decay MyPhi
+  1.000    K+        K-     VSS;
+Enddecay
+#
+End

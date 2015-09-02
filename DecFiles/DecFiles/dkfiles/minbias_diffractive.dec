@@ -1,0 +1,20 @@
+#
+# Author: Patrick Robbe
+# Date:   2010-02-24
+#
+# EventType: 30000091
+#
+# Descriptor: pp => ?
+#
+# NickName: minbias_diffractive
+#
+# ExtraOptions: Diffractive
+#
+# Physics: produce only diffractive events
+#
+# Tested: Yes
+# By:     Patrick Robbe
+# Date:   2010-02-24
+#
+End
+

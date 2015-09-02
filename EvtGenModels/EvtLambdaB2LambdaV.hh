@@ -47,13 +47,13 @@ namespace VID
 // -------- = 1 + A*B*cos(theta) + 2*A*Re(C*exp(i*phi))*sin(theta)
 // d(Omega)
 //
-// with A (real)    : lambda  helicity asymmetry parameter
+// with A (real)    : lambdaB  helicity asymmetry parameter
 //      B (real)    : lambdaB polarisation
 //      C (complex) : lambdaB density matrix element rho+-
 //
 // cf : O. Leitner, Z.J Ajaltouni, E. Conte, 
 //      PCCF RI 0601, ECT-05-15, LPNHE/2006-01, hep-ph/0602043
-
+ 
 class EvtLambdaB2LambdaV:public  EvtDecayProb
 {
 
@@ -63,11 +63,11 @@ public:
   virtual ~EvtLambdaB2LambdaV();
   EvtDecayBase* clone();
 
-  void getName(std::string& name);
+  virtual std::string getName();
   void init();
   void initProbMax();
   void decay(EvtParticle *lambdab);
-
+ 
 private:
 
   //class name for report method
@@ -102,10 +102,10 @@ private:
 // DECAY : Lambda -> p + pi-
 //
 // d(Sigma)
-// -------- = 1 + A*B*cos(theta) - Pi/2*C*A*Re(D*exp(i*phi))*sin(theta)
+// -------- = 1 + A*B*cos(theta) + 2*A*Re(D*exp(i*phi))*sin(theta)
 // d(Omega)
 //
-// with A (real)    : proton asymmetry parameter
+// with A (real)    : lambda asymmetry parameter
 //      B (real)    : lambda polarisation
 //      C (real)    : lambdaB polarisation
 //      D (complex) : lambda density matrix element rho+-
@@ -122,7 +122,7 @@ public:
   virtual ~EvtLambda2PPiForLambdaB2LambdaV();
   EvtDecayBase* clone();
 
-  void getName(std::string& name);
+  virtual std::string getName();
   void init();
   void initProbMax();
   void decay(EvtParticle *lambda);  
@@ -177,7 +177,7 @@ public:
   virtual ~EvtV2VpVmForLambdaB2LambdaV();
   EvtDecayBase* clone();
 
-  void getName(std::string& name);
+  virtual std::string getName();
   void init();
   void initProbMax();
   void decay(EvtParticle *V);
@@ -188,8 +188,7 @@ private:
   std::string fname;
 
   //meson vector identity 
-  VID::VectorMesonType Vtype; 
-  
+  VID::VectorMesonType Vtype;
   //decay dynamics parameters 
   double A;
 };

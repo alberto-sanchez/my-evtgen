@@ -1,0 +1,23 @@
+# $Id: Lc_pKpi=DecProdCut.dec 89808 2010-10-12 10:17:29Z robbep $
+#
+# This is the decay file for the decay Lambda_c+ -> p K pi
+#
+# EventType: 25103000
+#
+# Descriptor: [Lambda_c+ -> p+ K- pi+]cc
+#
+# NickName: Lc_pKpi=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Phase space decay model
+#
+# Tested: No
+# By:     ---
+# Date:   ---
+Decay Lambda_c+sig
+  0.02800         p+      K-      pi+     PHSP;
+Enddecay
+CDecay anti-Lambda_c-sig
+#
+End 

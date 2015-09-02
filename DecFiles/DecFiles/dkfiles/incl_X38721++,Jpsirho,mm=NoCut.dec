@@ -1,0 +1,45 @@
+# $Id: incl_X38721++,Jpsirho,mm=NoCut.dec 95040 2010-10-21 23:30:21Z robbep $
+#
+# Author Patrick Robbe
+# Date   2010-10-12
+#
+# This is the decay file for the decay X(3872) -> J/psi( -> mu+ mu-) rho0(pi+ pi-) 
+#
+# EventType: 28144012
+#
+# Cuts: 
+#
+# ExtraOptions: X3872_1PP
+#
+# Descriptor: X_1(3872) -> (J/psi(1S) -> mu+ mu- {,gamma} {,gamma}) (rho(770)0 -> pi+ pi- {,gamma} {,gamma})
+#
+# NickName: incl_X38721++,Jpsirho,mm=NoCut
+#
+# Physics: No generator level cut
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 12 October 2010
+#
+#
+Alias      MyJ/psi J/psi
+ChargeConj MyJ/psi MyJ/psi
+Alias      Myrho0  rho0
+ChargeConj Myrho0  Myrho0
+#
+#
+Decay X_1(3872)
+  1.000          MyJ/psi  Myrho0  HELAMP 0.707107 0. 0.707107 0. 0.707107 0. 0. 0. -0.707107 0. -0.707107 0. -0.707107 0.;
+  0.000 rndmflav anti-rndmflav PYTHIA 12;
+Enddecay
+#
+Decay MyJ/psi
+  1.000         mu+   mu-   PHOTOS VLL;
+Enddecay
+#
+Decay Myrho0
+  1.000 pi+ pi-  VSS;
+Enddecay
+#
+End
+#

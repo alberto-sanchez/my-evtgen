@@ -29,7 +29,8 @@
 #define EVTGEN_HH
 
 #include "EvtGenBase/EvtPDL.hh"
-#include "CLHEP/Vector/LorentzVector.h"
+
+#include <list>
 
 class EvtParticle;
 class EvtRandomEngine;
@@ -37,13 +38,17 @@ class EvtVector4R;
 class EvtStdHep;
 class EvtSpinDensity;
 class EvtAbsRadCorr;
+class EvtDecayBase;
 
 class EvtGen{
 
 public:
 
   EvtGen(const char* const decayName,const char* const pdtTableName,
-	 EvtRandomEngine* randomEngine=0, EvtAbsRadCorr *isrEngine=0);
+	 EvtRandomEngine* randomEngine=0, EvtAbsRadCorr *isrEngine=0,
+	 const std::list<EvtDecayBase*>* extraModels=0,
+	 int mixingType = 1);
+
   ~EvtGen();
 
   void readUDecay(const char* const udecay_name);
@@ -53,15 +58,10 @@ public:
 
   void generateDecay(EvtParticle *p);
 
-  //These two methods are obsolete
-  void generateEvent(int stdhepid, HepLorentzVector P, 
-                     HepLorentzVector D);
-  void generateEvent(EvtParticle *p,HepLorentzVector D);
-
-  
 private:
 
   EvtPDL _pdl;
+  int _mixingType;
 
 };
 

@@ -1,5 +1,7 @@
 include ./config.mk
 
+all: default
+
 default: lib_shared lib_archive
 #examples
 

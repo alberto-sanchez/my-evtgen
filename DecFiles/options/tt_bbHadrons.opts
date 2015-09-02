@@ -1,0 +1,57 @@
+/* Generation of top quarks with decay into b W, W decays into hadrons.
+ * @author Neal Gauvin (Gueissaz) 
+ * @date 3 august 2009
+ */
+
+//Top quark generation
+#include "$DECFILESROOT/options/Top.opts"
+
+
+// list of particles to be printed using PyList(12)
+Generation.Special.PythiaProduction.PDTList = { 6, 24 };
+
+Generation.Special.PythiaProduction.Commands +=
+  {   
+
+    //"pyinit pyliste 3"
+
+    //t->W b
+//    "pydat3 mdme 41 1 0" ,
+//    "pydat3 mdme 42 1 0" ,
+//    "pydat3 mdme 43 1 0" ,
+//    "pydat3 mdme 44 1 0" ,
+//    "pydat3 mdme 45 1 0" ,
+//    "pydat3 mdme 46 1 1" ,
+//    "pydat3 mdme 48 1 0" ,
+
+    //W->Hadrons
+   "pydat3 mdme 136 1 1" ,
+   "pydat3 mdme 137 1 1" ,
+   "pydat3 mdme 138 1 1" ,
+   "pydat3 mdme 139 1 0" ,
+   "pydat3 mdme 140 1 1" ,
+   "pydat3 mdme 141 1 1" ,
+   "pydat3 mdme 142 1 1" ,
+   "pydat3 mdme 143 1 0" ,
+   "pydat3 mdme 144 1 1" ,
+   "pydat3 mdme 145 1 1" ,
+   "pydat3 mdme 146 1 1" ,
+   "pydat3 mdme 147 1 0" ,
+   "pydat3 mdme 148 1 0" ,
+   "pydat3 mdme 149 1 0" ,
+   "pydat3 mdme 150 1 0" ,
+   "pydat3 mdme 151 1 0",
+   "pydat3 mdme 152 1 0", //enu
+   "pydat3 mdme 153 1 0", //munu
+   "pydat3 mdme 154 1 0",
+   "pydat3 mdme 155 1 0"
+
+  };
+
+//Cut Tool options
+Generation.Special.PythiaLSP.LSPID = { 6 };
+Generation.Special.PythiaLSP.LSPCond = 2 ;  //following daughters in acc
+Generation.Special.PythiaLSP.DgtsInAcc = { 3,4,5,23,24 };
+Generation.Special.PythiaLSP.NbLSP = 2 ;
+Generation.Special.PythiaLSP.EtaMax = 1000.;
+Generation.Special.PythiaLSP.OutputLevel = 3;

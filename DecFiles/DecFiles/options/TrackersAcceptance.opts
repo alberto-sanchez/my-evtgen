@@ -1,0 +1,17 @@
+// $Id: TrackersAcceptance.opts,v 1.5 2009-09-16 13:20:36 gcorti Exp $
+/** @file
+ *  Options to include to specify generation in Trackers acceptance 
+ *  for particle guns with automatic generation of options
+ *  
+ *  @author G. Corti
+ *  @date   2008-07-21
+ */
+
+#units "$STDOPTS/units.opts"
+
+ParticleGun.MomentumRange.ThetaMin = 0.015*rad;
+ParticleGun.MomentumRange.ThetaMax = 0.300*rad;
+
+GaussGen.PrintFreq = 100;
+GaussSim.PrintFreq = 100;
+SimMonitor.Members   -= { "GiGaGetEventAlg" };

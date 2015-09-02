@@ -1,0 +1,44 @@
+{
+TFile *myFile = new TFile("bmix.root","READ");
+myFile->ls();
+
+TCanvas *myCanvas = new TCanvas("c","bmix",0,0,600,400);
+myCanvas->Divide(2,3);
+
+TH1F *th1=h1;
+TH1F *th2=h2;
+TH1F *th3=h3;
+TH1F *th4=h3;
+
+TH1F* diff=new TH1F(*h1+*h2-(*h3+*h4));
+TH1F* sum=new TH1F(*h1+*h2+(*h3+*h4));
+TH1F* ratio=new TH1F((*diff)/(*sum));
+
+
+myCanvas->cd(1);
+th1->Draw();
+myCanvas.Update();
+
+myCanvas->cd(2);
+th2->Draw();
+myCanvas.Update();
+
+myCanvas->cd(3);
+th3->Draw();
+myCanvas.Update();
+
+myCanvas->cd(4);
+th4->Draw();
+myCanvas.Update();
+
+myCanvas->cd(5);
+ratio->Draw();
+myCanvas.Update();
+
+
+myCanvas->Print("bmix.eps");
+
+
+
+}
+
