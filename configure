@@ -1,145 +1,67 @@
-#!/bin/sh
+#! /bin/bash
 
 #Package-specific:>
 
 GENERATOR=evtgenlhc
-VERSION=8.15
+#VERSION=8.16
 
-HEPMC_VERSION=2.00.03
-CLHEP_VERSION=1.9.2.3
-
-PYTHIA6_VERSION=411.2
-
-PHOTOS_VERSION=215.2
-
-LHAPDF_VERSION=5.2.3
+# === Default values of input parameters ====
+PATH_TO_EXTERNAL=/afs/cern.ch/sw/lcg/external
+CLHEP_VERSION=1.9.3.1
+LCGPLATFORM=slc4_ia32_gcc34         #LCG platform. Can be needed if external libraries are specified
+COMPMODE=OPT                        # Default: compiler optimization mode
 
 #<
-
-
-if [ x$MCGENERATORS = x ]; then
-  echo
-  echo MCGENERATORS variable is not defined !
-  echo it can be defined as a path to replica of MCGenerators area: 
-  echo MCGENERATORS=/afs/.cern.ch/sw/lcg/external/MCGenerators
-  echo
-  exit 1
-fi
-
-#LCG platform. Can be needed if external libraries are specified
-
-. ${MCGENERATORS}/scripts/platform_functions
-lcgplatform=$(check_platform)
-
-if [ x$LCGPLATFORM = x ]; then
-  LCGPLATFORM=${lcgplatform}
-fi
- 
-echo LCGPLATFORM is ${LCGPLATFORM}
-
 
 #--------------------------------------------------------------
 
 check_arguments () {
-	for arg in $* ; do
-		if [ "x$arg" = "x--enable-debug" ] ; then
-		    COMPMODE=DBG
-		elif [ "x$arg" = "x--enable-optimize" ] ; then
-		    COMPMODE=OPT
-		elif [ "x$arg" = "x--help" ] ; then
-			echo -e \
-			"\nUsage: ./configure [options] , where options are:\n\n"\
-			"--help            : prints this help\n"\
-			"--enable-optimize : turns on compiler optimizations\n"\
-			"--enable-debug    : turns on debugging flags\n"\
-                        "--with-hepmc=/path/to/hepmc/    : ${PATH_TO_EXTERNAL}/HepMC/${HEPMC_VERSION}/${LCGPLATFORM} by default\n"\
-                        "--with-pythia6=/path/to/pythia6/: ${MCGENERATORS}/pythia6/${PYTHIA6_VERSION}/${LCGPLATFORM} by default\n"\
-                        "--with-photos=/path/to/photos/  : ${MCGENERATORS}/photos/${PHOTOS_VERSION}/${LCGPLATFORM} by default\n"\
-                        "--with-clhep=/path/to/clhep/    : ${PATH_TO_EXTERNAL}/clhep/${CLHEP_VERSION}/${LCGPLATFORM} by default\n"\
-                        "--with-lhapdf=/path/to/lhapdf/  : ${MCGENERATORS}/lhapdf/${LHAPDF_VERSION}/${LCGPLATFORM} by default\n"
-			exit
-		else
-			if [ "x${arg}" = "x${arg/=/}" ] ; then
-				echo "${arg}: wrong option. Ignored." >&2
-			else
-				option=${arg/=*/}
-				value=${arg/*=/}
-				if [ "x${option}" = "x--with-hepmc" ] ; then
-				    
-				    if [ -d ${value} ] ; then
-					HEPMC_PATH=${value}
-				    else
-					echo "${arg}: a directory with HepMC libraries and headers doesn't exist." >&2
-					exit 1
-				    fi
-				elif [ "x${option}" = "x--with-pythia6" ] ; then
-				    if [ -d ${value} ] ; then
-					PYTHIA6_PATH=${value}
-				    else
-					echo "${arg}: a directory with Pythia6 libraries and headers doesn't exist." >&2
-					exit 1
-				    fi
-				elif [ "x${option}" = "x--with-photos" ] ; then
-				    if [ -d ${value} ] ; then
-					PHOTOS_PATH=${value}
-				    else
-					echo "${arg}: a directory with Photos libraries and headers doesn't exist." >&2
-					exit 1
-				    fi
-				elif [ "x${option}" = "x--with-clhep" ] ; then
-				    if [ -d ${value} ] ; then
-					CLHEP_PATH=${value}
-				    else
-					echo "${arg}: a directory with clhep libraries and headers doesn't exist." >&2
-					exit 1
-				    fi
-				elif [ "x${option}" = "x--with-lhapdf" ] ; then
-				    if [ -d ${value} ] ; then
-					LHAPDF_PATH=${value}
-				    else
-					echo "${arg}: a directory with LHAPDF libraries and headers doesn't exist." >&2
-					exit 1
-				    fi
-				else
-				    echo "${arg}: wrong option. Ignored." >&2
-				fi
-			fi
-		fi
-	done
-	return
+  for arg in $* ; do
+    if   [ "x$arg" = "x--enable-debug" ] ; then
+      COMPMODE=DBG
+    elif [ "x$arg" = "x--help" ] ; then
+      echo -e \
+      "\nUsage: ./configure [options] , where options are:\n\n"\
+      "--help                       : prints this help\n"\
+      "--enable-debug               : turns on debugging flags\n"\
+      "--with-clhep=/path/to/clhep/ : ${PATH_TO_EXTERNAL}/clhep/${CLHEP_VERSION}/${LCGPLATFORM} by default\n"\
+      "--with-clhepversion=VERSION  : ${CLHEP_VERSION} by default (Used if /path/to/clhep is not set)\n"\
+      "--lcgplatform=LCGPLATFORM    : ${LCGPLATFORM} by default (Used if /path/to/clhep is not set)\n"
+      exit
+    else
+      if [ "x${arg}" = "x${arg/=/}" ] ; then
+        echo "${arg}: wrong option. Ignored." >&2
+      else
+        option=${arg/=*/}
+        value=${arg/*=/}
+	if   [ "x${option}" = "x--with-clhepversion" ] ; then
+            CLHEP_VERSION=${value}
+	elif [ "x${option}" = "x--with-clhep" ] ; then
+	    CLHEP_PATH=${value}
+	elif [ "x${option}" = "x--lcgplatform" ] ; then
+	    LCGPLATFORM=${value}
+	else
+	  echo "${arg}: wrong option. Ignored." >&2
+	fi
+      fi
+    fi
+  done
+  return
 }
 		
 #---------------------------------------
 
-check_arguments $*  
+check_arguments $* 
 
-#Compilation mode. Is not changed if specified outside
-if [ x$COMPMODE = x ]; then
-  export COMPMODE=OPT
-fi
- 
-echo compilation mode is $COMPMODE
+# CLHEP_PATH
+: ${CLHEP_PATH:=${PATH_TO_EXTERNAL}/clhep/${CLHEP_VERSION}/${LCGPLATFORM}}  #set PATH if it is not defined
+[ -d ${CLHEP_PATH} ] || { echo "Directory ${CLHEP_PATH} does not exist. Exiting!" ; exit 1; }
 
-if [ "x${PATH_TO_EXTERNAL}" = "x" ] ; then
-        PATH_TO_EXTERNAL=/afs/cern.ch/sw/lcg/external
-fi
+echo  "CLHEP_PATH is ${CLHEP_PATH}"
+echo  "Compilation mode is ${COMPMODE}"
 
 #Package-specific:>
 
-if [ "x${HEPMC_PATH}" = "x" ] ; then
-	HEPMC_PATH=${PATH_TO_EXTERNAL}/HepMC/${HEPMC_VERSION}/${LCGPLATFORM}
-fi
-INCLUDE_HEPMC_PATH=${HEPMC_PATH}/include
-INCLUDE_HEPMC=" -I${INCLUDE_HEPMC_PATH} "
-LIBS_HEPMC_PATH=${HEPMC_PATH}/lib
-LIBS_HEPMC=" -lHepMC -lHepMCfio -L${LIBS_HEPMC_PATH} "
-LIBS_HEPMC_STATIC=" ${LIBS_HEPMC_PATH}/libHepMC.a  ${LIBS_HEPMC_PATH}/libHepMCfio.a "
-echo "Assuming libHepMC* reside in ${LIBS_HEPMC_PATH}"
-echo "Assuming HepMC header files reside in ${INCLUDE_HEPMC_PATH}"
-
-if [ "x${CLHEP_PATH}" = "x" ] ; then
-	CLHEP_PATH=${PATH_TO_EXTERNAL}/clhep/${CLHEP_VERSION}/${LCGPLATFORM}
-fi
 INCLUDE_CLHEP_PATH=${CLHEP_PATH}/include
 INCLUDE_CLHEP=" -I${INCLUDE_CLHEP_PATH} "
 LIBS_CLHEP_PATH=${CLHEP_PATH}/lib
@@ -148,42 +70,15 @@ LIBS_CLHEP_STATIC=" ${LIBS_CLHEP_PATH}/libCLHEP.a "
 echo "Assuming libCLHEP* reside in ${LIBS_CLHEP_PATH}"
 echo "Assuming CLHEP header files reside in ${INCLUDE_CLHEP_PATH}"
 
-if [ "x${LHAPDF_PATH}" = "x" ] ; then
-	LHAPDF_PATH=${MCGENERATORS}/lhapdf/${LHAPDF_VERSION}/${LCGPLATFORM}
-fi
-INCLUDE_LHAPDF_PATH=${LHAPDF_PATH}/include
-INCLUDE_LHAPDF=" -I${INCLUDE_LHAPDF_PATH} "
-LIBS_LHAPDF_PATH=${LHAPDF_PATH}/lib
-LIBS_LHAPDF=" -lLHAPDF -L${LIBS_LHAPDF_PATH} " 
-LIBS_LHAPDF_STATIC=" ${LIBS_LHAPDF_PATH}/archive/libLHAPDF.a "
-echo "Assuming libLHAPDF* reside in ${LIBS_LHAPDF_PATH}"
-echo "Assuming LHAPDF header files reside in ${INCLUDE_LHAPDF_PATH}"
-
-#
-if [ "x${PYTHIA6_PATH}" = "x" ] ; then
-  PYTHIA6_PATH=${MCGENERATORS}/pythia6/${PYTHIA6_VERSION}/${LCGPLATFORM}
-fi
-
-if [ "x${PHOTOS_PATH}" = "x" ] ; then
-  PHOTOS_PATH=${MCGENERATORS}/photos/${PHOTOS_VERSION}/${LCGPLATFORM}
-fi
-
-LIBS_PHOTOS_PATH=${PHOTOS_PATH}/lib
-
-	
-cat > ./README << EOT
-This is EvtGenLHC package.
-EOT
-
 #
 # User-changeable part, experts  -----------------------------
 #
-export FFLAGS_OPT="-O2 -Wuninitialized"
-export FFLAGS_DBG=-g
-export CFLAGS_OPT=-O2
-export CFLAGS_DBG=-g
-export CXXFLAGS_OPT="-O2 -Wall"
-export CXXFLAGS_DBG="-g -Wall"
+FFLAGS_OPT="-O2 -Wuninitialized"
+FFLAGS_DBG=-g
+CFLAGS_OPT=-O2
+CFLAGS_DBG=-g
+CXXFLAGS_OPT="-O2 -Wall"
+CXXFLAGS_DBG="-g -Wall"
  
 FFLAGSSHARED=-fPIC
 CFLAGSSHARED=-fPIC
@@ -194,64 +89,63 @@ LDFLAGSSHARED="${CXXFLAGS_OPT} -pthread -fPIC"
 #
 # Find platform.
 #
-export ARCH="`uname`"
-export theGcc1=`g++ --version | awk '{print$3}'`
-export theGcc=`echo ${theGcc1} | awk -F . '{print $1}'`
+ARCH=`uname`
+theGcc=`g++ --version | head -1 | awk '{print$3}' | awk -F . '{print $1}'`
 if [ ${theGcc} = 4 ]; then
-  export ARCH=${ARCH}-gcc4
+  ARCH=${ARCH}-gcc4
 fi
-echo Platform is $ARCH
+echo "Platform is $ARCH"
 
 #default platform settings:
-export FC=g77
-export CC=gcc
-export FFLAGS="${FFLAGS_OPT}"
-export CFLAGS="${CFLAGS_OPT}"
-export CXXFLAGS="${CXXFLAGS_OPT}"
-export FLIBS="-lfrtbegin -lg2c"
+FC=g77
+CC=gcc
+FFLAGS="${FFLAGS_OPT}"
+CFLAGS="${CFLAGS_OPT}"
+CXXFLAGS="${CXXFLAGS_OPT}"
+FLIBS="-lfrtbegin -lg2c"
 if [ ${COMPMODE} = OPT ]; then
-  export FFLAGS="${FFLAGS_OPT}"
-  export CFLAGS="${CFLAGS_OPT}"
-  export CXXFLAGS="${CXXFLAGS_OPT}"
+  FFLAGS="${FFLAGS_OPT}"
+  CFLAGS="${CFLAGS_OPT}"
+  CXXFLAGS="${CXXFLAGS_OPT}"
 fi
 if [ ${COMPMODE} = DBG ]; then
-  export FFLAGS="${FFLAGS_DBG}"
-  export CFLAGS="${CFLAGS_DBG}"
-  export CXXFLAGS="${CXXFLAGS_DBG}"
+  FFLAGS="${FFLAGS_DBG}"
+  CFLAGS="${CFLAGS_DBG}"
+  CXXFLAGS="${CXXFLAGS_DBG}"
 fi
 if [ $ARCH = Linux ]; then
-  export FC=g77
-  export FFLAGS="${FFLAGS_OPT} -Wno-globals"
-  export CFLAGS="${CFLAGS_OPT}"
-  export CXXFLAGS="${CXXFLAGS_OPT}"
-  export FLIBS="-lfrtbegin -lg2c"
+  FC=g77
+  FFLAGS="${FFLAGS_OPT} -Wno-globals"
+  CFLAGS="${CFLAGS_OPT}"
+  CXXFLAGS="${CXXFLAGS_OPT}"
+  FLIBS="-lfrtbegin -lg2c"
   if [ ${COMPMODE} = OPT ]; then
-    export FFLAGS="${FFLAGS_OPT}"
-    export CFLAGS="${CFLAGS_OPT}"
-    export CXXFLAGS="${CXXFLAGS_OPT}"
+    FFLAGS="${FFLAGS_OPT}"
+    CFLAGS="${CFLAGS_OPT}"
+    CXXFLAGS="${CXXFLAGS_OPT}"
   fi
   if [ ${COMPMODE} = DBG ]; then
-    export FFLAGS="${FFLAGS_DBG} -Wno-globals"
-    export CFLAGS="${CFLAGS_DBG}"
-    export CXXFLAGS="${CXXFLAGS_DBG}"
+    FFLAGS="${FFLAGS_DBG} -Wno-globals"
+    CFLAGS="${CFLAGS_DBG}"
+    CXXFLAGS="${CXXFLAGS_DBG}"
   fi
 fi
 # Linux platform with gcc4: new Fortran90 compiler.
 if [ $ARCH = Linux-gcc4 ]; then
-  export FC=gfortran
-  export FFLAGS="${FFLAGS_OPT}"
-  export CFLAGS="${CFLAGS_OPT}"
-  export CXXFLAGS="${CXXFLAGS_OPT}"
-  export FLIBS="-lgfortran -lgfortranbegin"
+  FC=gfortran
+  FFLAGS="${FFLAGS_OPT}"
+  CFLAGS="${CFLAGS_OPT}"
+  CXXFLAGS="${CXXFLAGS_OPT}"
+  FLIBS="-lgfortran -lgfortranbegin"
   if [ ${COMPMODE} = OPT ]; then
-    export FFLAGS="${FFLAGS_OPT}"
-    export CFLAGS="${CFLAGS_OPT}"
-    export CXXFLAGS="${CXXFLAGS_OPT}"
+    FFLAGS="${FFLAGS_OPT}"
+    CFLAGS="${CFLAGS_OPT}"
+    CXXFLAGS="${CXXFLAGS_OPT}"
   fi
   if [ ${COMPMODE} = DBG ]; then
-    export FFLAGS="${FFLAGS_DBG}"
-    export CFLAGS="${CFLAGS_DBG}"
-    export CXXFLAGS="${CXXFLAGS_DBG}"
+    FFLAGS="${FFLAGS_DBG}"
+    CFLAGS="${CFLAGS_DBG}"
+    CXXFLAGS="${CXXFLAGS_DBG}"
   fi
 fi
 
@@ -264,9 +158,9 @@ rm -f config.mk
 cat > config.mk << EOT
 
 GENERATOR = ${GENERATOR}
-VERSION = ${VERSION}
+#VERSION = ${VERSION}
 
-SHELL = /bin/sh 
+SHELL = /bin/bash 
 ARCH = ${ARCH} 
 LCGPLATFORM = ${LCGPLATFORM}
 FC = ${FC} 
@@ -279,16 +173,11 @@ TOPDIR = $(pwd)
 TMPDIR = \$(TOPDIR)/tmp
 INCLUDEDIR = \$(TOPDIR)
 SRCDIR = \$(TOPDIR)/src
-
-#includes = ${INCLUDES}
+LIBDIR_SHARED = \$(TOPDIR)/lib
+LIBDIR_ARCHIVE = \$(TOPDIR)/lib/archive
 
 LIB_SHARED = \$(LIBDIR_SHARED)/lib\$(GENERATOR).so
 LIB_ARCHIVE = \$(LIBDIR_ARCHIVE)/lib\$(GENERATOR).a
-
-#BINDIR = \$(TOPDIR)/bin
-
-LIBDIR_SHARED = \$(TOPDIR)/lib
-LIBDIR_ARCHIVE = \$(TOPDIR)/lib/archive
 
 # flags:
 #
@@ -296,22 +185,11 @@ FFLAGSSHARED = ${FFLAGSSHARED}
 CFLAGSSHARED = ${CFLAGSSHARED}
 CXXFLAGSSHARED = ${CXXFLAGSSHARED}
 
-#
 LDFLAGSSHARED = ${LDFLAGSSHARED} 
 
 FLIBS = ${FLIBS}
 
 #Package-specific:>
-
-PYTHIA6_VERSION = ${PYTHIA6_VERSION}
-LHAPDF_VERSION = ${LHAPDF_VERSION}
-PYTHIA6_PATH = ${PYTHIA6_PATH}
-
-INCLUDE_HEPMC_PATH = ${INCLUDE_HEPMC_PATH}
-INCLUDE_HEPMC = ${INCLUDE_HEPMC}
-LIBS_HEPMC_PATH = ${LIBS_HEPMC_PATH}
-LIBS_HEPMC = ${LIBS_HEPMC}
-LIBS_HEPMC_STATIC = ${LIBS_HEPMC_STATIC}
 
 INCLUDE_CLHEP_PATH = ${INCLUDE_CLHEP_PATH}
 INCLUDE_CLHEP = ${INCLUDE_CLHEP}
@@ -319,86 +197,7 @@ LIBS_CLHEP_PATH = ${LIBS_CLHEP_PATH}
 LIBS_CLHEP = ${LIBS_CLHEP}
 LIBS_CLHEP_STATIC = ${LIBS_CLHEP_STATIC}
 
-LHAPDF_PATH = ${LHAPDF_PATH}
-LIBS_LHAPDF_PATH = ${LIBS_LHAPDF_PATH}
-LIBS_LHAPDF = ${LIBS_LHAPDF}
-LIBS_LHAPDF_STATIC = ${LIBS_LHAPDF_STATIC}
-INCLUDE_LHAPDF = ${INCLUDE_LHAPDF}
-
-PHOTOS_PATH = ${PHOTOS_PATH}
-LIBS_PHOTOS_PATH = ${LIBS_PHOTOS_PATH}
-
 #<
-
-MCGENERATORS = ${MCGENERATORS}
-
-# from above:
-
-export GENERATOR
-export VERSION 
-
-export PKGSOURCE
-export PKGSOURCE_WILD
-
-export ARCH
-export LCGPLATFORM
-export FC
-export CXX
-export FFLAGS
-export CFLAGS
-export CXXFLAGS
-export FFLAGSSHARED
-export CFLAGSSHARED
-export CXXFLAGSSHARED
-export LDFLAGSSHARED
-
-export FLIBS
-
-
-export TOPDIR
-export TMPDIR
-export INCLUDEDIR
-
-#export includes
-
-export SRCDIR
-export LIBDIR_SHARED
-export LIBDIR_ARCHIVE
-#export BINDIR
-
-export LIB_SHARED
-export LIB_ARCHIVE
-
-#Package-specific:>
-export PYTHIA6_VERSION 
-export LHAPDF_VERSION
-
-export PYTHIA6_PATH
-
-export PHOTOS_PATH
-export LIBS_PHOTOS_PATH
-
-export INCLUDE_HEPMC_PATH
-export INCLUDE_HEPMC
-export LIBS_HEPMC_PATH
-export LIBS_HEPMC
-export LIBS_HEPMC_STATIC
-
-export INCLUDE_CLHEP_PATH
-export INCLUDE_CLHEP
-export LIBS_CLHEP_PATH
-export LIBS_CLHEP
-export LIBS_CLHEP_STATIC
-
-export LHAPDF_PATH
-export INCLUDE_LHAPDF
-export LIBS_LHAPDF_PATH
-export LIBS_LHAPDF
-export LIBS_LHAPDF_STATIC
-
-#<
-
-export MCGENERATORS 
 EOT
 
 echo " done"

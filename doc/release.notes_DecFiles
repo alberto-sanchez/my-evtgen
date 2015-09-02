@@ -6,6 +6,132 @@
 ! The documentation for event types can be found at the web address:
 ! http://lhcb-comp.web.cern.ch/lhcb-comp/event_types_v2.1.pdf
 
+! 2007-11-29 - Patrick Robbe
+ - Add new event type:
+   . 11102201, Bd_Kstgamma=DecProdCut
+   . 11364000, Bd_Dst-pi+,2body
+   . 11364001, Bd_Dst-pi+,2body=DecProdCut
+   . 11962600, Bd_Dst0X,Kpi
+   . 12962600, Bd_Dst0X,Kpi
+   . 13962600, Bs_Dst0X,Kpi
+
+!========================= DecFiles v13r15 2007-11-06 =========================
+! 2007-11-05 - Patrick Robbe 
+ - Add new event types:
+   . 12115101, Bu_Kstmumu=DecProdCut
+   . 11114101, Bd_KSmumu=DecProdCut
+
+! 2007-10-11 - Patrick Robbe
+ - Add new event types:
+   . 13264201, Bs_Dsstpi=DecProdCut
+   . 13264211, Bs_DsstK=DecProdCut
+
+!========================= DecFiles v13r14 2007-10-09 =========================
+! 2007-10-09 - Gloria Corti
+ - Introduce new event types for beam gas with uniform vertex distribution
+   . 60101054, beamGasVelo,1=Xenon,VtxUniform
+   . 60102054, beamGasVelo,2=Xenon,VtxUniform
+   . BeamGasInjected.opts, options included form above event types
+
+! 2007-01-08 - Patrick Robbe
+ - Add new event types:
+   . 11164021, Bd_D0Kst,KK=DecProdCut
+   . 11164031, Bd_D0Kst,pipi=DecProdCut
+   . 13264011, Bs_DsK=DecProdCut
+
+! 2007-01-04 - Patrick Robbe
+ - Add new event type:
+   . 13264410, Bs_DsKst
+   . 13264411, Bs_DsKst=DecProdCut
+
+! 2007-09-30 - Patrick Robbe
+ - Add new event types:
+   . 12103040 Bu_ppK
+   . 12103041 Bu_ppK=DecProdCut
+
+!========================= DecFiles v13r13 2007-09-28 =======================
+! 2007-09-28 - Gloria Corti
+ - Temporarly remove execution of script to update bookkeeping because they
+   would be executed all the time a "source setup" is done.
+
+! 2007-09-28 - Joel Closier
+ - Introduce script to update bookkeeping database with list of event types
+
+! 2007-09-21 - Patrick Robbe
+ - options/Zmumu.opts: modify ISUBs
+ - dkfiles/W_munumu.dec, options/Wmunu.opts: generation of W -> mu events
+ - New event types:
+    . 42112011: DrellYan_mumu=10GeV
+    . 42112010: DrellYan_mumu=2GeV
+    . 42311010: W_mumujet
+    . 42112020: Z_mumujet
+    . 11152401: Bd_Jpsipi,ee=DecProdCut
+
+!========================= DecFiles v13r12 2007-09-12 =======================
+! 2007-09-11 - Joel Closier
+ - Adapt table for bookkeeping to change in format
+   . create_options.py
+
+! 2007-09-09 - Patrick Robbe
+ - Add new event type:
+   . 14143400: Bc_Jpsirho,mm=DecProdCut
+
+! 2007-09-07 - Patrick Robbe
+ - Add new event types:
+   . 12165110, Bu_D0K,KSK-pi+
+   . 12165111, Bu_D0K,KSK-pi+=DecProdCut
+
+! 2007-08-28 - Gloria Corti
+ - Modify message when "Cuts" keyword does not have a value from WARNING to
+   INFO since the case is possible
+   . create_options.py
+
+!========================= DecFiles v13r11 2007-08-27 =========================
+! 2007-08-27 - Patrick Robbe
+ - Add new event types:
+   . 14513001 Bc_mumumunu=DiLeptonInAcc (BcVegPy)
+   . 14543001 Bc_Jpsimunu,mm=DiLeptonInAcc (BcVegPy)
+
+! 2007-08-26 - Patrick Robbe
+ - Add new event types:
+   . 12163400 Bu_D0K,Kpipi0
+   . 12163401 Bu_D0K,Kpipi0=DecProdCut
+
+! 2007-08-17 - Gloria Corti
+ - create_options.py: add the writing of the entries in the book-keeping tables
+   for MIB event types as well as the header in the option files and adapt
+   dedicated function to do so.
+   Modify function HeaderOptions to pass optionally optsName so to be able
+   to use it when generating multiple option files from a single decay file
+   as in MIB; use modified functions also for particle guns.
+
+! 2007-08-14 - Gloria Corti
+ - create_options.py: modify script to allow generations of event types for
+   Machine Induced Background (MIB) stand alone.
+   More that one option can be generated from a single decay file specifying
+   two Keyword where the list can be provided.
+   The corresponding EventTypes and options are then set in the options files.
+   If the keyword are not given only the event type specified in the decay
+   file is produced.
+   Additional keyword for MIB: 
+   . ParticleType: the keyword allow to generate EventTypes for the different 
+                   particle types of the source files (0: all, 2: muons, 
+                   9:hadrons). 
+   . Configuration: the keyword allow to generate EventTypes for the different
+                    configuration of shield in the tunnel and collimator
+                    source (look into Gen/LbMIB for list of allowed values
+                    and explanation   
+ - Add decay file for new event types for MIB:
+   . haloOnTCT,1.dec - will produce options for EventTypes for beam 1 on
+                       TCTV and TCTH collimators togheter and for Staged
+                       and Design shield in the tunnel with all type of 
+                       particles and with only muons (60051000, 60351000,
+                       62051000, 62351000)
+
+! 2007-05-25 - Gloria CORTI
+ - Add decay file for new event type
+   . 20000000 incl_c.dec
+
 !===================== DecFiles v13r10 2007-05-16 =============================
 ! 2007-05-08 - Patrick Robbe
  - New event types:

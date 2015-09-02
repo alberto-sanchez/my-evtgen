@@ -1,7 +1,7 @@
-// Pythia options for Z->mumu 42112000
+// Pythia options for Z->mumu 42311000
 Generation.PileUpTool = "FixedLuminosityForRareProcess";
 Generation.Special.PythiaProduction.Commands +=
-  { "pysubs msel 0" , 
+  { "pysubs msel 12" ,
     "pysubs msub 11 0" ,
     "pysubs msub 12 0" ,
     "pysubs msub 13 0" ,
@@ -20,8 +20,6 @@ Generation.Special.PythiaProduction.Commands +=
     "pysubs msub 106 0" ,
     "pysubs msub 107 0" ,
     "pysubs msub 108 0" ,
-    "pysubs msub 16 1" ,
-    "pysubs msub 31 1" ,
     "pydat3 mdme 136 1 0" ,
     "pydat3 mdme 137 1 0" ,
     "pydat3 mdme 138 1 0" ,
@@ -37,9 +35,9 @@ Generation.Special.PythiaProduction.Commands +=
     "pydat3 mdme 148 1 0" ,
     "pydat3 mdme 149 1 0" ,
     "pydat3 mdme 150 1 0" ,
-    "pydat3 mdme 151 1 0" ,
-    "pydat3 mdme 152 1 0" ,
-    "pydat3 mdme 153 1 1" ,
-    "pydat3 mdme 154 1 0" ,
-    "pydat3 mdme 155 1 0" 
+    "pydat3 mdme 151 1 0",
+    "pydat3 mdme 152 1 0",
+    "pydat3 mdme 153 1 1",
+    "pydat3 mdme 154 1 0",
+    "pydat3 mdme 155 1 0"
 } ;

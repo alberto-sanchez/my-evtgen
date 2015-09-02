@@ -1,0 +1,25 @@
+# $Id: Bu_ppK=DecProdCut.dec,v 1.1 2007/09/30 12:59:46 robbep Exp $
+#
+# This is the decay file for the decay B+ -> p pbar K+
+#
+# EventType: 12103041
+#
+# Descriptor: [B+ -> p+ p~- K+]cc
+#
+# NickName: Bu_ppK=DecProdCut
+#
+# Cuts: DaughtersInLHCb 
+#
+# Physics: 
+#
+# Tested: No
+# By: 
+# Date: 
+#
+Decay B+sig
+  1.000       p+     anti-p-      K+        PHSP;
+Enddecay
+CDecay B-sig
+#
+End
+

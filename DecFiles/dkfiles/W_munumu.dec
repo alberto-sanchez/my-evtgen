@@ -1,4 +1,4 @@
-# $Id: W_munumu.dec,v 1.3 2007/02/27 22:09:17 robbep Exp $
+# $Id: W_munumu.dec,v 1.4 2007/09/21 09:31:08 robbep Exp $
 #
 # EventType: 42311000
 #
@@ -12,7 +12,7 @@
 #
 # CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
 #
-# ExtraOptions: Wmunum
+# ExtraOptions: Wmunu
 #
 # Tested: Yes
 # By: Karol Hennessy

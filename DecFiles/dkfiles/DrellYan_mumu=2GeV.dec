@@ -1,0 +1,22 @@
+# $Id: DrellYan_mumu=2GeV.dec,v 1.1 2007/09/21 09:59:41 robbep Exp $
+#
+# EventType: 42112010
+#
+# Descriptor: pp -> (Z0/gamma* -> mu+ mu-) ... 
+#
+# NickName: DrellYan_mumu=2GeV
+#
+# Physics: 1 lepton
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonIsFromWZ true NumberOfbquarks -1
+#
+# ExtraOptions: DrellYanmumu2GeV
+#
+# Tested: Yes
+# By: Karol Hennessy
+# Date: 27 August 2007
+#
+End
+#

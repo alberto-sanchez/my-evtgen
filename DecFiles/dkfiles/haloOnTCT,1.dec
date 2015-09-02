@@ -1,0 +1,19 @@
+# $Id: haloOnTCT,1.dec,v 1.1 2007/08/17 14:04:52 gcorti Exp $
+#
+# This decay file contains the steering for background from Halo cleaned
+# by Tertiary collimators.
+#
+# Author Gloria Corti
+# Date   2007-08-14
+# Tested
+#
+# EventType: 60051000
+#
+# Descriptor: pp => ?
+#
+# NickName: haloOnTCT,1
+#
+# ParticleType:   0 2 
+# Configuration:  0 3
+# 
+End

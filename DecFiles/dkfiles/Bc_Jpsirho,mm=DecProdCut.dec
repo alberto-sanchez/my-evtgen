@@ -1,0 +1,48 @@
+# $Id: Bc_Jpsirho,mm=DecProdCut.dec,v 1.1 2007/09/09 20:11:18 robbep Exp $
+#
+# This is the decay file for the decay BC+ -> PSI(-> MU+ MU-) RHO+(->PI+ PI0(->GARMA GARMA))
+#
+# EventType: 14143401
+#
+# Descriptor: [B_c+ -> (J/psi(1S) -> mu+ mu- {,gamma} {,gamma}) (rho(770)+ -> pi+ (pi0 -> gamma gamma))]cc
+#
+# NickName: Bc_Jpsirho,mm=DecProdCut
+#
+# Production: BcVegPy
+#
+# Cuts: BcDaughtersInLHCb
+#
+# Physics: uses BcVegPy generator
+#
+# Tested: Yes
+# By: 24 Aut 2007
+# Date: Wenbin QIAN
+#
+Alias       MyJ/psi   J/psi
+ChargeConj  MyJ/psi   MyJ/psi
+Alias      MyRho+     rho+
+Alias      MyRho-     rho-
+ChargeConj MyRho+ MyRho-
+Alias      Mypi0  pi0
+ChargeConj Mypi0  Mypi0
+#
+Decay B_c+sig
+  1.000     MyJ/psi   MyRho+             SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
+Enddecay
+CDecay B_c-sig
+#
+Decay MyJ/psi
+  1.000     mu+       mu-             PHOTOS   VLL;
+Enddecay
+#
+Decay MyRho+
+  1.000   pi+    Mypi0              VSS;
+Enddecay
+CDecay MyRho-
+#
+Decay Mypi0
+  1.000   gamma      gamma          PHSP;
+Enddecay
+#
+End
+

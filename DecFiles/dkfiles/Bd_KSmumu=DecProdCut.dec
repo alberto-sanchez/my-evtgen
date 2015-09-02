@@ -1,0 +1,32 @@
+# $Id: Bd_KSmumu=DecProdCut.dec,v 1.1 2007/11/05 21:06:40 robbep Exp $
+#
+# This is the decay file for the decay B0 -> MU+ MU- K0S (-> PI+ PI-) 
+#
+# EventType: 11114101
+#
+# Descriptor: [B0 -> mu+ mu- (KS0 -> pi+ pi-) ]cc
+#
+# NickName: Bd_KSmumu=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Ks0 forced to pi+ pi-
+# 
+# Tested: Yes
+# By: Marko Zupan
+# Date: 20 Feb 2006
+#
+Alias      MyKs    K_S0
+ChargeConj MyKs    MyKs
+
+Decay B0sig
+  1.000        MyKs     mu+     mu-      BTOSLLBALL;
+Enddecay
+CDecay anti-B0sig
+#
+Decay MyKs
+  1.000        pi+      pi-              PHSP;
+Enddecay
+#
+End
+#

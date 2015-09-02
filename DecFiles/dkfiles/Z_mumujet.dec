@@ -1,0 +1,22 @@
+# $Id: Z_mumujet.dec,v 1.1 2007/09/21 10:20:29 robbep Exp $
+#
+# EventType: 42112020
+#
+# Descriptor: pp -> (Z0 -> mu+ mu-) + jet ... 
+#
+# NickName: Z_mumujet
+#
+# Physics: 2 lepton with pT > 4 GeV
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 2 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+#
+# ExtraOptions: Zmumujet
+#
+# Tested: Yes
+# By: Karol Hennessy
+# Date: 27 Aug 2007
+#
+End
+#

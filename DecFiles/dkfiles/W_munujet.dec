@@ -1,0 +1,23 @@
+# $Id: W_munujet.dec,v 1.1 2007/09/21 10:20:29 robbep Exp $
+#
+# EventType: 42311010
+#
+# Descriptor: pp -> [W+ -> mu+ nu_mu]cc +jet ... 
+#
+# NickName: W_munujet
+#
+# Physics: 1 lepton with pT > 4 GeV 
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+#
+# ExtraOptions: Wmunujet
+#
+# Tested: Yes
+# By: Karol Hennessy
+# Date: 27 Aug 2007
+#
+End
+#
+

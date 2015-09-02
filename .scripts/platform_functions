@@ -1,0 +1,136 @@
+# Find platform.
+#
+check_platform () {
+
+export ARCH="`uname`"
+
+gcc_major=$(g++ --version | sed '2,$d;s/^[^ ]\+[ ]\+[^ ]\+[ ]\+\([0-9]\+\)\..*$/\1/')
+gcc_minor=$(g++ --version | sed '2,$d;s/^.*GCC)[ ]\+[0-9]\+\.\([0-9]\+\)\.\([0-9]\+\).*$/\1\2/')
+
+slc_major=""
+
+echo -n  "Checking for OS ... " >&2
+if [ ! -s /etc/redhat-release ] ; then
+   echo "Warning: the OS is not RedHat-derived." >&2
+   distribution=$ARCH
+else
+	if [ "x$(grep "Scientific Linux" /etc/redhat-release)" = "x" ] ; then   
+		echo "Warning: not SLC! Scientific Linux [34] is recommended." >&2
+		distribution="redhat"
+	else
+		distribution="slc"
+		slc_major=$(sed 's/^.*[Rr]elease[ ]\+\([0-9]\+\)\..*$/\1/' < /etc/redhat-release)
+		echo "SLC "$slc_major >&2
+	fi
+fi
+
+echo -n "Checking for machine ... " >&2
+machine=$(uname -m | grep -E "i[3456]86")
+if [ "x$machine" = "x" ] ; then
+	machine=$(uname -m)
+	case "X${machine}" in 
+		"Xx86_64") machine="amd64" ;; 
+	esac
+else
+	machine="ia32"
+fi
+echo $machine >&2
+
+platform="${distribution}${slc_major}_${machine}_gcc${gcc_major}${gcc_minor}"
+platform=$(echo ${platform} | sed 's/gcc34[0-9]*$/gcc34/')
+
+#echo "Platform is "${platform}
+echo ${platform}
+}
+
+
+set_compiler_flags () {
+
+
+export ARCH="`uname`"
+
+gcc_major=$(g++ --version | sed '2,$d;s/^[^ ]\+[ ]\+[^ ]\+[ ]\+\([0-9]\+\)\..*$/\1/')
+gcc_minor=$(g++ --version | sed '2,$d;s/^.*GCC)[ ]\+[0-9]\+\.\([0-9]\+\)\.\([0-9]\+\).*$/\1\2/')
+
+slc_major=""
+
+if [ ${gcc_major} = 4 ]; then
+  export ARCH=${ARCH}-gcc4
+fi
+echo "ARCH = "${ARCH}
+
+# Compilation type. 
+# Is not changed if $COMPTYPE variable is specified.
+# --enable-debug overrides this.
+
+if [ $ENABLE_DEBUG = "1" ] ; then
+	COMPTYPE=DBG
+fi
+if [ $ENABLE_OPTIMIZE = "1" ] ; then
+	COMPTYPE=OPT
+fi
+	
+echo -n "Checking for COMPTYPE variable ... "
+if [ "x$COMPTYPE" = "x" ]; then
+   echo -n " not set ... "
+   export COMPTYPE=OPT
+   echo "setting it to default: COMPTYPE = " $COMPTYPE
+elif [ "x$COMPTYPE" = "xOPT" ] ; then
+     echo " OPT"
+elif [ "x$COMPTYPE" = "xDBG" ] ; then
+     echo " DBG"
+else
+     export COMPTYPE=OPT
+     echo $COMPTYPE " wrong! Setting it to default: COMPTYPE = " $COMPTYPE
+fi
+
+export FFLAGS_OPT="-O2 -Wuninitialized"
+export FFLAGS_DBG=-g
+
+export CFLAGS_OPT=-O2
+export CFLAGS_DBG=-g
+
+export CXXFLAGS_OPT="-O2 -Wall"
+export CXXFLAGS_DBG="-g -Wall"
+
+#default platform settings:
+export FC=g77
+export CXX=g++
+export FFLAGS="${FFLAGS_OPT}"
+export CFLAGS="${CFLAGS_OPT}"
+export CXXFLAGS="${CXXFLAGS_OPT}"
+
+
+if [ ${COMPTYPE} = DBG ]; then
+  export FFLAGS="${FFLAGS_DBG}"
+  export CFLAGS="${CFLAGS_DBG}"
+  export CXXFLAGS="${CXXFLAGS_DBG}"
+fi
+
+
+export FFLAGS_OPT="-O2 -Wuninitialized"
+export FFLAGS_DBG=-g
+
+export CFLAGS_OPT=-O2
+export CFLAGS_DBG=-g
+
+export CXXFLAGS_OPT="-O2 -Wall"
+export CXXFLAGS_DBG="-g -Wall"
+
+#default platform settings:
+export F77=g77
+export CXX=g++
+export FFLAGS="${FFLAGS_OPT}"
+export CFLAGS="${CFLAGS_OPT}"
+export CXXFLAGS="${CXXFLAGS_OPT}"
+export FFLAGSSHARED=-fPIC
+export CFLAGSSHARED=-fPIC
+export CXXFLAGSSHARED=-fPIC
+
+if [ ${COMPTYPE} = DBG ]; then
+  export FFLAGS="${FFLAGS_DBG}"
+  export CFLAGS="${CFLAGS_DBG}"
+  export CXXFLAGS="${CXXFLAGS_DBG}"
+fi
+
+}

@@ -1,0 +1,37 @@
+# $Id: Bd_Jpsipi,ee=DecProdCut.dec,v 1.1 2007/09/21 15:16:42 robbep Exp $
+#
+# This is the decay file for the decay B0 -> PSI(-> E+ E-) pi0(-> gamma gamma)
+#
+# EventType: 11152401
+#
+# Descriptor: [B0 -> (pi0 -> gamma gamma) (J/psi(1S) -> e+ e- {,gamma} {,gamma}) ]cc
+#
+# NickName: Bd_Jpsipi,ee=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+# 
+# Physics: includes radiative mode, No CP violation, pi0 forced into gamma gamma
+#
+# Tested: Yes
+# By: Gael Ropsabe
+# Date: 17 Sept 2007
+#
+Alias      MyJ/psi  J/psi
+ChargeConj MyJ/psi  MyJ/psi
+Alias      Mypi0    pi0
+ChargeConj Mypi0    Mypi0
+#
+Decay B0sig
+  1.000         MyJ/psi   Mypi0           SVS;
+Enddecay
+CDecay anti-B0sig
+#
+Decay Mypi0
+  1.000         gamma       gamma         PHSP;
+Enddecay
+#
+Decay MyJ/psi
+  1.000         e+       e-             PHOTOS VLL;
+Enddecay
+End
+

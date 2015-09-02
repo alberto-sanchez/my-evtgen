@@ -25,19 +25,13 @@ clean:
 help:
 	@echo "A list of targets to make:"
 	@echo ""
-	@echo ""
-	@echo "lib_shared:  compiles Herwig as a shared library and puts it into ./lib"
-	@echo ""
-	@echo "lib_archive: compiles Herwig as an archive library and puts it into ./lib/archive"
-	@echo ""
-	@echo "examples:    compiles example routines from ./examples"
-	@echo ""
-	@echo "default:     lib_shared lib_archive dumm pdfdumm examples"
-	@echo ""
+	@echo "lib_shared:  compiles EvtGenLHC as a shared library and puts it into ./lib"
+	@echo "lib_archive: compiles EvtGenLHC as an archive library and puts it into ./lib/archive"
+#	@echo "examples:    compiles example routines from ./examples"
+	@echo "default:     lib_shared lib_archive"
 	@echo "clean:       removes all libraries, executables and objects"
-	@echo ""
-	@echo "distclean:   same as 'clean' plus removing ./config.mk and src/*.[Ff]"
+	@echo "distclean:   same as 'clean' plus removing ./config.mk, tmp/ and lib/ directories"
 	@echo ""
 
-.PHONY: examples dumm pdfdumm distclean clean tmp	
+.PHONY: examples distclean clean	
 

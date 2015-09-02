@@ -1,0 +1,31 @@
+# $Id: Bc_mumumunu=DiLeptonInAcc.dec,v 1.1 2007/08/27 12:56:25 robbep Exp $
+# 
+# Author Diego Martinez Santos
+# Date   2007-08-27
+# 
+# Decay file for B_c+->mu mu mu nu
+#
+# EventType: 14513001
+#
+# Descriptor: [B_c+ -> mu+ mu- mu+ nu_mu]cc
+#
+# Production: BcVegPy
+#
+# NickName: Bc_mumumunu=DiLeptonInAcc
+#
+# Cuts: 
+#
+# FullEventCuts: DiLeptonInAcceptance 
+#
+# Physics: includes radiative mode
+#
+# Tested: No
+# By: 
+# Date:  
+#
+Decay B_c+
+  1.000   mu+     mu-   mu+   nu_mu          PHOTOS PHSP;
+Enddecay
+CDecay B_c-
+End  
+#

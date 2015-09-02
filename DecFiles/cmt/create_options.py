@@ -11,6 +11,137 @@ import sys,os,re, string
 import time,fileinput
 
 # ---------------------------------------------------------------------------
+# Utilitty function for Halo on Collimators
+# ---------------------------------------------------------------------------
+def haloToolsOptions(evnt):
+
+    # Find all particles to do: Muons, Hadrons or both
+    pType = evnt[1]
+    cConf = evnt[2]
+    pTypes = []
+    if (pType != '0' and pType != '2' and pType != '9'):
+        print '\n ***ERROR:Only value 0(all), 2(muons), 9(hadrons) allowed in ParticleTypes\n'
+        sys.exit()
+    else:
+        if (pType == '2' or pType == '0'): 
+            pTypes.append('Muons')
+        if (pType == '9' or pType == '0'):
+            pTypes.append('Hadrons')
+        
+    # Find Shield configuration to use (only one possible!)
+    iConf = int(cConf)
+    if (iConf < 0 or iConf > 8):
+        print '\n ***ERROR:Only value from 0 to 8 allowed in Configuration\n'
+        sys.exit()
+    sDict = {0:'StagedShield', 1:'Shield', 2:'NoShield'}
+    ishield = (iConf)/3
+    shield = sDict[ishield]
+
+    # Find Collimator source to use (TCTV, TCTH or both)
+    tct = (iConf)%3
+    tctList = []
+    if( tct == 0 or tct == 1 ):
+        tctList.append('TCTV')
+    if( tct == 0 or tct == 2 ):
+        tctList.append('TCTH')
+
+    # Write all options for the tool to use (may be from 1 to 4)
+    pDict = { 'Muons':'mu', 'Hadrons':'h' }
+    sDict = { 'StagedShield':'staged_shield', 'Shield':'shield', 'NoShield':'no_shield'}
+
+    optTxt = ''
+    nickTCT = ''
+    for c in tctList:
+        nickTCT += c
+        nickPType = ''
+        for p in pTypes:
+            nickPType += pDict[p] 
+            toolName = c+shield+p
+            optTxt += 'MIBackground.MIBSources  += { "CollimatorSource/'+toolName+'" };\n'
+            filename = c+'.'+sDict[shield]+'.'+pDict[p]+'.data'
+            optTxt += 'MIBackground.'+toolName+'.ParticleSourceFile   = "'+'$MIBDATAROOT/data/'+filename+'";\n'
+        
+    
+    nickTxt = '.'+nickTCT+'.'+sDict[shield]+'.'+nickPType
+    return optTxt, nickTxt
+
+# ---------------------------------------------------------------------------
+# Options for Halo on Collimators
+# ---------------------------------------------------------------------------
+def haloOnTCT(eventType):
+
+##  EventType = GSDCTNXU, G=6 & C=5 halo on collimators
+##  S = particle types generated (similar as for G=5)
+##      0: all
+##      2: mu
+##      9: other (i.e. hadrons)
+##  D = special meaning of source configuration (shield and collimator)
+##      0: staged shield - Loss on TCTV.4L8.B1 & TCTH.L8.B1
+##      1: staged shield - Loss on TCTV.4L8.B1
+##      2: staged shield - Loss on TCTH.L8.B1
+##      3: design shield - Loss on TCTV.4L8.B1 & TCTH.L8.B1
+##      4: design shield - Loss on TCTV.4L8.B1
+##      5: design shield - Loss on TCTH.L8.B1
+##      6: no shield - Loss on TCTV.4L8.B1 & TCTH.L8.B1
+##      7: no shield - Loss on TCTH.L8.B1
+##      8: no shield - Loss on TCTH.L8.B1
+##  T=0: both beams, T=1: beam1, T=2: beam2
+##  N=Num. of bunches traveling (beam1), X=Num. of bunches traveling (beam2)
+    
+    # If mirror Keyword is present duplicate options as controlled
+    # otherwise use eventtype as-is
+    configValue = OptionsValue(decdir,"Configuration")
+    ptypeValue = OptionsValue(decdir,"ParticleType")
+    G = eventType[0]
+    CTNXU = eventType[3:8]
+    eventList = []
+    if (configValue != None):
+        configList = configValue.strip().split()
+    else:
+        configList = [eventType[1]]
+        
+    if (ptypeValue != None):
+        ptypeList = ptypeValue.strip().split()
+    else:
+        ptypeList = [eventType[2]]
+        
+    for iconf in configList:
+        for ipart in ptypeList:
+            eventList.append(G+ipart+iconf+CTNXU)
+
+
+    # Check for common lines to write
+    commonTxt = ''
+    # Check if exists ExtraOptions keyword
+    incl = OptionsValue(decdir,"ExtraOptions")
+    if incl != None:
+        if len(incl) == 1:
+            print "WARNING: There is an ExtraOptions keyword with no value in "+decdir
+	else:
+            commonTxt += "#include \"$DECFILESROOT/options/"+string.strip(incl)+".opts\"\n"
+
+    
+    commonTxt += 'ApplicationMgr.DLLs += { "LbMIB" };\n'
+    commonTxt += 'Generator.Members -= { "Generation" };\n'
+    commonTxt += 'Generator.Members -= { "GaudiSequencer/GenMonitor" };\n'
+    commonTxt += 'Generator.Members += { "MIBackground", "GaudiSequencer/GenMonitor" };\n'
+    
+    # Now loop over list of event Type and write the options
+    for iev in eventList:
+        optionsFile = optionsdirroot+iev+".opts"
+        HeaderOptions(optionsFile,iev)
+        writeOptions(optionsFile,commonTxt)
+        evtTxt, nickTxt = haloToolsOptions(iev)
+        writeOptions(optionsFile,evtTxt)
+        evtTxt = 'MIBackground.EventType = '+iev+';\n' 
+        writeOptions(optionsFile,evtTxt)
+        evtNick = OptionsNick+nickTxt 
+        writeBkkTable(iev,AsciiName,evtNick,clean)
+        writeSQLTable(iev,AsciiName,evtNick,clean)
+
+    
+
+# ---------------------------------------------------------------------------
 # Options for Beam gas
 # ---------------------------------------------------------------------------
 def beamGasLHCb(eventType):
@@ -133,7 +264,7 @@ def genParticleGuns(eventType):
         if len(string.strip(arg)) == 0:
             print "WARNING: The Keyword ParticleValue has no value\n"
         data += "ParticlePropertySvc.Particles = { "+string.strip(arg)+" };\n"
-        writeOptions(optionsdir,str)
+        #writeOptions(optionsdir,str)
 
     # C = 0
     if eventType[3] == '0':
@@ -149,21 +280,14 @@ def genParticleGuns(eventType):
             dataAux += 'ParticleGun.MomentumMax = %s*GeV;\n' % momentum
             dataAux += 'ParticleGun.EventType = %s%s;\n' % ( eventType[0:8-len(momentumRound)], momentumRound )
             file = optionsdirroot+eventType[0:8-len(momentumRound)]+momentumRound+'.opts'
+            OptionsNickAux = OptionsNick+'%s*GeV' % momentum
+            OptionsNameAux = eventType[0:8-len(momentumRound)]+momentumRound
             if os.path.exists(file):
                 print "\n *****  The file "+file+" exists. CHECK it ****"
                 print " ***** to overwrite it, you should remove it first\n"
             else:
-                f = open(file,'w')
-                f.write("// file  "+eventType[0:8-len(momentumRound)]+momentumRound+".opts generated: "+time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime())+"\n")
-                f.write("//\n")
-                f.write("// Event Type:"+eventType[0:8-len(momentumRound)]+momentumRound+"\n")
-                f.write("//\n")
-                f.write("// ASCII decay Descriptor: "+AsciiName+"\n")
-                f.write("//\n")
-                f.write(dataAux)
-                f.close
-            OptionsNickAux = OptionsNick+'%s*GeV' % momentum
-            OptionsNameAux = eventType[0:8-len(momentumRound)]+momentumRound
+                HeaderOptions(file,OptionsNameAux)
+                writeOptions(file,dataAux)
             writeBkkTable(OptionsNameAux,AsciiName,OptionsNickAux,clean)
             writeSQLTable(OptionsNameAux,AsciiName,OptionsNickAux,clean)
     else:
@@ -195,11 +319,14 @@ def writeOptions(filename,word):
 #----------------------------------------------------------------------------
 #  write the header of the options file
 #----------------------------------------------------------------------------
-def HeaderOptions(filename):
+def HeaderOptions(filename,optsName=''):
+    if (optsName == ''):
+        optsName = OptionsName
+        
     fd = open(filename,"w")
-    fd.write("// file  "+OptionsName+".opts generated: "+time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime())+"\n")
+    fd.write("// file  "+optsName+".opts generated: "+time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime())+"\n")
     fd.write("//\n")
-    fd.write("// Event Type:"+OptionsName+"\n")
+    fd.write("// Event Type:"+optsName+"\n")
     fd.write("//\n")
     fd.write("// ASCII decay Descriptor: "+AsciiName+"\n")
     fd.write("//\n")
@@ -255,9 +382,11 @@ def writeSQLTable(evttypeid,descriptor,nickname,cleanvalue):
     desc = descriptor[:min(len(descriptor),255)]
     if insert_event == "true":
         if cleanvalue == "true":
-            line = 'svc.addEvtType('+evttypeid+',"'+nick+'","'+desc+'","clean")\n'
+            line = 'EVTTYPE_ID = '+evttypeid+', DESCRIPTION = "'+nick+'", PRIMARY = "'+desc+'", DECAY = "clean"\n'
+#            line = 'svc.addEvtType('+evttypeid+',"'+nick+'","'+desc+'","clean")\n'
         else:
-            line = 'svc.addEvtType('+evttypeid+',"'+nick+'","'+desc+'","")\n'
+#            line = 'svc.addEvtType('+evttypeid+',"'+nick+'","'+desc+'","")\n'
+            line = 'EVTTYPE_ID = '+evttypeid+', DESCRIPTION = "'+nick+'", PRIMARY = "'+desc+'", DECAY = ""\n'
                          
         writeOptions(TableName,line)
  
@@ -303,6 +432,12 @@ def run_create(clean):
     if OptionsName[0] == '5':
         genParticleGuns(OptionsName)
         sys.exit()
+
+# Check if EventType is special source --> MIB (6xx5xxxx)
+    if (OptionsName[0] == '6' and OptionsName[3] == '5'):
+        haloOnTCT(OptionsName)
+        sys.exit()
+    
 
 #check if the options file already exist and do not overwrite it
     if clean == 'true':
@@ -437,6 +572,7 @@ def run_create(clean):
 # Lines for specific event types: Beam gas in LHCb (G=6, C=0,1) ------
     if (OptionsName[0] == '6' and (OptionsName[3] =='0' or OptionsName[3] =='1')):
         beamGasLHCb(OptionsName)
+    
 
 # Optional lines depending of existing keywords ----------------------
  
@@ -452,7 +588,7 @@ def run_create(clean):
     CutsValue = OptionsValue(decdir,"Cuts")
     if CutsValue != None:
         if len(string.strip(CutsValue)) == 0:
-            print "WARNING: The Cuts Keyword in "+decdir+" has no value\n"
+            print "INFO: The Cuts Keyword in "+decdir+" has no value\n"
         str = "Generation."+string.strip(sample)+".CutTool = \""+string.strip(CutsValue)+"\";\n"
         writeOptions(optionsdir,str)
 

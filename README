@@ -1,9 +1,18 @@
+====================== EvtGenLHC package ============================
+GENSER Version is 8.16
+LHCB_CVS_TAG for EvtGenLHC is v8r16
+LHCB_PARTICLE_DATA_CVS_TAG for DecFiles is v13r16
 
-This is EvtGenLHC package.
+Configured with:
+# run ./configure --help   for available options
+./configure --lcgplatform=${lcgplatform} --with-clhepversion=1.9.3.1 
 
 This is the installation instruction specific for GENSER2.
 We remove author's sophisticated configuration scripts and 
 makefiles and use a simple ./configure script plus a set of makefiles 
 instead.
 Type './configure  --help' to list possible configuration options.
+
+Note: the latest version of evt.pdl file is used instead of 
+      unsupported version from LHCb Repository
 

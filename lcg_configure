@@ -1,13 +1,11 @@
-#!/bin/sh
+#! /bin/bash
 #
+# run ./configure --help   for available options
 
-if [ x$MCGENERATORS = x ]; then
-  echo
-  echo MCGENERATORS variable is not defined !
-  echo it can be defined as a path to replica of MCGenerators area: 
-  echo MCGENERATORS=/afs/.cern.ch/sw/lcg/external/MCGenerators
-  echo
-  exit 1
-fi
+. .scripts/platform_functions
+lcgplatform=$(check_platform)
 
-./configure 
+./configure --lcgplatform=${lcgplatform} --with-clhepversion=1.9.3.1 
+
+exit
+

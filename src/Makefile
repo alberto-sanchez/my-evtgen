@@ -23,7 +23,7 @@ lib_archive: $(LIB_ARCHIVE)
 $(LIB_SHARED) : $(objects)
 	mkdir -p $(LIBDIR_SHARED)
 	@echo creating the shared library $@
-	$(CXX) $(LDFLAGSSHARED) $(objects) -o $@ -shared -Wl,-soname,$(notdir $@)
+	$(CXX) $(LDFLAGSSHARED) $(objects) -o $@ -shared -Wl,-soname,$(notdir $@) $(FLIBS)
 
 $(LIB_ARCHIVE) : $(objects)
 	ar cru $(LIB_ARCHIVE) $(objects)
@@ -31,9 +31,17 @@ $(LIB_ARCHIVE) : $(objects)
 #---- The following is for dependency checking:
 
 $(TMPDIR)/%.mk:  %.cpp
-	$(CXX) -MM $< -I$(INCLUDEDIR) $(INCLUDE_CLHEP) | sed 's,^.*o[ ]*:,$(TMPDIR)/$<:,' | sed 's,cpp:,o:,'  > $@ 
+	$(CXX) -MM $(CXXFLAGS) $< -I$(INCLUDEDIR) $(INCLUDE_CLHEP) | sed 's,[^ ]*\.o:,$(TMPDIR)/&,' > $@ 
 
--include $(mkfiles)
+$(TMPDIR)/%.mk:  %.F
+	$(CXX) -MM $(CXXFLAGS) $< -I$(INCLUDEDIR) $(INCLUDE_CLHEP) | sed 's,[^ ]*\.o:,$(TMPDIR)/&,' > $@ 
+
+
+ifneq ($(MAKECMDGOALS),clean)
+ ifneq ($(mkfiles),)
+  -include $(mkfiles)
+ endif
+endif
 
 #----
 
@@ -41,13 +49,16 @@ $(TMPDIR)/%.o : %.cpp  $(TMPDIR)/%.mk
 	$(CXX) $(CXXFLAGS) $(CXXFLAGSSHARED) -c -o $@ $< -I$(INCLUDEDIR) \
 	$(INCLUDE_CLHEP)
 	
-$(TMPDIR)/%.o: %.F
-	$(F77) $(FFLAGS) $(FFLAGSSHARED) -c -o $@ $< -I$(INCLUDEDIR) $(INCLUDE_CLHEP)
+$(TMPDIR)/%.o: %.F $(TMPDIR)/%.mk
+	$(FC) $(FFLAGS) $(FFLAGSSHARED) -c -o $@ $< -I$(INCLUDEDIR) $(INCLUDE_CLHEP)
 	
-$(TMPDIR)/%.o: %.f
-	$(F77) $(FFLAGS) $(FFLAGSSHARED) -c -o $@ $< -I$(INCLUDEDIR) $(INCLUDE_CLHEP)
+$(TMPDIR)/%.o: %.f $(TMPDIR)/%.mk
+	$(FC) $(FFLAGS) $(FFLAGSSHARED) -c -o $@ $< -I$(INCLUDEDIR) $(INCLUDE_CLHEP)
+
+.PHONY: clean
+
 clean:
 	rm -f *~
-	rm -f $(objects) 
+	rm -f $(objects) $(mkfiles)
 	rm -f $(LIB_SHARED) 
 	rm -f $(LIB_ARCHIVE)
