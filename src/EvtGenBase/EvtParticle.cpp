@@ -110,6 +110,8 @@ int EvtParticle::firstornot() const { return _first;}
 
 EvtId EvtParticle::getId() const { return _id;}
 
+int EvtParticle::getPDGId() const {return EvtPDL::getStdHep(_id);}
+
 EvtSpinType::spintype EvtParticle::getSpinType() const 
       { return EvtPDL::getSpinType(_id);}
 

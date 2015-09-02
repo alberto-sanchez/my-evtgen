@@ -64,6 +64,9 @@ private:
   EvtDalitzTable(const EvtDalitzTable&);
   EvtDalitzTable& operator=(const EvtDalitzTable&);
 
+  //to calculate probMax
+  double calcProbMax(EvtDalitzPlot dp, EvtDalitzDecayInfo* model);
+  double calcProb(EvtDalitzPoint point, EvtDalitzDecayInfo* model);
 };
 
 #endif

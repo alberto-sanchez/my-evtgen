@@ -36,7 +36,8 @@
 
 using std::endl;
 
-EvtPythiaEngine::EvtPythiaEngine(std::string xmlDir, bool convertPhysCodes) {
+EvtPythiaEngine::EvtPythiaEngine(std::string xmlDir, bool convertPhysCodes,
+				 bool useEvtGenRandom) {
 
   // Create two Pythia generators. One will be for generic
   // Pythia decays in the decay.dec file. The other one will be to 
@@ -59,6 +60,12 @@ EvtPythiaEngine::EvtPythiaEngine(std::string xmlDir, bool convertPhysCodes) {
 
   _convertPhysCodes = convertPhysCodes;
 
+  // Specify if we are going to use the random number generator (engine)
+  // from EvtGen for Pythia 8.
+  _useEvtGenRandom = useEvtGenRandom;
+
+  _evtgenRandom = new EvtPythiaRandom();
+
   _initialised = false;
 
 }
@@ -67,6 +74,8 @@ EvtPythiaEngine::~EvtPythiaEngine() {
 
   delete _genericPythiaGen; _genericPythiaGen = 0;
   delete _aliasPythiaGen; _aliasPythiaGen = 0;
+
+  delete _evtgenRandom; _evtgenRandom = 0;
 
   _thePythiaGenerator = 0;
 
@@ -109,6 +118,14 @@ void EvtPythiaEngine::initialise() {
 
   // Apply any other physics (or special particle) requirements/cuts etc..
   this->updatePhysicsParameters();
+
+  // Set the random number generator
+  if (_useEvtGenRandom == true) {
+
+    _genericPythiaGen->setRndmEnginePtr(_evtgenRandom);
+    _aliasPythiaGen->setRndmEnginePtr(_evtgenRandom);
+
+  }
 
   _genericPythiaGen->init();
   _aliasPythiaGen->init();
@@ -731,9 +748,12 @@ void EvtPythiaEngine::updatePhysicsParameters() {
   //Now read in any custom configuration entered in the XML
   GeneratorCommands commands = EvtExtGeneratorCommandsTable::getInstance()->getCommands("PYTHIA");
   GeneratorCommands::iterator it = commands.begin();
-  std::vector<std::string> commandStrings;
+
   for( ; it!=commands.end(); it++) {
+
     Command command = *it;
+    std::vector<std::string> commandStrings;
+
     if(command["VERSION"] == "PYTHIA6") {
       report(INFO,"EvtGen")<<"Converting Pythia 6 command: "<<command["MODULE"]<<"("<<command["PARAM"]<<")="<<command["VALUE"]<<"..."<<endl;
       commandStrings = convertPythia6Command(command);

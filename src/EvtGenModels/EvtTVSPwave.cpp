@@ -129,3 +129,40 @@ void EvtTVSPwave::decay( EvtParticle *p ){
   return ;
 }
 
+std::string EvtTVSPwave::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "PWave";
+  case 1:
+    return "PWavePhase";
+  case 2:
+    return "DWave";
+  case 3:
+    return "DWavePhase";
+  case 4:
+    return "FWave";
+  case 5:
+    return "FWavePhase";
+  default:
+    return "";
+  }
+}
+
+std::string EvtTVSPwave::getParamDefault(int i) {
+  switch(i) {
+  case 0:
+    return "0.0";
+  case 1:
+    return "0.0";
+  case 2:
+    return "1.0";
+  case 3:
+    return "0.0";
+  case 4:
+    return "0.0";
+  case 5:
+    return "0.0";
+  default:
+    return "";
+  }
+}

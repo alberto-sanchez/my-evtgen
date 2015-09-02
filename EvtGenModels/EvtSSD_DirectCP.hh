@@ -24,6 +24,8 @@ public:
   void init();
   void decay(EvtParticle *p); 
 
+  std::string getParamName(int i);
+
 private:
   bool isB0Mixed( EvtParticle * p ) ;
   bool isBsMixed( EvtParticle * p ) ;

@@ -35,7 +35,7 @@ class EvtPhotosEngine : public EvtAbsExternalGen {
 
 public:
 
-  EvtPhotosEngine(std::string photonType = "gamma");
+  EvtPhotosEngine(std::string photonType = "gamma", bool useEvtGenRandom = true);
   virtual ~EvtPhotosEngine();
 
   virtual bool doDecay(EvtParticle* theMother);
@@ -49,7 +49,7 @@ private:
   std::string _photonType;
   EvtId _gammaId;
   double _mPhoton;
-  bool _initialised;  
+  bool _initialised;
 
   HepMC::GenParticle* createGenParticle(EvtParticle* theParticle, bool incoming);
 

@@ -112,3 +112,12 @@ void EvtGenericDalitz::decay(EvtParticle *p) {
   vertex(amp);
   return;
 }
+
+std::string EvtGenericDalitz::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "xmlFile";
+  default:
+    return "";
+  }
+}

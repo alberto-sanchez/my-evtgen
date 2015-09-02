@@ -48,9 +48,9 @@ EvtDecayBase* EvtBto2piCPiso::clone(){
 
 void EvtBto2piCPiso::init(){
 
-  // check that there are 11 arguments
+  // check that there are 10 arguments
 
-  checkNArg(11);
+  checkNArg(10);
   checkNDaug(2);
 
   checkSpinParent(EvtSpinType::SCALAR);
@@ -187,3 +187,52 @@ void EvtBto2piCPiso::decay( EvtParticle *p ){
   return ;
 }
 
+std::string EvtBto2piCPiso::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "weakPhase";
+  case 1:
+    return "deltaM";
+  case 2:
+    return "A2";
+  case 3:
+    return "A2Phase";
+  case 4:
+    return "A2bar";
+  case 5:
+    return "A2barPhase";
+  case 6:
+    return "A0";
+  case 7:
+    return "A0Phase";
+  case 8:
+    return "A0bar";
+  case 9:
+    return "A0barPhase";
+  default:
+    return "";
+  }
+}
+
+std::string EvtBto2piCPiso::getParamDefault(int i) {
+  switch(i) {
+  case 2:
+    return "1.0";
+  case 3:
+    return "0.0";
+  case 4:
+    return "1.0";
+  case 5:
+    return "0.0";
+  case 6:
+    return "1.0";
+  case 7:
+    return "0.0";
+  case 8:
+    return "1.0";
+  case 9:
+    return "0.0";
+  default:
+    return "";
+  }
+}

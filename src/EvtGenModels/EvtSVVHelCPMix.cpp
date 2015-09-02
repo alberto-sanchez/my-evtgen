@@ -230,4 +230,52 @@ void EvtSVVHelCPMix::decay( EvtParticle *p){
 
 }
 
+std::string EvtSVVHelCPMix::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "plusHelAmp";
+  case 1:
+    return "plusHelAmpPhase";
+  case 2:
+    return "zeroHelAmp";
+  case 3:
+    return "zeroHelAmpPhase";
+  case 4:
+    return "minusHelAmp";
+  case 5:
+    return "minusHelAmpPhase";
+  case 6:
+    return "averageM";
+  case 7:
+    return "deltaM";
+  case 8:
+    return "gamma";
+  case 9:
+    return "deltaGamma";
+  case 10:
+    return "weakMixPhase";
+  case 11:
+    return "weakDirectPhase";
+  default:
+    return "";
+  }
+}
 
+std::string EvtSVVHelCPMix::getParamDefault(int i) {
+  switch(i) {
+  case 0:
+    return "1.0";
+  case 1:
+    return "0.0";
+  case 2:
+    return "1.0";
+  case 3:
+    return "0.0";
+  case 4:
+    return "1.0";
+  case 5:
+    return "0.0";
+  default:
+    return "";
+  }
+}

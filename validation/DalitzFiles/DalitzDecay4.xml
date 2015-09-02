@@ -17,10 +17,10 @@
   <copyDalitz particle="D-" daughters="K+ pi- pi-"
               copy="D+" copyDaughters="K- pi+ pi+" />
   <decay name="D+">
-    <channel br="1.0" daughters="K- pi+ pi+" model="GENERIC_DALITZ" params="DalitzFiles/DalitzDecay4.xml"/>
+    <channel br="1.0" daughters="K- pi+ pi+" model="GENERIC_DALITZ" xmlFile="DalitzFiles/DalitzDecay4.xml"/>
   </decay>
   <decay name="D-">
-    <channel br="1.0" daughters="K+ pi- pi-" model="GENERIC_DALITZ" params="DalitzFiles/DalitzDecay4.xml"/>
+    <channel br="1.0" daughters="K+ pi- pi-" model="GENERIC_DALITZ" xmlFile="DalitzFiles/DalitzDecay4.xml"/>
   </decay>
 </data>
 

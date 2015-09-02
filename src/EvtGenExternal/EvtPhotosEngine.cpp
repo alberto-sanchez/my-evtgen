@@ -24,6 +24,7 @@
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtPhotonParticle.hh"
 #include "EvtGenBase/EvtReport.hh"
+#include "EvtGenBase/EvtRandom.hh"
 
 #include "Photos/Photos.h"
 #include "Photos/PhotosHepMCEvent.h"
@@ -40,19 +41,30 @@
 
 using std::endl;
 
-EvtPhotosEngine::EvtPhotosEngine(std::string photonType) {
+EvtPhotosEngine::EvtPhotosEngine(std::string photonType, bool useEvtGenRandom) {
 
   _photonType = photonType;
   _gammaId = EvtId(-1,-1);
   _mPhoton = 0.0;
 
   report(INFO,"EvtGen")<<"Setting up PHOTOS."<<endl;
-  
+
+  if (useEvtGenRandom == true) {
+      
+    report(INFO,"EvtGen")<<"Using EvtGen random number engine also for Photos++"<<endl;
+
+    Photospp::Photos::setRandomGenerator(EvtRandom::Flat);
+
+  }
+
   Photospp::Photos::initialize();
-  // Set minimum photon energy (50keV at 1 GeV scale)
-  Photospp::Photos::setInfraredCutOff(50.0e-6);
+
+  // Set minimum photon energy (0.1 keV at 1 GeV scale)
+  Photospp::Photos::setInfraredCutOff(1.0e-7);
   // Increase the maximum possible value of the interference weight
-  Photospp::Photos::maxWtInterference(4.0); // 2^n, where n = number of charges (+,-)
+  Photospp::Photos::maxWtInterference(64.0); // 2^n, where n = number of charges (+,-)
+  Photospp::Photos::setInterference(true);
+  Photospp::Photos::setExponentiation(true);
 
   _initialised = false;
 
@@ -96,8 +108,10 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
   // We add these extra photons to the mother particle daughter list.
 
   // Skip running Photos if the particle has no daughters, since we can't add FSR.
+  // Also skip Photos if the particle has too many daughters (>= 10) to avoid a problem
+  // with a hard coded upper limit in the PHOENE subroutine.
   int nDaug(theMother->getNDaug());
-  if (nDaug == 0) {return false;}
+  if (nDaug == 0 || nDaug >= 10) {return false;}
 
   // Create the dummy event.
   HepMC::GenEvent* theEvent = new HepMC::GenEvent(HepMC::Units::GEV, HepMC::Units::MM);

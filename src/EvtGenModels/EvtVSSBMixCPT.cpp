@@ -301,9 +301,54 @@ void EvtVSSBMixCPT::decay( EvtParticle *p ){
   return ;
 }
 
+std::string EvtVSSBMixCPT::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "deltaM";
+  case 1:
+    return "deltaGammaOverGamma";
+  case 2:
+    return "qOverP";
+  case 3:
+    return "qOverPPhase";
+  case 4:
+    return "Af";
+  case 5:
+    return "AfPhase";
+  case 6:
+    return "Abarf";
+  case 7:
+    return "AbarfPhase";
+  case 8:
+    return "Afbar";
+  case 9:
+    return "AfbarPhase";
+  case 10:
+    return "Abarfbar";
+  case 11:
+    return "AbarfbarPhase";
+  case 12:
+    return "Z";
+  case 13:
+    return "ZPhase";
+  default:
+    return "";
+  }
+}
 
-
-
-
-
-
+std::string EvtVSSBMixCPT::getParamDefault(int i) {
+  switch(i) {
+  case 3:
+    return "0.0";
+  case 4:
+    return "1.0";
+  case 5:
+    return "0.0";
+  case 6:
+    return "1.0";
+  case 7:
+    return "0.0";
+  default:
+    return "";
+  }
+}

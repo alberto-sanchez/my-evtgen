@@ -68,6 +68,9 @@ public:
   int getNModes(int aliasInt);
   int getNModes(EvtId id);
 
+  std::vector<std::string> splitString(std::string& theString, 
+				       std::string& splitter);
+
 protected:  
 
   EvtDecayTable();

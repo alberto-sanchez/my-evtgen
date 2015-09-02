@@ -27,13 +27,13 @@
 #include "EvtGenExternal/EvtTauola.hh"
 
 EvtExternalGenList::EvtExternalGenList(bool convertPythiaCodes, std::string pythiaXmlDir,
-				       std::string photonType) {
+				       std::string photonType, bool useEvtGenRandom) {
 
   // Instantiate the external generator factory
   EvtExternalGenFactory* extFactory = EvtExternalGenFactory::getInstance();
 
   // Define the external generator "engines" here
-  extFactory->definePhotosGenerator(photonType);
+  extFactory->definePhotosGenerator(photonType, useEvtGenRandom);
 
   if (pythiaXmlDir.size() < 1) {
     // If we have no string defined, check the value of the
@@ -43,8 +43,10 @@ EvtExternalGenList::EvtExternalGenList(bool convertPythiaCodes, std::string pyth
     if (pythiaDataDir != 0) {pythiaXmlDir = pythiaDataDir;}
   }
 
-  extFactory->definePythiaGenerator(pythiaXmlDir, convertPythiaCodes);
-  extFactory->defineTauolaGenerator();  
+  extFactory->definePythiaGenerator(pythiaXmlDir, convertPythiaCodes,
+				    useEvtGenRandom);
+
+  extFactory->defineTauolaGenerator(useEvtGenRandom);  
 
 }
 

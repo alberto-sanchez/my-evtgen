@@ -161,3 +161,38 @@ void EvtSVPCP::decay( EvtParticle *p ){
 
 }
 
+std::string EvtSVPCP::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "weakPhase";
+  case 1:
+    return "deltaM";
+  case 2:
+    return "finalStateCP";
+  case 3:
+    return "Af";
+  case 4:
+    return "AfPhase";
+  case 5:
+    return "Abarf";
+  case 6:
+    return "AbarfPhase";
+  default:
+    return "";
+  }
+}
+
+std::string EvtSVPCP::getParamDefault(int i) {
+  switch(i) {
+  case 3:
+    return "1.0";
+  case 4:
+    return "0.0";
+  case 5:
+    return "1.0";
+  case 6:
+    return "0.0";
+  default:
+    return "";
+  }
+}

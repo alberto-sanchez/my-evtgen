@@ -51,6 +51,9 @@ int main(int argc, char** argv) {
   bool useXml = false;
   if(argc > 5) {useXml = (atoi(argv[5])==1);}
 
+  bool useEvtGenRandom = false;
+  if (argc > 6) {useEvtGenRandom = (atoi(argv[6])==1);}
+
   cout<<"Number of events is "<<nEvents<<endl;
 
   TFile* theFile = new TFile(rootFileName.c_str(), "recreate");
@@ -107,7 +110,7 @@ int main(int argc, char** argv) {
   std::list<EvtDecayBase*> extraModels;
 
 #ifdef EVTGEN_EXTERNAL
-  EvtExternalGenList genList;
+  EvtExternalGenList genList(true, "", "gamma", useEvtGenRandom);
   radCorrEngine = genList.getPhotosModel();
   extraModels = genList.getListOfModels();
 #endif

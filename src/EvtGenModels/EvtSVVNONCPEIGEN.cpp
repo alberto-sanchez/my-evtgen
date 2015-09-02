@@ -195,3 +195,94 @@ void EvtSVVNONCPEIGEN::decay( EvtParticle *p){
   return ;
 }
 
+std::string EvtSVVNONCPEIGEN::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "deltaM";
+  case 1:
+    return "weakPhase1";
+  case 2:
+    return "weakPhase2";
+  case 3:
+    return "AfPlusHelAmp";
+  case 4:
+    return "AfPlusHelAmpPhase";
+  case 5:
+    return "AfZeroHelAmp";
+  case 6:
+    return "AfZeroHelAmpPhase";
+  case 7:
+    return "AfMinusHelAmp";
+  case 8:
+    return "AfMinusHelAmpPhase";
+  case 9:
+    return "AbarfPlusHelAmp";
+  case 10:
+    return "AbarfPlusHelAmpPhase";
+  case 11:
+    return "AbarfZeroHelAmp";
+  case 12:
+    return "AbarfZeroHelAmpPhase";
+  case 13:
+    return "AbarfMinusHelAmp";
+  case 14:
+    return "AbarfMinusHelAmpPhase";
+  case 15:
+    return "AfbarPlusHelAmp";
+  case 16:
+    return "AfbarPlusHelAmpPhase";
+  case 17:
+    return "AfbarZeroHelAmp";
+  case 18:
+    return "AfbarZeroHelAmpPhase";
+  case 19:
+    return "AfbarMinusHelAmp";
+  case 20:
+    return "AfbarMinusHelAmpPhase";
+  case 21:
+    return "AbarfbarPlusHelAmp";
+  case 22:
+    return "AbarfbarPlusHelAmpPhase";
+  case 23:
+    return "AbarfbarZeroHelAmp";
+  case 24:
+    return "AbarfbarZeroHelAmpPhase";
+  case 25:
+    return "AbarfbarMinusHelAmp";
+  case 26:
+    return "AbarfbarMinusHelAmpPhase";
+  default:
+    return "";
+  }
+}
+
+std::string EvtSVVNONCPEIGEN::getParamDefault(int i) {
+  switch(i) {
+  case 3:
+    return "1.0";
+  case 4:
+    return "0.0";
+  case 5:
+    return "1.0";
+  case 6:
+    return "0.0";
+  case 7:
+    return "1.0";
+  case 8:
+    return "0.0";
+  case 9:
+    return "1.0";
+  case 10:
+    return "0.0";
+  case 11:
+    return "1.0";
+  case 12:
+    return "0.0";
+  case 13:
+    return "1.0";
+  case 14:
+    return "0.0";
+  default:
+    return "";
+  }
+}

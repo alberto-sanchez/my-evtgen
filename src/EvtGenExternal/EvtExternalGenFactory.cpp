@@ -70,7 +70,9 @@ EvtExternalGenFactory* EvtExternalGenFactory::getInstance() {
 
 }
 
-void EvtExternalGenFactory::definePythiaGenerator(std::string xmlDir, bool convertPhysCodes) {
+void EvtExternalGenFactory::definePythiaGenerator(std::string xmlDir, 
+						  bool convertPhysCodes,
+						  bool useEvtGenRandom) {
 
   // Only define the generator if we have the external ifdef variable set
 #ifdef EVTGEN_PYTHIA
@@ -86,33 +88,37 @@ void EvtExternalGenFactory::definePythiaGenerator(std::string xmlDir, bool conve
     report(INFO,"EvtGen")<<"Pythia 8 codes need to be used in decay files"<<endl;
   }
 
-  EvtAbsExternalGen* pythiaGenerator = new EvtPythiaEngine(xmlDir, convertPhysCodes);
+  if (useEvtGenRandom == true) {
+    report(INFO,"EvtGen")<<"Using EvtGen random engine for Pythia 8 as well"<<endl;
+  }
+
+  EvtAbsExternalGen* pythiaGenerator = new EvtPythiaEngine(xmlDir, convertPhysCodes, useEvtGenRandom);
   _extGenMap[genId] = pythiaGenerator;
 
 #endif
 
 }
 
-void EvtExternalGenFactory::definePhotosGenerator(std::string photonType) {
+void EvtExternalGenFactory::definePhotosGenerator(std::string photonType, bool useEvtGenRandom) {
 
 #ifdef EVTGEN_PHOTOS
 
   int genId = EvtExternalGenFactory::PhotosGenId;
   report(INFO,"EvtGen")<<"Defining EvtPhotosEngine using photonType = "<<photonType<<endl;
-  EvtAbsExternalGen* photosGenerator = new EvtPhotosEngine(photonType);
+  EvtAbsExternalGen* photosGenerator = new EvtPhotosEngine(photonType, useEvtGenRandom);
   _extGenMap[genId] = photosGenerator;
 
 #endif
 
 }
 
-void EvtExternalGenFactory::defineTauolaGenerator() {
+void EvtExternalGenFactory::defineTauolaGenerator(bool useEvtGenRandom) {
 
 #ifdef EVTGEN_TAUOLA
 
   int genId = EvtExternalGenFactory::TauolaGenId;
   report(INFO,"EvtGen")<<"Defining EvtTauolaEngine."<<endl;
-  EvtAbsExternalGen* tauolaGenerator = new EvtTauolaEngine();
+  EvtAbsExternalGen* tauolaGenerator = new EvtTauolaEngine(useEvtGenRandom);
   _extGenMap[genId] = tauolaGenerator;
 
 #endif

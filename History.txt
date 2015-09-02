@@ -4,6 +4,79 @@
 //
 //===========================================================================
 
+R01-02-00-------------------------------------------------------------------
+15th May 2013 John Back
+     New tag, version "1.2.0", incorporating all changes below.
+
+14th May 2013 Michal Kreps
+     Added Blatt-Weisskopf barrier factors up to L=5 in 
+     EvtGenBase/EvtBlattWeisskopf::compute().
+
+14th May 2013 John Back
+     Added additional entries (appended at the end) to the evt.pdl particle 
+     data file courtesy of Romulus Godang and Belle II colleagues.
+
+14th March 2013 John Back
+     Added the method EvtParticle::getPDGId() to get the PDG integer for a
+     particle directly (which just calls EvtPDL::getStdHep()).
+     Added a check in EvtPhotosEngine::doDecay to skip Photos if a given 
+     particle has too many daughters (>= 10) to avoid a problem with a 
+     hard coded upper limit in the Photos PHOENE subroutine.
+
+2nd February 2013 Daniel Craik
+     Updated EvtDalitzTable to estimate probMax when it is missing from a 
+     Dalitz model.
+
+1st  February 2013 John Back
+     Added the ability to read in Pythia 6 commands in ascii decay files in
+     EvtDecayTable::readDecayFile (this was already possible in xml files).
+     Modified the Photos++ engine default settings to be more suited to B
+     decays (from LHCb defaults).
+
+31st January 2013 John Back
+     Added the ability to read in Pythia 8 commands in ascii decay files
+     in EvtDecayTable::readDecayFile. They can be set using the syntax:
+     "PythiaTypeParam module:variable=value", where Type = Generic, Alias or
+     Both for specifying whether the parameter is for the generic or alias
+     Pythia decay engines (or both). The 2nd argument must not contain any
+     spaces. Fixed the list of commands strings being used in the 
+     EvtPythiaEngine class (i.e. Pythia parameters that can be set via decay
+     files).
+
+31st January 2013 Daniel Craik
+     Added named parameters to various decay models.
+
+30th January 2013 John Back
+     Fixed some of the parameter arguments used in the EvtSVSCPiso model.
+
+24th January 2013 John Back
+     Set the Photos++ and Tauola++ models to use the EvtGen random number 
+     engine when useEvtGenRandom is set to true in the EvtExternalGenList 
+     constructor.
+
+23rd January 2013 John Back
+     Added EvtGenExternal/EvtPythiaRandom to allow the use of the EvtGen
+     random number engine to also be used for the random engine for Pythia 8.
+     Added a boolean (useEvtGenRandom, default = true) within the 
+     EvtExternalGenList constructor to use this feature.
+
+18th December 2012 John Back
+     Corrected some wrong daughter ordering assignments for decay modes 5 and
+     12 in EvtDDalitz. Updated validation/DalitzDecays.xml to also contain
+     D decay mode 12, as well as various modes that may use K_S0 and K_L0. 
+     Added validation/genDDalitzModes.sh and updated 
+     validation/compareDalitz.C to do a complete comparison of the D Dalitz 
+     modes with the xml versions.
+
+11th December 2012 Daniel Craik
+     Updated the Xml parser to support named model parameters. Updated the 
+     generic Dalitz model to use named model parameters as an example.
+
+15th October 2012 John Back
+     Make EvtSimpleRandomEngine inherit from EvtRandomEngine to avoid
+     crash in EvtGen.cpp when no random engine is defined 
+     (from Bjoern Spruck).
+
 R01-01-00-------------------------------------------------------------------
 4th October 2012 John Back
      New tag, version "1.1.0", incorporating all changes below.

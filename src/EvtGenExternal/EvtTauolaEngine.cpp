@@ -43,7 +43,7 @@
 
 using std::endl;
 
-EvtTauolaEngine::EvtTauolaEngine() {
+EvtTauolaEngine::EvtTauolaEngine(bool useEvtGenRandom) {
 
   // PDG standard code integer ID for tau particle
   _tauPDG = 15; 
@@ -57,8 +57,16 @@ EvtTauolaEngine::EvtTauolaEngine() {
   Tauolapp::Tauola::setDecayingParticle(_tauPDG); // tau PDG code
   Tauolapp::Tauola::setSameParticleDecayMode(Tauolapp::Tauola::All); // all modes allowed
   Tauolapp::Tauola::setOppositeParticleDecayMode(Tauolapp::Tauola::All); // all modes allowed
-  
+
   // Initial the Tauola external generator
+  if (useEvtGenRandom == true) {
+      
+    report(INFO,"EvtGen")<<"Using EvtGen random number engine also for Tauola++"<<endl;
+      
+    Tauolapp::Tauola::setRandomGenerator(EvtRandom::Flat);
+      
+  }
+
   Tauolapp::Tauola::initialize();
 
   // Set-up possible decay modes when we have read the (user) decay file

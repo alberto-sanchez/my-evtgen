@@ -108,3 +108,11 @@ void EvtVSSMix::decay( EvtParticle *p ){
   return ;
 }
 
+std::string EvtVSSMix::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "deltaM";
+  default:
+    return "";
+  }
+}

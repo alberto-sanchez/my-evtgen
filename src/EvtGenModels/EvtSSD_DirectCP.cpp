@@ -183,3 +183,12 @@ bool EvtSSD_DirectCP::isBsMixed ( EvtParticle * p ) {
 
   return false ;
 }
+
+std::string EvtSSD_DirectCP::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "ACP";
+  default:
+    return "";
+  }
+}

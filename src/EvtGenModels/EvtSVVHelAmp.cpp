@@ -139,4 +139,40 @@ void EvtSVVHelAmp::SVVHel(EvtParticle *parent,EvtAmp& amp,EvtId n_v1,EvtId n_v2,
 
 }
 
+std::string EvtSVVHelAmp::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "plusHelAmp";
+  case 1:
+    return "plusHelAmpPhase";
+  case 2:
+    return "zeroHelAmp";
+  case 3:
+    return "zeroHelAmpPhase";
+  case 4:
+    return "minusHelAmp";
+  case 5:
+    return "minusHelAmpPhase";
+  default:
+    return "";
+  }
+}
 
+std::string EvtSVVHelAmp::getParamDefault(int i) {
+  switch(i) {
+  case 0:
+    return "1.0";
+  case 1:
+    return "0.0";
+  case 2:
+    return "1.0";
+  case 3:
+    return "0.0";
+  case 4:
+    return "1.0";
+  case 5:
+    return "0.0";
+  default:
+    return "";
+  }
+}

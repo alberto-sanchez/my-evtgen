@@ -116,3 +116,46 @@ void EvtSVVCP::decay( EvtParticle *p){
   return ;
 }
 
+std::string EvtSVVCP::getParamName(int i) {
+  switch(i) {
+  case 0:
+    return "weakPhase";
+  case 1:
+    return "deltaM";
+  case 2:
+    return "eta";
+  case 3:
+    return "G1Plus";
+  case 4:
+    return "G1PlusPhase";
+  case 5:
+    return "G0Plus";
+  case 6:
+    return "G0PlusPhase";
+  case 7:
+    return "G1Minus";
+  case 8:
+    return "G1MinusPhase";
+  default:
+    return "";
+  }
+}
+
+std::string EvtSVVCP::getParamDefault(int i) {
+  switch(i) {
+  case 3:
+    return "1.0";
+  case 4:
+    return "0.0";
+  case 5:
+    return "1.0";
+  case 6:
+    return "0.0";
+  case 7:
+    return "1.0";
+  case 8:
+    return "0.0";
+  default:
+    return "";
+  }
+}

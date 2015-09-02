@@ -5,7 +5,7 @@ The major points comparing this version with the 2009 release are the following:
 
 1. This version requires HepMC (version 2.04 and above) for storing event structures
    of particle decays, and can also use Pythia 8 (version 8.160 and above is required) 
-   and the C++ interfaced packages Photos (version 3.5 and above) and Tauola 
+   and the C++ interfaced packages Photos (version 3.5.2 and above) and Tauola 
    (version 1.0.7 and above). These external generators are included via engine
    classes in the new sub-directory EvtGenExternal.
 
@@ -156,11 +156,11 @@ with the required Makefile. If there are errors about missing shared libraries,
 and they have been built correctly, then the LD_LIBRARY_PATH needs to be set-up
 to include them:
 
-setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of HepMC library directory>
-setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Pythia 8 library directory>
-setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Tauola library directory>
-setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Photos library directory>
-setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of EvtGen library directory>
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:<location of HepMC library directory>
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:<location of Pythia 8 library directory>
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:<location of Tauola library directory>
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:<location of Photos library directory>
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:<location of EvtGen library directory>
 
 Code validation
 ===============

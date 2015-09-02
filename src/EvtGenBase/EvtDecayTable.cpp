@@ -95,6 +95,9 @@ void EvtDecayTable::readDecayFile(const std::string dec_name, bool verbose){
 
   if ( _decaytable.size() < EvtPDL::entries() ) _decaytable.resize(EvtPDL::entries());
   EvtModel &modelist=EvtModel::instance();
+  EvtExtGeneratorCommandsTable* extGenCommands = EvtExtGeneratorCommandsTable::getInstance();
+  std::string colon(":"), equals("=");
+
   int i;
 
   report(INFO,"EvtGen") << "In readDecayFile, reading:"<<dec_name.c_str()<<endl;
@@ -231,6 +234,31 @@ void EvtDecayTable::readDecayFile(const std::string dec_name, bool verbose){
 
       EvtPDL::aliasChgConj(a,abar);
 
+    } else if (token == "JetSetPar") {
+
+      // Check if any old Pythia 6 commands are present
+      std::string pythiaCommand = parser.getToken(itoken++);
+
+      Command command;
+
+      // The old command format is NAME(INT)=VALUE
+      int i1 = pythiaCommand.find_first_of("(");
+      int i2 = pythiaCommand.find_first_of(")");
+      int i3 = pythiaCommand.find_first_of("=");
+
+      std::string pythiaModule = pythiaCommand.substr(0, i1);
+      std::string pythiaParam = pythiaCommand.substr(i1+1, i2-i1-1);
+      std::string pythiaValue = pythiaCommand.substr(i3+1);
+
+      command["MODULE"] = pythiaModule;
+      command["PARAM"] = pythiaParam;
+      command["VALUE"] = pythiaValue;
+
+      command["GENERATOR"] = "Both";
+      command["VERSION"] = "PYTHIA6";
+
+      extGenCommands->addCommand("PYTHIA", command);
+
     } else if (modelist.isCommand(token)){
 
       std::string cnfgstr;
@@ -239,6 +267,60 @@ void EvtDecayTable::readDecayFile(const std::string dec_name, bool verbose){
 
       modelist.storeCommand(token,cnfgstr);
 
+    } else if (token == "PythiaGenericParam" || token == "PythiaAliasParam" ||
+	       token == "PythiaBothParam") {
+
+      // Read in any Pythia 8 commands, which will be of the form 
+      // pythia<type>Param module:param=value, with no spaces in the parameter 
+      // string! Here, <type> specifies whether the command is for generic 
+      // decays, alias decays, or both.
+
+      // Pythia 6 commands will be defined by the old JetSetPar command
+      // name, which is handled by the modelist.isCommand() statement above.
+
+      std::string pythiaCommand = parser.getToken(itoken++);
+      std::string pythiaModule(""), pythiaParam(""), pythiaValue("");
+
+      // Separate out the string into the 3 sections using the delimiters
+      // ":" and "=".
+      
+      std::vector<std::string> pComVect1 = this->splitString(pythiaCommand, colon);
+
+      if (pComVect1.size() == 2) {
+
+	pythiaModule = pComVect1[0];
+
+	std::string pCom2 = pComVect1[1];
+
+	std::vector<std::string> pComVect2 = this->splitString(pCom2, equals);
+
+	if (pComVect2.size() == 2) {
+
+	  pythiaParam = pComVect2[0];
+	  pythiaValue = pComVect2[1];
+
+	}
+
+      }
+
+      // Define the Pythia 8 command and pass it to the external generator
+      // command list.
+      Command command;
+      if (token == "PythiaGenericParam") {
+	command["GENERATOR"] = "Generic";
+      } else if (token == "PythiaAliasParam") {
+	command["GENERATOR"] = "Alias";
+      } else {
+	command["GENERATOR"] = "Both";
+      }
+      
+      command["MODULE"]  = pythiaModule;
+      command["PARAM"]   = pythiaParam;
+      command["VALUE"]   = pythiaValue;
+
+      command["VERSION"] = "PYTHIA8";
+      extGenCommands->addCommand("PYTHIA", command);
+      
     } else if (token=="CDecay"){
 
       std::string name;
@@ -808,8 +890,22 @@ void EvtDecayTable::readXMLDecayFile(const std::string dec_name, bool verbose){
           std::istringstream paramStream(paramStr);
 
           std::string param;
-          while(std::getline(paramStream, param, ' ')) {
-            modelArgList.push_back(param);
+
+          if(paramStr=="") {
+            EvtDecayBase* fcn = modelist.getFcn(model);
+            int i(0);
+            std::string paramName = fcn->getParamName(0);
+            while(paramName!="") {
+              param = parser.readAttribute(paramName,fcn->getParamDefault(i));
+              if(param=="") break;
+              modelArgList.push_back(param);
+              ++i;
+              paramName = fcn->getParamName(i);
+            }
+          } else {
+            while(std::getline(paramStream, param, ' ')) {
+              modelArgList.push_back(param);
+            }
           }
           EvtModelAlias newAlias(alias,model,modelArgList);
           modelAliasList.push_back(newAlias);
@@ -1068,15 +1164,36 @@ void EvtDecayTable::readXMLDecayFile(const std::string dec_name, bool verbose){
           int ierr;
           if(modelAlias == -1) {
             std::string param;
-            while(std::getline(paramStream, param, ' ')) {
-              temp_fcn_new_args.push_back(EvtSymTable::get(param,ierr));
-              if (ierr) {
-                report(ERROR,"EvtGen")
-                  <<"Reading arguments near line "<<parser.getLineNumber()<<" and found:"<<
-                  param.c_str()<<endl;
-                report(ERROR,"EvtGen")
-                  << "Will terminate execution!"<<endl;
-                ::abort();
+            if(paramStr == "") {
+              int i(0);
+              std::string paramName = temp_fcn_new->getParamName(0); 
+              while(paramName != "") {
+                param = parser.readAttribute(paramName,temp_fcn_new->getParamDefault(i));
+                if(param == "") break; //params must be added in order so we can't just skip the missing ones
+                temp_fcn_new_args.push_back(EvtSymTable::get(param,ierr));
+                if (ierr) {
+                  report(ERROR,"EvtGen")
+                    <<"Reading arguments near line "<<parser.getLineNumber()<<" and found:"<<
+                    param.c_str()<<endl;
+                  report(ERROR,"EvtGen")
+                    << "Will terminate execution!"<<endl;
+                  ::abort();
+                }
+                ++i;
+                paramName = temp_fcn_new->getParamName(i);
+              }
+
+            } else {//if the params are not set seperately
+              while(std::getline(paramStream, param, ' ')) {
+                temp_fcn_new_args.push_back(EvtSymTable::get(param,ierr));
+                if (ierr) {
+                  report(ERROR,"EvtGen")
+                    <<"Reading arguments near line "<<parser.getLineNumber()<<" and found:"<<
+                    param.c_str()<<endl;
+                  report(ERROR,"EvtGen")
+                    << "Will terminate execution!"<<endl;
+                  ::abort();
+                }
               }
             }
           } else {
@@ -1352,4 +1469,31 @@ int  EvtDecayTable::inChannelList(EvtId parent, int ndaug, EvtId *daugs){
    return -1;
 }
    
-      
+std::vector<std::string> EvtDecayTable::splitString(std::string& theString, 
+						    std::string& splitter) {
+
+  // Code from STLplus
+  std::vector<std::string> result;
+
+  if (!theString.empty() && !splitter.empty()) {
+
+    for (std::string::size_type offset = 0;;) {
+
+      std::string::size_type found = theString.find(splitter, offset);
+
+      if (found != std::string::npos) {
+	std::string tmpString = theString.substr(offset, found-offset);
+        if (tmpString.size() > 0) {result.push_back(tmpString);}
+        offset = found + splitter.size();
+      } else {
+	std::string tmpString = theString.substr(offset, theString.size()-offset);
+        if (tmpString.size() > 0) {result.push_back(tmpString);}
+        break;
+      }
+    }
+  }
+
+  return result;
+}
+
+     
