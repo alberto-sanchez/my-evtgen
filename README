@@ -94,7 +94,7 @@ PYTHIADIR = <base directory of Pythia8>
 
 LIBS = -L${BASEDIR}/lib/archive -L${HEPMCDIR}/lib -L${PHOTOSDIR}/lib \
        -L${TAUOLADIR}/lib -L${PYTHIADIR}/lib/archive -lEvtGen -lgfortran \
-       -lHepMC -lPhotosCxxInterface -lTauolaCxxInterface -lTauolaFortran \
+       -lHepMC -lPhotosCxxInterface -lPhotosFortran -lTauolaCxxInterface -lTauolaFortran \
        -lpythia8 -llhapdfdummy -lhepmcinterface
 
 Three example programs using EvtGen can be seen in the test sub-directory along 
