@@ -15,6 +15,7 @@
 // Modification history:
 //
 //    RYD     March 24, 1998        Module created
+//    JBack   June 2011             Added HepMC event interface
 //
 //------------------------------------------------------------------------
 // 
@@ -45,6 +46,7 @@
 #include "EvtGenBase/EvtRadCorr.hh"
 #include "EvtGenModels/EvtPHOTOS.hh"
 #include "EvtGenBase/EvtCPUtil.hh"
+#include "EvtGenBase/EvtHepMCEvent.hh"
 
 #include "EvtGenModels/EvtExternalGenFactory.hh"
 #include <string>
@@ -186,32 +188,27 @@ void EvtGen::initExternalGenerators() {
 
 }
 
-void EvtGen::generateDecay(int stdhepid, 
-			   EvtVector4R P, 
-			   EvtVector4R D,
-			   EvtStdHep *evtStdHep,
-			   EvtSpinDensity *spinDensity ){
+EvtHepMCEvent* EvtGen::generateDecay(int PDGId, EvtVector4R refFrameP4,
+				     EvtVector4R translation,
+				     EvtSpinDensity* spinDensity) {
 
-  EvtParticle *p;
+  EvtParticle* theParticle(0);
 
-  if(spinDensity==0){    
-    p=EvtParticleFactory::particleFactory(EvtPDL::evtIdFromStdHep(stdhepid),P);
-  }
-  else{
-    p=EvtParticleFactory::particleFactory(EvtPDL::evtIdFromStdHep(stdhepid),
-					  P,*spinDensity);
+  if (spinDensity == 0 ){
+    theParticle = EvtParticleFactory::particleFactory(EvtPDL::evtIdFromStdHep(PDGId),
+						      refFrameP4);
+  } else {
+    theParticle = EvtParticleFactory::particleFactory(EvtPDL::evtIdFromStdHep(PDGId),
+						      refFrameP4, *spinDensity);
   }
 
-  generateDecay(p);
+  generateDecay(theParticle);
+  EvtHepMCEvent* hepMCEvent = new EvtHepMCEvent();
+  hepMCEvent->constructEvent(theParticle, translation);
 
-  evtStdHep->init();
+  theParticle->deleteTree();
 
-  p->makeStdHep(*evtStdHep);
-  
-  evtStdHep->translate(D);
-  
-  p->deleteTree();
-
+  return hepMCEvent;
 
 }
 

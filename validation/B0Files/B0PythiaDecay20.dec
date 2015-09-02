@@ -1,0 +1,5 @@
+Decay B0
+1.0              anti-s   d       PYTHIA         32;
+Enddecay
+#
+End
