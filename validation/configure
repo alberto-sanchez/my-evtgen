@@ -17,9 +17,9 @@ check_arguments () {
     elif [ "x$arg" = "x--help" ] ; then
       echo -e \
       "\nUsage: ./configure [options] , where options are:\n\n"\
-      "--help                       : prints this help\n"\
-      "--rootdir=[full directory path]      : specifies location of ROOT base directory (ROOTSYS)\n"\
-      "--enable-debug               : turns on debugging flags\n"
+      "--help                            : prints this help\n"\
+      "--rootdir=[full directory path]   : specifies location of ROOT base directory (ROOTSYS)\n"\
+      "--enable-debug                    : turns on debugging flags\n"
       exit
     else
       if [ "x${arg}" = "x${arg/=/}" ] ; then

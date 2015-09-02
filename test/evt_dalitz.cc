@@ -13,8 +13,17 @@
 #include "EvtGenBase/EvtParticleFactory.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGen/EvtGen.hh"
+#include "EvtGenBase/EvtAbsRadCorr.hh"
+#include "EvtGenBase/EvtDecayBase.hh"
+
+#ifdef EVTGEN_EXTERNAL
+#include "EvtGenExternal/EvtExternalGenList.hh"
+#endif
+
+#include <cstdlib>
+#include <list>
 #include <string>
-#include <stdlib.h>
+
 using std::endl;
 using std::fstream;
 using std::ifstream;
@@ -50,7 +59,18 @@ int main(int argc, char* argv[]) {
 
   EvtStdlibRandomEngine* eng = new EvtStdlibRandomEngine();
   EvtRandom::setRandomEngine((EvtRandomEngine*)eng);
-  EvtGen myGenerator(decfile.c_str(),"../evt.pdl",(EvtRandomEngine*)eng);
+
+  EvtAbsRadCorr* radCorrEngine = 0;
+  std::list<EvtDecayBase*> extraModels;
+
+#ifdef EVTGEN_EXTERNAL
+  EvtExternalGenList genList;
+  radCorrEngine = genList.getPhotosModel();
+  extraModels = genList.getListOfModels();
+#endif
+
+  EvtGen myGenerator(decfile.c_str(),"../evt.pdl",(EvtRandomEngine*)eng,
+		     radCorrEngine, &extraModels);
 
   // Initialize decay
 
@@ -67,17 +87,23 @@ int main(int argc, char* argv[]) {
     root_part->setDiagonalSpinDensity();      
     myGenerator.generateDecay(root_part);
 
-    EvtVector4R p0 = root_part->getDaug(0)->getP4Lab();
-    EvtVector4R p1 = root_part->getDaug(1)->getP4Lab();
-    EvtVector4R p2 = root_part->getDaug(2)->getP4Lab();
-    double qAB = (p0+p1).mass2();
-    double qBC = (p1+p2).mass2();
-    double qCA = (p2+p0).mass2();
+    int nDaug = root_part->getNDaug();
+    if (nDaug == 3) {
 
-    df << qAB << " " << qBC << " " << qCA << " " << endl;
+      EvtVector4R p0 = root_part->getDaug(0)->getP4Lab();
+      EvtVector4R p1 = root_part->getDaug(1)->getP4Lab();
+      EvtVector4R p2 = root_part->getDaug(2)->getP4Lab();
+      double qAB = (p0+p1).mass2();
+      double qBC = (p1+p2).mass2();
+      double qCA = (p2+p0).mass2();
 
-    root_part->deleteTree(); 
+      df << qAB << " " << qBC << " " << qCA << " " << endl;
+    }
+
+    root_part->deleteTree();
+
   } while(count++ < N);
+
 }
 
 // Macro for displaying resutls

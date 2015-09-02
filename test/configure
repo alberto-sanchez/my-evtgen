@@ -6,8 +6,6 @@
 ROOTSYS=
 COMPMODE=OPT        # Default: compiler optimization mode
 
-#<
-
 #--------------------------------------------------------------
 
 check_arguments () {

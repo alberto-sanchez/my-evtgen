@@ -20,22 +20,13 @@
 //------------------------------------------------------------------------
 // 
 #include "EvtGenBase/EvtPatches.hh"
-#include <stdio.h>
-#include <fstream>
-#include <math.h>
-#include "EvtGenBase/EvtComplex.hh"
-#include <stdlib.h>
+
 #include "EvtGen/EvtGen.hh"
 #include "EvtGenBase/EvtVector4R.hh"
-#include "EvtGenBase/EvtVectorParticle.hh"
 #include "EvtGenBase/EvtParticle.hh"
-#include "EvtGenBase/EvtScalarParticle.hh"
 #include "EvtGenBase/EvtDecayTable.hh"
 #include "EvtGenBase/EvtPDL.hh"
-#include "EvtGenBase/EvtStdHep.hh"
-#include "EvtGenBase/EvtSecondary.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtRandomEngine.hh"
 #include "EvtGenBase/EvtSimpleRandomEngine.hh"
@@ -44,11 +35,13 @@
 #include "EvtGenBase/EvtStatus.hh"
 #include "EvtGenBase/EvtAbsRadCorr.hh"
 #include "EvtGenBase/EvtRadCorr.hh"
-#include "EvtGenModels/EvtPHOTOS.hh"
 #include "EvtGenBase/EvtCPUtil.hh"
 #include "EvtGenBase/EvtHepMCEvent.hh"
 
-#include "EvtGenModels/EvtExternalGenFactory.hh"
+#include "EvtGenModels/EvtNoRadCorr.hh"
+
+#include <cstdlib>
+#include <fstream>
 #include <string>
 
 using std::endl;
@@ -57,7 +50,7 @@ using std::ifstream;
 
 EvtGen::~EvtGen(){
 
-  //This is a bit uggly, should not do anything
+  //This is a bit ugly, should not do anything
   //in a destructor. This will fail if EvtGen is made a static
   //because then this destructor might be called _after_
   //the destruction of objects that it depends on, e.g., EvtPDL.
@@ -107,57 +100,27 @@ EvtGen::EvtGen(const char* const decayName,
   report(INFO,"EvtGen") << "Mixing type integer set to "<<_mixingType<<endl;
   EvtCPUtil::getInstance()->setMixingType(_mixingType);
 
-  // Get the external generator factory interface initialised. Do this after
-  // the particle data table and decay.dec files have been read, since
-  // we normally need to pass particle data info using the EvtPDL class,
-  // which is only set-up properly once the previous steps have been done.
-
-  EvtExternalGenFactory* externalGenerators = EvtExternalGenFactory::getInstance();
-
   // Set the radiative correction engine
-  report(INFO,"EvtGen") << "Defining the radiative correction engine"<<endl;
 
   if (isrEngine != 0) {
 
-    EvtRadCorr::setRadCorrEngine(isrEngine);    
+    EvtRadCorr::setRadCorrEngine(isrEngine);
 
   } else {
 
-    // Define the photon type (and pass it to the external generator, not EvtPHOTOS).
-    std::string photonType("gamma");
-    externalGenerators->definePhotosGenerator(photonType);
-
-    EvtPHOTOS* defaultRadCorrEngine = new EvtPHOTOS();
-    EvtRadCorr::setRadCorrEngine(defaultRadCorrEngine);
+    // Owing to the pure abstract interface, we still need to define a concrete 
+    // implementation of a radiative correction engine. Use one which does nothing.
+    EvtAbsRadCorr* noRadCorr = new EvtNoRadCorr();
+    EvtRadCorr::setRadCorrEngine(noRadCorr);
 
   }
-
-  // Set the Pythia external generator
-  // We are using Pythia 6 physics codes in the decay.dec file(s).
-  std::string xmlDir("./xmldoc");
-  bool convertPhysCode(true);
-  if (convertPhysCode) {
-    report(INFO,"EvtGen") << "Defining the PYTHIA 8 generator: data tables in "
-			  << xmlDir << ".\n Will convert Pythia 6 codes in decayfiles "
-			  << "to Pythia 8 codes." << endl;
-  } else {
-    report(INFO,"EvtGen") << "Defining the PYTHIA 8 generator: data tables in "
-			  << xmlDir << ".\n Decay files must use Pythia 8 physics codes." << endl;
-  }
-
-  externalGenerators->definePythiaGenerator(xmlDir, convertPhysCode);
-
-  // Set the Tauola external generator
-  externalGenerators->defineTauolaGenerator();
-
-  _initExternalGenerators = false;
 
   report(INFO,"EvtGen") << "Done initializing EvtGen"<<endl;
 
 }
 
 
-void EvtGen::readUDecay(const char* const uDecayName){
+void EvtGen::readUDecay(const char* const uDecayName, bool useXml){
 
   ifstream indec;
 
@@ -167,7 +130,11 @@ void EvtGen::readUDecay(const char* const uDecayName){
   else{  
     indec.open(uDecayName);
     if (indec) {
-      EvtDecayTable::getInstance()->readDecayFile(uDecayName,true);
+      if(useXml) {
+        EvtDecayTable::getInstance()->readXMLDecayFile(uDecayName,true);
+      } else {
+        EvtDecayTable::getInstance()->readDecayFile(uDecayName,true);
+      }
     }    
     else{
       
@@ -177,19 +144,6 @@ void EvtGen::readUDecay(const char* const uDecayName){
     }
   }
   
-}
-
-void EvtGen::initExternalGenerators() {
-
-  report(INFO,"EvtGen")<<"Initialising all external generators"<<endl;
-  
-  EvtExternalGenFactory* externalGenerators = EvtExternalGenFactory::getInstance();
-  externalGenerators->initialiseAllGenerators();
-
-  _initExternalGenerators = true;
-
-  report(INFO,"EvtGen")<<"Done initialising external generators"<<endl;
-
 }
 
 EvtHepMCEvent* EvtGen::generateDecay(int PDGId, EvtVector4R refFrameP4,
@@ -218,13 +172,6 @@ EvtHepMCEvent* EvtGen::generateDecay(int PDGId, EvtVector4R refFrameP4,
 
 void EvtGen::generateDecay(EvtParticle *p){
 
-  if (_initExternalGenerators == false) {
-    // Make sure any external generators are initialised. Check this for the
-    // first decay we want. This initialisation can only be done after all decay
-    // files have been read in.
-    this->initExternalGenerators();
-  }
- 
   int times=0;
   do{
     times+=1;

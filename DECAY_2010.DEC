@@ -174,7 +174,7 @@ ChargeConj B_2*+sig          B_2*-sig
 #JetSet parameter modifications
 #(Very important that there are no blank spaces in the parameter string!)
 #Turn of B0-B0B mixing in JetSet:
-JetSetPar MSTJ(26)=0
+#JetSetPar MSTJ(26)=0
 # control of L=1 mesons (in order: J1S0 J0S1 J1S1 J2S1) - commented out by NB/WP
 #JetSetPar PARJ(14)=0.05
 #JetSetPar PARJ(15)=0.05

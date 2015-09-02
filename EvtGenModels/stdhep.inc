@@ -29,8 +29,6 @@ C  VHEP(4,I)   = x,y,z,L of production vertex
      $      phep(5,nmxhep),   ! four-momentum, mass [GeV]
      $      vhep(4,nmxhep)    ! vertex [mm]
 
-
-
 c$$$      INTEGER NMXHEP,NEVHEP,NHEP,ISTHEP,IDHEP,JMOHEP,JDAHEP
 c$$$      REAL    PHEP,VHEP
 c$$$      PARAMETER (NMXHEP=2000)

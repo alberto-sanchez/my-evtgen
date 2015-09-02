@@ -12,10 +12,16 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtHepMCEvent.hh"
 #include "EvtGenBase/EvtStdlibRandomEngine.hh"
+#include "EvtGenBase/EvtAbsRadCorr.hh"
+#include "EvtGenBase/EvtDecayBase.hh"
+
+#ifdef EVTGEN_EXTERNAL
+#include "EvtGenExternal/EvtExternalGenList.hh"
+#endif
 
 #include <iostream>
 #include <string>
-
+#include <list>
 
 int main(int argc, char** argv) {
 
@@ -23,10 +29,22 @@ int main(int argc, char** argv) {
 
   EvtStdlibRandomEngine eng;
   EvtRandom::setRandomEngine((EvtRandomEngine*)&eng);
-   //Initialize the generator - read in the decay table and particle properties
-  EvtGen myGenerator("../DECAY_2010.DEC","../evt.pdl", (EvtRandomEngine*)&eng);
+
+  EvtAbsRadCorr* radCorrEngine = 0;
+  std::list<EvtDecayBase*> extraModels;
+
+#ifdef EVTGEN_EXTERNAL
+  EvtExternalGenList genList;
+  radCorrEngine = genList.getPhotosModel();
+  extraModels = genList.getListOfModels();
+#endif
+
+  //Initialize the generator - read in the decay table and particle properties
+  EvtGen myGenerator("../DECAY_2010.DEC","../evt.pdl", (EvtRandomEngine*)&eng,
+  		     radCorrEngine, &extraModels);
+
   //If I wanted a user decay file, I would read it in now.
-  //myGenerator.readUDecay(``../user.dec'');
+  //myGenerator.readUDecay("../user.dec");
 
   static EvtId UPS4 = EvtPDL::getId(std::string("Upsilon(4S)"));
 

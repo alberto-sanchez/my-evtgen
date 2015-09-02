@@ -8,11 +8,16 @@ GENERATOR=EvtGen
 # === Default values of input parameters ====
 PATH_TO_EXTERNAL=
 CLHEP_VERSION=
+PREFIX=.
 PYTHIADIR=${PYTHIADIR}
 PHOTOSDIR=${PHOTOSDIR}
 TAUOLADIR=${TAUOLADIR}
 HEPMCDIR=${HEPMCDIR}
 COMPMODE=OPT        # Default: compiler optimization mode
+EVTGEN_PHOTOS=
+EVTGEN_PYTHIA=
+EVTGEN_TAUOLA=
+EVTGEN_EXTERNAL=
 
 #<
 
@@ -25,12 +30,13 @@ check_arguments () {
     elif [ "x$arg" = "x--help" ] ; then
       echo -e \
       "\nUsage: ./configure [options] , where options are:\n\n"\
-      "--help                       : prints this help\n"\
-      "--pythiadir=[full directory path]      : specifies location of Pythia 8 base directory\n"\
-      "--hepmcdir=[full directory path]       : specifies location of HepMC base directory\n"\
-      "--photosdir=[full directory path]      : specifies location of PHOTOS base directory\n"\
-      "--tauoladir=[full directory path]      : specifies location of TAUOLA base directory\n"\
-      "--enable-debug               : turns on debugging flags\n"
+      "--help                                 : prints this help\n"\
+      "--prefix=[installation path]           : specifies installation path\n"\
+      "--hepmcdir=[full directory path]       : specifies location of HepMC base directory (required)\n"\
+      "--pythiadir=[full directory path]      : specifies location of Pythia 8 base directory (optional)\n"\
+      "--photosdir=[full directory path]      : specifies location of PHOTOS base directory (optional)\n"\
+      "--tauoladir=[full directory path]      : specifies location of TAUOLA base directory (optional)\n"\
+      "--enable-debug                         : turns on debugging flags (optional)\n"
       exit
     else
       if [ "x${arg}" = "x${arg/=/}" ] ; then
@@ -38,7 +44,9 @@ check_arguments () {
       else
         option=${arg/=*/}
         value=${arg/*=/}
-	if [ "x${option}" = "x--pythiadir" ] ; then
+	if [ "x${option}" = "x--prefix" ] ; then
+	    PREFIX=${value}
+	elif [ "x${option}" = "x--pythiadir" ] ; then
 	    PYTHIADIR=${value}
 	elif [ "x${option}" = "x--hepmcdir" ] ; then
 	    HEPMCDIR=${value}
@@ -63,50 +71,53 @@ check_arguments () {
 
 check_dirs() {
 
-  pythiaFile=${PYTHIADIR}/include/Pythia.h
+  echo "PREFIX = $PREFIX"
+
   hepmcFile=${HEPMCDIR}/include/HepMC/GenParticle.h
+  pythiaFile=${PYTHIADIR}/include/Pythia.h
   photosFile=${PHOTOSDIR}/include/Photos/Photos.h
-  tauolaFile=${TAUOLADIR}/include/Tauola.h
+  tauolaFile=${TAUOLADIR}/include/Tauola/Tauola.h
 
   stop=0
-  if [ -f $pythiaFile ]; then
-      echo "PYTHIADIR set to $PYTHIADIR"
-  else
-      echo "Please specify the location of the PYTHIA base directory"\
-            "using the configure option --pythiadir=[full directory path]"\
-            "or set the PYTHIADIR environment variable"
-      stop=1    
-  fi
-
   if [ -f $hepmcFile ]; then
-      echo "HEPMCDIR set to $HEPMCDIR"
+      echo "HEPMCDIR set to $HEPMCDIR";
   else
-      echo "Please specify the location of the HepMC base directory"\
+      echo "Mandatory: please specify the location of the HepMC base directory"\
             "using the configure option --hepmcdir=[full directory path]"\
             "or set the HEPMCDIR environment variable"
       stop=1    
   fi
 
-  if [ -f $photosFile ]; then
-      echo "PHOTOSDIR set to $PHOTOSDIR"
+  if [ -f $pythiaFile ]; then
+      echo "PYTHIADIR set to $PYTHIADIR";
+      EVTGEN_PYTHIA=1
+      EVTGEN_EXTERNAL=1
   else
-      echo "Please specify the location of the PHOTOS base directory"\
-            "using the configure option --photosdir=[full directory path]"\
-            "or set the PHOTOSDIR environment variable"
-      stop=1    
+      echo "To use PYTHIA: --pythiadir=[full directory path] or set the PYTHIADIR"\
+           "environment variable"
+  fi
+
+
+  if [ -f $photosFile ]; then
+      echo "PHOTOSDIR set to $PHOTOSDIR";
+      EVTGEN_PHOTOS=1
+      EVTGEN_EXTERNAL=1
+  else
+      echo "To use PHOTOS: --photosdir=[full directory path] or set the PHOTOSDIR"\
+           " environment variable"
   fi
 
   if [ -f $tauolaFile ]; then
-      echo "TAUOLADIR set to $TAUOLADIR"
+      echo "TAUOLADIR set to $TAUOLADIR";
+      EVTGEN_TAUOLA=1
+      EVTGEN_EXTERNAL=1
   else
-      echo "Please specify the location of the TAUOLA base directory"\
-            "using the configure option --tauoladir=[full directory path]"\
-            "or set the TAUOLADIR environment variable"
-      stop=1    
+      echo "To use TAUOLA: --tauoladir=[full directory path] or set the TAUOLADIR"\
+           " environment variable"
   fi
 
   if [ $stop = 1 ] ; then
-      exit
+      exit 1
   fi
 
 }
@@ -218,10 +229,12 @@ echo -n "Creating config.mk ... "
 
 rm -f config.mk 
 
-cat > config.mk << EOT
+cat > config.mk << EOF
 
 GENERATOR = ${GENERATOR}
-#VERSION = ${VERSION}
+VERSION = ${VERSION}
+
+PREFIX = ${PREFIX}
 
 SHELL = /bin/bash 
 ARCH = ${ARCH} 
@@ -236,34 +249,24 @@ EVTGENDIR = $(pwd)
 
 TMPDIR = \$(EVTGENDIR)/tmp
 INCLUDEDIR = \$(EVTGENDIR)
-PYTHIADIR = ${PYTHIADIR}
-PYTHIAINCDIR = ${PYTHIADIR}/include
-PYTHIALIBDIR = ${PYTHIADIR}/lib/archive
-PYTHIASHLIBDIR = ${PYTHIADIR}/lib
-PYTHIALIBLIST = ${PYTHIALIBLIST}
+
 HEPMCDIR = ${HEPMCDIR}
 HEPMCINCDIR = ${HEPMCDIR}/include
 HEPMCLIBDIR = ${HEPMCDIR}/lib
-HEPMCSHLIBDIR = ${HEPMCDIR}/lib
 HEPMCLIBLIST = ${HEPMCLIBLIST}
-PHOTOSDIR = ${PHOTOSDIR}
-PHOTOSINCDIR = ${PHOTOSDIR}/include
-PHOTOSLIBDIR = ${PHOTOSDIR}/lib
-PHOTOSSHLIBDIR = ${PHOTOSDIR}/lib
-PHOTOSLIBLIST = ${PHOTOSLIBLIST}
-TAUOLADIR = ${TAUOLADIR}
-TAUOLAINCDIR = ${TAUOLADIR}/include
-TAUOLALIBDIR = ${TAUOLADIR}/lib
-TAUOLASHLIBDIR = ${TAUOLADIR}/lib
-TAUOLALIBLIST = ${TAUOLALIBLIST}
+
 SRCDIR = \$(EVTGENDIR)/src
 LIBDIR_SHARED = \$(EVTGENDIR)/lib
 LIBDIR_ARCHIVE = \$(EVTGENDIR)/lib/archive
+LIBDIRLIST = -lEvtGen
 
 LIB_SHARED = \$(LIBDIR_SHARED)/lib\$(GENERATOR).so
 LIB_ARCHIVE = \$(LIBDIR_ARCHIVE)/lib\$(GENERATOR).a
 
-# flags:
+LIBEXT_SHARED = \$(LIBDIR_SHARED)/lib\$(GENERATOR)External.so
+LIBEXT_ARCHIVE = \$(LIBDIR_ARCHIVE)/lib\$(GENERATOR)External.a
+
+# Flags:
 #
 FFLAGSSHARED = ${FFLAGSSHARED}
 CFLAGSSHARED = ${CFLAGSSHARED}
@@ -273,15 +276,43 @@ LDFLAGSSHARED = ${LDFLAGSSHARED}
 
 FLIBS = ${FLIBS}
 
-#Package-specific:>
+# External generators:
 
-#<
-EOT
+EVTGEN_EXTERNAL = ${EVTGEN_EXTERNAL}
+
+EOF
+
+if [ "${EVTGEN_PYTHIA}" == "1" ] ; then
+  echo "EVTGEN_PYTHIA = 1" >> config.mk
+  echo "EXTRAFLAGS += -D EVTGEN_PYTHIA" >> config.mk
+  echo "PYTHIADIR = ${PYTHIADIR}" >> config.mk
+  echo "PYTHIAINCDIR = ${PYTHIADIR}/include" >> config.mk
+  echo "PYTHIALIBDIR = ${PYTHIADIR}/lib" >> config.mk
+  echo "PYTHIALIBLIST = ${PYTHIALIBLIST}" >> config.mk
+fi
+
+if [ "${EVTGEN_PHOTOS}" == "1" ] ; then
+  echo "EVTGEN_PHOTOS = 1" >> config.mk
+  echo "EXTRAFLAGS += -D EVTGEN_PHOTOS" >> config.mk
+  echo "PHOTOSDIR = ${PHOTOSDIR}" >> config.mk
+  echo "PHOTOSINCDIR = ${PHOTOSDIR}/include" >> config.mk
+  echo "PHOTOSLIBDIR = ${PHOTOSDIR}/lib" >> config.mk
+  echo "PHOTOSLIBLIST = ${PHOTOSLIBLIST}" >> config.mk
+fi
+
+if [ "${EVTGEN_TAUOLA}" == "1" ] ; then
+  echo "EVTGEN_TAUOLA = 1" >> config.mk
+  echo "EXTRAFLAGS += -D EVTGEN_TAUOLA" >> config.mk
+  echo "TAUOLADIR = ${TAUOLADIR}" >> config.mk
+  echo "TAUOLAINCDIR = ${TAUOLADIR}/include" >> config.mk
+  echo "TAUOLALIBDIR = ${TAUOLADIR}/lib" >> config.mk
+  echo "TAUOLALIBLIST = ${TAUOLALIBLIST}" >> config.mk
+fi
 
 echo " done"
 
 set -v
-mkdir -p tmp/ tmp/EvtGenBase tmp/EvtGenModels lib/ lib/archive/
+mkdir -p tmp/ tmp/EvtGenBase tmp/EvtGenModels tmp_ext/EvtGenExternal lib/ lib/archive
 set +v 
 
 echo -e  "\n\nType 'make' to build everything or 'make help' to list build targets.\n\n"

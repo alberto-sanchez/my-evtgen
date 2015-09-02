@@ -3,7 +3,7 @@ Pythia8 version number 8.153 or above is required.
 
 Changed EvtPythia to use Pythia 8. The same EvtPythia ("PYTHIA") name/class is used, but
 the old interface to the fortran Pythia 6 has been replaced by Pythia 8 C++ routines.
-All of the Pythia 8 work is done in a new class, EvtGenModels/EvtPythiaEngine, which 
+All of the Pythia 8 work is done in a new class, EvtGenExternal/EvtPythiaEngine, which 
 inherits from the pure abstract base class EvtGenModels/EvtAbsExternalGen. Only the 
 EvtPythiaEngine class talks to Pythia 8 rotines; EvtPythia does not need to know about 
 specific Pythia 8 functions. The class EvtExternalGenFactory creates an instance of the 

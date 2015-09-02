@@ -17,10 +17,17 @@
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtCPUtil.hh"
 
+#include "EvtGenBase/EvtAbsRadCorr.hh"
+#include "EvtGenBase/EvtDecayBase.hh"
+
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenVertex.h"
 #include "HepMC/GenParticle.h"
 #include "HepMC/SimpleVector.h"
+
+#ifdef EVTGEN_EXTERNAL
+#include "EvtGenExternal/EvtExternalGenList.hh"
+#endif
 
 #include "TFile.h"
 #include "TTree.h"
@@ -78,10 +85,21 @@ int main(int argc, char** argv) {
 
   EvtRandomEngine* myRandomEngine = new EvtStdlibRandomEngine();
 
-  // Initialize the generator - read in the decay table and particle properties.
+  EvtAbsRadCorr* radCorrEngine = 0;
+  std::list<EvtDecayBase*> extraModels;
+
+#ifdef EVTGEN_EXTERNAL
+  EvtExternalGenList genList;
+  radCorrEngine = genList.getPhotosModel();
+  extraModels = genList.getListOfModels();
+#endif
 
   int mixingType = EvtCPUtil::Incoherent;
-  EvtGen myGenerator("../DECAY_2010.DEC", "../evt.pdl", myRandomEngine, 0, 0, mixingType);
+
+  // Initialize the generator - read in the decay table and particle properties.
+  EvtGen myGenerator("../DECAY_2010.DEC", "../evt.pdl", myRandomEngine, 
+		     radCorrEngine, &extraModels, mixingType);
+
   myGenerator.readUDecay(decayFileName.c_str());
 
   EvtId theId = EvtPDL::getId(parentName);

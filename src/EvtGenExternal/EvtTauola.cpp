@@ -17,13 +17,12 @@
 //------------------------------------------------------------------------
 
 #include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
 
 #include "EvtGenBase/EvtParticle.hh"
 
-#include "EvtGenModels/EvtTauola.hh"
+#include "EvtGenExternal/EvtTauola.hh"
 
-#include "EvtGenModels/EvtExternalGenFactory.hh"
+#include "EvtGenExternal/EvtExternalGenFactory.hh"
 #include "EvtGenModels/EvtAbsExternalGen.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 

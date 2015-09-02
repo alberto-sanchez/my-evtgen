@@ -20,16 +20,15 @@
 //------------------------------------------------------------------------
 
 #include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
 
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtSpinDensity.hh"
 
-#include "EvtGenModels/EvtPythia.hh"
+#include "EvtGenExternal/EvtPythia.hh"
 
-#include "EvtGenModels/EvtExternalGenFactory.hh"
+#include "EvtGenExternal/EvtExternalGenFactory.hh"
 #include "EvtGenModels/EvtAbsExternalGen.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 

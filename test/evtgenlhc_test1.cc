@@ -50,6 +50,13 @@
 #include "EvtGenBase/EvtIdSet.hh"
 #include "EvtGenBase/EvtParser.hh"
 
+#include "EvtGenBase/EvtAbsRadCorr.hh"
+#include "EvtGenBase/EvtDecayBase.hh"
+
+#ifdef EVTGEN_EXTERNAL
+#include "EvtGenExternal/EvtExternalGenList.hh"
+#endif
+
 #include <cstdio>
 #include <fstream>
 #include <sstream>
@@ -65,21 +72,6 @@
 #include "TROOT.h"
 
 using std::vector;
-
-//Define random number fcn used by PHOTOS
-extern "C" {
-  extern float begran_(int *);
-  extern float rlu_();
-}
-
-float begran_(int *){
-  return EvtRandom::Flat();
-}
-
-//Define random number fcn used by Jetset
-float rlu_(){
-  return EvtRandom::Flat();
-}
 
 void runFile(int nevent,char* fname,EvtGen& myGenerator);
 void runPrint(int nevent,char* fname,EvtGen& myGenerator);
@@ -164,7 +156,7 @@ int main(int argc, char* argv[]){
   EvtRandomEngine* myRandomEngine = new EvtStdlibRandomEngine();
 
   if (!TROOT::Initialized()) {
-    static TROOT root("RooTuple", "RooTuple ROOT God in EvtGen");
+    static TROOT root("RooTuple", "RooTuple ROOT in EvtGen");
   }
   if (argc==1){
 
@@ -180,7 +172,17 @@ int main(int argc, char* argv[]){
     return 1;
   }
 
-  EvtGen myGenerator("../DECAY_2010.DEC","../evt.pdl",myRandomEngine);
+  EvtAbsRadCorr* radCorrEngine = 0;
+  std::list<EvtDecayBase*> extraModels;
+
+#ifdef EVTGEN_EXTERNAL
+  EvtExternalGenList genList;
+  radCorrEngine = genList.getPhotosModel();
+  extraModels = genList.getListOfModels();
+#endif
+
+  EvtGen myGenerator("../DECAY_2010.DEC", "../evt.pdl", myRandomEngine,
+		     radCorrEngine, &extraModels);
 
   if (!strcmp(argv[1],"file")) {
     int nevent=atoi(argv[2]);

@@ -1,3 +1,4 @@
+#ifdef EVTGEN_PHOTOS
 //--------------------------------------------------------------------------
 //
 // Environment:
@@ -17,7 +18,8 @@
 //
 //------------------------------------------------------------------------
 
-#include "EvtGenModels/EvtPhotosEngine.hh"
+#include "EvtGenExternal/EvtPhotosEngine.hh"
+
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtPhotonParticle.hh"
@@ -34,20 +36,23 @@
 
 #include <iostream>
 #include <sstream>
-#include <string>
 #include <vector>
 
 using std::endl;
 
 EvtPhotosEngine::EvtPhotosEngine(std::string photonType) {
 
-  _gammaId = EvtPDL::getId(photonType);
-  if (_gammaId == EvtId(-1, -1)) {
-    report(INFO,"EvtGen")<<"Error in EvtPhotosEngine. Do not recognise the photon type "
-			 <<photonType<<". Setting this to \"gamma\". "<<endl;
-    _gammaId = EvtPDL::getId("gamma");
-  }
-  _mPhoton = EvtPDL::getMeanMass(_gammaId);
+  _photonType = photonType;
+  _gammaId = EvtId(-1,-1);
+  _mPhoton = 0.0;
+
+  report(INFO,"EvtGen")<<"Setting up PHOTOS."<<endl;
+  
+  Photospp::Photos::initialize();
+  // Set minimum photon energy (50keV at 1 GeV scale)
+  Photospp::Photos::setInfraredCutOff(50.0e-6);
+  // Increase the maximum possible value of the interference weight
+  Photospp::Photos::maxWtInterference(4.0); // 2^n, where n = number of charges (+,-)
 
   _initialised = false;
 
@@ -61,25 +66,27 @@ void EvtPhotosEngine::initialise() {
 
   if (_initialised == false) {
 
-    report(INFO,"EvtGen")<<"Initialising PHOTOS."<<endl;
+    _gammaId = EvtPDL::getId(_photonType);
 
-    Photos::initialize();
-    // Set minimum photon energy (50keV at 1 GeV scale)
-    Photos::setInfraredCutOff(50.0e-6);
-    // Increase the maximum possible value of the interference weight
-    Photos::maxWtInterference(4.0); // 2^n, where n = number of charges (+,-)
+    if (_gammaId == EvtId(-1,-1)) {
+      report(INFO,"EvtGen")<<"Error in EvtPhotosEngine. Do not recognise the photon type "
+			   <<_photonType<<". Setting this to \"gamma\". "<<endl;
+      _gammaId = EvtPDL::getId("gamma");
+    }
+
+    _mPhoton = EvtPDL::getMeanMass(_gammaId);
 
     _initialised = true;
-
+ 
   }
 
 }
 
 bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
 
-  if (theMother == 0) {return false;}
-
   if (_initialised == false) {this->initialise();}
+
+  if (theMother == 0) {return false;}
 
   // Create a dummy HepMC GenEvent containing a single vertex, with the mother
   // assigned as the incoming particle and its daughters as outgoing particles.
@@ -115,7 +122,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
 
   // Now pass the event to Photos for processing
   // Create a Photos event object
-  PhotosHepMCEvent photosEvent(theEvent);
+  Photospp::PhotosHepMCEvent photosEvent(theEvent);
 
   // Run the Photos algorithm
   photosEvent.process();    
@@ -220,11 +227,13 @@ HepMC::GenParticle* EvtPhotosEngine::createGenParticle(EvtParticle* theParticle,
 
   // Set the status flag for the particle. This is required, otherwise Photos++ 
   // will crash from out-of-bounds array index problems.
-  int status = PhotosParticle::HISTORY;
-  if (incoming == false) {status = PhotosParticle::STABLE;}
+  int status = Photospp::PhotosParticle::HISTORY;
+  if (incoming == false) {status = Photospp::PhotosParticle::STABLE;}
 
   HepMC::GenParticle* genParticle = new HepMC::GenParticle(hepMC_p4, PDGInt, status);
 
   return genParticle;
 
 }
+
+#endif

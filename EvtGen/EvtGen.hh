@@ -54,7 +54,7 @@ public:
 
   ~EvtGen();
 
-  void readUDecay(const char* const udecay_name);
+  void readUDecay(const char* const udecay_name, bool useXml = false);
 
   EvtHepMCEvent* generateDecay(int PDGid, EvtVector4R refFrameP4,
 			       EvtVector4R translation,
@@ -66,9 +66,6 @@ private:
 
   EvtPDL _pdl;
   int _mixingType;
-  bool _initExternalGenerators;
-
-  void initExternalGenerators();
 
 };
 

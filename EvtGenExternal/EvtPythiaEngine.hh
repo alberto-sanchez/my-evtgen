@@ -1,3 +1,4 @@
+#ifdef EVTGEN_PYTHIA
 //--------------------------------------------------------------------------
 //
 // Environment:
@@ -79,5 +80,7 @@ private:
   bool _convertPhysCodes, _initialised;
 
 };
+
+#endif
 
 #endif

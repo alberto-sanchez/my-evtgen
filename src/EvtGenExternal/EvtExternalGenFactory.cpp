@@ -20,12 +20,20 @@
 //
 
 #include "EvtGenBase/EvtPatches.hh"
-#include "EvtGenModels/EvtExternalGenFactory.hh"
 #include "EvtGenBase/EvtReport.hh"
+#include "EvtGenExternal/EvtExternalGenFactory.hh"
 
-#include "EvtGenModels/EvtPythiaEngine.hh"
-#include "EvtGenModels/EvtPhotosEngine.hh"
-#include "EvtGenModels/EvtTauolaEngine.hh"
+#ifdef EVTGEN_PYTHIA
+#include "EvtGenExternal/EvtPythiaEngine.hh"
+#endif
+
+#ifdef EVTGEN_PHOTOS
+#include "EvtGenExternal/EvtPhotosEngine.hh"
+#endif
+
+#ifdef EVTGEN_TAUOLA
+#include "EvtGenExternal/EvtTauolaEngine.hh"
+#endif
 
 #include <iostream>
 using std::endl;
@@ -64,28 +72,50 @@ EvtExternalGenFactory* EvtExternalGenFactory::getInstance() {
 
 void EvtExternalGenFactory::definePythiaGenerator(std::string xmlDir, bool convertPhysCodes) {
 
+  // Only define the generator if we have the external ifdef variable set
+#ifdef EVTGEN_PYTHIA
+
   int genId = EvtExternalGenFactory::PythiaGenId;
+
+  report(INFO,"EvtGen")<<"Defining EvtPythiaEngine: data tables defined in "
+		       <<xmlDir<<endl;
+
+  if (convertPhysCodes == true) {
+    report(INFO,"EvtGen")<<"Pythia 6 codes in decay files will be converted to Pythia 8 codes"<<endl;
+  } else {
+    report(INFO,"EvtGen")<<"Pythia 8 codes need to be used in decay files"<<endl;
+  }
 
   EvtAbsExternalGen* pythiaGenerator = new EvtPythiaEngine(xmlDir, convertPhysCodes);
   _extGenMap[genId] = pythiaGenerator;
+
+#endif
 
 }
 
 void EvtExternalGenFactory::definePhotosGenerator(std::string photonType) {
 
-  int genId = EvtExternalGenFactory::PhotosGenId;
+#ifdef EVTGEN_PHOTOS
 
+  int genId = EvtExternalGenFactory::PhotosGenId;
+  report(INFO,"EvtGen")<<"Defining EvtPhotosEngine using photonType = "<<photonType<<endl;
   EvtAbsExternalGen* photosGenerator = new EvtPhotosEngine(photonType);
   _extGenMap[genId] = photosGenerator;
+
+#endif
 
 }
 
 void EvtExternalGenFactory::defineTauolaGenerator() {
 
-  int genId = EvtExternalGenFactory::TauolaGenId;
+#ifdef EVTGEN_TAUOLA
 
+  int genId = EvtExternalGenFactory::TauolaGenId;
+  report(INFO,"EvtGen")<<"Defining EvtTauolaEngine."<<endl;
   EvtAbsExternalGen* tauolaGenerator = new EvtTauolaEngine();
   _extGenMap[genId] = tauolaGenerator;
+
+#endif
 
 }
 
@@ -99,11 +129,6 @@ EvtAbsExternalGen* EvtExternalGenFactory::getGenerator(int genId) {
 
     // Retrieve the external generator engine
     theGenerator = iter->second;
-
-  } else {
-
-    report(INFO,"EvtGen")<<"EvtAbsExternalGen::getGenerator: could not find generator for genId = "
-			 <<genId<<endl;
 
   }
 

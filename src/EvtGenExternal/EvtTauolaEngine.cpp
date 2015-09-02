@@ -1,3 +1,4 @@
+#ifdef EVTGEN_TAUOLA
 //--------------------------------------------------------------------------
 //
 // Environment:
@@ -18,17 +19,18 @@
 //
 //------------------------------------------------------------------------
 
-#include "EvtGenModels/EvtTauolaEngine.hh"
+#include "EvtGenExternal/EvtTauolaEngine.hh"
+
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtDecayTable.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
 
-#include "Tauola.h"
-#include "TauolaHepMCEvent.h"
-#include "TauolaHepMCParticle.h"
-#include "TauolaParticle.h"
+#include "Tauola/Tauola.h"
+#include "Tauola/TauolaHepMCEvent.h"
+#include "Tauola/TauolaHepMCParticle.h"
+#include "Tauola/TauolaParticle.h"
 
 #include "HepMC/GenVertex.h"
 #include "HepMC/SimpleVector.h"
@@ -43,10 +45,23 @@ using std::endl;
 
 EvtTauolaEngine::EvtTauolaEngine() {
 
-  EvtId tauId = EvtPDL::getId("tau-");
-  _tauPDG = abs(EvtPDL::getStdHep(tauId));
+  // PDG standard code integer ID for tau particle
+  _tauPDG = 15; 
+  // Number of possible decay modes in Tauola
   _nTauolaModes = 22;
 
+  report(INFO,"EvtGen")<<"Setting up TAUOLA."<<endl;
+
+  // These three lines are not really necessary since they are the default.
+  // But they are here so that we know what the initial conditions are.
+  Tauolapp::Tauola::setDecayingParticle(_tauPDG); // tau PDG code
+  Tauolapp::Tauola::setSameParticleDecayMode(Tauolapp::Tauola::All); // all modes allowed
+  Tauolapp::Tauola::setOppositeParticleDecayMode(Tauolapp::Tauola::All); // all modes allowed
+  
+  // Initial the Tauola external generator
+  Tauolapp::Tauola::initialize();
+
+  // Set-up possible decay modes when we have read the (user) decay file
   _initialised = false;
 
 }
@@ -57,22 +72,13 @@ EvtTauolaEngine::~EvtTauolaEngine() {
 
 void EvtTauolaEngine::initialise() {
 
-  // Initialise Tauola. This should be done just before the first doDecay() call,
+  // Set up all possible tau decay modes.
+  // This should be done just before the first doDecay() call,
   // since we want to make sure that any decay.dec files are processed
   // first to get lists of particle modes and their alias definitions
   // (for creating EvtParticles with the right history information).
 
   if (_initialised == false) {
-
-    report(INFO,"EvtGen")<<"Initialising TAUOLA."<<endl;
-
-    // These three lines are not really necessary since they are the default.
-    // But they are here so that we know what the initial conditions are.
-    Tauola::setDecayingParticle(_tauPDG); // tau PDG code
-    Tauola::setSameParticleDecayMode(Tauola::All); // all modes allowed
-    Tauola::setOppositeParticleDecayMode(Tauola::All); // all modes allowed
-
-    Tauola::initialize();
 
     this->setUpPossibleTauModes();
 
@@ -175,7 +181,7 @@ void EvtTauolaEngine::setUpPossibleTauModes() {
 	  tauolaModeBFs[iTauMode] /= totalTauModeBF;
 	  double modeBF = tauolaModeBFs[iTauMode];
 	  report(INFO,"EvtGen")<<"Setting TAUOLA BF for mode "<<iTauMode+1<<" = "<<modeBF<<endl;
-	  Tauola::setTauBr(iTauMode+1, modeBF);
+	  Tauolapp::Tauola::setTauBr(iTauMode+1, modeBF);
 	  
 	}
 
@@ -210,13 +216,13 @@ int EvtTauolaEngine::getModeInt(EvtDecayBase* decayModel) {
 
 bool EvtTauolaEngine::doDecay(EvtParticle* tauParticle) {
 
+  if (_initialised == false) {this->initialise();}
+
   if (tauParticle == 0) {return false;}
 
   // Check that we have a tau particle.
   EvtId partId = tauParticle->getId();
   if (abs(EvtPDL::getStdHep(partId)) != _tauPDG) {return false;}
-
-  if (_initialised == false) {this->initialise();}
 
   int nTauDaug = tauParticle->getNDaug();
 
@@ -302,7 +308,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
 	  tauMap[hepMCDaughter] = theDaughter;
 	} else {
 	  // Treat all other particles as "stable"
-	  hepMCDaughter->set_status(TauolaParticle::STABLE);
+	  hepMCDaughter->set_status(Tauolapp::TauolaParticle::STABLE);
 	}
 		
       } // theDaughter != 0
@@ -319,7 +325,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
   
   // Now pass the event to Tauola for processing
   // Create a Tauola event object
-  TauolaHepMCEvent tauolaEvent(theEvent);
+  Tauolapp::TauolaHepMCEvent tauolaEvent(theEvent);
 
   // Run the Tauola algorithm
   tauolaEvent.decayTaus();
@@ -436,10 +442,12 @@ HepMC::GenParticle* EvtTauolaEngine::createGenParticle(EvtParticle* theParticle)
   int PDGInt = EvtPDL::getStdHep(theParticle->getId());
 
   // Set the status flag for the particle.
-  int status = TauolaParticle::HISTORY;
+  int status = Tauolapp::TauolaParticle::HISTORY;
 
   HepMC::GenParticle* genParticle = new HepMC::GenParticle(hepMC_p4, PDGInt, status);
 
   return genParticle;
 
 }
+
+#endif

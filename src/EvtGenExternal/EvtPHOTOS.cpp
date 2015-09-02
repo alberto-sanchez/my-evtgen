@@ -20,11 +20,11 @@
 //    JJB     May 2011               Modified to use new PHOTOS generator
 //
 //------------------------------------------------------------------------
-// 
+//
 #include "EvtGenBase/EvtPatches.hh"
 
-#include "EvtGenModels/EvtPHOTOS.hh"
-#include "EvtGenModels/EvtExternalGenFactory.hh"
+#include "EvtGenExternal/EvtPHOTOS.hh"
+#include "EvtGenExternal/EvtExternalGenFactory.hh"
 
 EvtPHOTOS::EvtPHOTOS() {
 

@@ -57,6 +57,7 @@ def main(inFile, outFile, extraFiles):
   countBad = 0
   countCopyDec = 0
   countRemoveDec = 0
+  countPythia6 = 0
 
   #flags to figure out if we're in a decay block
   inDecay = False
@@ -108,6 +109,7 @@ def main(inFile, outFile, extraFiles):
       words = line.split()
       if len(words) == 0:
         fh2.write(line)
+        getMore = True
         continue
     #are we currently parsing a decay?
       if inDecay:
@@ -294,7 +296,7 @@ def main(inFile, outFile, extraFiles):
             else:
               paramsList.append(word[x])
           params = " ".join(paramsList)
-          fh2.write("\t<modelAlias name=\""+name+"\" model=\""+value+" params=\""+params+"\"/>\n")
+          fh2.write("\t<modelAlias name=\""+name+"\" model=\""+value+"\" params=\""+params+"\"/>\n")
   #######DEFINE#################
       elif words[0] == "Define":
         if len(words) < 3:
@@ -465,7 +467,7 @@ def main(inFile, outFile, extraFiles):
           particleDatum = particleData[particle]
         else:
           particleDatum = {}
-        particleDatum["decayFactor"] = massMin
+        particleDatum["decayFactor"] = decayFactor
         particleData[particle] = particleDatum
         if len(words) > 3:
           line = " ".join(words[3:])
@@ -478,13 +480,32 @@ def main(inFile, outFile, extraFiles):
           getMore = True
           continue
         particle = words[1]
-        decayFactor = words[2]
+        blattWeisskopf = words[2]
 
         if particle in particleData:
           particleDatum = particleData[particle]
         else:
           particleDatum = {}
-        particleDatum["blattWeisskopf"] = massMin
+        particleDatum["blattWeisskopf"] = blattWeisskopf
+        particleData[particle] = particleDatum
+        if len(words) > 3:
+          line = " ".join(words[3:])
+        else:
+          getMore = True
+  #######BLATTWEISSKOPFBIRTH####
+      elif words[0] == "BlattWeisskopfBirth":
+        if len(words) < 3:
+          previousLine = line
+          getMore = True
+          continue
+        particle = words[1]
+        blattWeisskopf = words[2]
+
+        if particle in particleData:
+          particleDatum = particleData[particle]
+        else:
+          particleDatum = {}
+        particleDatum["blattWeisskopfBirth"] = blattWeisskopf
         particleData[particle] = particleDatum
         if len(words) > 3:
           line = " ".join(words[3:])
@@ -503,24 +524,6 @@ def main(inFile, outFile, extraFiles):
         else:
           particleDatum = {}
         particleDatum["lineShape"] = "NONRELBW"
-        particleData[particle] = particleDatum
-        if len(words) > 2:
-          line = " ".join(words[2:])
-        else:
-          getMore = True
-  #######SP8LSFIX###############
-      elif words[0] == "SP8LSFIX" or words[0] == "SP6LSFIX":
-        if len(words) < 2:
-          previousLine = line
-          getMore = True
-          continue
-        particle = words[1]
-
-        if particle in particleData:
-          particleDatum = particleData[particle]
-        else:
-          particleDatum = {}
-        particleDatum["fixLS"] = "yes"
         particleData[particle] = particleDatum
         if len(words) > 2:
           line = " ".join(words[2:])
@@ -590,6 +593,27 @@ def main(inFile, outFile, extraFiles):
         else:
           getMore = True
         inRemoveDecay = True
+  #######PYTHIA6################
+      elif words[0] == "JetSetPar":
+        if len(words) < 2:
+          previousLine = line
+          getMore = True
+          continue
+        s1 = words[1].find("(")
+        s2 = words[1].find(")")
+        s3 = words[1].find("=")
+        if s1 == -1 or s2 == -1 or s3 == -1:
+          countBad += 1
+          print "bad line: "+words[0]+" "+words[1]+" copied as comment, please fix manually!\n"
+          fh2.write("\t<!--TODO "+words[0]+" "+words[1]+" -->\n")
+        else:
+          countPythia6 += 1
+          fh2.write("\t<pythia6Param generator=\"BOTH\" module=\""+ words[1][:s1] +"\" param=\""+ words[1][s1+1:s2] +"\" value=\""+ words[1][s3+1:] +"\"/>\n")
+        module = words[1].split("(")[0]
+        if len(words) > 2:
+          line = " ".join(words[2:])
+        else:
+          getMore = True
   #######END####################
       elif words[0] == "End":
         for particle in particleData.keys():
@@ -602,6 +626,7 @@ def main(inFile, outFile, extraFiles):
           decayFactor = particleData[particle].get("decayFactor","")
           lineShape = particleData[particle].get("lineShape","")
           blattWeisskopf = particleData[particle].get("blattWeisskopf","")
+          blattWeisskopfBirth = particleData[particle].get("blattWeisskopfBirth","")
           fixLS = particleData[particle].get("fixLS","")
 
           toWrite = "<particle name=\""+particle+"\""
@@ -621,8 +646,8 @@ def main(inFile, outFile, extraFiles):
             toWrite += " lineShape=\""+lineShape+"\""
           if blattWeisskopf:
             toWrite += " blattWeisskopfFactor=\""+blattWeisskopf+"\""
-          if fixLS:
-            toWrite += " fixLS=\""+fixLS+"\""
+          if blattWeisskopfBirth:
+            toWrite += " blattWeisskopfBirth=\""+blattWeisskopfBirth+"\""
           toWrite += "/>\n"
           fh2.write(toWrite)
         fh2.write("</data>")
@@ -648,6 +673,7 @@ def main(inFile, outFile, extraFiles):
   print str(countPhotos)+" PHOTOS lines"
   print str(countCopyDec)+" copied decays"
   print str(countRemoveDec)+" removed decays"
+  print str(countPythia6)+" pythia commands"
   print str(countBad)+" bad lines!"
 
   fh1.close()
