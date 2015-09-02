@@ -45,6 +45,10 @@
 #include "EvtGenBase/EvtRadCorr.hh"
 #include "EvtGenModels/EvtPHOTOS.hh"
 #include "EvtGenBase/EvtCPUtil.hh"
+
+#include "EvtGenModels/EvtExternalGenFactory.hh"
+#include <string>
+
 using std::endl;
 using std::fstream;
 using std::ifstream;
@@ -57,7 +61,7 @@ EvtGen::~EvtGen(){
   //the destruction of objects that it depends on, e.g., EvtPDL.
 
   if (getenv("EVTINFO")){
-    EvtDecayTable::printSummary();
+    EvtDecayTable::getInstance()->printSummary();
   }
 
 }
@@ -100,11 +104,19 @@ EvtGen::EvtGen(const char* const decayName,
 
   _pdl.readPDT(pdtTableName);
 
-  EvtDecayTable::readDecayFile(decayName,false);
+  EvtDecayTable::getInstance()->readDecayFile(decayName,false);
 
   _mixingType = mixingType;
   report(INFO,"EvtGen") << "Mixing type integer set to "<<_mixingType<<endl;
   EvtCPUtil::getInstance()->setMixingType(_mixingType);
+
+  // Set the Pythia external generator
+  EvtExternalGenFactory* externalGenerators = EvtExternalGenFactory::getInstance();
+  std::string xmlDir("./xmldoc");
+
+  // We are using Pythia 6 physics codes in the decay.dec file(s).
+  bool convertPhysCode(true);
+  externalGenerators->definePythiaGenerator(xmlDir, convertPhysCode);
 
   report(INFO,"EvtGen") << "Done initializing EvtGen"<<endl;
 
@@ -121,7 +133,7 @@ void EvtGen::readUDecay(const char* const uDecayName){
   else{  
     indec.open(uDecayName);
     if (indec) {
-      EvtDecayTable::readDecayFile(uDecayName,true);
+      EvtDecayTable::getInstance()->readDecayFile(uDecayName,true);
     }    
     else{
       

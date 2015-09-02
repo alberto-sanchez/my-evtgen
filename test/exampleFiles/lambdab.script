@@ -1,0 +1,28 @@
+{
+TFile *myFile = new TFile("lambdab.root","READ");
+myFile->ls();
+
+TCanvas *myCanvas = new TCanvas("c","TEST1",0,0,600,400);
+myCanvas->Divide(2,2);
+myCanvas->cd(1);
+
+
+Int_t type=111;
+
+TH1F *h1=h1;
+TH1F *h2=h2;
+TH1F *h3=h3;
+
+
+h1->Draw();
+myCanvas.Update();
+myCanvas->cd(2);
+h2->Draw();
+myCanvas.Update();
+myCanvas->cd(3);
+h3->Draw();
+myCanvas.Update();
+
+myCanvas->Print("lambdab.eps");
+
+}

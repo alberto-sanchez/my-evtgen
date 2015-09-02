@@ -183,7 +183,7 @@ Decay Upsilon(4S)
 0.000090         Upsilon(2S)  pi+  pi-   VVPIPI;
 0.000045         Upsilon(2S)  pi0  pi0   VVPIPI;
 0.000090         Upsilon  pi+  pi-   VVPIPI;
-0.000045         Upsilon  pi0  pi0   VVPIPI;2
+0.000045         Upsilon  pi0  pi0   VVPIPI;
 0.000200        Upsilon  eta  PARTWAVE 0.0 0.0 1.0 0.0 0.0 0.0;
 # BF ~ (2J+1)E^3_gamma; see PRL 94, 032001
 # V-> gamma S    Partial wave (L,S)=(0,0)
@@ -1404,7 +1404,7 @@ Decay anti-B0
 0.0022149        anti-u     u  s       anti-d       PYTHIA         48;
 0.0018122        anti-d     d  s       anti-d       PYTHIA         48;
 0.0015102       anti-s     s  s       anti-d       PYTHIA         48;
-0.005034                    s  g       anti-d       PYTHIA         33;
+0.005034                    s        anti-d       PYTHIA         32;
 Enddecay
 #
 #
@@ -2567,7 +2567,7 @@ Decay B0
 0.0022149         u     anti-u  anti-s       d       PYTHIA         48;
 0.0018122         d     anti-d  anti-s       d       PYTHIA         48;
 0.0015102        s     anti-s  anti-s       d       PYTHIA         48;
-0.005034              anti-s  g            d       PYTHIA         33;
+0.005034              anti-s            d       PYTHIA         32;
 Enddecay
 #
 #
@@ -3523,7 +3523,7 @@ Decay B-
 0.0023314         anti-u     u  s       anti-u       PYTHIA         48;
 0.0019075         anti-d     d  s       anti-u       PYTHIA         48;
 0.0015896        anti-s     s  s       anti-u       PYTHIA         48;
-0.0052985                    s  g     anti-u       PYTHIA         33;
+0.0052985                    s     anti-u       PYTHIA         32;
 #
 ####
 Enddecay
@@ -4478,7 +4478,7 @@ Decay B+
 0.0023314         u     anti-u  anti-s       u       PYTHIA         48;
 0.0019075        d     anti-d  anti-s       u       PYTHIA         48;
 0.0015896         s     anti-s  anti-s       u       PYTHIA         48;
-0.0052985              anti-s  g            u       PYTHIA         33;
+0.0052985              anti-s            u       PYTHIA         32;
 ####
 Enddecay
 
@@ -4876,7 +4876,7 @@ Decay anti-B_s0
 0.001996         anti-u     u  s       anti-s       PYTHIA         48;
 0.0015968         anti-d     d  s       anti-s       PYTHIA         48;
 0.0012974         anti-s     s  s       anti-s       PYTHIA         48;
-0.00499                    s  g       anti-s       PYTHIA         33;
+0.00499                    s        anti-s       PYTHIA         32;
 
 # fkw 5/10/00 the b->ulnu decays are loosely modelled according to B0 in EvtGen
 0.000200    K+          e-         anti-nu_e         PHOTOS   ISGW2;
@@ -5323,7 +5323,7 @@ Decay B_s0
 0.001996         u     anti-u  anti-s       s       PYTHIA         48;
 0.0015968         d     anti-d  anti-s       s       PYTHIA         48;
 0.0012974         s     anti-s  anti-s       s       PYTHIA         48;
-0.00499                    anti-s  g       s       PYTHIA         33;
+0.00499                    anti-s        s       PYTHIA         32;
 
 # fkw 5/10/00 the b->ulnu decays are loosely modelled according to B0 in EvtGen
 0.000200    K-          e+         nu_e         PHOTOS   ISGW2;

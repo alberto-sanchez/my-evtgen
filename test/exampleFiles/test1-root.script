@@ -1,0 +1,32 @@
+{
+TFile *myFile = new TFile("test1.root","READ");
+myFile->ls();
+
+TCanvas *myCanvas = new TCanvas("c","TEST1",0,0,600,400);
+myCanvas->Divide(2,2);
+myCanvas->cd(1);
+
+
+Int_t type=111;
+
+TH1F *h3=hEl;
+TH1F *h4=hq2;
+TH1F *h6=hcostv1;
+TH1F *h7=hcostv2;
+
+
+h3->Draw();
+myCanvas.Update();
+myCanvas->cd(2);
+h4->Draw();
+myCanvas.Update();
+myCanvas->cd(3);
+h6->Draw();
+myCanvas.Update();
+myCanvas->cd(4);
+h7->Draw();
+myCanvas.Update();
+
+myCanvas->Print("test1.eps");
+
+}

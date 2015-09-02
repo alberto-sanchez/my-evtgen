@@ -1,4 +1,36 @@
-This version of EvtGen is a merger of the latest LHCb and BaBar code.
+RELEASE NOTES 
+=============
+
+The major points comparing this version with the last official (2009)
+release are the following:
+
+1. This version of EvtGen is a merger of the latest LHCb and BaBar EvtGenBase
+   and EvtGenModels code. Most changes since the last release are related to
+   bug/compiler fixes.
+
+2. Bug fixes for Bs mixing decay/CP violation amplitudes.
+   Added the capability to use either coherent or incoherent mixing in EvtCPUtil. 
+   One or the other can be chosen as the mixing method for the B system by
+   choosing 0 (coherent) or 1 (incoherent) for the last integer argument 
+   in the EvtGen() constructor.
+
+3. The interface to both PYTHIA and PHOTOS are _unchanged_, so it is not
+   possible to have multiple instances of either generators within EvtGen,
+   since they use FORTRAN code. This will be addressed in the next version 
+   of EvtGen.
+
+4. Added two sub-amplitude types LASS_ELASTIC and LASS_RESONANT to the EvtLASSAmp
+   model. Also added EvtBaryonPCR and EvtBaryonPCRFF models for baryonic semileptonic 
+   decays using more realistic dynamics.
+
+5. Changed EvtWilsonCoeficients to EvtWilsonCoefficients, used in 
+   EvtGenModels/EvtLb2Lll.hh.
+
+6. Bug fix correction to EvtTensor4C::cont().
+
+
+BUILDING THE CODE
+=================
 
 To build the EvtGen code, do
 
@@ -14,12 +46,12 @@ Since EvtGen still uses Fortran routines for some calculations gfortran is neede
 to compile the code. The alternative (not recommended) compilers g77 (f77) can be
 used instead by changing the FC variable in the configure script.
 
-Note that PHOTOS and PYTHIA are required to run EvtGen. Suitable versions are 
-available here:
+Note that PHOTOS v2 and PYTHIA v6 are required to run EvtGen. Suitable versions are 
+available here: 
 
-/afs/cern.ch/sw/lcg/external/MCGenerators/photos/215.5
+PYTHIA  http://projects.hepforge.org/pythia6/
 
-/afs/cern.ch/sw/lcg/external/MCGenerators/pythia6/420
+PHOTOS  http://wasm.home.cern.ch/wasm/f77.html
 
 To create an EvtGen executable, the following libraries need to be included
 in the link path, owing to the dependence on PHOTOS, PYTHIA and Fortran code: 
@@ -28,3 +60,14 @@ in the link path, owing to the dependence on PHOTOS, PYTHIA and Fortran code:
 
 Two example programs using EvtGen can be seen in the test sub-directory along 
 with the required Makefile.
+
+Examples
+========
+
+Some examples are provided in the test sub-directory. 
+
+To run these, first build EvtGen, then type "make" in the test directory. Note
+that these tests require ROOT to be installed. Running the script "./do_tests"
+will run a series of EvtGen examples. Example decay files are in the
+test/exampleFiles sub-directory.
+

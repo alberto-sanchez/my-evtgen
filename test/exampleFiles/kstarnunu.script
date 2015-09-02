@@ -1,0 +1,26 @@
+{
+TFile *myFile = new TFile("kstarnunu.root","READ");
+myFile->ls();
+
+TCanvas *myCanvas = new TCanvas("c","kstarnunu",0,0,800,800);
+myCanvas->Divide(2,2);
+
+myCanvas->cd(1);
+TH1F *th1=h1;
+th1->Draw();
+
+myCanvas->cd(2);
+TH1F *th2=h2;
+th2->Draw();
+
+
+myCanvas->cd(3);
+TH1F *th3=h3;
+th3->Draw();
+
+myCanvas.Update();
+
+myCanvas->Print("kstarnunu.eps");
+
+}
+

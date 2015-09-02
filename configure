@@ -3,13 +3,13 @@
 #Package-specific:>
 
 GENERATOR=EvtGen
-#VERSION=8.16
+#VERSION=11
 
 # === Default values of input parameters ====
 PATH_TO_EXTERNAL=
 CLHEP_VERSION=
-LCGPLATFORM=         #LCG platform. Can be needed if external libraries are specified
-COMPMODE=OPT                        # Default: compiler optimization mode
+PYTHIADIR=${PYTHIA8DATA}/..
+COMPMODE=OPT        # Default: compiler optimization mode
 
 #<
 
@@ -24,7 +24,7 @@ check_arguments () {
       "\nUsage: ./configure [options] , where options are:\n\n"\
       "--help                       : prints this help\n"\
       "--enable-debug               : turns on debugging flags\n"\
-      "--lcgplatform=LCGPLATFORM    : ${LCGPLATFORM} by default\n"
+      "--pythiadir=[directory]      : specifies location of Pythia 8 base directory\n"
       exit
     else
       if [ "x${arg}" = "x${arg/=/}" ] ; then
@@ -32,8 +32,8 @@ check_arguments () {
       else
         option=${arg/=*/}
         value=${arg/*=/}
-	if [ "x${option}" = "x--lcgplatform" ] ; then
-	    LCGPLATFORM=${value}
+	if [ "x${option}" = "x--pythiadir" ] ; then
+	    PYTHIADIR=${value}
 	else
 	  echo "${arg}: wrong option. Ignored." >&2
 	fi
@@ -149,12 +149,15 @@ FC = ${FC}
 FFLAGS = ${FFLAGS} 
 CFLAGS = ${CFLAGS}
 CXX = ${CXX}
-CXXFLAGS = ${CXXFLAGS} -DEVTSTANDALONE
+CXXFLAGS = ${CXXFLAGS}
 
 TOPDIR = $(pwd)
 
 TMPDIR = \$(TOPDIR)/tmp
 INCLUDEDIR = \$(TOPDIR)
+PYTHIADIR = ${PYTHIADIR}
+PYTHIAINCDIR = ${PYTHIADIR}/include
+PYTHIALIBDIR = ${PYTHIADIR}/lib/archive
 SRCDIR = \$(TOPDIR)/src
 LIBDIR_SHARED = \$(TOPDIR)/lib
 LIBDIR_ARCHIVE = \$(TOPDIR)/lib/archive
@@ -180,7 +183,7 @@ EOT
 echo " done"
 
 set -v
-mkdir -p tmp/ lib/ lib/archive/
+mkdir -p tmp/ tmp/EvtGenBase tmp/EvtGenModels lib/ lib/archive/
 set +v 
 
 echo -e  "\n\nType 'make' to build everything or 'make help' to list build targets.\n\n"
