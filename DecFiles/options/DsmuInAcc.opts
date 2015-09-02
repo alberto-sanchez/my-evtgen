@@ -1,3 +1,0 @@
-// Extra options to ask J/psi and  Psi(2S) to be in acceptance
-
-Generation.SignalRepeatedHadronization.ListOfDaughtersInLHCb.DaughtersPIDList = { 431 , 13 } ;

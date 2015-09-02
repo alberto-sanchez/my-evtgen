@@ -180,7 +180,7 @@ EOT
 echo " done"
 
 set -v
-mkdir -p tmp/ tmp/EvtGenBase tmp/EvtGenModels lib/ lib/archive/
+mkdir -p tmp/ lib/ lib/archive/
 set +v 
 
 echo -e  "\n\nType 'make' to build everything or 'make help' to list build targets.\n\n"

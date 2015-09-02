@@ -1,69 +1,30 @@
- --- Note from GENSER --- 
+This version of EvtGen is a merger of the latest LHCb and BaBar code.
 
-evtgen GENSER version 10.0
-SVN revision is 
-SVN tag is R00-01-03
+To build the EvtGen code, do
 
- --- Authors' README follows: --- 
+./configure
 
+then
 
- README file for documentation of EvtGen.
+make
 
-To generate the guide.ps run "do_latex" it runs the set of commands needed 
-to produce the postscript file.
+This should create the libraries lib/libEvtGen.so and lib/archive/libEvtGen.a.
 
-Alternatively in the BaBar srt structure you can do "gmake EvtGen.guide"
-which puts the output (guide.ps as well as HTML) in doc/guide/EvtGen/.
+Since EvtGen still uses Fortran routines for some calculations gfortran is needed
+to compile the code. The alternative (not recommended) compilers g77 (f77) can be
+used instead by changing the FC variable in the configure script.
 
- The EvtGen documentation is keept in the doc subdirectory 
-of the EvtGen package.
- 
- It is a latex document consisting of the following files:
+Note that PHOTOS and PYTHIA are required to run EvtGen. Suitable versions are 
+available here:
 
-  guide.tex              Main tex file.
+/afs/cern.ch/sw/lcg/external/MCGenerators/photos/215.5
 
-  guide.bib              The bibliography.
+/afs/cern.ch/sw/lcg/external/MCGenerators/pythia6/420
 
-  do_latex               script to generate the guide.ps file.
+To create an EvtGen executable, the following libraries need to be included
+in the link path, owing to the dependence on PHOTOS, PYTHIA and Fortran code: 
 
-  evt_algorithm.tex      Describes the algorithm.
+-lphotos -lpythia6 -lpythia6_dummy -lgfortran
 
-  evt_classes.tex        Description of classes.
-
-  evt_conventions.tex    Physics conventions.
-
-  evt_cpviolation.tex    Describes how CP violation and mixing is
-                         implemented.
-
-  evt_decayamp.tex       Describes how to write down decay amplitudes.
-
-  evt_decaytable.tex     Describes how the decay table in EvtGen works.
-
-  evt_examples.tex       Gives examples of how to run EvtGen.
-
-  evt_finalstaterad.tex  How PHOTOS is used for generation of final state radiation.     
-
-  evt_helamp.tex         Definition of how helicity amplitudes are used.
-
-  evt_intro.tex          The introduction.
-
-  evt_jetset.tex         Defines the jetset interface.
-
-  evt_macro.tex          Contains some definitions that are
-                         used throughout the document.
-
-  evt_models.tex         Description of the available decay models.
-
-  evt_monitoring.tex     Describes switches that can be turned on to get a summary
-                         of how the generator worked.
-
-  evt_util.tex           Describes various utility functions.
-
-  evt_wrtmodel.tex       Describes how to implement a decay model.
-
-
-Report problems to ryd@hep.caltech.edu
-
-
-
-
+Two example programs using EvtGen can be seen in the test sub-directory along 
+with the required Makefile.

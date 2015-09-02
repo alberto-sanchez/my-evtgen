@@ -1,7 +1,0 @@
-Generation.PileUpTool = "FixedLuminosityForRareProcess";
-#include "$DECFILESROOT/options/SwitchOffAllPythiaProcesses.opts"
-Generation.Special.PythiaProduction.Commands += 
-{ "pyint2 kfpr 480 1 9920443" ,
-  "pysubs msub 480 1"
-} ;
-
