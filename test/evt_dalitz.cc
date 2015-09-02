@@ -20,25 +20,6 @@ using std::fstream;
 using std::ifstream;
 using std::ofstream;
 
-extern "C" {
-  extern float begran_(int *);
-  extern float phoran_(int *);
-  extern float rlu_();
-}
-
-float begran_(int *){
-  return EvtRandom::Flat();
-}
-
-float phoran_(int *){
-  return EvtRandom::Flat();
-}
-
-//Define random number fcn used by Jetset
-float rlu_(){
-  return EvtRandom::Flat();
-}
-
 void usage(const char *cmd)
 {
   printf("Usage: %s -d <decayfile> -m <mother> -n <nevents> -f <datfile> -r <rootfile>\n",cmd);
@@ -50,7 +31,7 @@ int main(int argc, char* argv[]) {
   std::string mother("B+");
   int N = 10;
   std::string datfile("output.dat");
-  std::string decfile =("../DECAY.DEC");
+  std::string decfile =("../DECAY_2010.DEC");
 
   // Get options
 

@@ -10,41 +10,27 @@
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenBase/EvtStdHep.hh"
+#include "EvtGenBase/EvtHepMCEvent.hh"
 #include "EvtGenBase/EvtStdlibRandomEngine.hh"
 
 #include <iostream>
 #include <string>
 
 
-//Define random number fcn used by Jetset
-extern "C" {
-  extern float rlu_();
-  extern float begran_(int *);
-}
-
-float rlu_(){
-  return EvtRandom::Flat();
-}
-float begran_(int *){
-  return EvtRandom::Flat();
-}
-
 int main(int argc, char** argv) {
 
-  EvtStdHep evtstdhep;
   EvtParticle* parent(0);
 
   EvtStdlibRandomEngine eng;
   EvtRandom::setRandomEngine((EvtRandomEngine*)&eng);
    //Initialize the generator - read in the decay table and particle properties
-  EvtGen myGenerator("../DECAY.DEC","../evt.pdl", (EvtRandomEngine*)&eng);
+  EvtGen myGenerator("../DECAY_2010.DEC","../evt.pdl", (EvtRandomEngine*)&eng);
   //If I wanted a user decay file, I would read it in now.
   //myGenerator.readUDecay(``../user.dec'');
 
   static EvtId UPS4 = EvtPDL::getId(std::string("Upsilon(4S)"));
 
-  int nEvents(10000);
+  int nEvents(100);
 
   // Loop to create nEvents, starting from an Upsilon(4S)
   int i;
@@ -58,11 +44,14 @@ int main(int argc, char** argv) {
     parent->setVectorSpinDensity();      
 
     // Generate the event
-    myGenerator.generateDecay(parent);
+    myGenerator.generateDecay(parent);    
     
     // Write out the results
-    evtstdhep.init();
-    parent->makeStdHep(evtstdhep);
+    EvtHepMCEvent theEvent;
+    theEvent.constructEvent(parent);
+    HepMC::GenEvent* genEvent = theEvent.getEvent();
+    genEvent->print(std::cout);
+
     parent->deleteTree();
 
   }

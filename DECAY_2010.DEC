@@ -1,5 +1,5 @@
 # $Id: DECAY.DEC,v 1.55 2009-11-26 14:16:27 robbep Exp $
-# Updated to PDG 2008 (By Mark Whitehead - m.p.whitehead@warwick.ac.uk)
+# Updated to PDG 2010 by Tomas Pilar - T.Pilar@warwick.ac.uk
 # Updated Mixing Parameters Mark Whitehead May 2009
 #
 Define qoverp_incohMix_B_s0 1.0
@@ -170,9 +170,6 @@ ChargeConj B_1+sig           B_1-sig
 Alias      B_2*+sig          B_2*+
 Alias      B_2*-sig          B_2*-
 ChargeConj B_2*+sig          B_2*-sig
-Alias      K_S0sig           K_S0
-ChargeConj K_S0sig           K_S0sig
-
 #
 #JetSet parameter modifications
 #(Very important that there are no blank spaces in the parameter string!)
@@ -205,7 +202,7 @@ Decay Upsilon(4S)
 0.000084099 Upsilon(2S) pi+     pi-                         VVPIPI; #[Reconstructed PDG2011]
 0.000044342 Upsilon(2S) pi0     pi0                         VVPIPI; #[Reconstructed PDG2011]
 0.000080123 Upsilon pi+     pi-                             VVPIPI; #[Reconstructed PDG2011]
-0.000044342 Upsilon pi0     pi0                             VVPIPI;2 #[Reconstructed PDG2011]
+0.000044342 Upsilon pi0     pi0                             VVPIPI; #[Reconstructed PDG2011]
 0.000194392 Upsilon eta                                     PARTWAVE 0.0 0.0 1.0 0.0 0.0 0.0; #[Reconstructed PDG2011]
 # BF ~ (2J+1)E^3_gamma; see PRL 94, 032001
 # V-> gamma S    Partial wave (L,S)=(0,0)
@@ -327,15 +324,6 @@ Decay anti-B0
 0.000035000 K*-     D_s+                                    SVS; #[Reconstructed PDG2011]
 0.000041000 D_s*-   rho+                                    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0; #[Reconstructed PDG2011]
 0.000032000 D_s*+   K*-                                     SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0; #[Reconstructed PDG2011]
-
-## TJG added similar modes with extra pions
-##     nonresonant (etc.) likely to have BFs too small to worry about
-0.000016   a_1+   D_s-    SVS;
-0.000008   K_1-   D_s+    SVS;
-0.000008   K'_1-   D_s+   SVS;
-0.000016   D_s*-  a_1+    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.000008   D_s*+  K_1-    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.000008   D_s*+  K'_1-    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
 
 
 #
@@ -1101,8 +1089,8 @@ Decay anti-B0
 0.000050  a_10  a_10             PHSP;
 0.000050  a_1+  a_1-             PHSP;
 #
-# PR LHCb: 7 Nov 2005 Add anti-K*0 pi0 pi0
-0.0000067     anti-K*0  pi0  pi0     PHSP;
+# PR LHCb: 7 Nov 2005 Add K*0 pi0 pi0
+0.0000067     K*0  pi0  pi0     PHSP;
 #
 #       B -> cc= s
 #
@@ -1340,53 +1328,15 @@ Decay anti-B0
 0.000200000 D+      K-                                      PHSP; #[Reconstructed PDG2011]
 0.000330000 D*+     K*-                                     SVV_HELAMP 0.228 0.0 0.932 0.0 0.283 0.0; #[Reconstructed PDG2011]
 0.000450000 K*-     D+                                      SVS; #[Reconstructed PDG2011]
-
-## TJG added nonresonant modes
-0.00002  D+  K-        pi0            PHSP;
-0.00005  D*+ K-        pi0            PHSP;
-0.000046000 D0      K-      pi+                             PHSP; #[Reconstructed PDG2011]
-0.00005  D*0 K-        pi+            PHSP;
-
-## TJG added K1 modes
-0.00022  K_1- D+              SVS;
-0.00016  D*+ K_1-             SVV_HELAMP 0.228 0.0 0.932 0.0 0.283 0.0;
-0.00022  K'_1- D+             SVS;
-0.00016  D*+ K'_1-            SVV_HELAMP 0.228 0.0 0.932 0.0 0.283 0.0;
-
-# TJG added D0 a1^M
-#
-0.00032   a_10 D0                 SVS;
-0.00029   D*0 a_10                SVV_HELAMP 0.228 0.0 0.932 0.0 0.283 0.0;
-
-
-#colour supressed DK modes - October 26, 2004 -Lange
+#more DK modes - October 26, 2004 -Lange
 0.000036 D*0 K0 SVS;
 0.000052 D0 K0 PHSP;
 0.000042000 anti-K*0 D0                                     SVS; #[Reconstructed PDG2011]
 0.00001 anti-K*0 anti-D0 SVS;
 0.00004 D*0 anti-K*0 SVV_HELAMP 1. 0. 1. 0. 1. 0.;
 0.00001 anti-D*0 anti-K*0 SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-
-## TJG add same for other K* resonances
-0.000042  anti-K_0*0  D0            PHSP;
-0.00001   anti-K_0*0  anti-D0       PHSP;
-0.00004   D*0         anti-K_0*0    SVS;
-0.00001   anti-D*0    anti-K_0*0    SVS;
-0.000042  anti-K_2*0  D0            STS;
-0.00001   anti-K_2*0  anti-D0       STS;
-0.00004   D*0         anti-K_2*0    PHSP;
-0.00001   anti-D*0    anti-K_2*0    PHSP;
-0.00002   anti-K_10   D0            SVS;
-0.000005  anti-K_10   anti-D0       SVS;
-0.00002   D*0         anti-K_10     SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-0.000005  anti-D*0    anti-K_10     SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-0.00002   anti-K'_10   D0           SVS;
-0.000005  anti-K'_10   anti-D0      SVS;
-0.00002   D*0         anti-K'_10    SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-0.000005  anti-D*0    anti-K'_10    SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-
-
-
+#
+#
 # Color-suppressed modes. Br's are expectations from
 # Phys. Rev. D57 (1998), 5363-5369, except for the eta' modes, which are set
 # equal to the eta modes. SVV_HELAMP parameters are the same as in D*0 rho-,
@@ -1442,44 +1392,38 @@ Decay anti-B0
 #
 #0.01000        cd_0       anti-ud_0         PYTHIA 23;
 #0.03000        cd_1       anti-ud_1         PYTHIA 23;
-0.010413703 cd_0    anti-ud_0                               PYTHIA 23; #[Reconstructed PDG2011]
-0.020827501 cd_1    anti-ud_1                               PYTHIA 23; #[Reconstructed PDG2011]
+0.010463563 cd_0    anti-ud_0                               PYTHIA 23; #[Reconstructed PDG2011]
+0.020927220 cd_1    anti-ud_1                               PYTHIA 23; #[Reconstructed PDG2011]
 #
 #  Xi_c X     2.5%
 #
 #0.00600        cs_0       anti-ud_0         PYTHIA 23;
 #0.01800        cs_1       anti-ud_1         PYTHIA 23;
-0.002840127 cs_0    anti-ud_0                               PYTHIA 23; #[Reconstructed PDG2011]
-0.005680253 cs_1    anti-ud_1                               PYTHIA 23; #[Reconstructed PDG2011]
+0.002853725 cs_0    anti-ud_0                               PYTHIA 23; #[Reconstructed PDG2011]
+0.005707449 cs_1    anti-ud_1                               PYTHIA 23; #[Reconstructed PDG2011]
 #
 # PR LHCb Add p pbar mode
 0.0000001      p+    anti-p-                PHSP;
 #
-
-## TJG External W-emission b->c
-0.256407934 anti-u  d       c       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-0.044584553 anti-u  d       c       anti-d                  PYTHIA         13; #[Reconstructed PDG2011]
-0.019034509 anti-u  s       c       anti-d                  PYTHIA         13; #[Reconstructed PDG2011]
-## TJG Internal W-emission b->c
-0.016467074 anti-u  c       d       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-0.000564283 anti-u  c       s       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-## TJG External W-emission b->u with upper vertex charm
-##     subtracted DsK (etc) from here which is not exactly right
-0.003914718 anti-c  s       u       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-
+0.256690755 anti-u  d       c       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.043756828 anti-u  d       c       anti-d                  PYTHIA         25; #[Reconstructed PDG2011]
+0.019975978 anti-u  s       c       anti-d                  PYTHIA         23; #[Reconstructed PDG2011]
+0.017122253 anti-u  c       d       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.000856098 anti-u  c       s       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
 #lange - try to crank up the psi production....
-0.070055986 anti-c  s       c       anti-d                  PYTHIA         13; #[Reconstructed PDG2011]
-0.005680253 anti-c  d       c       anti-d                  PYTHIA         13; #[Reconstructed PDG2011]
-0.002840127 anti-u  d       u       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.070391402 anti-c  s       c       anti-d                  PYTHIA         13; #[Reconstructed PDG2011]
+0.005707449 anti-c  d       c       anti-d                  PYTHIA         13; #[Reconstructed PDG2011]
+0.002853725 anti-u  d       u       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.003804966 anti-c  s       u       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
 # JGS 11/5/02 This and similar a few lines above have been divided by two
 # to solve a double-counting problem for this channel
-0.001940716 anti-u  u       d       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-0.000066292 anti-d  d       d       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-0.000085193 anti-s  s       d       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-0.002082703 anti-u  u       s       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-0.001704038 anti-d  d       s       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-0.001420063 anti-s  s       s       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
-0.004733544 s       anti-d                                  PYTHIA         32; #[Reconstructed PDG2011]
+0.001950007 anti-u  u       d       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.000066610 anti-d  d       d       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.000085600 anti-s  s       d       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.002092675 anti-u  u       s       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.001712197 anti-d  d       s       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.001426862 anti-s  s       s       anti-d                  PYTHIA         48; #[Reconstructed PDG2011]
+0.004756208 s       anti-d                                  PYTHIA         32; #[Reconstructed PDG2011]
 0.000490000 D+      anti-K0 pi-                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000880000 D+      K-      K*0                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000000000 D*+     anti-K0 pi-                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -1488,6 +1432,7 @@ Decay anti-B0
 0.004700000 D*+     pi-     pi-     pi-     pi+     pi+     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000110000 D_s+    pi-     anti-K0                         PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000052000 D0      anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
+0.000046000 D0      K-      pi+                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000006000 anti-D0 K-      pi+                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000036000 D*0     anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.002700000 anti-D*0 pi-     pi-     pi+     pi+            PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -1604,7 +1549,7 @@ Decay B0
 #
 # b->u hadronic
 # Ref. [B1]:
-# Lange Nov 14, 2004 (flip D_s K -- is opposite of D_s pi)
+# Lange Nov14,2004 (flip D_s K --opposite of D_s pi)
 0.000024000 D_s+    pi-                                     PHSP; #[Reconstructed PDG2011]
 0.000030000 D_s-    K+                                      PHSP; #[Reconstructed PDG2011]
 0.000021000 D_s*+   pi-                                     SVS; #[Reconstructed PDG2011]
@@ -1615,14 +1560,6 @@ Decay B0
 0.000041000 D_s*+   rho-                                    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0; #[Reconstructed PDG2011]
 0.000032000 D_s*-   K*+                                     SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0; #[Reconstructed PDG2011]
 
-## TJG added similar modes with extra pions
-##     nonresonant (etc.) likely to have BFs too small to worry about
-0.000016   a_1-   D_s+    SVS;
-0.000008   K_1+   D_s-    SVS;
-0.000008   K'_1+   D_s-   SVS;
-0.000016   D_s*+  a_1-    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.000008   D_s*-  K_1+    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.000008   D_s*-  K'_1+    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
 
 #
 # b -> s gamma
@@ -1737,7 +1674,7 @@ Decay B0
 #Put in with 0 BR to keep PYTHIA from generating it
 0.0000000  K0 anti-K0   PHSP;
 #
-# 3-body by John Back (jback@slac.stanford.edu) - Oct 15, 2002
+# 3-body John Back (jback@slac.stanford.edu) - Oct 15, 2002
 # JGS intersperses modes with pi0->eta,eta'
 # B0 modes
 # Model generates rho(770), rho(1450) and rho(1700) resonances
@@ -1860,7 +1797,7 @@ Decay B0
 #
 #4-body modes from Andrei Gritsan
 #--- 4-body rho-rho, rho-pi-pi, pi-pi-pi-pi --------------------------
-# PR LHCb 20 Apr 2004, set polarisation to longitudinal
+# PR LHCb 20 Apr 2004, set long. pol.
 0.000000730 rho0    rho0                                    SVV_HELAMP 0.0 0.0 1.0 0.0 0.0 0.0; #[Reconstructed PDG2011]
 0.000024200 rho+    rho-                                    SVV_HELAMP 0.0 0.0 1.0 0.0 0.0 0.0; #[Reconstructed PDG2011]
 0.000003  rho0 pi+ pi-           PHSP;
@@ -2385,16 +2322,6 @@ Decay B0
 0.000050  a_10  a_10             PHSP;
 0.000050  a_1+  a_1-             PHSP;
 #
-#   Charmonium states - updated from Lange's recommendations (august 23,2000)
-# Based on new BABAR results I'm making the following changes (Lange, March 13, 2001
-#       J/psi K0   was 10, now 9 x 10^-4
-#       J/psi pi0   was 2.5, now 2.0 x 10^-4
-#       J/psi Kstar was 15, now 13
-#       Fix chic1 KS CP eigenstate
-#       adding J/psi rho and omega - for lack of better thing will use the Kstar helicity amplitudes.
-#       Psi2sKs  30 ->31
-#       chic1 Kstar: 12 ->6
-
 #       B -> cc= s
 0.000435500 J/psi   K_S0                                    SVS; #[Reconstructed PDG2011]
 0.000435500 J/psi   K_L0                                    SVS; #[Reconstructed PDG2011]
@@ -2442,7 +2369,7 @@ Decay B0
 0.00024    eta_c(2S) K_L0               PHSP;
 #
 #
-0.00066   K*0 eta_c(2S)               SVS;
+0.00066   K*0T eta_c(2S)               SVS;
 0.00008    eta_c(2S)   K+  pi-          PHSP;
 0.00005    eta_c(2S)   K0  pi0          PHSP;
 0.00008    eta_c(2S)   K0  pi-  pi+     PHSP;
@@ -2494,6 +2421,10 @@ Decay B0
 0.00007    psi(3770)  K+  pi-  pi0     PHSP;
 0.00029    psi(3770)  K_10             PHSP;
 #
+###   ALREADY Included above 0.0000     phi   K*0             SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
+#
+#
+#
 # b-> c (dc=)
 #
 0.000211000 D-      D+                                      PHSP; #[Reconstructed PDG2011]
@@ -2544,7 +2475,9 @@ Decay B0
 0.0005   D*0  anti-D0  K0                   PHSP;
 0.0015   D0  anti-D*0  K0                   PHSP;
 0.0015   D*0  anti-D*0  K0                  PHSP;
-
+##########
+# K* modes
+###########
 0.0025   D-  D0  K*+                        PHSP;
 0.0025   D*- D0  K*+                        PHSP;
 0.0025   D-  D*0  K*+                       PHSP;
@@ -2588,7 +2521,7 @@ Decay B0
 # updated Ref. [B1]
 # October 26, 2004 Lange update
 #
-0.013000000 D*-     a_1+                                    SVV_HELAMP 0.200 0.0 0.866 0.0 0.458 0.0; #[Reconstructed PDG2011]
+0.013000000 D*-     a_1+                                    SVV_HELAMP 0.458 0.0 0.866 0.0 0.458 0.0; #[Reconstructed PDG2011]
 #
 0.005700000 D*-     rho0    pi+                             PHSP; #[Reconstructed PDG2011]
 0.0010   D*-  rho+  pi0                 PHSP;
@@ -2617,53 +2550,13 @@ Decay B0
 0.000200000 D-      K+                                      PHSP; #[Reconstructed PDG2011]
 0.000330000 D*-     K*+                                     SVV_HELAMP  0.283 0.0 0.932 0.0 0.228 0.0; #[Reconstructed PDG2011]
 0.000450000 K*+     D-                                      SVS; #[Reconstructed PDG2011]
-
-
-
-## TJG added nonresonant modes
-0.00002  D-  K+        pi0            PHSP;
-0.00005  D*- K+        pi0            PHSP;
-0.000046000 anti-D0 K+      pi-                             PHSP; #[Reconstructed PDG2011]
-0.00005  anti-D*0 K+   pi-            PHSP;
-## TJG added K1 modes
-0.00022  K_1+ D-              SVS;
-0.00016  D*- K_1+             SVV_HELAMP 0.228 0.0 0.932 0.0 0.283 0.0;
-0.00022  K'_1+ D-             SVS;
-0.00016  D*- K'_1+            SVV_HELAMP 0.228 0.0 0.932 0.0 0.283 0.0;
-
-# TJG added D0 a1
-#
-0.00032   a_10 anti-D0            SVS;
-0.00029   anti-D*0 a_10           SVV_HELAMP 0.283 0.0 0.932 0.0 0.228 0.0;
-#
-
-
-#colour suppressed  DK modes - October 26, 2004 -Lange
+#more DK modes - October 26, 2004 -Lange
 0.000036  anti-D*0 anti-K0 SVS;
 0.000052  anti-D0 anti-K0 PHSP;
 0.000042000 K*0     anti-D0                                 SVS; #[Reconstructed PDG2011]
 0.00001  K*0 D0 SVS;
 0.00004  anti-D*0 K*0 SVV_HELAMP 1. 0. 1. 0. 1. 0.;
 0.00001  D*0 K*0 SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-
-## TJG add same for other K* resonances
-0.000042  K_0*0      anti-D0        PHSP;
-0.00001   K_0*0      D0             PHSP;
-0.00004   anti-D*0   K_0*0          SVS;
-0.00001   D*0        K_0*0          SVS;
-0.000042  K_2*0      anti-D0        STS;
-0.00001   K_2*0      D0             STS;
-0.00004   anti-D*0   K_2*0          PHSP;
-0.00001   D*0        K_2*0          PHSP;
-0.00002   K_10       anti-D0        SVS;
-0.000005  K_10       D0             SVS;
-0.00002   anti-D*0   K_10           SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-0.000005  D*0        K_10           SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-0.00002   K'_10      anti-D0        SVS;
-0.000005  K'_10      D0             SVS;
-0.00002   anti-D*0   K'_10          SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-0.000005  D*0        K'_10          SVV_HELAMP 1. 0. 1. 0. 1. 0.;
-
 #
 #
 # Color-suppressed modes. Br's are expectations from
@@ -2722,46 +2615,41 @@ Decay B0
 #
 #0.01000        anti-cd_0       ud_0         PYTHIA 23;
 #0.03000        anti-cd_1       ud_1         PYTHIA 23;
-0.010470756 anti-cd_0 ud_0                                  PYTHIA 23; #[Reconstructed PDG2011]
-0.020941606 anti-cd_1 ud_1                                  PYTHIA 23; #[Reconstructed PDG2011]
+0.010520663 anti-cd_0 ud_0                                  PYTHIA 23; #[Reconstructed PDG2011]
+0.021041421 anti-cd_1 ud_1                                  PYTHIA 23; #[Reconstructed PDG2011]
 #
 #  Xi_c X    2.5%
 #
 #0.00600        anti-cs_0       ud_0         PYTHIA 23;
 #0.01800        anti-cs_1       ud_1         PYTHIA 23;
-0.002855686 anti-cs_0 ud_0                                  PYTHIA 23; #[Reconstructed PDG2011]
-0.005711373 anti-cs_1 ud_1                                  PYTHIA 23; #[Reconstructed PDG2011]
+0.002869298 anti-cs_0 ud_0                                  PYTHIA 23; #[Reconstructed PDG2011]
+0.005738595 anti-cs_1 ud_1                                  PYTHIA 23; #[Reconstructed PDG2011]
 #
 #
-
-## TJG External W-emission b->c
-0.257812689 u       anti-d  anti-c  d                       PYTHIA         48; #[Reconstructed PDG2011]
-0.044828813 u       anti-d  anti-c  d                       PYTHIA         13; #[Reconstructed PDG2011]
-0.019138791 u       anti-s  anti-c  d                       PYTHIA         13; #[Reconstructed PDG2011]
-## TJG Internal W-emission b->c
-0.016557290 u       anti-c  anti-d  d                       PYTHIA         48; #[Reconstructed PDG2011]
-0.000567374 u       anti-c  anti-s  d                       PYTHIA         48; #[Reconstructed PDG2011]
-## TJG External W-emission b->u with upper vertex charm
-##     subtracted DsK (etc) from here which is not exactly right
-0.003936165 c       anti-s  anti-u  d                       PYTHIA         48; #[Reconstructed PDG2011]
-
+0.258091538 u       anti-d  anti-c  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.043995612 u       anti-d  anti-c  d                       PYTHIA         13; #[Reconstructed PDG2011]
+0.020084989 u       anti-s  anti-c  d                       PYTHIA         13; #[Reconstructed PDG2011]
+0.017215691 u       anti-c  anti-d  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.000860770 u       anti-c  anti-s  d                       PYTHIA         48; #[Reconstructed PDG2011]
 #lange - try to crank up the psi production....
-0.070439794 c       anti-s  anti-c  d                       PYTHIA         13; #[Reconstructed PDG2011]
-0.005711373 c       anti-d  anti-c  d                       PYTHIA         13; #[Reconstructed PDG2011]
-0.002855686 u       anti-d  anti-u  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.070775534 c       anti-s  anti-c  d                       PYTHIA         13; #[Reconstructed PDG2011]
+0.005738595 c       anti-d  anti-c  d                       PYTHIA         13; #[Reconstructed PDG2011]
+0.002869298 u       anti-d  anti-u  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.003825730 c       anti-s  anti-u  d                       PYTHIA         48; #[Reconstructed PDG2011]
 # JGS 11/5/02 This and similar a few lines above have been divided by two
 # to solve a double-counting problem for this channel
-0.001951348 u       anti-u  anti-d  d                       PYTHIA         48; #[Reconstructed PDG2011]
-0.000066655 d       anti-d  anti-d  d                       PYTHIA         48; #[Reconstructed PDG2011]
-0.000085659 s       anti-s  anti-d  d                       PYTHIA         48; #[Reconstructed PDG2011]
-0.002094113 u       anti-u  anti-s  d                       PYTHIA         48; #[Reconstructed PDG2011]
-0.001713374 d       anti-d  anti-s  d                       PYTHIA         48; #[Reconstructed PDG2011]
-0.001427843 s       anti-s  anti-s  d                       PYTHIA         48; #[Reconstructed PDG2011]
-0.004759477 anti-s  d                                       PYTHIA         32; #[Reconstructed PDG2011]
+0.001960649 u       anti-u  anti-d  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.000066973 d       anti-d  anti-d  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.000086068 s       anti-s  anti-d  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.002104095 u       anti-u  anti-s  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.001721541 d       anti-d  anti-s  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.001434649 s       anti-s  anti-s  d                       PYTHIA         48; #[Reconstructed PDG2011]
+0.004782163 anti-s  d                                       PYTHIA         32; #[Reconstructed PDG2011]
 0.017600000 D*-     pi+     pi+     pi-     pi0             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.004700000 D*-     pi+     pi+     pi+     pi-     pi-     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000110000 D_s-    pi+     K0                              PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000052000 anti-D0 K0                                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
+0.000046000 anti-D0 K+      pi-                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000006000 D0      K+      pi-                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000036000 anti-D*0 K0                                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.002700000 D*0     pi+     pi+     pi-     pi-             PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -2903,25 +2791,6 @@ Decay B-
 #
 0.000028   rho0  D_s-     SVS;
 0.000028   D_s*-  rho0    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-
-## TJG added Ds(*)K(*), Ds(*)phi
-0.000001   D_s-       K0         PHSP;
-0.000001   K*0        D_s-       SVS;
-0.000001   phi        D_s-       SVS;
-0.000001   D_s*-      K0         SVS;
-0.000001   D_s*-      K*0        SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.000001   D_s*-      phi        SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-#
-## TJG moved these to here, added D(*)-rho0, D(*)K*0
-#October 26, 2004 Lange
-0.0000005  D-         pi0        PHSP;
-0.0000005  D*-        pi0        SVS;
-0.0000005  rho0       D-         SVS;
-0.0000005  D*-        rho0       SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.000011   D-         anti-K0    PHSP;
-0.000006   D*-        anti-K0    SVS;
-0.000011   anti-K*0   D-         SVS;
-0.000006   D*-        anti-K*0   SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
 
 #
 # b-> s gamma
@@ -3617,6 +3486,10 @@ Decay B-
 0.0042   D_2*0  D_s-                      STS;
 0.0040   D_2*0  D_s*-                    PHSP;
 #
+#
+# SVV_HELAMP from factorization, recommendation
+# http://babar-hn.slac.stanford.edu:5090/HyperNews/get/event_gen/168.html:
+#
 0.0036    D_s-  D+  pi-                  PHSP;
 0.0018    D_s-  D0  pi0                  PHSP;
 0.0037    D_s*- D+  pi-                  PHSP;
@@ -3726,21 +3599,11 @@ Decay B-
 0.000421000 D*0     K-                                      SVS; #[Reconstructed PDG2011]
 0.000530000 K*-     D0                                      SVS; #[Reconstructed PDG2011]
 0.000810000 D*0     K*-                                     SVV_HELAMP 0.228 0.0  0.932 0.0 0.283 0.0; #[Reconstructed PDG2011]
-
-# TJG added more modes
-0.00004    D0         K-	pi0	PHSP;
-0.00004    D0         anti-K0	pi-	PHSP;
-0.00004    D*0        K-	pi0	PHSP;
-0.00004    D*0        anti-K0	pi-	PHSP;
-0.00010    D0         K_0*-		PHSP;
-0.00010    D*0        K_0*-		SVS;
-0.00010    K_2*-      D0       		STS;
-0.00010    D*0        K_2*-		PHSP;
-0.00010    K_1-       D0       		SVS;
-0.00010    D*0        K_1-		SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.00010    K'_1-      D0       		SVS;
-0.00010    D*0        K'_1-		SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-
+#October 26, 2004 Lange
+0.0000005 D- pi0  PHSP;
+0.0000005 D*- pi0  SVS;
+0.000011 D- anti-K0 PHSP;
+0.000006 D*- anti-K0 SVS;
 #
 #October 26, 2004 - Lange
 0.00075 D0 D_s0*- PHSP;
@@ -3750,12 +3613,9 @@ Decay B-
 #
 # Feb 2009
 #
-0.000550000 D0      K-      K0                              PHSP; #[Reconstructed PDG2011]
-0.00055 D*0      K-      K0         PHSP;
-0.00055 D0       K*-     K0         PHSP;
-0.00055 D*0      K*-     K0         PHSP;
-0.000750000 D0      K-      K*0                             PHSP; #[Reconstructed PDG2011]
-0.00150 D*0      K-      K*0        PHSP;
+0.00055 D0 K- anti-K0  PHSP;
+0.00075 D0 K- anti-K*0  PHSP;
+0.001500000 D*0     K-      anti-K*0                        PHSP; #[Reconstructed PDG2011]
 #
 # Feb 2009
 #
@@ -3770,34 +3630,35 @@ Decay B-
 #  Lam_c X  / Sigma_c X      4.0 %
 #
 #0.04000        cd_1       anti-uu_1         PYTHIA 23;
-0.032558426 cd_1    anti-uu_1                               PYTHIA 23; #[Reconstructed PDG2011]
+0.032587684 cd_1    anti-uu_1                               PYTHIA 23; #[Reconstructed PDG2011]
 #
 #  Xi_c X     2.5%
 #
 #0.02400        cs_1       anti-uu_1         PYTHIA 23;
-0.008879613 cs_1    anti-uu_1                               PYTHIA 23; #[Reconstructed PDG2011]
+0.008887593 cs_1    anti-uu_1                               PYTHIA 23; #[Reconstructed PDG2011]
 #
 #
-0.220715743 anti-u  d       c       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
-0.042424652 anti-u  d       c       anti-u                  PYTHIA         13; #[Reconstructed PDG2011]
-0.021305150 anti-u  s       c       anti-u                  PYTHIA         13; #[Reconstructed PDG2011]
+0.222451667 anti-u  d       c       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.042462776 anti-u  d       c       anti-u                  PYTHIA         13; #[Reconstructed PDG2011]
+0.022218888 anti-u  s       c       anti-u                  PYTHIA         13; #[Reconstructed PDG2011]
 #lange - try to crank up the psi production....
-0.073009851 anti-c  s       c       anti-u                  PYTHIA         13; #[Reconstructed PDG2011]
-0.003924109 anti-c  d       c       anti-u                  PYTHIA         13; #[Reconstructed PDG2011]
-0.002959840 anti-u  d       u       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
-0.003946453 anti-c  s       u       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.073075460 anti-c  s       c       anti-u                  PYTHIA         13; #[Reconstructed PDG2011]
+0.003950000 anti-c  d       c       anti-u                  PYTHIA         13; #[Reconstructed PDG2011]
+0.002962500 anti-u  d       u       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.003950000 anti-c  s       u       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
 # JGS 11/5/02 This and similar a few lines above have been divided by two
 # to solve a double-counting problem for this channel
-0.002022571 anti-u  u       d       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
-0.000069082 anti-d  d       d       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
-0.000088820 anti-s  s       d       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
-0.002170605 anti-u  u       s       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
-0.001775941 anti-d  d       s       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
-0.001479967 anti-s  s       s       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
-0.004933067 s       anti-u                                  PYTHIA         32; #[Reconstructed PDG2011]
+0.002024389 anti-u  u       d       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.000069145 anti-d  d       d       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.000088900 anti-s  s       d       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.002172556 anti-u  u       s       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.001777537 anti-d  d       s       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.001481296 anti-s  s       s       anti-u                  PYTHIA         48; #[Reconstructed PDG2011]
+0.004937500 s       anti-u                                  PYTHIA         32; #[Reconstructed PDG2011]
 #
 ####
-0.001500000 D*0     K-      anti-K*0                        PHSP;  #[New mode added] #[Reconstructed PDG2011]
+0.000550000 D0      K-      K0                              PHSP;  #[New mode added] #[Reconstructed PDG2011]
+0.000750000 D0      K-      K*0                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.018000000 D*0     pi+     pi-     pi-     pi0             PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.005700000 D*0     pi-     pi-     pi-     pi+     pi+     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.002600000 D*+     pi-     pi-     pi-     pi+             PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -3935,25 +3796,6 @@ Decay B+
 #
 0.000028   rho0  D_s+     SVS;
 0.000028   D_s*+  rho0    SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-
-## TJG added Ds(*)K(*), Ds(*)phi
-0.000001   D_s+       anti-K0    PHSP;
-0.000001   anti-K*0   D_s+       SVS;
-0.000001   phi        D_s+       SVS;
-0.000001   D_s*+      anti-K0    SVS;
-0.000001   D_s*+      anti-K*0   SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.000001   D_s*+      phi        SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-#
-## TJG moved these to here, added D(*)-rho0, D(*)K*0
-#October 26, 2004 Lange
-0.0000005  D+         pi0        PHSP;
-0.0000005  D*+        pi0        SVS;
-0.0000005  rho0       D+         SVS;
-0.0000005  D*+        rho0       SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.000011   D+         K0         PHSP;
-0.000006   D*+        K0         SVS;
-0.000011   K*0        D+         SVS;
-0.000006   D*+        K*0        SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
 
 #
 # b-> s gamma
@@ -4648,6 +4490,10 @@ Decay B+
 0.0042   anti-D_2*0  D_s+                      STS;
 0.0040   anti-D_2*0  D_s*+                    PHSP;
 #
+#
+#
+#
+#
 0.0036    D_s+  D-  pi+                  PHSP;
 0.0018    D_s+  anti-D0 pi0                  PHSP;
 0.0037    D_s*+ D-  pi+                  PHSP;
@@ -4757,25 +4603,11 @@ Decay B+
 0.000421000 anti-D*0 K+                                     SVS; #[Reconstructed PDG2011]
 0.000530000 K*+     anti-D0                                 SVS; #[Reconstructed PDG2011]
 0.000810000 anti-D*0 K*+                                    SVV_HELAMP 0.283 0.0 0.932 0.0 0.228 0.0; #[Reconstructed PDG2011]
-
-# TJG added more modes
-0.00004    anti-D0    K+	pi0	PHSP;
-0.00004    anti-D0    K0	pi+	PHSP;
-0.00004    anti-D*0   K+	pi0	PHSP;
-0.00004    anti-D*0   K0	pi+	PHSP;
-0.00010    anti-D0    K_0*+		PHSP;
-0.00010    anti-D*0   K_0*+		SVS;
-0.00010    K_2*+      anti-D0       	STS;
-0.00010    anti-D*0   K_2*+		PHSP;
-0.00010    K_1+       anti-D0       	SVS;
-0.00010    anti-D*0   K_1+		SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-0.00010    K'_1+      anti-D0       	SVS;
-0.00010    anti-D*0   K'_1+		SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
-
-0.00055 anti-D*0 K+      anti-K0     PHSP;
-0.00055 anti-D0  K*+     anti-K0     PHSP;
-0.00055 anti-D*0 K*+     anti-K0     PHSP;
-
+#October 26, 2004 Lange
+0.0000005 D+ pi0  PHSP;
+0.0000005 D*+ pi0  SVS;
+0.000011 D+ anti-K0 PHSP;
+0.000006 D*+ anti-K0 SVS;
 #
 #October 26, 2004 - Lange
 0.00075 anti-D0 D_s0*+ PHSP;
@@ -4802,31 +4634,31 @@ Decay B+
 #  Lam_c X  / Sigma_c X
 #
 #0.04000       anti-cd_1       uu_1         PYTHIA 23;
-0.032558426 anti-cd_1 uu_1                                  PYTHIA 23; #[Reconstructed PDG2011]
+0.032572352 anti-cd_1 uu_1                                  PYTHIA 23; #[Reconstructed PDG2011]
 #
 #  Xi_c X     2.4%
 #
 #0.02400       anti-cs_1       uu_1         PYTHIA 23;
-0.008879613 anti-cs_1 uu_1                                  PYTHIA 23; #[Reconstructed PDG2011]
+0.008883411 anti-cs_1 uu_1                                  PYTHIA 23; #[Reconstructed PDG2011]
 #
 #
-0.220715743 u       anti-d  anti-c  u                       PYTHIA         48; #[Reconstructed PDG2011]
-0.042424652 u       anti-d  anti-c  u                       PYTHIA         13; #[Reconstructed PDG2011]
-0.021305150 u       anti-s  anti-c  u                       PYTHIA         13; #[Reconstructed PDG2011]
+0.222347008 u       anti-d  anti-c  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.042442798 u       anti-d  anti-c  u                       PYTHIA         13; #[Reconstructed PDG2011]
+0.022208435 u       anti-s  anti-c  u                       PYTHIA         13; #[Reconstructed PDG2011]
 #lange - try to crank up the psi production....
-0.073009851 c       anti-s  anti-c  u                       PYTHIA         13; #[Reconstructed PDG2011]
-0.003946453 c       anti-d  anti-c  u                       PYTHIA         13; #[Reconstructed PDG2011]
-0.002959840 u       anti-d  anti-u  u                       PYTHIA         48; #[Reconstructed PDG2011]
-0.003924109 c       anti-s  anti-u  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.073041080 c       anti-s  anti-c  u                       PYTHIA         13; #[Reconstructed PDG2011]
+0.003948141 c       anti-d  anti-c  u                       PYTHIA         13; #[Reconstructed PDG2011]
+0.002961106 u       anti-d  anti-u  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.003948141 c       anti-s  anti-u  u                       PYTHIA         48; #[Reconstructed PDG2011]
 # JGS 11/5/02 This and similar a few lines above have been divided by two
 # to solve a double-counting problem for this channel
-0.002022571 u       anti-u  anti-d  u                       PYTHIA         48; #[Reconstructed PDG2011]
-0.000069082 d       anti-d  anti-d  u                       PYTHIA         48; #[Reconstructed PDG2011]
-0.000088820 s       anti-s  anti-d  u                       PYTHIA         48; #[Reconstructed PDG2011]
-0.002170605 u       anti-u  anti-s  u                       PYTHIA         48; #[Reconstructed PDG2011]
-0.001775941 d       anti-d  anti-s  u                       PYTHIA         48; #[Reconstructed PDG2011]
-0.001479967 s       anti-s  anti-s  u                       PYTHIA         48; #[Reconstructed PDG2011]
-0.004933067 anti-s  u                                       PYTHIA         32; #[Reconstructed PDG2011]
+0.002023436 u       anti-u  anti-d  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.000069112 d       anti-d  anti-d  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.000088858 s       anti-s  anti-d  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.002171534 u       anti-u  anti-s  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.001776701 d       anti-d  anti-s  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.001480600 s       anti-s  anti-s  u                       PYTHIA         48; #[Reconstructed PDG2011]
+0.004935177 anti-s  u                                       PYTHIA         32; #[Reconstructed PDG2011]
 ####
 0.001500000 anti-D*0 K+      K*0                            PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.018000000 anti-D*0 pi-     pi+     pi+     pi0            PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -5037,7 +4869,7 @@ Decay anti-B_s0
 #
 #
 #                                        b --> c  (d c=)
-#                                        Sum = 1.36%
+#                                        Sum = 1.0%
 0.0017    D_s-    D+                 PHSP;
 0.0017    D*+     D_s-               SVS;
 0.0017    D_s*-   D+                 SVS;
@@ -5059,6 +4891,14 @@ Decay anti-B_s0
 0.0007    D*-     D0      pi+   K0   PHSP;
 0.0003    D*-     D+      pi-   K+   PHSP;
 0.0007    D*-     D0      pi0   K+   PHSP;
+#
+#                                        b --> c  (s u=)
+#                                        exclusive
+#                                        Sum = 0.09%
+0.00015   D_s*+   K-                 SVS;
+0.000150000 D_s+    K-                                      PHSP; #[Reconstructed PDG2011]
+0.00030   D_s*+   K*-                SVV_HELAMP 0.228 0.0 0.932 0.0 0.0283 0.0;
+0.00030   K*-     D_s+               SVS;
 #
 # fkw 4/28/00 Strategy for charmonium modes:
 # Take Bd BR's, replace spectator,
@@ -5084,7 +4924,7 @@ Decay anti-B_s0
 # LHCb PR 04/02/04 Add (cc) phi n pi(+/0)
 0.00039   J/psi   phi      pi+  pi-  PHSP;
 0.00039   J/psi   phi      pi0  pi0  PHSP;
-# LHCb PR add (cc) phi eta(') + npi like in CDF QQ
+# LHCb PR add (cc) phi eta(') + npi see CDF QQ
 0.0002    J/psi   eta      pi+  pi-  PHSP;
 0.0002    J/psi   eta      pi0  pi0  PHSP;
 0.0004    J/psi   eta'     pi+  pi-  PHSP;
@@ -5199,6 +5039,11 @@ Decay anti-B_s0
 #
 # first come the external W-emission decays:
 #
+0.0008      D_s1+       pi-                   SVS;
+0.0021      D_s1+       rho-                  SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
+0.0013      D_s2*+      pi-                   STS;
+#0.0037      D_s2*+      rho-                  STV; # whb: model doesn't exist
+#
 0.0027      D_s*+       pi-                   SVS;
 0.003200000 D_s+    pi-                                     PHSP; #[Reconstructed PDG2011]
 0.0073      rho-        D_s+                  SVS;
@@ -5215,72 +5060,7 @@ Decay anti-B_s0
 0.0010      D_s*+       rho-       pi0        PHSP;
 0.0077      D_s*+       pi+        pi-   pi-  PHSP;
 0.0010      D_s*+       pi0        pi-   pi0  PHSP;
-
-## added TJG 17/12/2010
-0.0007      D_s+        pi-     pi0           PHSP;
-0.0007      D_s*+       pi-     pi0           PHSP;
-
-0.0008      D_s1+       pi-                   SVS;
-0.0021      D_s1+       rho-                  SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
-## added TJG 17/12/2010
-0.0002      D_s1+       pi-     pi0           PHSP;
-0.0013      D_s2*+      pi-                   STS;
-## added TJG 17/12/2010 (using PHSP)
-0.0037      D_s2*+      rho-                  PHSP;
-0.0004      D_s2*+      pi-     pi0           PHSP;
 #
-#                                        b --> c  (s u=)
-#                                        exclusive
-#                                        Sum = 0.09%
-0.00015     D_s*+       K-                    SVS;
-0.000150000 D_s+    K-                                      PHSP; #[Reconstructed PDG2011]
-0.00030     D_s*+       K*-                   SVV_HELAMP 0.228 0.0 0.932 0.0 0.0283 0.0;
-0.00030     K*-         D_s+                  SVS;
-## added TJG 17/12/2010
-0.00003     D_s+        K-      pi0           PHSP;
-0.00003     D_s+        anti-K0 pi-           PHSP;
-0.00003     D_s*+       K-      pi0           PHSP;
-0.00003     D_s*+       anti-K0 pi-           PHSP;
-#
-
-## added from data supplied by A.Poluektov Sep 2011
-0.000474    anti-D0	   anti-K_0*0       PHSP;
-
-## added TJG 17/12/2010
-0.0002      D0          K_0*0                 PHSP;
-0.0002      D*0         K_0*0                 SVS;
-0.0002      K_2*0       D0                    STS;
-0.0002      D*0         K_2*0                 PHSP;
-0.0002      K_10        D0                    SVS;
-0.0002      D*0         K_10                  SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
-0.0002      K'_10       D0                    SVS;
-0.0002      D*0         K'_10                 SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
-## added TJG 17/12/2010
-0.00005     D0          K+      pi-           PHSP;
-0.00005     D*0         K+      pi-           PHSP;
-0.00005     D0          K*+     pi-           PHSP;
-0.00005     D*0         K*+     pi-           PHSP;
-0.00005     D0          K*0     pi0           PHSP;
-0.00005     D*0         K*0     pi0           PHSP;
-0.00005     D0          K+      rho-          PHSP;
-0.00005     D*0         K+      rho-          PHSP;
-0.00005     D0          K+      pi-    pi0    PHSP;
-0.00005     D*0         K+      pi-    pi0    PHSP;
-#
-## added TJG 17/12/2010
-0.00005     phi         D0                    SVS;
-0.00005     D*0         phi                   SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
-0.00005     D0          f_0                   PHSP;
-0.00005     D*0         f_0                   SVS;
-0.00005     D0          f'_0                  PHSP;
-0.00005     D*0         f'_0                  SVS;
-0.00005     D0          eta'                  PHSP;
-0.00005     D*0         eta'                  SVS;
-0.00002     D0          K+      K-            PHSP;
-0.00002     D*0         K+      K-            PHSP;
-0.00002     D0          K+      K-     pi0    PHSP;
-0.00002     D*0         K+      K-     pi0    PHSP;
-
 # then the color suppressed decays:
 #
 # fkw 4/28/00 color suppressed modes bumped up by factor 2 from isospin
@@ -5300,34 +5080,31 @@ Decay anti-B_s0
 #  Start with B to baryons:
 #  fkw 3/28/01 I don't know what I'm doing here!!! This needs to be checked!!!
 # Mark Whitehead 30/4/2010 Weighted PYHTIA to get total BF = 100%
-0.019547642 cs_0    anti-ud_0                               PYTHIA 23; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.039075708 cs_1    anti-ud_1                               PYTHIA 23; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.019574780 cs_0    anti-ud_0                               PYTHIA 23; #[Reconstructed PDG2011]
+0.039129957 cs_1    anti-ud_1                               PYTHIA 23; #[Reconstructed PDG2011]
 #
 #  Next come external W-emission:
-## TJG 17/12/2010 adjusted to preserve unitarity
-0.296033887 anti-u  d       c       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.047603453 anti-u  d       c       anti-s                  PYTHIA         25; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.301256716 anti-u  d       c       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
+0.048443906 anti-u  d       c       anti-s                  PYTHIA         25; #[Reconstructed PDG2011]
 #  Now the internal W-emission:
-## TJG 17/12/2010 adjusted to preserve unitarity
-0.017004589 anti-u  c       d       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.019086636 anti-u  c       d       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
 #  Then some b->u external W-emission with upper vertex charm
-0.003907571 anti-c  s       u       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.003912996 anti-c  s       u       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
 # and finally some cabibbo suppressed external and internal W-emission
-## TJG 17/12/2010 adjusted to preserve unitarity
-0.014560693 anti-u  s       c       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.002134188 anti-u  s       c       anti-s                  PYTHIA         25; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.000409355 anti-u  c       s       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.014683536 anti-u  s       c       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
+0.002152148 anti-u  s       c       anti-s                  PYTHIA         25; #[Reconstructed PDG2011]
+0.000880424 anti-u  c       s       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
 # and some c cbar d stuff as well as c cbar s
-0.005383677 anti-c  d       c       anti-s                  PYTHIA         13; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.001466318 anti-c  d       c       anti-s                  PYTHIA         13; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.005391151 anti-c  d       c       anti-s                  PYTHIA         13; #[Reconstructed PDG2011]
+0.001468354 anti-c  d       c       anti-s                  PYTHIA         13; #[Reconstructed PDG2011]
 # and some miscellaneous charmless stuff
-0.003516814 anti-u  u       d       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.000683825 anti-d  d       d       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.000879204 anti-s  s       d       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.001953785 anti-u  u       s       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.001563028 anti-d  d       s       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.001269961 anti-s  s       s       anti-s                  PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.004884463 s       anti-s                                  PYTHIA         32; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.003521696 anti-u  u       d       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
+0.000684774 anti-d  d       d       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
+0.000880424 anti-s  s       d       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
+0.001956498 anti-u  u       s       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
+0.001565198 anti-d  d       s       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
+0.001271724 anti-s  s       s       anti-s                  PYTHIA         48; #[Reconstructed PDG2011]
+0.004891245 s       anti-s                                  PYTHIA         32; #[Reconstructed PDG2011]
 
 # fkw 5/10/00 the b->ulnu decays are loosely modelled according to B0 in EvtGen
 0.000200    K+          e-         anti-nu_e         PHOTOS   ISGW2;
@@ -5475,7 +5252,6 @@ Decay B_s0
 #             just replace a D by a Ds as above when going from Bd to Bs.
 #
 # fkw 5/04/01 Had to take non-res out because it crashed EvtGen.
-#           Will have to fix this eventually !!!
 #0.0010      anti-D*0      K-         tau+    nu_tau           GOITY_ROBERTS;
 #0.0010      D*-           anti-K0    tau+    nu_tau           GOITY_ROBERTS;
 #0.0010      anti-D0       K-         tau+    nu_tau           GOITY_ROBERTS;
@@ -5566,6 +5342,14 @@ Decay B_s0
 0.0007      D*+         anti-D0     pi-        anti-K0     PHSP;
 0.0003      D*+         D-          pi+        K-          PHSP;
 0.0007      D*+         anti-D0     pi0        K-          PHSP;
+#
+#                                        b --> c  (u s=)
+#                                        exclusive
+#                                        Sum = 0.9%
+0.00015     D_s*-       K+                                 SVS;
+0.000150000 D_s-    K+                                      PHSP; #[Reconstructed PDG2011]
+0.00030     D_s*-   K*+                SVV_HELAMP 0.0283 0.0 0.932 0.0 0.228 0.0;
+0.00030     K*+     D_s-               SVS;
 #
 # fkw 4/28/00 Strategy for charmonium modes:
 # Take Bd BR's, replace spectator,
@@ -5703,6 +5487,11 @@ Decay B_s0
 #
 # first come the external W-emission decays:
 #
+0.0008      D_s1-       pi+                                SVS;
+0.0021      D_s1-       rho+               SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
+0.0013      D_s2*-      pi+                                STS;
+#0.0037      D_s2*-      rho+                               STV; #whb: STV does not exist yet
+#
 0.0027      D_s*-       pi+                                SVS;
 0.003200000 D_s-    pi+                                     PHSP; #[Reconstructed PDG2011]
 0.0073      rho+        D_s-                               SVS;
@@ -5719,73 +5508,6 @@ Decay B_s0
 0.0010      D_s*-       rho+        pi0                    PHSP;
 0.0077      D_s*-       pi-         pi+        pi+         PHSP;
 0.0010      D_s*-       pi0         pi+        pi0         PHSP;
-
-## added TJG 17/12/2010
-0.0007      D_s-        pi+     pi0           PHSP;
-0.0007      D_s*-       pi+     pi0           PHSP;
-
-0.0008      D_s1-       pi+                   SVS;
-0.0021      D_s1-       rho+                  SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
-## added TJG 17/12/2010
-0.0002      D_s1-       pi+     pi0           PHSP;
-0.0013      D_s2*-      pi+                   STS;
-## added TJG 17/12/2010 (using PHSP)
-0.0037      D_s2*-      rho+                  PHSP;
-0.0004      D_s2*-      pi+     pi0           PHSP;
-#
-#                                        b --> c  (s u=)
-#                                        exclusive
-#                                        Sum = 0.09%
-0.00015     D_s*-       K+                    SVS;
-0.000150000 D_s-    K+                                      PHSP; #[Reconstructed PDG2011]
-0.00030     D_s*-       K*+                   SVV_HELAMP 0.228 0.0 0.932 0.0 0.0283 0.0;
-0.00030     K*+         D_s-                  SVS;
-## added TJG 17/12/2010
-0.00003     D_s-        K+      pi0           PHSP;
-0.00003     D_s-        K0      pi+           PHSP;
-0.00003     D_s*-       K+      pi0           PHSP;
-0.00003     D_s*-       K0      pi+           PHSP;
-#
-
-## added from data supplied by A.Poluektov Sep 2011
-0.000474    D0	   K_0*0       PHSP;
-
-
-## added TJG 17/12/2010
-0.0002      anti-D0     anti-K_0*0            PHSP;
-0.0002      anti-D*0    anti-K_0*0            SVS;
-0.0002      anti-K_2*0  anti-D0               STS;
-0.0002      anti-D*0    anti-K_2*0            PHSP;
-0.0002      anti-K_10   anti-D0               SVS;
-0.0002      anti-D*0    anti-K_10             SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
-0.0002      anti-K'_10  anti-D0               SVS;
-0.0002      anti-D*0    anti-K'_10            SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
-## added TJG 17/12/2010
-0.00005     anti-D0     K-      pi+           PHSP;
-0.00005     anti-D*0    K-      pi+           PHSP;
-0.00005     anti-D0     K*-     pi+           PHSP;
-0.00005     anti-D*0    K*-     pi+           PHSP;
-0.00005     anti-D0     anti-K*0     pi0      PHSP;
-0.00005     anti-D*0    anti-K*0     pi0      PHSP;
-0.00005     anti-D0     K-      rho+          PHSP;
-0.00005     anti-D*0    K-      rho+          PHSP;
-0.00005     anti-D0     K-      pi+    pi0    PHSP;
-0.00005     anti-D*0    K-      pi+    pi0    PHSP;
-#
-## added TJG 17/12/2010
-0.00005     phi         anti-D0               SVS;
-0.00005     anti-D*0    phi                   SVV_HELAMP  1.0 0.0 1.0 0.0 1.0 0.0;
-0.00005     anti-D0     f_0                   PHSP;
-0.00005     anti-D*0    f_0                   SVS;
-0.00005     anti-D0     f'_0                  PHSP;
-0.00005     anti-D*0    f'_0                  SVS;
-0.00005     anti-D0     eta'                  PHSP;
-0.00005     anti-D*0    eta'                  SVS;
-0.00002     anti-D0     K+      K-            PHSP;
-0.00002     anti-D*0    K+      K-            PHSP;
-0.00002     anti-D0     K+      K-     pi0    PHSP;
-0.00002     anti-D*0    K+      K-     pi0    PHSP;
-
 #
 # then the color suppressed decays:
 #
@@ -5806,34 +5528,31 @@ Decay B_s0
 #  Start with B to baryons:
 #  fkw 3/28/01 I don't know what I'm doing here!!! This needs to be checked!!!
 # Mark Whitehead 30/4/2010 Weight PYTHIA to get Total BF=100%
-0.019547642 anti-cs_0 ud_0                                  PYTHIA 23; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.039075708 anti-cs_1 ud_1                                  PYTHIA 23; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.019574780 anti-cs_0 ud_0                                  PYTHIA 23; #[Reconstructed PDG2011]
+0.039129957 anti-cs_1 ud_1                                  PYTHIA 23; #[Reconstructed PDG2011]
 #
 #  Next come external W-emission:
-## TJG 17/12/2010 adjusted to preserve unitarity
-0.296033887 u       anti-d  anti-c  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.047603453 u       anti-d  anti-c  s                       PYTHIA         25; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.301256716 u       anti-d  anti-c  s                       PYTHIA         48; #[Reconstructed PDG2011]
+0.048443906 u       anti-d  anti-c  s                       PYTHIA         25; #[Reconstructed PDG2011]
 #  Now the internal W-emission:
-## TJG 17/12/2010 adjusted to preserve unitarity
-0.017004589 u       anti-c  anti-d  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.019086636 u       anti-c  anti-d  s                       PYTHIA         48; #[Reconstructed PDG2011]
 #  Then some b->u external W-emission with upper vertex charm
-0.003907571 c       anti-s  anti-u  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.003912996 c       anti-s  anti-u  s                       PYTHIA         48; #[Reconstructed PDG2011]
 # and finally some cabibbo suppressed external and internal W-emission
-## TJG 17/12/2010 adjusted to preserve unitarity
-0.014560693 u       anti-s  anti-c  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.002134188 u       anti-s  anti-c  s                       PYTHIA         25; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.000409355 u       anti-c  anti-s  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.014683536 u       anti-s  anti-c  s                       PYTHIA         48; #[Reconstructed PDG2011]
+0.002152148 u       anti-s  anti-c  s                       PYTHIA         25; #[Reconstructed PDG2011]
+0.000880424 u       anti-c  anti-s  s                       PYTHIA         48; #[Reconstructed PDG2011]
 # and some c cbar d stuff as well as c cbar s
-0.005383677 c       anti-d  anti-c  s                       PYTHIA         13; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.001466318 c       anti-d  anti-c  s                       PYTHIA         13; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.005391151 c       anti-d  anti-c  s                       PYTHIA         13; #[Reconstructed PDG2011]
+0.001468354 c       anti-d  anti-c  s                       PYTHIA         13; #[Reconstructed PDG2011]
 # and some miscellaneous charmless stuff
-0.003516814 u       anti-u  anti-d  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.000683825 d       anti-d  anti-d  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.000879204 s       anti-s  anti-d  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.001953785 u       anti-u  anti-s  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.001563028 d       anti-d  anti-s  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.001269961 s       anti-s  anti-s  s                       PYTHIA         48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.004884463 anti-s  s                                       PYTHIA         32; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.003521696 u       anti-u  anti-d  s                       PYTHIA         48; #[Reconstructed PDG2011]
+0.000684774 d       anti-d  anti-d  s                       PYTHIA         48; #[Reconstructed PDG2011]
+0.000880424 s       anti-s  anti-d  s                       PYTHIA         48; #[Reconstructed PDG2011]
+0.001956498 u       anti-u  anti-s  s                       PYTHIA         48; #[Reconstructed PDG2011]
+0.001565198 d       anti-d  anti-s  s                       PYTHIA         48; #[Reconstructed PDG2011]
+0.001271724 s       anti-s  anti-s  s                       PYTHIA         48; #[Reconstructed PDG2011]
+0.004891245 anti-s  s                                       PYTHIA         32; #[Reconstructed PDG2011]
 
 # fkw 5/10/00 the b->ulnu decays are loosely modelled according to B0 in EvtGen
 0.000200    K-          e+         nu_e         PHOTOS   ISGW2;
@@ -7141,7 +6860,7 @@ Decay K_S0
 0.000042831 pi+     pi-     e+      e-                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000000025 pi0     gamma   gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000002399 gamma   gamma                                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000344328 pi+     e-      anti-nu_e                       PHSP;  #[New mode added] #[Reconstructed PDG2011]
+0.000344328 pi+     e-      nu_e                            PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.000344328 pi-     e+      nu_e                            PHSP;  #[New mode added] #[Reconstructed PDG2011]
 Enddecay
 #
@@ -8972,7 +8691,7 @@ Decay anti-Sigma_c-
 Enddecay
 #
 Decay Xi_c+
-0.079535511                                                 PYTHIA         84; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.079535513                                                 PYTHIA         84; #[Reconstructed PDG2011]
 0.079535513 Sigma*+ anti-K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.025689971 Lambda0 K-      pi+     pi+                     PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.010339617 Sigma+  K-      pi+                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -8991,7 +8710,7 @@ Decay Xi_c+
 0.011930327 Sigma+  K+      K-                              PHSP;  #[New mode added] #[Reconstructed PDG2011]
 Enddecay
 Decay anti-Xi_c-
-0.079535511                                                 PYTHIA         84; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.079535513                                                 PYTHIA         84; #[Reconstructed PDG2011]
 0.079535513 anti-Sigma*- K0                                 PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.025689971 anti-Lambda0 K+      pi-     pi-                PHSP;  #[New mode added] #[Reconstructed PDG2011]
 0.010339617 anti-Sigma- K+      pi-                         PHSP;  #[New mode added] #[Reconstructed PDG2011]
@@ -9567,9 +9286,9 @@ Decay Lambda_b0
   0.00000    Sigma_c*+   pi0  e-  anti-nu_e               PHSP;
   0.00000    Sigma_c*++  pi-  e-  anti-nu_e               PHSP;
 #
-0.050000000 Lambda_c+ mu-     anti-nu_mu                    BaryonPCR  1 1 1 1; #[Reconstructed PDG2011][PHSP->BaryonPCR]
-0.006300000 Lambda_c(2593)+ mu-     anti-nu_mu              BaryonPCR  1 1 1 1; #[Reconstructed PDG2011][PHSP->BaryonPCR]
-0.011000000 Lambda_c(2625)+ mu-     anti-nu_mu              BaryonPCR  1 1 1 1; #[Reconstructed PDG2011][PHSP->BaryonPCR]
+0.050000000 Lambda_c+ mu-     anti-nu_mu                    PHSP; #[Reconstructed PDG2011]
+0.006300000 Lambda_c(2593)+ mu-     anti-nu_mu              PHSP; #[Reconstructed PDG2011]
+0.011000000 Lambda_c(2625)+ mu-     anti-nu_mu              PHSP; #[Reconstructed PDG2011]
   0.00000    Sigma_c0    pi+  mu-  anti-nu_mu             PHSP;
   0.00000    Sigma_c+    pi0  mu-  anti-nu_mu             PHSP;
   0.00000    Sigma_c++   pi-  mu-  anti-nu_mu             PHSP;
@@ -9588,71 +9307,18 @@ Decay Lambda_b0
   0.00000    Sigma_c*++  pi-  tau- anti-nu_tau            PHSP;
 #                  Hadronic Decays with Lambda_c+
 0.008800000 Lambda_c+ pi-                                   PHSP; #[Reconstructed PDG2011]
-
-## TJG more modes added; all BFs are guess work
-##     everything exaggerated since Lc pi BF is factor 4 too big
-
-0.01000    Lambda_c+       rho-                         PHSP;
-0.01000    Lambda_c+       pi-     pi0                  PHSP;
-0.02000    Lambda_c+       a_1-                         PHSP;
-0.00700    Lambda_c+       rho0    pi-                  PHSP;
-0.00700    Lambda_c+       rho-    pi0                  PHSP;
-0.01260    Lambda_c+       pi-     pi+       pi-        PHSP;
-#
-
-0.00015    Lambda_c+       K*-                          PHSP;
-0.00007    Lambda_c+       anti-K0 pi-                  PHSP;
-0.00007    Lambda_c+       K-      pi0                  PHSP;
-0.00007    Lambda_c+       K_1-                         PHSP;
-0.00007    Lambda_c+       K'_1-                        PHSP;
-## TJG this is in the PDG but ...
-# 0.02000    Lambda0       K0  pi+ pi+ pi- pi-          PHSP;
-#
-
-0.00055    Lambda_c+       K-                           PHSP;
-0.02200    Lambda_c+       D_s-                         PHSP;
-0.04400    Lambda_c+       D_s*-                        PHSP;
-
-0.00500    Lambda_c+       D_s-    pi0                  PHSP;
-0.00800    Lambda_c+       D_s0*-                       PHSP;
-0.00800    Lambda_c+       D_s1-                        PHSP;
-0.00500    Lambda_c+       anti-D0 K-                   PHSP;
-0.00500    Lambda_c+       D-      anti-K0              PHSP;
-#
-0.00200    Lambda_c+       D-                           PHSP;
-0.00400    Lambda_c+       D*-                          PHSP;
-0.00050    Lambda_c+       D-      pi0                  PHSP;
-0.00050    Lambda_c+       anti-D0 pi-                  PHSP;
-
-## TJG expand similar colour-suppressed decays
-0.00500    n0              D0                           PHSP;
-0.01000    n0              D*0                          PHSP;
-0.00500    n0              D0      pi0                  PHSP;
-0.00500    n0              D+      pi-                  PHSP;
-0.00615    p+              D0      pi-                  PHSP;
-
-0.00080    Lambda0         D0                           PHSP;
-0.00160    Lambda0         D*0                          PHSP;
-0.00080    Lambda0         D0      pi0                  PHSP;
-0.00080    Lambda0         D+      pi-                  PHSP;
-0.00069    p+              D0      K-                   PHSP;
-
-0.00010    Lambda0         anti-D0                      PHSP;
-0.00020    Lambda0         anti-D*0                     PHSP;
-0.00010    Lambda0         anti-D0 pi0                  PHSP;
-0.00010    Lambda0         D-      pi+                  PHSP;
-0.00010    p+              anti-D0 K-                   PHSP;
-0.00010    p+              D-      anti-K0              PHSP;
-
-# Addition PR LHCb 04/07/04 -- TJG updated p pi ~ 0.5 p K (13-01-2011)
-
+  0.02200    Lambda_c+       pi-     pi+       pi-        PHSP;
+  0.00055    Lambda_c+       K-                           PHSP;
+  0.02200    Lambda_c+       D_s-                         PHSP;
+  0.04400    Lambda_c+       D_s*-                        PHSP;
+  0.01000    Lambda_c+       rho-                     PHSP;
+  0.02000    Lambda_c+       a_1-                     PHSP;
+  0.02000    Lambda0       K0  pi+ pi+ pi- pi-          PHSP;
+# Addition PR LHCb 09 Apr 2004, Lambda_b -> Lambda D0b
+  0.00080    Lambda0         anti-D0                      PHSP;
+# Addition PR LHCb 04/07/04
 0.000006000 p+      K-                                      PHSP; #[Reconstructed PDG2011]
 0.000003800 p+      pi-                                     PHSP; #[Reconstructed PDG2011]
-## TJG add b->u + upper vertex charm
-0.0000044  p+         D_s-                          PHSP;
-0.0000088  p+         D_s*-                         PHSP;
-
-
 # Addition PR LHCb 09 Apr 2004, Lambda_b -> Lambda rho0 and -> Lambda phi
   0.0000050  Lambda0    rho0                         PHSP;
   0.0000200  Lambda0    phi                          PHSP;
@@ -9660,6 +9326,7 @@ Decay Lambda_b0
   0.00047    Lambda0         J/psi                        PHSP;
   0.00038    Lambda0         psi(2S)                      PHSP;
   0.00100    Lambda0         eta_c                        PHSP;
+  0.00080    n0              D0                           PHSP;
 #
 #  Additional decays from hep-ph/9709372 scaled to the Lambda_c0 pi rate
   0.00060    Sigma_c+       pi-                           PHSP;
@@ -9669,12 +9336,11 @@ Decay Lambda_b0
   0.00030    Xi_c0          K0                            PHSP;
   0.00050    Xi'_c0         K0                            PHSP;
 # PR LHCb 27 Apr 2004, addition of Pythia decays
-0.345870633 anti-u  d       c       ud_0                    PYTHIA 48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.016284044 anti-u  s       c       ud_0                    PYTHIA 48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.043200767 anti-c  s       c       ud_0                    PYTHIA 13; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.080229996 anti-u  c       d       ud_0                    PYTHIA 13; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.010579780 anti-u  d       u       ud_0                    PYTHIA 42; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.010579780 anti-c  s       u       ud_0                    PYTHIA 42; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.398544837 anti-u  d       c       ud_0                    PYTHIA 48; #[Reconstructed PDG2011]
+0.082218903 anti-u  c       d       ud_0                    PYTHIA 13; #[Reconstructed PDG2011]
+0.072280354 anti-c  s       c       ud_0                    PYTHIA 13; #[Reconstructed PDG2011]
+0.010842053 anti-u  d       u       ud_0                    PYTHIA 42; #[Reconstructed PDG2011]
+0.010842053 anti-c  s       u       ud_0                    PYTHIA 42; #[Reconstructed PDG2011]
 # PR LHCb 2 Dec 2004, add Lambda gamma decay mode
   0.000065   Lambda0   gamma  HELAMP 1. 0. 0. 0. ;
   0.000059   Lambda(1520)0 gamma   PHSP ;
@@ -9696,9 +9362,9 @@ Decay anti-Lambda_b0
   0.00000    anti-Sigma_c*-   pi0  e+  nu_e               PHSP;
   0.00000    anti-Sigma_c*--  pi+  e+  nu_e               PHSP;
 #
-0.050000000 anti-Lambda_c- mu+     nu_mu                    BaryonPCR  1 1 1 1; #[Reconstructed PDG2011]
-0.006300000 anti-Lambda_c(2593)- mu+     nu_mu              BaryonPCR  1 1 1 1; #[Reconstructed PDG2011]
-0.011000000 anti-Lambda_c(2625)- mu+     nu_mu              BaryonPCR  1 1 1 1; #[Reconstructed PDG2011]
+0.050000000 anti-Lambda_c- mu+     nu_mu                    PHSP; #[Reconstructed PDG2011]
+0.006300000 anti-Lambda_c(2593)- mu+     nu_mu              PHSP; #[Reconstructed PDG2011]
+0.011000000 anti-Lambda_c(2625)- mu+     nu_mu              PHSP; #[Reconstructed PDG2011]
   0.00000    anti-Sigma_c0    pi-  mu+  nu_mu             PHSP;
   0.00000    anti-Sigma_c-    pi0  mu+  nu_mu             PHSP;
   0.00000    anti-Sigma_c--   pi+  mu+  nu_mu             PHSP;
@@ -9717,67 +9383,18 @@ Decay anti-Lambda_b0
   0.00000    anti-Sigma_c*--  pi+  tau+ nu_tau            PHSP;
 #                  Hadronic Decays with anti-Lambda_c-
 0.008800000 anti-Lambda_c- pi+                              PHSP; #[Reconstructed PDG2011]
-
-## TJG more modes added; all BFs are guess work
-##     everything exaggerated since Lc pi BF is factor 4 too big
-0.01000    anti-Lambda_c-  rho+                         PHSP;
-0.01000    anti-Lambda_c-  pi+     pi0                  PHSP;
-0.02000    anti-Lambda_c-  a_1+                         PHSP;
-0.00700    anti-Lambda_c-  rho0    pi+                  PHSP;
-0.00700    anti-Lambda_c-  rho+    pi0                  PHSP;
-0.01260    anti-Lambda_c-  pi+     pi+       pi-        PHSP;
-
+  0.02200    anti-Lambda_c-  pi+     pi+       pi-        PHSP;
   0.00055    anti-Lambda_c-  K+                           PHSP;
   0.02200    anti-Lambda_c-  D_s+                         PHSP;
   0.04400    anti-Lambda_c-  D_s*+                        PHSP;
-
-0.00015    anti-Lambda_c-  K*+                          PHSP;
-0.00007    anti-Lambda_c-  K0      pi+                  PHSP;
-0.00007    anti-Lambda_c-  K+      pi0                  PHSP;
-0.00007    anti-Lambda_c-  K_1+                         PHSP;
-0.00007    anti-Lambda_c-  K'_1+                        PHSP;
-## TJG this is in the PDG but ...
-#0.02000    Lambda0  anti-K0  pi-  pi-  pi+  pi+         PHSP;
-#
-
-0.00500    anti-Lambda_c-  D_s+    pi0                  PHSP;
-0.00800    anti-Lambda_c-  D_s0*+                       PHSP;
-0.00800    anti-Lambda_c-  D_s1+                        PHSP;
-0.00500    anti-Lambda_c-  D0      K+                   PHSP;
-0.00500    anti-Lambda_c-  D+      K0                   PHSP;
-#0.00200    anti-Lambda_c-  D+                           PHSP;
-0.00400    anti-Lambda_c-  D*+                          PHSP;
-0.00050    anti-Lambda_c-  D+      pi0                  PHSP;
-0.00050    anti-Lambda_c-  D0      pi+                  PHSP;
-
-## TJG expand similar colour-suppressed decays
-0.00500    anti-n0         anti-D0                      PHSP;
-0.01000    anti-n0         anti-D*0                     PHSP;
-0.00500    anti-n0         anti-D0 pi0                  PHSP;
-0.00500    anti-n0         D-      pi+                  PHSP;
-0.00615    anti-p-         anti-D0      pi+             PHSP;
-
-0.00080    anti-Lambda0    anti-D0                      PHSP;
-0.00160    anti-Lambda0    anti-D*0                     PHSP;
-0.00080    anti-Lambda0    anti-D0      pi0             PHSP;
-0.00080    anti-Lambda0    D-           pi+             PHSP;
-0.00069    anti-p-         anti-D0      K+              PHSP;
-
-0.00010    anti-Lambda0    D0                           PHSP;
-0.00020    anti-Lambda0    D*0                          PHSP;
-0.00010    anti-Lambda0    D0           pi0             PHSP;
-0.00010    anti-Lambda0    D+           pi-             PHSP;
-0.00010    anti-p-         D0           K+              PHSP;
-0.00010    anti-p-         D+           K0              PHSP;
-
-# Addition PR LHCb 04/07/04 -- TJG updated p pi ~ 0.5 p K (13-01-2011)
-
+  0.01000    anti-Lambda_c-  rho+         PHSP;
+  0.02000    anti-Lambda_c-  a_1+         PHSP;
+  0.02000    Lambda0  anti-K0  pi-  pi-  pi+  pi+         PHSP;
+  #  Addition LHCb PR 09 Apr 2004 Lambda_b -> Lambda D0b
+  0.00080    anti-Lambda0    D0                           PHSP;
+  #  PR LHCb 04/07/04 Addition
 0.000006000 anti-p- K+                                      PHSP; #[Reconstructed PDG2011]
 0.000003800 anti-p- pi+                                     PHSP; #[Reconstructed PDG2011]
-## TJG add b->u + upper vertex charm
-0.0000044  anti-p-   D_s+                                PHSP;
-0.0000088  anti-p-   D_s*+                               PHSP;
-
 # Addition PR LHCb 09 Apr 2004, Lambda_b -> Lambda rho0 and -> Lambda phi
   0.0000050  anti-Lambda0    rho0                         PHSP;
   0.0000200  anti-Lambda0    phi                          PHSP;
@@ -9785,7 +9402,7 @@ Decay anti-Lambda_b0
   0.00047    anti-Lambda0    J/psi                        PHSP;
   0.00038    anti-Lambda0    psi(2S)                      PHSP;
   0.001000   anti-Lambda0    eta_c       PHSP;
-
+  0.00080    anti-n0    anti-D0                           PHSP;
 #
 #  Additional decays from hep-ph/9709372 scaled to the Lambda_c0 pi rate
   0.00060    anti-Sigma_c-   pi+                           PHSP;
@@ -9795,12 +9412,11 @@ Decay anti-Lambda_b0
   0.00030    anti-Xi_c0      anti-K0                       PHSP;
   0.00050    anti-Xi'_c0     anti-K0                       PHSP;
 # PR LHCb 27 Apr 2004, addition of Pythia decays
-0.347235701 u       anti-d  anti-c  anti-ud_0               PYTHIA 48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.016348313 u       anti-s  anti-c  anti-ud_0               PYTHIA 48; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.043371270 c       anti-s  anti-c  anti-ud_0               PYTHIA 13; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.080546644 u       anti-c  anti-d  anti-ud_0               PYTHIA 13; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.010621536 u       anti-d  anti-u  anti-ud_0               PYTHIA 42; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
-0.010621536 c       anti-s  anti-u  anti-ud_0               PYTHIA 42; #[Reconstructed PDG2011] #[Reconstructed PDG2011]
+0.398544837 u       anti-d  anti-c  anti-ud_0               PYTHIA 48; #[Reconstructed PDG2011]
+0.082218903 u       anti-c  anti-d  anti-ud_0               PYTHIA 13; #[Reconstructed PDG2011]
+0.072280354 c       anti-s  anti-c  anti-ud_0               PYTHIA 13; #[Reconstructed PDG2011]
+0.010842053 u       anti-d  anti-u  anti-ud_0               PYTHIA 42; #[Reconstructed PDG2011]
+0.010842053 c       anti-s  anti-u  anti-ud_0               PYTHIA 42; #[Reconstructed PDG2011]
 # PR LHCb 2 Dec 2004 add Lambda gamma
   0.000065   anti-Lambda0   gamma  HELAMP 0. 0. 1. 0. ;
   0.000059   anti-Lambda(1520)0 gamma   PHSP ;
@@ -10605,28 +10221,28 @@ Decay anti-Omega_cc*-
 Enddecay
 
 Decay K_L0
-0.202464226 pi+     e-      anti-nu_e                            PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.202464226 pi-     e+      nu_e                            PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.135033299 pi+     mu-     anti-nu_mu                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.135033299 pi-     mu+     nu_mu                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000025738 pi0     pi+     e-      anti-nu_e                    PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000025738 pi0     pi-     e+      nu_e                    PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000006205 pi+     e-      anti-nu_e    e+      e-              PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000006205 pi-     e+      nu_e    e+      e-              PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.194795855 pi0     pi0     pi0                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.125231606 pi+     pi-     pi0                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.001880711 pi+     e-      anti-nu_e    gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.001880711 pi-     e+      nu_e    gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000277023 pi+     mu-     anti-nu_mu   gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000277023 pi-     mu+     nu_mu   gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000040995 pi+     pi-     gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000001262 pi0     gamma   gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000000016 pi0     gamma   e+      e-                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000545653 gamma   gamma                                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000009265 e+      e-      gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000000355 mu+     mu-     gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000000584 e+      e-      gamma   gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
-0.000000007 mu+     mu-     gamma   gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.202464226 pi+     e-      nu_e                            PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.202464226 pi-     e+      nu_e                            PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.135033299 pi+     mu-     nu_mu                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.135033299 pi-     mu+     nu_mu                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000025738 pi0     pi+     e-      nu_e                    PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000025738 pi0     pi-     e+      nu_e                    PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000006205 pi+     e-      nu_e    e+      e-              PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000006205 pi-     e+      nu_e    e+      e-              PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.194795855 pi0     pi0     pi0                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.125231606 pi+     pi-     pi0                             PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.001880711 pi+     e-      nu_e    gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.001880711 pi-     e+      nu_e    gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000277023 pi+     mu-     nu_mu   gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000277023 pi-     mu+     nu_mu   gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000040995 pi+     pi-     gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000001262 pi0     gamma   gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000000016 pi0     gamma   e+      e-                      PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000545653 gamma   gamma                                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000009265 e+      e-      gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000000355 mu+     mu-     gamma                           PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000000584 e+      e-      gamma   gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
+#0.000000007 mu+     mu-     gamma   gamma                   PHSP;  #[New mode added] #[Reconstructed PDG2011]
 Enddecay
 
 End

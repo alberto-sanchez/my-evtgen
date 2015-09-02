@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
   // Initialize the generator - read in the decay table and particle properties.
 
   int mixingType = EvtCPUtil::Incoherent;
-  EvtGen myGenerator("../DECAY_2011.DEC", "../evt.pdl", myRandomEngine, 0, 0, mixingType);
+  EvtGen myGenerator("../DECAY_2010.DEC", "../evt.pdl", myRandomEngine, 0, 0, mixingType);
   myGenerator.readUDecay(decayFileName.c_str());
 
   EvtId theId = EvtPDL::getId(parentName);

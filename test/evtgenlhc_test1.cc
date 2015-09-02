@@ -180,7 +180,7 @@ int main(int argc, char* argv[]){
     return 1;
   }
 
-  EvtGen myGenerator("../DECAY.DEC","../evt.pdl",myRandomEngine);
+  EvtGen myGenerator("../DECAY_2010.DEC","../evt.pdl",myRandomEngine);
 
   if (!strcmp(argv[1],"file")) {
     int nevent=atoi(argv[2]);
@@ -1207,7 +1207,7 @@ void runRepeat(int nevent) {
   
   for(i=0;i<nevent;i++){
     
-    EvtDecayTable::getInstance()->readDecayFile(std::string("../DECAY.DEC"));
+    EvtDecayTable::getInstance()->readDecayFile(std::string("../DECAY_2010.DEC"));
     
   }
   report(INFO,"EvtGen") << "SUCCESS\n";
@@ -1265,7 +1265,7 @@ void runFinalStates(int nevent, EvtGen &myGenerator) {
   
   std::vector< std::string > dList[20];
   int dListNum[20];
-  std::vector< std::string > *dListItem;
+  std::vector< std::string > *dListItem = 0;
   std::string dListName[20];
   int ik,lk;
   std::string tk="";
@@ -4307,7 +4307,7 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
       }
       report(INFO,"EvtGen") << "bId1a "<<bId1a<<" bId1b "<<bId1b<<" bId2a "<<bId2a<<" bId2b "<<bId2b<<" for event "<<count<<std::endl;
 
-      EvtParticle *Bpeng;
+      EvtParticle *Bpeng = 0;
       int bnum=0;
       int pengcount=0;
       if (((bId1a == strangeid) && (bId1b == 22)) || ((bId1a == antistrangeid) && (bId1b == 22))|| ((bId1b == strangeid) && (bId1a == 22)) || ((bId1b == antistrangeid) && (bId1a == 22))) {
@@ -4489,7 +4489,7 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
       }
       report(INFO,"EvtGen") << "bId1a "<<bId1a<<" bId1b "<<bId1b<<" bId2a "<<bId2a<<" bId2b "<<bId2b<<" for event "<<count<<std::endl;
 
-      EvtParticle *Bpeng;
+      EvtParticle *Bpeng = 0;
       int bnum=0;
       int pengcount=0;
       if (((bId1a == strangeid) && (bId1b == 22)) || ((bId1a == antistrangeid) && (bId1b == 22))|| ((bId1b == strangeid) && (bId1a == 22)) || ((bId1b == antistrangeid) && (bId1a == 22))) {

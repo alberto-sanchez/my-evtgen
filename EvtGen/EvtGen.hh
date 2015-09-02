@@ -50,7 +50,7 @@ public:
   EvtGen(const char* const decayName,const char* const pdtTableName,
 	 EvtRandomEngine* randomEngine=0, EvtAbsRadCorr *isrEngine=0,
 	 const std::list<EvtDecayBase*>* extraModels=0,
-	 int mixingType = 1);
+	 int mixingType = 1, bool useXml = false);
 
   ~EvtGen();
 

@@ -3,8 +3,9 @@ RELEASE NOTES
 
 The major points comparing this version with the 2009 release are the following:
 
-1. This version uses Pythia 8 (version 8.153 and above is required) and the 
-   C++ interfaced packages Photos and Tauola.
+1. This version uses Pythia 8 (version 8.160 and above is required) and the 
+   C++ interfaced packages Photos (version 3.3 and above) and Tauola 
+   (version 1.0.5 and above).
    A new abstract interface has been created in EvtGenModels/EvtAbsExternalGen.hh
    to allow us to use external generators more easily. The EvtGenModel classes
    EvtPythiaEngine, EvtPhotosEngine and EvtTauolaEngine are used to create

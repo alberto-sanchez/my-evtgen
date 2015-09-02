@@ -65,7 +65,7 @@ check_dirs() {
 
   pythiaFile=${PYTHIADIR}/include/Pythia.h
   hepmcFile=${HEPMCDIR}/include/HepMC/GenParticle.h
-  photosFile=${PHOTOSDIR}/include/Photos.h
+  photosFile=${PHOTOSDIR}/include/Photos/Photos.h
   tauolaFile=${TAUOLADIR}/include/Tauola.h
 
   stop=0
@@ -117,17 +117,9 @@ check_extlibs () {
 
     # Set default shared libary lists for external packages
     HEPMCLIBLIST="-lHepMC"
-    PHOTOSLIBLIST="-lPhotosCxxInterface"
+    PHOTOSLIBLIST="-lPhotosCxxInterface -lPhotosFortran"
     TAUOLALIBLIST="-lTauolaCxxInterface -lTauolaFortran"
     PYTHIALIBLIST="-lpythia8 -llhapdfdummy -lhepmcinterface"
-
-    # Check if the extra Photos fortran library is present.
-    # If so, add it to the list of external libraries.
-    # This is usually the case for CERN Genser libraries.
-    photosFortLib=${PHOTOSDIR}/lib/libPhotosFortran.so;
-    if [ -f $photosFortLib ]; then
-	    PHOTOSLIBLIST+=" -lPhotosFortran"
-    fi
 
 }
 
