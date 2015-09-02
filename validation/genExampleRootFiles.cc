@@ -10,7 +10,7 @@
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtRandom.hh"
-#include "EvtGenBase/EvtStdlibRandomEngine.hh"
+#include "EvtGenBase/EvtSimpleRandomEngine.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 
 #ifdef EVTGEN_EXTERNAL
@@ -100,8 +100,8 @@ int main(int argc, char** argv) {
   EvtParticle* baseParticle(0);
   EvtParticle* theParent(0);
 
-  EvtRandomEngine* myRandomEngine = new EvtStdlibRandomEngine();
-
+  EvtRandomEngine* myRandomEngine = new EvtSimpleRandomEngine();
+  
   // Initialize the generator - read in the decay table and particle properties.
   // For our validation purposes, we just want to read in one decay file and create
   // plots from that.
@@ -246,6 +246,7 @@ int main(int argc, char** argv) {
 
   cout<<"Done."<<endl;
 
+  delete myRandomEngine;
   return 0;
 
 }

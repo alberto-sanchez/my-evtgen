@@ -111,9 +111,10 @@ void EvtXPsiGamma::decay( EvtParticle *root ){
           amp = (fOmega/mOmega2*gOmega+fRho/mRho2*gRho)*T2 
             + (fOmega/mOmega2*gPOmega+fRho/mRho2*gPRho)*T3;
           vertex(iChi, iGamma, iPsi, amp);
-        };};};
-  }
-  else if(_ID0 == EvtPDL::getId("omega") ) {
+        }
+      }
+    }
+  } else if(_ID0 == EvtPDL::getId("omega") ) {
     for(int iPsi = 0; iPsi < 4; iPsi++) {
       for(int iGamma = 0; iGamma < 4; iGamma++) {
         for(int iChi = 0; iChi<4; iChi++) {
@@ -135,9 +136,10 @@ void EvtXPsiGamma::decay( EvtParticle *root ){
           //	  cout << "AVL:: omega"<<endl;
           amp = gOmega*T2 + gPOmega*T3;
           vertex(iChi, iGamma, iPsi, amp);
-        };};}; 
-  }
-  else if(_ID0 == EvtPDL::getId("rho0") ) {
+        }
+      }
+    } 
+  } else if(_ID0 == EvtPDL::getId("rho0") ) {
     for(int iPsi = 0; iPsi < 4; iPsi++) {
       for(int iGamma = 0; iGamma < 4; iGamma++) {
         for(int iChi = 0; iChi<4; iChi++) {
@@ -159,11 +161,12 @@ void EvtXPsiGamma::decay( EvtParticle *root ){
           //	  cout << "AVL:: rho"<<endl;
           amp = gRho*T2 + gPRho*T3;
           vertex(iChi, iGamma, iPsi, amp);
-        };};}; 
-  }
-  else {
+        }
+      }
+    }
+  } else {
     cout<<"AVL:: Not realized yet"<<endl;
-  };
+  }
   
 }
 
@@ -191,7 +194,7 @@ void EvtXPsiGamma::init(){
   }
   else if(_ID0 == EvtPDL::getId("rho0") ) {
     cout << "AVL:: rho"<<endl;
-  };
+  }
 */
   
 }
@@ -200,6 +203,4 @@ void EvtXPsiGamma::initProbMax() {
   if(_ID0 == EvtPDL::getId("gamma") )  setProbMax(2.400);
   else if(_ID0 == EvtPDL::getId("omega") )  setProbMax(16.);
   else if(_ID0 == EvtPDL::getId("rho0") )  setProbMax(70.);
-};
-
-
+}

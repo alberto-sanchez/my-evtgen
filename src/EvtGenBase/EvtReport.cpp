@@ -32,8 +32,8 @@ using std::ostream;
 //
 
 
-ostream& report( Severity severity ,
-                 const char* facility )
+ostream& EvtGenReport(EvtGenSeverity severity,
+		      const char* facility )
 {
    int printNoFacility=1;
 
@@ -43,7 +43,7 @@ ostream& report( Severity severity ,
                         << endl ;
       printNoFacility = 0 ;
    }
-   if ( severity < WARNING ) {
+   if ( severity < EVTGEN_WARNING ) {
      if (facility[0]!=0){
        cerr<<facility<<":";
      }

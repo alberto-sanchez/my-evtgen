@@ -47,11 +47,11 @@ EvtPhotosEngine::EvtPhotosEngine(std::string photonType, bool useEvtGenRandom) {
   _gammaId = EvtId(-1,-1);
   _mPhoton = 0.0;
 
-  report(INFO,"EvtGen")<<"Setting up PHOTOS."<<endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Setting up PHOTOS."<<endl;
 
   if (useEvtGenRandom == true) {
       
-    report(INFO,"EvtGen")<<"Using EvtGen random number engine also for Photos++"<<endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Using EvtGen random number engine also for Photos++"<<endl;
 
     Photospp::Photos::setRandomGenerator(EvtRandom::Flat);
 
@@ -81,7 +81,7 @@ void EvtPhotosEngine::initialise() {
     _gammaId = EvtPDL::getId(_photonType);
 
     if (_gammaId == EvtId(-1,-1)) {
-      report(INFO,"EvtGen")<<"Error in EvtPhotosEngine. Do not recognise the photon type "
+      EvtGenReport(EVTGEN_INFO,"EvtGen")<<"Error in EvtPhotosEngine. Do not recognise the photon type "
 			   <<_photonType<<". Setting this to \"gamma\". "<<endl;
       _gammaId = EvtPDL::getId("gamma");
     }
@@ -197,6 +197,9 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
 	gamma->init(_gammaId, newP4);
 	gamma->setFSRP4toZero();
 	gamma->addDaug(theMother); // Let the mother know about this new particle
+	// Set its particle attribute to specify it is a FSR photon.
+	gamma->setAttribute("FSR", 1); // it is a FSR photon
+	gamma->setAttribute("ISR", 0); // it is not an ISR photon
 
       }
       

@@ -97,7 +97,7 @@ void EvtCPUtil::fractB0nonCP(EvtComplex Af, EvtComplex Abarf,
   //this needs more thought... 
 
   //double gamma_B = EvtPDL::getWidth(B0);
-  //report(INFO,"EvtGen") << "gamma " << gamma_B<< endl;
+  //EvtGenReport(EVTGEN_INFO,"EvtGen") << "gamma " << gamma_B<< endl;
   //double xd = deltam/gamma_B;
 
   //why is the width of B0 0 in PDL??
@@ -201,7 +201,7 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
     
     
     if (parent!=0) {
-      report(INFO,"EvtGen") << "p="<<EvtPDL::name(p->getId())
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << "p="<<EvtPDL::name(p->getId())
 			    << " parent="<<EvtPDL::name(parent->getId())
 			    << endl;
     }
@@ -239,7 +239,7 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
   if (parent != 0 ) {
 
     //if (entryCount>1){
-    //  report(INFO,"EvtGen") << "Double CP decay:"<<entryCount<<endl;
+    //  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Double CP decay:"<<entryCount<<endl;
     //}
 
     //kludge!! Lange Mar21, 2003 	 
@@ -275,7 +275,7 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
       parent->insertDaugPtr(idaug,other);
     
       if (decayed){
-	//report(INFO,"EvtGen") << "In CP Util calling decay \n";
+	//EvtGenReport(EVTGEN_INFO,"EvtGen") << "In CP Util calling decay \n";
 	other->decay();
       }
 
@@ -290,7 +290,7 @@ void EvtCPUtil::OtherCoherentB( EvtParticle *p,double &t, EvtId &otherb, double 
     
   }
   else {
-    report(INFO,"EvtGen") << "We have an error here!!!!"<<endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "We have an error here!!!!"<<endl;
     otherb = EvtId(-1,-1); 
   }
   
@@ -433,7 +433,7 @@ void EvtCPUtil::OtherB( EvtParticle *p,double &t, EvtId &otherb){
   EvtParticle *parent=p->getParent();
 
   if (parent==0||parent->getId()!=UPS4) {
-    //report(ERROR,"EvtGen") << 
+    //EvtGenReport(EVTGEN_ERROR,"EvtGen") << 
     //  "Warning CP violation with B having no parent!"<<endl;
     t=p->getLifetime();
     if (p->getId()==B0) otherb=B0B;

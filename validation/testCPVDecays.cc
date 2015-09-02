@@ -10,7 +10,7 @@
 #include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtRandom.hh"
-#include "EvtGenBase/EvtStdlibRandomEngine.hh"
+#include "EvtGenBase/EvtSimpleRandomEngine.hh"
 #include "EvtGenBase/EvtHepMCEvent.hh"
 #include "EvtGenBase/EvtSpinDensity.hh"
 #include "EvtGenBase/EvtSpinType.hh"
@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
   cout<<"Number of events is "<<nEvents<<endl;
   cout<<"sin2Beta = "<<sin2Beta<<" (used to draw oscillation maxima lines)"<<endl;
 
-  EvtRandomEngine* myRandomEngine = new EvtStdlibRandomEngine();
+  EvtRandomEngine* myRandomEngine = new EvtSimpleRandomEngine();
 
   EvtAbsRadCorr* radCorrEngine = 0;
   std::list<EvtDecayBase*> extraModels;
@@ -206,6 +206,7 @@ int main(int argc, char** argv) {
   // Cleanup
   delete theCanvas;
   delete spinDensity;
+  delete myRandomEngine;
 
   cout<<"Done."<<endl;
 

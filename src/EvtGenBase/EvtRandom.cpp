@@ -43,7 +43,7 @@ void EvtRandom::setRandomEngine(EvtRandomEngine* randomEngine){
 double EvtRandom::random(){
 
   if (_randomEngine==0){
-    report(ERROR,"EvtGen") <<"No random engine available in "
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") <<"No random engine available in "
 			   <<"EvtRandom::random()."<<endl;
     ::abort();
   }
@@ -58,7 +58,7 @@ double EvtRandom::random(){
 double EvtRandom::Flat( double min, double max){
 
   if ( min > max ) {
-    report(ERROR,"EvtGen") << "min>max in EvtRandom::Flat(" << min << "," << max << ")" <<endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "min>max in EvtRandom::Flat(" << min << "," << max << ")" <<endl;
     ::abort();
   }
 

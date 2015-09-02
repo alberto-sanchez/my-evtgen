@@ -47,7 +47,7 @@ int EvtSpinType::getSpin2(spintype stype){
   case SPIN4:
     return 8;
   default:
-    report(ERROR,"EvtGen")<<"Unknown spintype in EvtSpinType!"<<std::endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Unknown spintype in EvtSpinType!"<<std::endl;
     return 0;
   }
   
@@ -77,7 +77,7 @@ int EvtSpinType::getSpinStates(spintype stype){
   case SPIN4:
     return 9;
   default:
-    report(ERROR,"EvtGen")<<"Unknown spintype in EvtSpinType!"<<std::endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Unknown spintype in EvtSpinType!"<<std::endl;
     return 0;
   }
 

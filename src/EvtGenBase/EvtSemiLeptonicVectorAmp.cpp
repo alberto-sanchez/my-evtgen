@@ -122,7 +122,7 @@ void EvtSemiLeptonicVectorAmp::CalcAmp( EvtParticle *parent,
 			    parent->getDaug(1)->spParent(1));
     }
     else{
-      report(ERROR,"EvtGen") << "Wrong lepton number"<<endl;
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Wrong lepton number"<<endl;
     }
   }
 

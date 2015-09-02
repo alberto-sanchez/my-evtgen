@@ -93,7 +93,7 @@ EvtVector4C EvtPhotonParticle::epsParentPhoton(int i){
     temp=eps2;
     break;
   default:
-    report(ERROR,"EvtGen") << "EvtPhotonParticle.cc: Asked "
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtPhotonParticle.cc: Asked "
 			   << "for state:"<<i<<endl;
     ::abort();
     break;
@@ -104,7 +104,7 @@ EvtVector4C EvtPhotonParticle::epsParentPhoton(int i){
 
 EvtVector4C EvtPhotonParticle::epsPhoton(int ){
 
-  report(ERROR,"EvtGen") << "EvtPhotonParticle.cc: Can not get "
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtPhotonParticle.cc: Can not get "
 			 << "state in photons restframe."<<endl;;
   ::abort();
   return EvtVector4C();

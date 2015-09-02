@@ -115,7 +115,7 @@ void EvtAmp::setNState(int parent_states,int *daug_states){
   }
 
   if (_nontrivial>5) {
-    report(ERROR,"EvtGen") << "Too many nontrivial states in EvtAmp!"<<endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Too many nontrivial states in EvtAmp!"<<endl;
   }
 
 }
@@ -202,7 +202,7 @@ EvtSpinDensity EvtAmp::getSpinDensity(){
 	  temp += _amp[_pstates*kk+i]*conj(_amp[_pstates*kk+j]);}
 
 	//        if (_nontrivial>3){
-	//report(ERROR,"EvtGen") << "Can't handle so many states in EvtAmp!"<<endl;
+	//EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Can't handle so many states in EvtAmp!"<<endl;
 	//}
         
         rho.set(i,j,temp);
@@ -295,7 +295,7 @@ EvtAmp EvtAmp::contract(int k,const EvtSpinDensity& rho){
   }
 
   if (_nontrivial==0) {
-    report(ERROR,"EvtGen")<<"Should not be here EvtAmp!"<<endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Should not be here EvtAmp!"<<endl;
   }
 
 
@@ -370,7 +370,7 @@ EvtSpinDensity EvtAmp::contract(int k,const EvtAmp& amp2){
 
     for(j=0;j<_nstate[k];j++){
       if (_nontrivial==0) {
-	report(ERROR,"EvtGen")<<"Should not be here1 EvtAmp!"<<endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Should not be here1 EvtAmp!"<<endl;
         rho.set(0,0,EvtComplex(1.0,0.0)); 
         return rho;
       }
@@ -417,7 +417,7 @@ EvtAmp EvtAmp::contract(int , const EvtAmp& ,const EvtAmp& ){
   
   //Do we need this method?
   EvtAmp tmp;
-  report(DEBUG,"EvtGen") << "EvtAmp::contract not written yet" << endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "EvtAmp::contract not written yet" << endl;
   return tmp;
 
 }
@@ -428,28 +428,28 @@ void EvtAmp::dump(){
   int i,list[10];
   for (i = 0; i < 10; i++) {list[i] = 0;}
 
-  report(DEBUG,"EvtGen") << "Number of daugthers:"<<_ndaug<<endl;
-  report(DEBUG,"EvtGen") << "Number of states of the parent:"<<_pstates<<endl;
-  report(DEBUG,"EvtGen") << "Number of states on daughters:";
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Number of daugthers:"<<_ndaug<<endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Number of states of the parent:"<<_pstates<<endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Number of states on daughters:";
   for (i=0;i<_ndaug;i++){
-    report(DEBUG,"EvtGen") <<dstates[i]<<" ";
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<dstates[i]<<" ";
   }
-  report(DEBUG,"EvtGen") << endl;
-  report(DEBUG,"EvtGen") << "Nontrivial index of  daughters:";
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Nontrivial index of  daughters:";
   for (i=0;i<_ndaug;i++){
-    report(DEBUG,"EvtGen") <<_dnontrivial[i]<<" ";
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<_dnontrivial[i]<<" ";
   }
-  report(DEBUG,"EvtGen") <<endl;
-  report(DEBUG,"EvtGen") <<"number of nontrivial states:"<<_nontrivial<<endl;
-  report(DEBUG,"EvtGen") << "Nontrivial particles number of states:";
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<"number of nontrivial states:"<<_nontrivial<<endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Nontrivial particles number of states:";
   for (i=0;i<_nontrivial;i++){
-    report(DEBUG,"EvtGen") <<_nstate[i]<<" ";
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<_nstate[i]<<" ";
   }
-  report(DEBUG,"EvtGen") <<endl;
-  report(DEBUG,"EvtGen") <<"Amplitudes:"<<endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<"Amplitudes:"<<endl;
   if (_nontrivial==0){
     list[0] = 0;
-    report(DEBUG,"EvtGen") << getAmp(list) << endl;
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen") << getAmp(list) << endl;
   }
 
   int allloop[10];
@@ -466,14 +466,14 @@ void EvtAmp::dump(){
   }
   int index = 0;
   for (i=0;i<allloop[_nontrivial-1];i++) {
-    report(DEBUG,"EvtGen") << getAmp(list) << " ";
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen") << getAmp(list) << " ";
     if ( i==allloop[index]-1 ) {
       index ++;
-      report(DEBUG,"EvtGen") << endl;
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << endl;
     }
   }
 
-  report(DEBUG,"EvtGen") << "-----------------------------------"<<endl;
+  EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "-----------------------------------"<<endl;
 
 }
 

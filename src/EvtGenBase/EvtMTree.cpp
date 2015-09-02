@@ -51,7 +51,7 @@ vector<EvtMNode *> EvtMTree::makeparticles( const string& strid )
     }
     
     if( labels.size() == 0 ) {
-        report(ERROR,"EvtGen")<<"Error unknown particle label "<<strid<<endl;
+        EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Error unknown particle label "<<strid<<endl;
         ::abort();
     }
 
@@ -73,7 +73,7 @@ EvtMRes * EvtMTree::makeresonance( const EvtId& id, const string& ls,
     } else if( ls=="TRIVIAL" ) {
         lineshape = new EvtMTrivialLS( id, lsarg );
     } else {
-        report(ERROR,"EvtGen")<<"Lineshape "<<lineshape
+        EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Lineshape "<<lineshape
                               <<" not recognized."<<endl;
         ::abort();
     }
@@ -81,7 +81,7 @@ EvtMRes * EvtMTree::makeresonance( const EvtId& id, const string& ls,
     if( type=="HELAMP" ) {
         resonance = new EvtMHelAmp( id, lineshape, children, amps );
     } else {
-        report(ERROR,"EvtGen")<<"Model "<<type<<" not recognized."<<endl;
+        EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Model "<<type<<" not recognized."<<endl;
         ::abort();
     }
 
@@ -108,7 +108,7 @@ void EvtMTree::parseerror( bool flag, ptype& c_iter, ptype& c_begin,
         ++c_begin;
     }
 
-    report(ERROR,"EvtGen")<<"Parse error at: "<<error<<endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Parse error at: "<<error<<endl;
     ::abort();
 }
 
@@ -347,7 +347,7 @@ vector<EvtMNode *> EvtMTree::parsenode( const string& args, bool rootnode )
     vector<vector<EvtMNode * > > children = parseChildren( c_iter, c_begin,
             c_end );
 
-    report(ERROR,"EvtGen")<<children.size()<<endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen")<<children.size()<<endl;
     vector<EvtMNode *> resonances;
     for(size_t i=0; i<children.size(); ++i ) {
         resonances.push_back(makeresonance(id,ls,lsarg,type,amps,children[i]));
@@ -415,7 +415,7 @@ EvtSpinAmp EvtMTree::amplitude( EvtParticle * p ) const
         product.push_back(p->getDaug(i)->getP4Lab());
 
     if( _root.size() == 0 ) {
-        report(ERROR, "EvtGen")<<"No decay tree present."<<endl;
+        EvtGenReport(EVTGEN_ERROR, "EvtGen")<<"No decay tree present."<<endl;
         ::abort();
     }
     

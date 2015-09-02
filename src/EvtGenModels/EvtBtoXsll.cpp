@@ -82,7 +82,7 @@ void EvtBtoXsll::init(){
 
   if ( etyp != 2 && mutyp != 2 && tautyp != 2 ) {
 
-     report(ERROR,"EvtGen") << "Expect two leptons of the same type in EvtBtoXsll.cc\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Expect two leptons of the same type in EvtBtoXsll.cc\n";
      ::abort();
   }
 
@@ -100,7 +100,7 @@ void EvtBtoXsll::init(){
 
   if ( lpos != 1 || lneg != 1 ) {
 
-     report(ERROR,"EvtGen") << "Expect 2nd and 3rd particles to be positive and negative leptons in EvtBtoXsll.cc\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Expect 2nd and 3rd particles to be positive and negative leptons in EvtBtoXsll.cc\n";
      ::abort();
   }
 
@@ -155,7 +155,7 @@ void EvtBtoXsll::init(){
   _dGdsProbMax = probMax;
 
   if ( verbose() ) {
-    report(INFO,"EvtGen") << "dGdsProbMax = " << probMax << " for s = "  << sProbMax << endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "dGdsProbMax = " << probMax << " for s = "  << sProbMax << endl;
   }
 
   // determine the maximum probability density from dGdsdupProb
@@ -183,7 +183,7 @@ void EvtBtoXsll::init(){
   _dGdsdupProbMax = 2.0*probMax;
 
   if ( verbose() ) {
-   report(INFO,"EvtGen") << "dGdsdupProbMax = " << probMax << " for s = "  << sProbMax
+   EvtGenReport(EVTGEN_INFO,"EvtGen") << "dGdsdupProbMax = " << probMax << " for s = "  << sProbMax
 			  << " and u = " << uProbMax << endl;
   }
 
@@ -209,7 +209,7 @@ void EvtBtoXsll::decay( EvtParticle *p ){
 
   double mB = p->mass();
   double ml = mass[1];
-  double pb;
+  double pb(0.);
 
   int im = 0;
   static int nmsg = 0;
@@ -265,7 +265,7 @@ void EvtBtoXsll::decay( EvtParticle *p ){
       ybox = EvtRandom::Flat(_dGdsProbMax);
       double prob= _calcprob->dGdsProb(mb, _ms, ml, xbox);
       if ( !(prob>=0.0) && !(prob<=0.0)) {
-	//	report(INFO,"EvtGen") << "nan from dGdsProb " << prob << " " << mb << " " << _ms << " " << ml << " " << xbox << std::endl;
+	//	EvtGenReport(EVTGEN_INFO,"EvtGen") << "nan from dGdsProb " << prob << " " << mb << " " << _ms << " " << ml << " " << xbox << std::endl;
       }
       if ( ybox < prob ) s=xbox;
       }
@@ -316,11 +316,11 @@ void EvtBtoXsll::decay( EvtParticle *p ){
 
       double prob = _calcprob->dGdsdupProb(mb, _ms, ml, s, u);
       if ( !(prob>=0.0) && !(prob<=0.0)) {
-	report(INFO,"EvtGen") << "nan from dGdsProb " << prob << " " << mb << " " << _ms << " " << ml << " " << s << " " << u << std::endl;
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "nan from dGdsProb " << prob << " " << mb << " " << _ms << " " << ml << " " << s << " " << u << std::endl;
       }
       if (prob > _dGdsdupProbMax && nmsg < 20)
       {
-        report(INFO,"EvtGen") << "d2gdsdup GT d2gdsdup_max:" << prob
+        EvtGenReport(EVTGEN_INFO,"EvtGen") << "d2gdsdup GT d2gdsdup_max:" << prob
              << " " << _dGdsdupProbMax
              << " for s = " << s << " u = " << u << " mb = " << mb << endl;
 	         nmsg++;

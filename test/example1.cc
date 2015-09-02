@@ -11,7 +11,7 @@
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtHepMCEvent.hh"
-#include "EvtGenBase/EvtStdlibRandomEngine.hh"
+#include "EvtGenBase/EvtSimpleRandomEngine.hh"
 #include "EvtGenBase/EvtAbsRadCorr.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 
@@ -27,8 +27,8 @@ int main(int argc, char** argv) {
 
   EvtParticle* parent(0);
 
-  EvtStdlibRandomEngine eng;
-  EvtRandom::setRandomEngine((EvtRandomEngine*)&eng);
+  EvtRandomEngine* eng = new EvtSimpleRandomEngine();
+  EvtRandom::setRandomEngine(eng);
 
   EvtAbsRadCorr* radCorrEngine = 0;
   std::list<EvtDecayBase*> extraModels;
@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
 #endif
 
   //Initialize the generator - read in the decay table and particle properties
-  EvtGen myGenerator("../DECAY_2010.DEC","../evt.pdl", (EvtRandomEngine*)&eng,
+  EvtGen myGenerator("../DECAY_2010.DEC","../evt.pdl", eng,
   		     radCorrEngine, &extraModels);
 
   //If I wanted a user decay file, I would read it in now.
@@ -74,6 +74,7 @@ int main(int argc, char** argv) {
 
   }
 
+  delete eng;
   return 0;
 
 }

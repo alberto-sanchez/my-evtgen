@@ -20,7 +20,6 @@
 #ifndef EVT_INTERVAL_DECAY_AMP
 #define EVT_INTERVAL_DECAY_AMP
 
-#define VERBOSE true
 #include <iostream>
 #include <vector>
 #include <string>
@@ -70,7 +69,7 @@ public:
     
     // Create factory and interval
     
-    if(VERBOSE) report(INFO,"EvtGen") << "Create factory and interval" << std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "Create factory and interval" << std::endl;
     _fact = createFactory(parser);
     
     // Maximum PDF value over the Dalitz plot can be specified, or a scan 
@@ -78,8 +77,8 @@ public:
     
     _probMax = parser.pdfMax();
     _nScan = parser.nScan();
-    if(VERBOSE) report(INFO,"EvtGen") << "Pdf maximum " << _probMax << std::endl;
-    if(VERBOSE) report(INFO,"EvtGen") << "Scan number " << _nScan << std::endl;    
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "Pdf maximum " << _probMax << std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "Scan number " << _nScan << std::endl;
   }
   
     
@@ -163,8 +162,8 @@ public:
     size_t N = p->getNDaug();  
     if(v.size() != N) {
       
-      report(INFO,"EvtGen") << "Number of daughters " << N << std::endl;
-      report(INFO,"EvtGen") << "Momentum vector size " << v.size() << std::endl;
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << "Number of daughters " << N << std::endl;
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << "Momentum vector size " << v.size() << std::endl;
       assert(0);
     }
     

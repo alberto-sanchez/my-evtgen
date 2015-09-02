@@ -41,7 +41,6 @@ public:
   EvtVector4C epsParentPhoton(int i); 
   EvtVector4C epsPhoton(int i); 
 
-
   EvtSpinDensity rotateToHelicityBasis() const;
   EvtSpinDensity rotateToHelicityBasis(double alpha,
 				       double beta,

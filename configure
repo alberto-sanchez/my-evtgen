@@ -225,7 +225,7 @@ if [ $ARCH = Linux-gcc4 ]; then
 fi
 
 # Mac OS platform with gcc4
-if [ $ARCH = Darwin-gcc4 ]; then
+if [[ $ARCH == Darwin* ]]; then
   FLIBS="-lgfortran"
   SOFLAGS="-install_name"
 fi

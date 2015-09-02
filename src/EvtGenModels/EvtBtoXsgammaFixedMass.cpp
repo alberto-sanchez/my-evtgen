@@ -34,10 +34,10 @@ void EvtBtoXsgammaFixedMass::init(int nArg, double* args){
 
   if ((nArg) > 2 || (nArg > 1 && nArg <2)){
   
-  report(ERROR,"EvtGen") << "EvtBtoXsgamma generator model "
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBtoXsgamma generator model "
 			 << "EvtBtoXsgammaFixedMass expected " 
 			 << "either 1(default config) or two arguments but found: "<<nArg<<endl;
-  report(ERROR,"EvtGen") << "Will terminate execution!"<<endl;
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();  
   }
   

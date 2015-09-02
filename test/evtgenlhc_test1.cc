@@ -46,7 +46,7 @@
 #include "EvtGenBase/EvtConst.hh"
 #include "EvtGen/EvtGen.hh"
 #include "EvtGenBase/EvtParticleFactory.hh"
-#include "EvtGenBase/EvtStdlibRandomEngine.hh"
+#include "EvtGenBase/EvtSimpleRandomEngine.hh"
 #include "EvtGenBase/EvtIdSet.hh"
 #include "EvtGenBase/EvtParser.hh"
 
@@ -153,7 +153,7 @@ void runBaryonic(int nEvent, EvtGen& myGenerator);
 
 int main(int argc, char* argv[]){
 
-  EvtRandomEngine* myRandomEngine = new EvtStdlibRandomEngine();
+  EvtRandomEngine* myRandomEngine = new EvtSimpleRandomEngine();
 
   if (!TROOT::Initialized()) {
     static TROOT root("RooTuple", "RooTuple ROOT in EvtGen");
@@ -165,10 +165,10 @@ int main(int argc, char* argv[]){
 
     EvtTensor4C T=dual(EvtGenFunctions::directProd(p,k));
 
-    report(INFO,"EvtGen") << "p:"<<p<<std::endl;
-    report(INFO,"EvtGen") << "k:"<<k<<std::endl;
-    report(INFO,"EvtGen") << "T=dual(directProd(p,k)):"<<T<<std::endl;
-    report(INFO,"EvtGen") << "T03:"<<T.get(0,3)<<std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "p:"<<p<<std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "k:"<<k<<std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "T=dual(directProd(p,k)):"<<T<<std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "T03:"<<T.get(0,3)<<std::endl;
     return 1;
   }
 
@@ -563,7 +563,7 @@ void runFile(int nevent,char* fname, EvtGen &myGenerator) {
     root_part->deleteTree();  
     
   }while (count++<nevent);
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runPrint(int nevent,char* fname, EvtGen &myGenerator) {
@@ -595,7 +595,7 @@ void runPrint(int nevent,char* fname, EvtGen &myGenerator) {
     root_part->deleteTree();  
     
   }while (count++<nevent);
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runFileVpho(int nevent,char* fname, EvtGen &myGenerator) {
@@ -626,7 +626,7 @@ void runFileVpho(int nevent,char* fname, EvtGen &myGenerator) {
     root_part->deleteTree();  
     
   }while (count++<nevent);
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -681,7 +681,7 @@ void runJpsiPolarization(int nevent, EvtGen &myGenerator) {
                                                                              
    file->Write(); file->Close();
 
-   report(INFO,"EvtGen") << "SUCCESS\n";
+   EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
                                                                               
                                                                              
@@ -700,7 +700,7 @@ void runMassCheck(int nevent, EvtGen &myGenerator,
    }while (count++<nevent);
    file->Write(); file->Close();
 
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -736,14 +736,14 @@ void runPi0Dalitz(int nevent, EvtGen &myGenerator) {
       EvtVector4R gamma=root_part->getDaug(2)->getP4Lab();
 
       q2->Fill( (ep+em).mass2() );
-      //      report(INFO,"EvtGen") << ep << em << gamma <<std::endl;
+      //      EvtGenReport(EVTGEN_INFO,"EvtGen") << ep << em << gamma <<std::endl;
       root_part->deleteTree();  
 
     }while (count++<nevent);
   
     file->Write(); file->Close();
 
-    report(INFO,"EvtGen") << "SUCCESS\n";
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -829,7 +829,7 @@ void runTest1(int nevent, EvtGen &myGenerator) {
   //  delete theApp;
   //  hfile.write();
 
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 //*******************************************************************************
@@ -913,8 +913,8 @@ void runDDK(int nevent, EvtGen &myGenerator) {
     
   }while (count++<nevent);
 
-  report(INFO,"EvtGen") << nDDK << " " << (count-1) << " " << nDDK/float(2*(count-1)) << std::endl;
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << nDDK << " " << (count-1) << " " << nDDK/float(2*(count-1)) << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 //*******************************************************************************
@@ -1059,7 +1059,7 @@ void runTest2(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -1099,7 +1099,7 @@ void runOmega(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -1160,7 +1160,7 @@ void runChi1Kstar(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runAlias() {
@@ -1181,26 +1181,26 @@ void runAlias() {
   
   EvtPDL::aliasChgConj(myidpip,myidpim);
   
-  report(INFO,"EvtGen") << "Id    pi+:" << idpip << std::endl;
-  report(INFO,"EvtGen") << "Id    pi-:" << idpim << std::endl;
-  report(INFO,"EvtGen") << "Id    pi0:" << idpi0 << std::endl;
-  report(INFO,"EvtGen") << "Id my_pi+:" << myidpip << std::endl;
-  report(INFO,"EvtGen") << "Id my_pi-:" << myidpim << std::endl;
-  report(INFO,"EvtGen") << "Id my_pi0:" << myidpi0 << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Id    pi+:" << idpip << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Id    pi-:" << idpim << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Id    pi0:" << idpi0 << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Id my_pi+:" << myidpip << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Id my_pi-:" << myidpim << std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Id my_pi0:" << myidpi0 << std::endl;
   
-  report(INFO,"EvtGen") << "Chg conj    pi+:" << 
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Chg conj    pi+:" << 
     EvtPDL::chargeConj(idpip) << std::endl;
-  report(INFO,"EvtGen") << "Chg conj    pi-:" << 
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Chg conj    pi-:" << 
     EvtPDL::chargeConj(idpim) << std::endl;
-  report(INFO,"EvtGen") << "Chg conj    pi0:" << 
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Chg conj    pi0:" << 
     EvtPDL::chargeConj(idpi0) << std::endl;
-  report(INFO,"EvtGen") << "Chg conj my_pi+:" << 
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Chg conj my_pi+:" << 
     EvtPDL::chargeConj(myidpip) << std::endl;
-  report(INFO,"EvtGen") << "Chg conj my_pi-:" << 
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Chg conj my_pi-:" << 
     EvtPDL::chargeConj(myidpim) << std::endl;
-  report(INFO,"EvtGen") << "Chg conj my_pi0:" << 
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Chg conj my_pi0:" << 
     EvtPDL::chargeConj(myidpi0) << std::endl;
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 } 
   
 
@@ -1212,7 +1212,7 @@ void runRepeat(int nevent) {
     EvtDecayTable::getInstance()->readDecayFile(std::string("../DECAY_2010.DEC"));
     
   }
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -1253,7 +1253,7 @@ void runPhotos(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runFinalStates(int nevent, EvtGen &myGenerator) {
@@ -1313,8 +1313,8 @@ void runFinalStates(int nevent, EvtGen &myGenerator) {
     
     if (count==1000*(count/1000)) {
       //if (count==1*(count/1)) {
-      report(INFO,"EvtGen") << "Event:"<< count << std::endl;
-      //report(INFO,"EvtGen") << HepRandom::getTheSeed()<<std::endl;
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << "Event:"<< count << std::endl;
+      //EvtGenReport(EVTGEN_INFO,"EvtGen") << HepRandom::getTheSeed()<<std::endl;
     }
     EvtVector4R p_init(EvtPDL::getMass(parId),0.0,0.0,0.0);
     
@@ -1349,13 +1349,13 @@ void runFinalStates(int nevent, EvtGen &myGenerator) {
 	    if ( temp[k]==fs[l] ) { 
 	      alreadyUsed[l]=true; 
 	      foundThisOne=true; 
-	      //	      report(INFO,"EvtGen") << "found daughter " << k << " " << l << std::endl;
+	      //	      EvtGenReport(EVTGEN_INFO,"EvtGen") << "found daughter " << k << " " << l << std::endl;
 	    }
 	  }
 	  if ( !foundThisOne ) foundIt=false;
 	}
-	if ( foundIt ) {//report(INFO,"EvtGen") << "found a cand \n"; (histo1[j])->Fill(0.5);
-	  //report(INFO,"EvtGen") << "found one " << j << std::endl; 
+	if ( foundIt ) {//EvtGenReport(EVTGEN_INFO,"EvtGen") << "found a cand \n"; (histo1[j])->Fill(0.5);
+	  //EvtGenReport(EVTGEN_INFO,"EvtGen") << "found one " << j << std::endl; 
 	dListNum[j]++;}
       }
     }
@@ -1366,9 +1366,9 @@ void runFinalStates(int nevent, EvtGen &myGenerator) {
     count++;
   }while(count<nevent);
   int j;
-  for (j=0; j<(tline-1) ; j++) report(INFO,"EvtGen") << dListName[j].c_str() << " " << j << " " << dListNum[j] << " " << count << " "<< (dListNum[j]/(1.0*count)) << std::endl;
+  for (j=0; j<(tline-1) ; j++) EvtGenReport(EVTGEN_INFO,"EvtGen") << dListName[j].c_str() << " " << j << " " << dListNum[j] << " " << count << " "<< (dListNum[j]/(1.0*count)) << std::endl;
 
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -1466,8 +1466,8 @@ void runTrackMult(int nevent, EvtGen &myGenerator) {
     int evTracks=0;
 
     if (count==1000*(count/1000)) {
-      report(INFO,"EvtGen") << count << std::endl;
-      //report(INFO,"EvtGen") << HepRandom::getTheSeed()<<std::endl;
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << count << std::endl;
+      //EvtGenReport(EVTGEN_INFO,"EvtGen") << HepRandom::getTheSeed()<<std::endl;
     }
     EvtVector4R p_init(EvtPDL::getMass(UPS4),0.0,0.0,0.0);
     
@@ -1509,12 +1509,12 @@ void runTrackMult(int nevent, EvtGen &myGenerator) {
   double aveMultiNoSL=float(totTracksNoSL)/float(totNoSL);
   double aveMulti1SL=float(totTracks1SL)/float(tot1SL);
   double aveMulti2SL=float(totTracks2SL)/float(tot2SL);
-  report(INFO,"EvtGen") << "Your average multiplicity="<<aveMulti<<std::endl;
-  report(INFO,"EvtGen") << "Your average multiplicity for no B->semileptonic events="<<aveMultiNoSL<<std::endl;
-  report(INFO,"EvtGen") << "Your average multiplicity for 1 B->semileptonic events="<<aveMulti1SL<<std::endl;
-  report(INFO,"EvtGen") << "Your average multiplicity for 2 B->semileptonic events="<<aveMulti2SL<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Your average multiplicity="<<aveMulti<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Your average multiplicity for no B->semileptonic events="<<aveMultiNoSL<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Your average multiplicity for 1 B->semileptonic events="<<aveMulti1SL<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Your average multiplicity for 2 B->semileptonic events="<<aveMulti2SL<<std::endl;
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -1569,7 +1569,7 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
     if (listfile!="") {
       EvtParser parser;
       if (parser.read(listfile)!=0){
-	report(ERROR,"EvtGen") << "Will terminate."<<std::endl;
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate."<<std::endl;
 	exit(-1);
       }
       
@@ -1614,10 +1614,10 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
       std::vector<int> tempDM(parser.getNToken()/2,0);
       
       do{
-	//report(INFO,"EvtGen") << "new event\n";
+	//EvtGenReport(EVTGEN_INFO,"EvtGen") << "new event\n";
 	if (count==1000*(count/1000)) {
-	  report(INFO,"EvtGen") << count << std::endl;
-	  //report(INFO,"EvtGen") << HepRandom::getTheSeed()<<std::endl;
+	  EvtGenReport(EVTGEN_INFO,"EvtGen") << count << std::endl;
+	  //EvtGenReport(EVTGEN_INFO,"EvtGen") << HepRandom::getTheSeed()<<std::endl;
 	}
 	EvtVector4R p_init(sqrt(EvtPDL::getMass(UPS4)*EvtPDL::getMass(UPS4)+5.9*5.9),0.0,0.0,5.9);
 	
@@ -1638,8 +1638,8 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
 	//EvtStdHep stdhep;
 	//stdhep.init();
 	//root_part->makeStdHep(stdhep);
-	//report(INFO,"EvtGen") <<stdhep<<std::endl;
-	//report(INFO,"EvtGen") <<secondary<<std::endl;
+	//EvtGenReport(EVTGEN_INFO,"EvtGen") <<stdhep<<std::endl;
+	//EvtGenReport(EVTGEN_INFO,"EvtGen") <<secondary<<std::endl;
 	std::string token;
 	int itok;
 	for(itok=0;itok<(parser.getNToken()/2);itok++){
@@ -1676,44 +1676,44 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
 	
 	token=parser.getToken(2*itok);
 	float br=0.5*float(temp[itok])/float(nevent);
-	report(INFO,"EvtGen") << "Found "<<temp[itok]<<" "<<token.c_str() 
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<temp[itok]<<" "<<token.c_str() 
 	     << " in " << nevent << " events. Average number of "
 	     << token.c_str()<<" per B meson="<<br<<std::endl;
 	
 	br=0.5*float(tempB[itok])/float(nevent);
-	report(INFO,"EvtGen") << "Found "<<tempB[itok]<<" "<<token.c_str() 
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempB[itok]<<" "<<token.c_str() 
 	     << " produced directly in decays of B mesons avg. br.fr.="
 	     <<br<<std::endl;
 	br=2.0*float(tempB0[itok])/float(nevent);
-	report(INFO,"EvtGen") << "Found "<<tempB0[itok]<<" "<<token.c_str()
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempB0[itok]<<" "<<token.c_str()
 	     << " in decay tree of B0, br.fr.="<<br<<std::endl;
 	br=2.0*float(tempB0B[itok])/float(nevent);
-	report(INFO,"EvtGen") << "Found "<<tempB0B[itok]<<" "<<token.c_str() 
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempB0B[itok]<<" "<<token.c_str() 
 	     << " in decay tree of anti-B0, br.fr.="<<br<<std::endl;
 	br=2.0*float(tempBP[itok])/float(nevent);
-	report(INFO,"EvtGen") << "Found "<<tempBP[itok]<<" "<<token.c_str() 
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempBP[itok]<<" "<<token.c_str() 
 	     << " in decay tree of B+, br.fr.="<<br<<std::endl;
 	br=2.0*float(tempBM[itok])/float(nevent);
-	report(INFO,"EvtGen") << "Found "<<tempBM[itok]<<" "<<token.c_str() 
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempBM[itok]<<" "<<token.c_str() 
 	     << " in decay tree of B-,  br.fr.="<<br<<std::endl;
 	
 	//	br=0.5*float(tempD[itok])/float(numd0+numd0b+numdm+numdp);
-	//	report(INFO,"EvtGen") << "Found "<<tempD[itok]<<" "<<token 
+	//	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempD[itok]<<" "<<token 
 	//	     << " produced directly in decays of D mesons avg. br.fr.="
 	//	     <<br<<std::endl;
 	//	br=2.0*float(tempD0[itok])/float(numd0);
-	//	report(INFO,"EvtGen") << "Found "<<tempD0[itok]<<" "<<token 
+	//	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempD0[itok]<<" "<<token 
 	//	     << " in decay of D0,  br.fr.="<<br<<std::endl;
 	//	br=2.0*float(tempD0B[itok])/float(numd0b);
-	//	report(INFO,"EvtGen") << "Found "<<tempD0B[itok]<<" "<<token 
+	//	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempD0B[itok]<<" "<<token 
 	//	     << " in decay of anti-D0, br.fr.="<<br<<std::endl;
 	//	br=2.0*float(tempDP[itok])/float(numdp);
-	//	report(INFO,"EvtGen") << "Found "<<tempDP[itok]<<" "<<token 
+	//	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempDP[itok]<<" "<<token 
 	//	     << " in decay of D+,  br.fr.="<<br<<std::endl;
 	//	br=2.0*float(tempDM[itok])/float(numdm);
-	//	report(INFO,"EvtGen") << "Found "<<tempDM[itok]<<" "<<token 
+	//	EvtGenReport(EVTGEN_INFO,"EvtGen") << "Found "<<tempDM[itok]<<" "<<token 
 	//	     << " in decay of D-,  br.fr.="<<br<<std::endl;
-	report(INFO,"EvtGen") << "*******************************************\n";
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "*******************************************\n";
       }
     }
     else{
@@ -1721,8 +1721,8 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
       do{
 	
 	if (count==1000*(count/1000)) {
-	  report(INFO,"EvtGen") << count << std::endl;
-	  //report(INFO,"EvtGen") << HepRandom::getTheSeed()<<std::endl;
+	  EvtGenReport(EVTGEN_INFO,"EvtGen") << count << std::endl;
+	  //EvtGenReport(EVTGEN_INFO,"EvtGen") << HepRandom::getTheSeed()<<std::endl;
 	}
 	EvtVector4R p_init(EvtPDL::getMass(UPS4),0.0,0.0,0.0);
 	
@@ -1750,7 +1750,7 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
     }
     file->Write(); file->Close();
 
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -1803,7 +1803,7 @@ void runKstarnunu(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runBsmix(int nevent, EvtGen &myGenerator) {
@@ -1853,7 +1853,7 @@ void runBsmix(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -2125,7 +2125,7 @@ void runSemic(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -2248,7 +2248,7 @@ void runKstarll(int nevent, EvtGen &myGenerator) {
     if (EvtDecayAngle((l1+l2+kstar),(l1+l2),l1)>0){
       _chictl->Fill(EvtDecayAngleChi(b,k,pi,l1,l2));
      }
-    report(INFO,"EvtGen") << "count:"<<count<<" "<<(l1+l2).mass2()<<std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "count:"<<count<<" "<<(l1+l2).mass2()<<std::endl;
     
   }while (count++<nevent);
   
@@ -2257,7 +2257,7 @@ void runKstarll(int nevent, EvtGen &myGenerator) {
   }
 
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -2379,7 +2379,7 @@ void runKll(int nevent, EvtGen &myGenerator) {
     //if (EvtDecayAngle((l1+l2+kstar),(l1+l2),l1)>0){
     //  _chictl->Fill(EvtDecayAngleChi(b,k,pi,l1,l2));
     // }
-    report(INFO,"EvtGen") << "count:"<<count<<" "<<(l1+l2).mass2()<<std::endl;
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "count:"<<count<<" "<<(l1+l2).mass2()<<std::endl;
     
   }while (count++<nevent);
   
@@ -2388,7 +2388,7 @@ void runKll(int nevent, EvtGen &myGenerator) {
   }
 
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -2559,7 +2559,7 @@ void runHll(int nevent, EvtGen &myGenerator, char* mode) {
    }
    if (count % 1000 == 0)
    {
-    report(INFO,"EvtGen") << "count:"<<count<<" "<<(l1+l2).mass2()<<std::endl;  
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "count:"<<count<<" "<<(l1+l2).mass2()<<std::endl;  
    }
    root_part->deleteTree();  
   }
@@ -2571,7 +2571,7 @@ void runHll(int nevent, EvtGen &myGenerator, char* mode) {
   }
   file->Write(); 
   file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runVectorIsr(int nevent, EvtGen &myGenerator) {
@@ -2688,7 +2688,7 @@ void runVectorIsr(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -2779,7 +2779,7 @@ void runBsquark(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -2823,7 +2823,7 @@ void runK3gamma(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -2873,7 +2873,7 @@ void runLambda(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -2927,7 +2927,7 @@ void runTauTauPiPi(int nevent, EvtGen &myGenerator) {
   file->Write(); file->Close();
   
   outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -2967,7 +2967,7 @@ void runTauTauEE(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -3018,7 +3018,7 @@ void runTauTau2Pi2Pi(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -3064,7 +3064,7 @@ void runTauTau3Pi3Pi(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -3156,7 +3156,7 @@ void runJPsiKstar(int nevent, EvtGen &myGenerator, int modeInt) {
   }while (count++<10000);
   
   outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -3222,7 +3222,7 @@ void runSVVCPLH(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -3298,7 +3298,7 @@ void runSVSCPLH(int nevent, EvtGen &myGenerator) {
   
   file->Write(); file->Close();
   outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -3366,7 +3366,7 @@ void runSSDCP(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -3412,14 +3412,14 @@ void runKstarstargamma(int nevent, EvtGen &myGenerator) {
 
     ctheta->Fill(EvtDecayAngle(pinit,p4_kaon+p4_pion,p4_kaon));
  
-    //report(INFO,"EvtGen") << "ctheta:"<<EvtDecayAngle(pinit,p4_kaon+p4_pion,p4_kaon)<<std::endl;
+    //EvtGenReport(EVTGEN_INFO,"EvtGen") << "ctheta:"<<EvtDecayAngle(pinit,p4_kaon+p4_pion,p4_kaon)<<std::endl;
     
     root_part->deleteTree();  
     
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -3484,7 +3484,7 @@ void runDSTARPI(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -3554,7 +3554,7 @@ void runETACPHIPHI(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -3628,7 +3628,7 @@ void runVVPiPi(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -3722,7 +3722,7 @@ void runSVVHelAmp(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -3817,7 +3817,7 @@ void runPartWave(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runPartWave2(int nevent, EvtGen &myGenerator) {
@@ -3888,7 +3888,7 @@ void runPartWave2(int nevent, EvtGen &myGenerator) {
 
     double costhetan=EvtDecayPlaneNormalAngle(p4_b,p4_jpsi,p4_pi1,p4_pi2);
 
-    //report(INFO,"EvtGen") << "costhetan:"<<costhetan<<std::endl;
+    //EvtGenReport(EVTGEN_INFO,"EvtGen") << "costhetan:"<<costhetan<<std::endl;
 
     cthetan->Fill( costhetan );
 
@@ -3896,7 +3896,7 @@ void runPartWave2(int nevent, EvtGen &myGenerator) {
 
     double costhrho=EvtDecayAngle(p4_b,p4_jpsi,p4_rho);
 
-    //report(INFO,"EvtGen") << "costhetarho:"<<costhrho<<std::endl;
+    //EvtGenReport(EVTGEN_INFO,"EvtGen") << "costhetarho:"<<costhrho<<std::endl;
 
     cthetarho->Fill( costhrho );
 
@@ -3913,7 +3913,7 @@ void runPartWave2(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   file.Write(); file.Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -3951,7 +3951,7 @@ void runTwoBody(int nevent, EvtGen &myGenerator, std::string decFile,
       int nDaug=p->getNDaug();
       
       if (!(nDaug==0||nDaug==2)) {
-	report(INFO,"EvtGen") << "nDaug="<<nDaug<<" but can only handle 0 or 2!"<<std::endl;
+	EvtGenReport(EVTGEN_INFO,"EvtGen") << "nDaug="<<nDaug<<" but can only handle 0 or 2!"<<std::endl;
 	abort();
       }
 
@@ -4032,7 +4032,7 @@ void runTwoBody(int nevent, EvtGen &myGenerator, std::string decFile,
   }while (count++<nevent);
   
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 
@@ -4105,7 +4105,7 @@ void runPiPi(int nevent, EvtGen &myGenerator) {
   
   outmix.close();
   file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runA1Pi(int nevent, EvtGen &myGenerator) {
@@ -4182,7 +4182,7 @@ void runA1Pi(int nevent, EvtGen &myGenerator) {
   }while (count++<1000);
   
   outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 }
 
 void runCPTest(int nevent, EvtGen &myGenerator) {
@@ -4239,7 +4239,7 @@ void runCPTest(int nevent, EvtGen &myGenerator) {
   }while (count++<nevent);
   
   outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -4281,7 +4281,7 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
       EvtId BId1b = B1->getDaug(1)->getId();
       bId1b = EvtPDL::getStdHep(BId1b);
 
-      if (Bmulti==1) report(INFO,"EvtGen") << "B1" << " bId1a=" << bId1a << " bId1b=" << bId1b << " ndaug=" << B1->getNDaug() << " Bid=" << EvtPDL::getStdHep(B1->getId()) << std::endl;
+      if (Bmulti==1) EvtGenReport(EVTGEN_INFO,"EvtGen") << "B1" << " bId1a=" << bId1a << " bId1b=" << bId1b << " ndaug=" << B1->getNDaug() << " Bid=" << EvtPDL::getStdHep(B1->getId()) << std::endl;
 
       EvtParticle *B2 = root_part->getDaug(1);
       Bmulti= B2->getNDaug();
@@ -4291,7 +4291,7 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
       EvtId BId2b = B2->getDaug(1)->getId();
       bId2b = EvtPDL::getStdHep(BId2b);
 
-     if (Bmulti==1) report(INFO,"EvtGen") << "B2" << " bId2a=" << bId2a << " bId2b=" << bId2b << " ndaug=" << B2->getNDaug() << " Bid=" << EvtPDL::getStdHep(B2->getId()) << std::endl;
+     if (Bmulti==1) EvtGenReport(EVTGEN_INFO,"EvtGen") << "B2" << " bId2a=" << bId2a << " bId2b=" << bId2b << " ndaug=" << B2->getNDaug() << " Bid=" << EvtPDL::getStdHep(B2->getId()) << std::endl;
 
       EvtId B1Id = B1->getId();
       b1Id = EvtPDL::getStdHep(B1Id);
@@ -4307,7 +4307,7 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
       } else if ((b1Id == 531) || (b1Id == -531) || (b2Id == 531) || (b2Id == -531)) {
         strangeid=30363; antistrangeid=-30363;
       }
-      report(INFO,"EvtGen") << "bId1a "<<bId1a<<" bId1b "<<bId1b<<" bId2a "<<bId2a<<" bId2b "<<bId2b<<" for event "<<count<<std::endl;
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << "bId1a "<<bId1a<<" bId1b "<<bId1b<<" bId2a "<<bId2a<<" bId2b "<<bId2b<<" for event "<<count<<std::endl;
 
       EvtParticle *Bpeng = 0;
       int bnum=0;
@@ -4324,11 +4324,11 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
       }
       if (pengcount == 0) {
         Bpeng=B1;
-        report(INFO,"EvtGen") << "No penguin decay for event "<<count<<std::endl;
+        EvtGenReport(EVTGEN_INFO,"EvtGen") << "No penguin decay for event "<<count<<std::endl;
         bnum=0;
       } else if (pengcount == 2) {
         Bpeng=B1;
-        report(INFO,"EvtGen") << "Two penguin decays in event "<<count<<std::endl;
+        EvtGenReport(EVTGEN_INFO,"EvtGen") << "Two penguin decays in event "<<count<<std::endl;
         bnum=0;        
       }
       Bmulti = Bpeng->getNDaug();
@@ -4351,7 +4351,7 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
       //double gmass = p4gam.mass();
       //double genergy = p4gam.get(0);
       
-// debug stuff:      report(INFO,"EvtGen") << "bnum=" << bnum << " pengcount=" << pengcount << " bId=" << bId << " Bmulti=" << Bmulti << " XsId=" << XId << " gId=" << gId << std::endl;
+// debug stuff:      EvtGenReport(EVTGEN_INFO,"EvtGen") << "bnum=" << bnum << " pengcount=" << pengcount << " bId=" << bId << " Bmulti=" << Bmulti << " XsId=" << XId << " gId=" << gId << std::endl;
 
       //need to change this to root...I don't have the energy now
       //tuple->column("bnum", bnum);
@@ -4422,8 +4422,8 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
   
   file->Write(); file->Close();
 
-  report(INFO,"EvtGen")<<"End EvtGen. Ran on "<<nevent<<" events."<<std::endl;
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"End EvtGen. Ran on "<<nevent<<" events."<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -4465,7 +4465,7 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
       EvtId BId1b = B1->getDaug(1)->getId();
       bId1b = EvtPDL::getStdHep(BId1b);
 
-      if (Bmulti==1) report(INFO,"EvtGen") << "B1" << " bId1a=" << bId1a << " bId1b=" << bId1b << " ndaug=" << B1->getNDaug() << " Bid=" << EvtPDL::getStdHep(B1->getId()) << std::endl;
+      if (Bmulti==1) EvtGenReport(EVTGEN_INFO,"EvtGen") << "B1" << " bId1a=" << bId1a << " bId1b=" << bId1b << " ndaug=" << B1->getNDaug() << " Bid=" << EvtPDL::getStdHep(B1->getId()) << std::endl;
 
       EvtParticle *B2 = root_part->getDaug(1);
       Bmulti= B2->getNDaug();
@@ -4475,7 +4475,7 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
       EvtId BId2b = B2->getDaug(1)->getId();
       bId2b = EvtPDL::getStdHep(BId2b);
 
-     if (Bmulti==1) report(INFO,"EvtGen") << "B2" << " bId2a=" << bId2a << " bId2b=" << bId2b << " ndaug=" << B2->getNDaug() << " Bid=" << EvtPDL::getStdHep(B2->getId()) << std::endl;
+     if (Bmulti==1) EvtGenReport(EVTGEN_INFO,"EvtGen") << "B2" << " bId2a=" << bId2a << " bId2b=" << bId2b << " ndaug=" << B2->getNDaug() << " Bid=" << EvtPDL::getStdHep(B2->getId()) << std::endl;
 
       EvtId B1Id = B1->getId();
       b1Id = EvtPDL::getStdHep(B1Id);
@@ -4489,7 +4489,7 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
       } else if ((b1Id == 521) || (b1Id == -521) || (b2Id == 521) || (b2Id == -521)) {
         strangeid=10323; antistrangeid=-10323;
       }
-      report(INFO,"EvtGen") << "bId1a "<<bId1a<<" bId1b "<<bId1b<<" bId2a "<<bId2a<<" bId2b "<<bId2b<<" for event "<<count<<std::endl;
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << "bId1a "<<bId1a<<" bId1b "<<bId1b<<" bId2a "<<bId2a<<" bId2b "<<bId2b<<" for event "<<count<<std::endl;
 
       EvtParticle *Bpeng = 0;
       int bnum=0;
@@ -4506,11 +4506,11 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
       }
       if (pengcount == 0) {
         Bpeng=B1;
-        report(INFO,"EvtGen") << "No penguin decay for event "<<count<<std::endl;
+        EvtGenReport(EVTGEN_INFO,"EvtGen") << "No penguin decay for event "<<count<<std::endl;
         bnum=0;
       } else if (pengcount == 2) {
         Bpeng=B1;
-        report(INFO,"EvtGen") << "Two penguin decays in event "<<count<<std::endl;
+        EvtGenReport(EVTGEN_INFO,"EvtGen") << "Two penguin decays in event "<<count<<std::endl;
         bnum=0;        
       }
       Bmulti = Bpeng->getNDaug();
@@ -4534,7 +4534,7 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
       //double gmass = p4gam.mass();
       //double genergy = p4gam.get(0);
       
-// debug stuff:      report(INFO,"EvtGen") << "bnum=" << bnum << " pengcount=" << pengcount << " bId=" << bId << " Bmulti=" << Bmulti << " KsId=" << XId << " gId=" << gId << std::endl;
+// debug stuff:      EvtGenReport(EVTGEN_INFO,"EvtGen") << "bnum=" << bnum << " pengcount=" << pengcount << " bId=" << bId << " Bmulti=" << Bmulti << " KsId=" << XId << " gId=" << gId << std::endl;
 
       //tuple->column("bnum", bnum);
       //tuple->column("pengcount", pengcount);
@@ -4565,8 +4565,8 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
   
   file->Write(); file->Close();
 
-  report(INFO,"EvtGen")<<"End EvtGen. Ran on "<<nevent<<" events."<<std::endl;
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen")<<"End EvtGen. Ran on "<<nevent<<" events."<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
   
 }
 
@@ -4610,14 +4610,14 @@ void runCheckRotBoost(){
   EvtTensor4C tDirBoost(t);
   tDirBoost.applyBoostTo(ranBoost);
   
-  report(INFO,"EvtGen") << "Comparing after doing a random boost"<<std::endl;
-  report(INFO,"EvtGen") << "Scalar "<<s<<" "<<sBoost<<s-sBoost<<std::endl;
-  report(INFO,"EvtGen") << "PseudoScalar "<<p<<" "<<pBoost<<p-pBoost<<std::endl;
-  report(INFO,"EvtGen") << "AxialVector "<<aDirBoost<<" "<<aBoost<<aDirBoost-aBoost<<std::endl;
-  report(INFO,"EvtGen") << "Vector "<<vDirBoost<<" "<<vBoost<<vDirBoost-vBoost<<std::endl;
-  report(INFO,"EvtGen") << "V-A "<<vaDirBoost<<" "<<vaBoost<<vaDirBoost-vaBoost<<std::endl;
-  report(INFO,"EvtGen") << "Tensor "<<tDirBoost<<" "<<tBoost<<tDirBoost-tBoost<<std::endl;
-  report(INFO,"EvtGen") << "Done comparing after doing a random boost"<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Comparing after doing a random boost"<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Scalar "<<s<<" "<<sBoost<<s-sBoost<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "PseudoScalar "<<p<<" "<<pBoost<<p-pBoost<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "AxialVector "<<aDirBoost<<" "<<aBoost<<aDirBoost-aBoost<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Vector "<<vDirBoost<<" "<<vBoost<<vDirBoost-vBoost<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "V-A "<<vaDirBoost<<" "<<vaBoost<<vaDirBoost-vaBoost<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Tensor "<<tDirBoost<<" "<<tBoost<<tDirBoost-tBoost<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Done comparing after doing a random boost"<<std::endl;
 
   //Now do rotations...
   
@@ -4645,15 +4645,15 @@ void runCheckRotBoost(){
   vaDirRot.applyRotateEuler(alpha,beta,gamma);
   tDirRot.applyRotateEuler(alpha,beta,gamma);
   
-  report(INFO,"EvtGen") << "Comparing after doing a random rotation"<<std::endl;
-  report(INFO,"EvtGen") << "Scalar "<<s<<" "<<sRot<<s-sRot<<std::endl;
-  report(INFO,"EvtGen") << "PseudoScalar "<<p<<" "<<pRot<<p-pRot<<std::endl;
-  report(INFO,"EvtGen") << "AxialVector "<<aDirRot<<" "<<aRot<<aDirRot-aRot<<std::endl;
-  report(INFO,"EvtGen") << "Vector "<<vDirRot<<" "<<vRot<<vDirRot-vRot<<std::endl;
-  report(INFO,"EvtGen") << "V-A "<<vaDirRot<<" "<<vaRot<<vaDirRot-vaRot<<std::endl;
-  report(INFO,"EvtGen") << "Tensor "<<tDirRot<<" "<<tRot<<tDirRot-tRot<<std::endl;
-  report(INFO,"EvtGen") << "Done comparing after doing a random rotation"<<std::endl;
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Comparing after doing a random rotation"<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Scalar "<<s<<" "<<sRot<<s-sRot<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "PseudoScalar "<<p<<" "<<pRot<<p-pRot<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "AxialVector "<<aDirRot<<" "<<aRot<<aDirRot-aRot<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Vector "<<vDirRot<<" "<<vRot<<vDirRot-vRot<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "V-A "<<vaDirRot<<" "<<vaRot<<vaDirRot-vaRot<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Tensor "<<tDirRot<<" "<<tRot<<tDirRot-tRot<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "Done comparing after doing a random rotation"<<std::endl;
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -4672,7 +4672,7 @@ int countInclusive(std::string name, EvtParticle *root_part,TH1F* mom, TH1F* mas
       //if ( theBs.contains(p->getParent()->getId()) ) {
       //dirPsimom->Fill(p->getP4Lab().d3mag());
       //}	  
-      //report(INFO,"EvtGen") << "LANGE " << p->getP4Lab().d3mag() << " " << p->getP4Lab().get(3)/p->getP4Lab().d3mag() << std::endl;
+      //EvtGenReport(EVTGEN_INFO,"EvtGen") << "LANGE " << p->getP4Lab().d3mag() << " " << p->getP4Lab().get(3)/p->getP4Lab().d3mag() << std::endl;
     }
     
     p=p->nextIter(root_part);
@@ -4698,7 +4698,7 @@ int countInclusiveSubTree(std::string name, EvtParticle *root_part,
     p=p->nextIter(root_part);
         
   }while(p!=0);
-  //report(INFO,"EvtGen") << "done"<<std::endl;
+  //EvtGenReport(EVTGEN_INFO,"EvtGen") << "done"<<std::endl;
   return temp;
 } 
    
@@ -4787,7 +4787,7 @@ void runBMix(int nevent,EvtGen &myGenerator,std::string userFile,std::string roo
     file->Write(); file->Close();
     outmix.close();
 
-    report(INFO,"EvtGen") << "SUCCESS\n";
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -4857,7 +4857,7 @@ void runDDalitz(int nevent, EvtGen &myGenerator) {
   
     file->Write(); file->Close();
     outmix.close();
-    report(INFO,"EvtGen") << "SUCCESS\n";
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -4901,7 +4901,7 @@ void runPiPiPi(int nevent, EvtGen &myGenerator) {
     }while (count++<10000);
   
     outmix.close();
-    report(INFO,"EvtGen") << "SUCCESS\n";
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -4948,7 +4948,7 @@ void runBHadronic(int nevent, EvtGen &myGenerator) {
     }while (count++<nevent);
   
     outmix.close();
-    report(INFO,"EvtGen") << "SUCCESS\n";
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -4974,7 +4974,7 @@ void runSingleB(int nevent, EvtGen &myGenerator) {
 
     }while (count++<nevent);
   
-    report(INFO,"EvtGen") << "SUCCESS\n";
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
       
 }
 
@@ -5049,12 +5049,12 @@ void runPiPiPiPi(int nevent, EvtGen &myGenerator) {
 
       root_part->deleteTree();  
 
-      report(INFO,"EvtGen") << "count:"<<count<<std::endl;
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << "count:"<<count<<std::endl;
 
     }while (count++<1000);
 
     outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5138,7 +5138,7 @@ void runA2Pi(int nevent, EvtGen &myGenerator) {
   
     outmix.close();
 
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5186,7 +5186,7 @@ void runHelAmp(int nevent, EvtGen &myGenerator, std::string userFile,
   
 
     file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";  
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";  
 
 }
 
@@ -5228,7 +5228,7 @@ void runHelAmp2(int nevent, EvtGen &myGenerator) {
   
 
     file->Write(); file->Close();
-    report(INFO,"EvtGen") << "SUCCESS\n";
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5286,7 +5286,7 @@ void runD2Pi(int nevent, EvtGen &myGenerator) {
     }while (count++<nevent);
   
     file->Write(); file->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5346,7 +5346,7 @@ void runPiPiCPT(int nevent, EvtGen &myGenerator) {
     }while (count++<10000);
   
     outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5405,7 +5405,7 @@ void runJpsiKs(int nevent, EvtGen &myGenerator) {
     }while (count++<10000);
   
     outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5446,7 +5446,7 @@ void runDump(int nevent, EvtGen &myGenerator) {
 
 
       if (count==100*(count/100)) {
-       report(INFO,"EvtGen") << count << std::endl;
+       EvtGenReport(EVTGEN_INFO,"EvtGen") << count << std::endl;
       }
       EvtVector4R p_init(EvtPDL::getMass(UPS4),0.0,0.0,0.0);
      
@@ -5460,7 +5460,7 @@ void runDump(int nevent, EvtGen &myGenerator) {
 
       EvtParticle *otherb=root_part->getDaug(1);
 
-      report(INFO,"EvtGen") <<"Event:"<<count<<std::endl;
+      EvtGenReport(EVTGEN_INFO,"EvtGen") <<"Event:"<<count<<std::endl;
       root_part->printTree();
 
       outmix << "B"
@@ -5512,7 +5512,7 @@ void runDump(int nevent, EvtGen &myGenerator) {
     }while (count++<nevent);
   
     outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 
 }
@@ -5536,7 +5536,7 @@ void runGenericCont(int nevent, EvtGen &myGenerator) {
     do{
 
       if (count==1000*(count/1000)) {
-       report(DEBUG,"EvtGen") << count << std::endl;
+       EvtGenReport(EVTGEN_DEBUG,"EvtGen") << count << std::endl;
 
       }
 
@@ -5566,7 +5566,7 @@ void runGenericCont(int nevent, EvtGen &myGenerator) {
   
     outmix.close();
 
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5626,12 +5626,12 @@ void runD1(int nevent, EvtGen &myGenerator) {
 
       root_part->deleteTree();  
 
-      report(DEBUG,"EvtGen") << "count:"<<count<<std::endl;
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "count:"<<count<<std::endl;
 
     }while (count++<nevent);
   
     outmix.close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5666,7 +5666,7 @@ void runMix(int nevent, EvtGen &myGenerator) {
     }while (count++<10000);
 
     outmix.close();
-    report(INFO,"EvtGen") << "SUCCESS\n";
+    EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }
 
@@ -5700,6 +5700,6 @@ void runBaryonic(int nEvent, EvtGen& myGenerator)
     }
     f->Write();
     f->Close();
-  report(INFO,"EvtGen") << "SUCCESS\n";
+  EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
 
 }

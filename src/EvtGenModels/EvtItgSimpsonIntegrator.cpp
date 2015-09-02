@@ -63,7 +63,7 @@ EvtItgSimpsonIntegrator::~EvtItgSimpsonIntegrator()
 double
 EvtItgSimpsonIntegrator::evaluateIt(double lower, double higher) const{
   
-  // report(INFO,"EvtGen")<<"in evaluate"<<endl;
+  // EvtGenReport(EVTGEN_INFO,"EvtGen")<<"in evaluate"<<endl;
   int j;
   double result(0.0);
   double s, st, ost(0.0);
@@ -91,7 +91,7 @@ EvtItgSimpsonIntegrator::evaluateIt(double lower, double higher) const{
     ost=st;
   }
   
-  report(ERROR,"EvtGen") << "Severe error in EvtItgSimpsonIntegrator.  Failed to converge after loop with 2**"
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Severe error in EvtItgSimpsonIntegrator.  Failed to converge after loop with 2**"
 		 << _maxLoop << " calls to the integrand in." << endl;
   
   return 0.0;

@@ -55,57 +55,57 @@ void EvtDecayAmp::makeDecay(EvtParticle* p, bool recursive){
     prob=p->getSpinDensityForward().normalizedProb(rho);
 
     if (prob<0.0) {
-      report(ERROR,"EvtGen")<<"Negative prob:"<<p->getId().getId()
+      EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Negative prob:"<<p->getId().getId()
 			    <<" "<<p->getChannel()<<endl;
 
-      report(ERROR,"EvtGen") << "rho_forward:"<<endl;
-      report(ERROR,"EvtGen") << p->getSpinDensityForward();
-      report(ERROR,"EvtGen") << "rho decay:"<<endl;
-      report(ERROR,"EvtGen") << rho <<endl;
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rho_forward:"<<endl;
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << p->getSpinDensityForward();
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rho decay:"<<endl;
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << rho <<endl;
     }
 
     if (prob!=prob) {
 
-      report(DEBUG,"EvtGen") << "Forward density matrix:"<<endl;
-      report(DEBUG,"EvtGen") << p->getSpinDensityForward();
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Forward density matrix:"<<endl;
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << p->getSpinDensityForward();
 
-      report(DEBUG,"EvtGen") << "Decay density matrix:"<<endl;
-      report(DEBUG,"EvtGen") << rho;
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Decay density matrix:"<<endl;
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << rho;
 
-      report(DEBUG,"EvtGen") << "prob:"<<prob<<endl;
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "prob:"<<prob<<endl;
       
-      report(DEBUG,"EvtGen") << "Particle:"
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Particle:"
 			     <<EvtPDL::name(p->getId()).c_str()<<endl;
-      report(DEBUG,"EvtGen") << "channel        :"<<p->getChannel()<<endl;
-      report(DEBUG,"EvtGen") << "Momentum:" << p->getP4() << " " << p->mass() << endl;
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "channel        :"<<p->getChannel()<<endl;
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Momentum:" << p->getP4() << " " << p->mass() << endl;
       if( p->getParent()!=0){
-	report(DEBUG,"EvtGen") << "parent:"
+	EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "parent:"
 			       <<EvtPDL::name(
 				p->getParent()->getId()).c_str()<<endl;
-	report(DEBUG,"EvtGen") << "parent channel        :"
+	EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "parent channel        :"
 			       <<p->getParent()->getChannel()<<endl;
 
         size_t i;
-	report(DEBUG,"EvtGen") << "parent daughters  :";
+	EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "parent daughters  :";
         for (i=0;i<p->getParent()->getNDaug();i++){
-	  report(DEBUG,"") << EvtPDL::name(
+	  EvtGenReport(EVTGEN_DEBUG,"") << EvtPDL::name(
 			    p->getParent()->getDaug(i)->getId()).c_str()
 				 << " ";
         }
-	report(DEBUG,"") << endl;
+	EvtGenReport(EVTGEN_DEBUG,"") << endl;
 
-	report(DEBUG,"EvtGen") << "daughters  :";
+	EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "daughters  :";
         for (size_t i=0;i<p->getNDaug();i++){
-	  report(DEBUG,"") << EvtPDL::name(
+	  EvtGenReport(EVTGEN_DEBUG,"") << EvtPDL::name(
 			    p->getDaug(i)->getId()).c_str()
 				 << " ";
         }
-	report(DEBUG,"") << endl;
+	EvtGenReport(EVTGEN_DEBUG,"") << endl;
 
-	report(DEBUG,"EvtGen") << "daughter momenta  :" << endl;;
+	EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "daughter momenta  :" << endl;;
         for (size_t i=0;i<p->getNDaug();i++){
-	  report(DEBUG,"") << p->getDaug(i)->getP4() << " " << p->getDaug(i)->mass();
-	  report(DEBUG,"") << endl;
+	  EvtGenReport(EVTGEN_DEBUG,"") << p->getDaug(i)->getP4() << " " << p->getDaug(i)->mass();
+	  EvtGenReport(EVTGEN_DEBUG,"") << endl;
         }
 
       }
@@ -124,17 +124,17 @@ void EvtDecayAmp::makeDecay(EvtParticle* p, bool recursive){
   }while(ntimes&&more);
 
   if (ntimes==0){
-    report(DEBUG,"EvtGen") << "Tried accept/reject: 10000" 
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Tried accept/reject: 10000" 
 			   <<" times, and rejected all the times!"<<endl;
    
-    report(DEBUG,"EvtGen")<<p->getSpinDensityForward()<<endl;
-    report(DEBUG,"EvtGen") << "Is therefore accepting the last event!"<<endl;
-    report(DEBUG,"EvtGen") << "Decay of particle:"<<
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen")<<p->getSpinDensityForward()<<endl;
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Is therefore accepting the last event!"<<endl;
+    EvtGenReport(EVTGEN_DEBUG,"EvtGen") << "Decay of particle:"<<
       EvtPDL::name(p->getId()).c_str()<<"(channel:"<<
       p->getChannel()<<") with mass "<<p->mass()<<endl;
     
     for(size_t ii=0;ii<p->getNDaug();ii++){
-      report(DEBUG,"EvtGen") <<"Daughter "<<ii<<":"<<
+      EvtGenReport(EVTGEN_DEBUG,"EvtGen") <<"Daughter "<<ii<<":"<<
 	EvtPDL::name(p->getDaug(ii)->getId()).c_str()<<" with mass "<<
 	p->getDaug(ii)->mass()<<endl;
     }				   
@@ -175,8 +175,8 @@ void EvtDecayAmp::makeDecay(EvtParticle* p, bool recursive){
 	
 	if (!rho.check()) {
 	  
-	  report(ERROR,"EvtGen") << "-------start error-------"<<endl;
-	  report(ERROR,"EvtGen")<<"forward rho failed Check:"<<
+	  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "-------start error-------"<<endl;
+	  EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"forward rho failed Check:"<<
 	    EvtPDL::name(p->getId()).c_str()<<" "<<p->getChannel()<<" "<<i<<endl;
 	  
 	  p->printTree();
@@ -188,24 +188,24 @@ void EvtDecayAmp::makeDecay(EvtParticle* p, bool recursive){
 
 	  EvtParticle* pParent = p->getParent();
 	  if (pParent != 0) {
-	    report(ERROR,"EvtGen")<<"Parent:"<<EvtPDL::name(pParent->getId()).c_str()<<endl;
+	    EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"Parent:"<<EvtPDL::name(pParent->getId()).c_str()<<endl;
 
 	    EvtParticle* grandParent = pParent->getParent();
 
 	    if (grandParent != 0) {
-	      report(ERROR,"EvtGen")<<"GrandParent:"<<EvtPDL::name(grandParent->getId()).c_str()<<endl;
+	      EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"GrandParent:"<<EvtPDL::name(grandParent->getId()).c_str()<<endl;
 	    }
 	  }
 
-	  report(ERROR,"EvtGen") << " EvtSpinDensity rho: " << rho;
+	  EvtGenReport(EVTGEN_ERROR,"EvtGen") << " EvtSpinDensity rho: " << rho;
 	  
 	  _amp2.dump();
 
 	  for(size_t ii=0;ii<i+1;ii++){
-	    report(ERROR,"EvtGen") << "rho_list[" << ii << "] = " << rho_list[ii];
+	    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "rho_list[" << ii << "] = " << rho_list[ii];
 	  }
 
-	  report(ERROR,"EvtGen") << "-------Done with error-------"<<endl;  
+	  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "-------Done with error-------"<<endl;  
 
 	}
       
@@ -226,10 +226,10 @@ void EvtDecayAmp::makeDecay(EvtParticle* p, bool recursive){
       
       if (!p->getSpinDensityBackward().check()) {
 	
-	report(ERROR,"EvtGen")<<"rho_backward failed Check"<<
+	EvtGenReport(EVTGEN_ERROR,"EvtGen")<<"rho_backward failed Check"<<
 	  p->getId().getId()<<" "<<p->getChannel()<<endl;
       
-	report(ERROR,"EvtGen") << p->getSpinDensityBackward();
+	EvtGenReport(EVTGEN_ERROR,"EvtGen") << p->getSpinDensityBackward();
       
       }
     }    

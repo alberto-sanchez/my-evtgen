@@ -34,10 +34,10 @@ void EvtBtoXsgammaFlatEnergy::init(int nArg, double* args){
 
   if ((nArg) > 3 || (nArg > 1 && nArg <3)){
   
-  report(ERROR,"EvtGen") << "EvtBtoXsgamma generator model "
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "EvtBtoXsgamma generator model "
 			 << "EvtBtoXsgammaFlatEnergy expected " 
 			 << "either 1(default config) or two arguments but found: "<<nArg<<endl;
-  report(ERROR,"EvtGen") << "Will terminate execution!"<<endl;
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Will terminate execution!"<<endl;
     ::abort();  
   }
   _mB0=5.2794;  
@@ -53,9 +53,9 @@ void EvtBtoXsgammaFlatEnergy::init(int nArg, double* args){
     _eMax=args[2];
   }
   if (_eMax>(pow(_mB0,2)-pow(mPi+mK,2))/(2.0*_mB0)){
-    report(ERROR,"EvtGen") << "Emax greater than Kinematic limit" << endl;
-    report(ERROR,"EvtGen") << "Reset to the kinematic limit" << endl;
-    report(ERROR,"EvtGen") << "(m_B**2-(m_pi+m_k)**2)/(2m_B)" << endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Emax greater than Kinematic limit" << endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Reset to the kinematic limit" << endl;
+    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "(m_B**2-(m_pi+m_k)**2)/(2m_B)" << endl;
     _eMax = (pow(_mB0,2)-pow(mPi+mK,2))/(2.0*_mB0);
   }
   _eRange=_eMax-_eMin;

@@ -68,9 +68,9 @@ void EvtDecayIncoherent::makeDecay(EvtParticle* p, bool recursive){
 	p->getDaug(i)->setSpinDensityForward(rho);
       }
       else{
-	//report(INFO,"EvtGen") << "spinDensitymatrix already set!!!\n";
+	//EvtGenReport(EVTGEN_INFO,"EvtGen") << "spinDensitymatrix already set!!!\n";
 	EvtSpinDensity temp=p->getDaug(i)->getSpinDensityForward();
-	//	report(INFO,"EvtGen") <<temp<<endl;
+	//	EvtGenReport(EVTGEN_INFO,"EvtGen") <<temp<<endl;
       }
       //Now decay the daughter.  Really!
       p->getDaug(i)->decay();

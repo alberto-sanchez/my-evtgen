@@ -196,7 +196,7 @@ void EvtbTosllVectorAmp::CalcAmp( EvtParticle *parent,
       
     }
     else{
-      report(ERROR,"EvtGen") << "Wrong lepton number\n";
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Wrong lepton number\n";
       T1.zero(); T2.zero(); // Set all tensor terms to zero.
     }    
   }

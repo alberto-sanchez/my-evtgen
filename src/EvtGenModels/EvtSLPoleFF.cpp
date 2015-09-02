@@ -45,8 +45,8 @@ void EvtSLPoleFF::getscalarff(EvtId parent,EvtId,
 // from the arguements.
 
    if ( numSLPoleargs !=8 ) {
-     report(ERROR,"EvtGen") << "Problem in EvtSLPoleFF::getscalarff\n";
-     report(ERROR,"EvtGen") << "wrong number of arguements!!!\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Problem in EvtSLPoleFF::getscalarff\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "wrong number of arguements!!!\n";
    }
 
   double mb=EvtPDL::getMeanMass(parent);
@@ -75,9 +75,9 @@ void EvtSLPoleFF::getscalarff(EvtId parent,EvtId,
 			     double *a2f, double *vf, double *a0f ){
 
   if ( numSLPoleargs !=16 ) {
-     report(ERROR,"EvtGen") << "Problem in EvtSLPoleFF::getvectorff\n";
-     report(ERROR,"EvtGen") << "wrong number of arguements!!!\n";
-     report(ERROR,"EvtGen") << numSLPoleargs<<"\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Problem in EvtSLPoleFF::getvectorff\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "wrong number of arguements!!!\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << numSLPoleargs<<"\n";
   }
 
   double mb=EvtPDL::getMeanMass(parent);
@@ -121,8 +121,8 @@ void EvtSLPoleFF::getscalarff(EvtId parent,EvtId,
 			     double *kf, double *bpf, double *bmf ){
 
   if ( numSLPoleargs !=16 ) {
-     report(ERROR,"EvtGen") << "Problem in EvtSLPoleFF::gettensorff\n";
-     report(ERROR,"EvtGen") << "wrong number of arguements!!!\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Problem in EvtSLPoleFF::gettensorff\n";
+     EvtGenReport(EVTGEN_ERROR,"EvtGen") << "wrong number of arguements!!!\n";
   }
 
   double mb=EvtPDL::getMeanMass(parent);
@@ -163,7 +163,7 @@ void EvtSLPoleFF::getscalarff(EvtId parent,EvtId,
 void EvtSLPoleFF::getbaryonff(EvtId, EvtId, double, double, double*, 
 			       double*, double*, double*){
   
-  report(ERROR,"EvtGen") << "Not implemented :getbaryonff in EvtSLPoleFF.\n";  
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getbaryonff in EvtSLPoleFF.\n";  
   ::abort();
 
 }
@@ -171,7 +171,7 @@ void EvtSLPoleFF::getbaryonff(EvtId, EvtId, double, double, double*,
 void EvtSLPoleFF::getdiracff(EvtId, EvtId, double, double, double*, double*,
 			     double*, double*, double*, double*) {
   
-  report(ERROR,"EvtGen") << "Not implemented :getdiracff in EvtSLPoleFF.\n";
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getdiracff in EvtSLPoleFF.\n";
   ::abort();
 
 }
@@ -179,7 +179,7 @@ void EvtSLPoleFF::getdiracff(EvtId, EvtId, double, double, double*, double*,
 void EvtSLPoleFF::getraritaff(EvtId, EvtId, double, double, double*, double*, 
 			      double*, double*, double*, double*, double*, double*) {
   
-  report(ERROR,"EvtGen") << "Not implemented :getraritaff in EvtSLPoleFF.\n";
+  EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Not implemented :getraritaff in EvtSLPoleFF.\n";
   ::abort();
 
 }

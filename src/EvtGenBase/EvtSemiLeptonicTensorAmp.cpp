@@ -184,7 +184,7 @@ void EvtSemiLeptonicTensorAmp::CalcAmp( EvtParticle *parent,
 			    parent->getDaug(1)->spParent(1));
     }
     else{
-      report(ERROR,"EvtGen") << "dfnb89agngri wrong lepton number\n";
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "dfnb89agngri wrong lepton number\n";
     }
   }
  

@@ -105,9 +105,9 @@ std::ostream& operator<<(std::ostream& s, const Evt3Rank3C& t2){
   for(k=0;k<3;k++){
     for(i=0;i<3;i++){
       for(j=0;j<3;j++){
-	report(INFO,"EvtGen") <<t2.t[k][i][j];
+	EvtGenReport(EVTGEN_INFO,"EvtGen") <<t2.t[k][i][j];
       }
-      report(INFO,"EvtGen") << "\n";
+      EvtGenReport(EVTGEN_INFO,"EvtGen") << "\n";
     }
   }
   return s;

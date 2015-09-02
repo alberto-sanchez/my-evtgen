@@ -86,9 +86,9 @@ void EvtTVP::decay( EvtParticle *root ){
 // 	  cout << "(* AVL *) amp="<<amp<<endl;
 	  vertex(iChi, iGamma, iPsi, amp);
 	  amp2 = amp2 + abs2(amp);
-      };
-    };
-  };
+      }
+    }
+  }
 //   cout <<"(* AVL: amp2 = "<<amp2<<"*)"<<endl;
   
 }
@@ -112,5 +112,4 @@ void EvtTVP::init(){
 
 void EvtTVP::initProbMax() {
   setProbMax(1.);
-};
-
+}

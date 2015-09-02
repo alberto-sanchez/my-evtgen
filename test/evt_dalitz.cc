@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fstream>
-#include "EvtGenBase/EvtStdlibRandomEngine.hh"
+#include "EvtGenBase/EvtSimpleRandomEngine.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtParticle.hh"
@@ -57,8 +57,8 @@ int main(int argc, char* argv[]) {
 
   // Initialize EvtGen
 
-  EvtStdlibRandomEngine* eng = new EvtStdlibRandomEngine();
-  EvtRandom::setRandomEngine((EvtRandomEngine*)eng);
+  EvtRandomEngine* eng = new EvtSimpleRandomEngine();
+  EvtRandom::setRandomEngine(eng);
 
   EvtAbsRadCorr* radCorrEngine = 0;
   std::list<EvtDecayBase*> extraModels;
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
   extraModels = genList.getListOfModels();
 #endif
 
-  EvtGen myGenerator(decfile.c_str(),"../evt.pdl",(EvtRandomEngine*)eng,
+  EvtGen myGenerator(decfile.c_str(),"../evt.pdl",eng,
 		     radCorrEngine, &extraModels);
 
   // Initialize decay
@@ -103,6 +103,8 @@ int main(int argc, char* argv[]) {
     root_part->deleteTree();
 
   } while(count++ < N);
+
+  delete eng;
 
 }
 

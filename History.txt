@@ -4,6 +4,54 @@
 //
 //===========================================================================
 
+R01-04-00-------------------------------------------------------------------
+2nd April 2015 John Back
+    Removed the EvtStdlibRandomEngine class since this can produce biases
+    to kinematic distributions when one or more of the daughters is a 
+    resonance, such as B0 -> K pi psi (thanks to Antonio Augusto Alves Jr 
+    who discovered this issue). EvtSimpleRandomEngine is now the default 
+    random number generator in the validation and test examples.
+
+    Incorporated several additions and modifications from LHCb:
+    a) From Michal Kreps, Tom Blake & Christoph Langenbruch,
+       added rare Lb --> Lambda^(*) ell ell models described in
+       arXiv:1108.6129, with various form factors from Gutsche et al. 
+       (arXiv:1301.3737) and lattice QCD  (arXiv:1212.4827)
+    b) From Andrew Crocombe, implemented Bs --> K* form factors 
+       from Ball-Zwicky and z-parametrization form factors from 
+       arXiv:1006.4945 for EvtbTosllBallFF
+    c) Christoph Langenbruch fixed the Bs -> phi ll form factors in
+       EvtbTosllBallFF; T3 showed a non-physical pole at very low 
+       q2 which significantly affected the electron mode
+    d) From Michal Kreps, removed semicolons from wrong places to
+       clear warnings when compiled with the "-pedantic" option.
+
+9th October 2014 John Back
+    Change svnweb.cern.ch to svn.cern.ch in the setup script.
+
+1st April 2014 John Back
+     In EvtReport, modified the logging output severity status flags
+     to have the "EVTGEN_" prefix, e.g. INFO becomes EVTGEN_INFO. 
+     The global report() function has been renamed to EvtGenReport().
+
+31st March 2014 John Back
+     Added the ability to store named attributes for EvtParticles in the
+     form of a map<string, int>. The setAttribute(name, value) stores the
+     required value, while getAttribute(name) retrieves the integer value.
+     This is used in EvtPhotosEngine to specify the final-state radiation
+     "FSR" attribute to 1 for any additional photons (EvtPhotonParticles)
+     created by Photos++. It also stores the "ISR" attribute, but this 
+     is always set to zero, since only FSR photons are created.
+     If the named attribute doesn't exist, then getAttribute() returns zero.
+
+29th January 2014 Daniel Craik
+     Removed mass assertion on GS shape in EvtDalitzReso to allow it to also 
+     be used for charged rho resonances.
+
+27th January 2014 John Back
+     Minor corrections to Vub models to remove further gcc 4.8 warnings.
+     Updated configure script to work for MacOS clang (from Genser team).
+
 R01-03-00-------------------------------------------------------------------
 9th January 2014 John Back
      New tag version "1.3.0", incorporating all changes below.

@@ -156,7 +156,7 @@ void EvtbTosllScalarAmp::CalcAmp( EvtParticle *parent,
 
     }
     else{
-      report(ERROR,"EvtGen") << "Wrong lepton number\n";
+      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Wrong lepton number\n";
     }
   }
 

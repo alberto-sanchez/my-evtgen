@@ -1,6 +1,8 @@
 RELEASE NOTES 
 =============
 
+Please see History.txt for a detailed list of changes to this package.
+
 The major points comparing this version with the 2009 release are the following:
 
 1. This version requires HepMC (version 2.04 and above) for storing event structures
@@ -52,9 +54,10 @@ The major points comparing this version with the 2009 release are the following:
    This can only be fixed if these packages are converted to pure C++ code.
 
 
-2. This version of EvtGen is a merger of the latest LHCb and BaBar EvtGenBase
-   and EvtGenModels code. Various decay models have been added, and there
-   have been a range of bug fixes.
+2. This version of EvtGen is effectively a merger of the latest LHCb and BaBar 
+   EvtGenBase and EvtGenModels code. Various decay models have been added, and 
+   there have been a range of bug fixes.
+
 
 3. There is also a new Dalitz decay class model "GENERIC_DALITZ" 
    (EvtGenModels/EvtGenericDalitz.cpp), that should be used instead of EvtDDalitz. 
@@ -68,22 +71,19 @@ The major points comparing this version with the 2009 release are the following:
    Examples of xml Dalitz parameter files are given in the sub-directory 
    validation/DalitzFiles, e.g. see DalitzDecays.xml.
 
+
 4. It is possible to use decay files in xml format. Use the python script
    convertDecayFile.py for converting decay files to the new format. 
    The src/EvtGen.cpp constructor has an additional boolean argument useXml that 
    needs to be set to true if xml decay files are to be used (default is useXml=false).
    For example, DECAY_2010.XML is the xml version of DECAY_2010.DEC.
 
+
 5. Bug fixes for Bs mixing decay/CP violation amplitudes.
    Added the capability to use either coherent or incoherent mixing in EvtCPUtil. 
    One or the other can be chosen as the mixing method for the B system by
    choosing 0 (coherent) or 1 (incoherent) for the last integer argument 
    in the EvtGen() constructor.
-
-6. Added two sub-amplitude types LASS_ELASTIC and LASS_RESONANT to the EvtLASSAmp
-   model. Also added EvtBaryonPCR and EvtBaryonPCRFF models for baryonic semileptonic 
-   decays using more realistic dynamics. Changed EvtWilsonCoeficients to 
-   EvtWilsonCoefficients, used in EvtGenModels/EvtLb2Lll.hh.
 
 
 BUILDING THE CODE
@@ -92,7 +92,7 @@ BUILDING THE CODE
 To build the EvtGen code, first make sure that there is a valid (C++) version
 of HepMC avilable:
 
-HepMC    https://savannah.cern.ch/projects/hepmc
+HepMC    http://lcgapp.cern.ch/project/simu/HepMC/
 
 Optionally, it is possible to use other external generators, such as Pythia8
 (for Pythia decays in the DECAY.DEC file, for example), Photos (for
@@ -149,7 +149,7 @@ PYTHIADIR = <base directory of Pythia8>
 LIBS = -L${BASEDIR}/lib -L${HEPMCDIR}/lib -L${PHOTOSDIR}/lib \
        -L${TAUOLADIR}/lib -L${PYTHIADIR}/lib -lgfortran \
        -lHepMC -lPhotosCxxInterface -lPhotosFortran -lTauolaCxxInterface -lTauolaFortran \
-       -lpythia8 -llhapdfdummy -lhepmcinterface -lEvtGen -lEvtGenExternal
+       -lpythia8 -llhapdfdummy -lEvtGen -lEvtGenExternal
 
 Three example programs using EvtGen can be seen in the test sub-directory along 
 with the required Makefile. If there are errors about missing shared libraries,

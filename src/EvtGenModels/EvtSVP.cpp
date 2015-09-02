@@ -76,8 +76,8 @@ void EvtSVP::decay( EvtParticle *root ){
       //cout<<"EvtSVP::decay():  amp = "<<amp<<endl;
       
       vertex(iGamma, iPsi, amp);
-      };
-    };
+      }
+    }
   
 }
 
@@ -100,5 +100,4 @@ void EvtSVP::init(){
 
 void EvtSVP::initProbMax() {
     setProbMax(1.2);
-};
-
+}
