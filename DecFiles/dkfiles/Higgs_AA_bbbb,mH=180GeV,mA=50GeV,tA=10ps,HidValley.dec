@@ -1,0 +1,23 @@
+# $Id: Higgs_AA_bbbb,mH=180GeV,mA=50GeV,tA=10ps,HidValley.dec,v 1.1 2007/01/10 10:30:45 gcorti Exp $
+# 
+# Author Vanya BELYAEV ibelyaev@physics.syr.edu
+# Date   2006-12-22
+# 
+# Decay file for automatic options generation for the Hidden Valley production: 
+# Higgs decay into long lived particles.
+# M(H)=180 GeV , M(A)=50GeV , t(A)=10ps.
+# Generator selection: 3 b-quarks in acceptance.
+# Selection efficientcy: 100/952
+#
+# EventType: 43900005
+#
+# Descriptor: pp->(  H_20 -> ( H_30 -> b anti-b ) ( H_30 -> b anti-b) )
+#
+# NickName: Higgs_AA_bbbb,mH=180GeV,mA=50GeV,tA=10ps,HidValley
+#
+# ExtraOptions: HidValleyH
+#
+# ParticleValue: "H_20 88 35 0.0 180.0 9.4e-26 Higgs'0 35 0.0e+00" , "H_30 89 36 0.0  50.0 1.0e-11      A0 36 0.0e+00"
+# 
+End
+#

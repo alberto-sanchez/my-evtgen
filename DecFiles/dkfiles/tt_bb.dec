@@ -1,0 +1,22 @@
+# $Id: tt_bb.dec,v 1.4 2007/02/27 22:09:17 robbep Exp $
+#
+# EventType: 41900000
+#
+# Descriptor: pp => (t => b ...) (t~ => b~ ...) ... 
+#
+# NickName: tt_bb
+#
+# Physics:
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 5*GeV LeptonIsFromWZ true NumberOfbquarks 2 MotherOfThebquarks 6
+#
+# ExtraOptions: Top
+#
+# Tested: Yes
+# By: Cedric Potterat
+# Date: 20 Feb 2007
+#
+End
+#

@@ -1,1 +1,9 @@
-EvtGenLHC 
+
+This is EvtGenLHC package.
+
+This is the installation instruction specific for GENSER2.
+We remove author's sophisticated configuration scripts and 
+makefiles and use a simple ./configure script plus a set of makefiles 
+instead.
+Type './configure  --help' to list possible configuration options.
+

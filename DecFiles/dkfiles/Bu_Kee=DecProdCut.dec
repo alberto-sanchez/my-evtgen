@@ -1,0 +1,29 @@
+# $Id: Bu_Kee=DecProdCut.dec,v 1.1 2007/01/18 21:21:19 robbep Exp $
+#
+# This is the decay file for the decay B+ -> E+ E- K (gamma) 
+#
+# EventType: 12123001
+#
+# Descriptor: [B+ -> K+ e+ e- {,gamma} {,gamma}]cc  
+#
+# Cuts: DaughtersInLHCb
+#
+# NickName: Bu_Kee=DecProdCut
+#
+# Physics: Decay products in acceptance
+# 
+# Tested: Yes
+# By: P. Koppenburg
+# Date: 25 Jun 2004
+#
+#
+Decay B+sig
+  1.000        K+     e+      e-      BTOSLLBALL;
+Enddecay
+#
+Decay B-sig
+  1.000        K-     e+      e-      BTOSLLBALL;
+Enddecay
+#
+End
+#

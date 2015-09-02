@@ -1,0 +1,15 @@
+# $Id: incl_b=DiMuon.dec,v 1.2 2007/05/08 14:51:17 robbep Exp $
+#
+# EventType: 10012000
+#
+# Descriptor: pp => [<Xb>]cc ...
+#
+# NickName: incl_b=DiMuon
+#
+# FullEventCuts: DiLeptonInAcceptance
+#
+# ExtraOptions: DiMuon
+# 
+# Physics: Di-muon filter
+#
+End

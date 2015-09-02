@@ -1,0 +1,93 @@
+# $Id: Bs_Dst+X,incl.dec,v 1.1 2007/01/09 21:39:44 robbep Exp $
+#
+# This is the decay file for the decay Bs0 -> D*(-> D0 pi) X
+#
+# EventType: 13961000
+#
+# Descriptor: {[[B_s0]nos -> (D*(2010)- -> D~0 pi-) X]cc, [[B_s0]os -> (D*(2010)+ -> D0 pi+) X]cc, [[B_s0]nos -> (D*(2010)+ -> D0 pi+) X]cc, [[B_s0]os -> (D*(2010)- -> D~0 pi-) X]cc}
+#
+# NickName: Bs_Dst+X,incl
+#
+# Physics: Inclusive D* production (sum of exculsive modes), D not forced 
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 9 Jan 2007
+#
+Alias      MyD*+       D*+
+Alias      MyD*-       D*-
+ChargeConj MyD*+       MyD*-
+Alias      MyD'_s1-    D'_s1-
+Alias      MyD'_s1+    D'_s1+
+ChargeConj MyD'_s1-    MyD'_s1+
+Alias      MyD_s2*+    D_s2*+
+Alias      MyD_s2*-    D_s2*-
+ChargeConj MyD_s2*+    MyD_s2*-
+#
+Decay B_s0sig
+  0.0035   MyD'_s1-     e+    nu_e       PHOTOS ISGW2 ;
+  0.00035  MyD_s2*-     e+    nu_e       PHOTOS ISGW2 ;
+  0.0035   MyD'_s1-     mu+   nu_mu      PHOTOS ISGW2 ;
+  0.00035  MyD_s2*-     mu+   nu_mu      PHOTOS ISGW2 ;
+  0.0014   MyD'_s1-     tau+  nu_tau     ISGW2 ;
+  0.00014  MyD_s2*-     tau+  nu_tau     ISGW2 ;
+  0.0150   D_s*-        MyD*+   K0       PHSP ;
+  0.0050   D_s-         MyD*+   K0       PHSP ;
+  0.0030   D_s*-        MyD*+   K*0      PHSP ;
+  0.0025   D_s-         MyD*+   K*0      PHSP ;
+  0.0017   MyD*-        D_s+             SVS ;
+  0.0017   D_s*+        MyD*-          SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0 ;
+  0.0007   MyD*+        D-     anti-K0    PHSP ;
+  0.0007   MyD*+      anti-D0    K-       PHSP ;
+  0.0003   MyD*+        D-   pi0   anti-K0   PHSP ;
+  0.0007   MyD*+       anti-D0   pi-   anti-K0   PHSP ;
+  0.0003   MyD*+       D-        pi+   K-        PHSP ;
+  0.0007   MyD*+       anti-D0   pi0   K-        PHSP ;
+  0.000065 MyD_s2*-       pi+        STS ;
+Enddecay
+#
+Decay anti-B_s0sig
+  0.0035   MyD'_s1+     e-    anti-nu_e       PHOTOS ISGW2 ;
+  0.00035  MyD_s2*+     e-    anti-nu_e       PHOTOS ISGW2 ;
+  0.0035   MyD'_s1+     mu-   anti-nu_mu      PHOTOS ISGW2 ;
+  0.00035  MyD_s2*+     mu-   anti-nu_mu      PHOTOS ISGW2 ;
+  0.0014   MyD'_s1+     tau-  anti-nu_tau     ISGW2 ;
+  0.00014  MyD_s2*+     tau-  anti-nu_tau     ISGW2 ;
+  0.0150   D_s*+        MyD*-   anti-K0       PHSP ;
+  0.0050   D_s+         MyD*-   anti-K0       PHSP ;
+  0.0030   D_s*+        MyD*-   anti-K*0      PHSP ;
+  0.0025   D_s+         MyD*-   anti-K*0      PHSP ;
+  0.0017   MyD*+        D_s-             SVS ;
+  0.0017   D_s*-        MyD*+          SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0 ;
+  0.0007   MyD*-        D+     K0    PHSP ;
+  0.0007   MyD*-        D0    K+       PHSP ;
+  0.0003   MyD*-        D+   pi0   K0   PHSP ;
+  0.0007   MyD*-        D0   pi+   K0   PHSP ;
+  0.0003   MyD*-        D+        pi-   K+        PHSP ;
+  0.0007   MyD*-        D0   pi0    K+        PHSP ;
+  0.000065 MyD_s2*+       pi-        STS ;
+Enddecay
+#
+Decay MyD'_s1+
+  0.5   MyD*+     K0    VVS_PWAVE 0. 0. 0. 0. 1. 0. ;
+Enddecay
+Decay MyD'_s1-
+  0.5   MyD*-     anti-K0   VVS_PWAVE 0. 0. 0. 0. 1. 0. ;
+Enddecay
+#
+Decay MyD_s2*+
+  0.05     MyD*+     K0      TVS_PWAVE 0.0 0.0 1.0 0.0 0. 0. ;
+Enddecay
+Decay MyD_s2*-
+  0.05     MyD*-     anti-K0   TVS_PWAVE 0.0 0.0 1.0 0.0 0. 0. ;
+Enddecay
+#
+Decay MyD*+
+  0.6830    D0       pi+          VSS;
+Enddecay
+Decay MyD*-
+  0.6830    anti-D0  pi-          VSS;
+Enddecay
+#
+End
+#

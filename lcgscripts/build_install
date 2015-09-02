@@ -1,0 +1,130 @@
+#!/bin/sh
+#
+
+export GENERATOR=evtgenlhc
+export VERSION=8.15
+#
+
+if [ x$MCGENERATORS = x ]; then
+  echo You have to define MCGENERATORS variable at first.
+  echo If you want to write your version into MCGENERATORS replica,
+  echo you should define MCGENERATORS=/afs/.cern.ch/sw/lcg/external/MCGenerators
+  exit 1
+fi
+
+# LCGplatform definition
+. ${MCGENERATORS}/scripts/platform_functions
+LCGPLATFORM=$(check_platform)
+echo LCGPLATFORM is ${LCGPLATFORM}
+
+if [ "x$1" = "x" ] ; then
+  echo Usage: build_install arg1  with arg1 = install or test or installfromtest
+  echo default test directory is MCGenerators/test or MCGTESTDIR if set
+  exit 1
+fi
+
+INSTALLDIR=${MCGENERATORS}
+if [ "$1" = "test" ] || [ "$1" = "installfromtest" ] ; then
+  INSTALLDIR=${MCGENERATORS}/test
+  if [ "x${MCGTESTDIR}" != "x" ]; then
+    INSTALLDIR=${MCGTESTDIR}
+  fi
+fi
+
+#
+if [ "$1" = "install" ] ; then
+  echo building ${GENERATOR} and installing it at the nominal place
+elif [ "$1" = "test" ] ; then
+  echo building ${GENERATOR} and installing it at ${INSTALLDIR}
+elif [ "$1" = "installfromtest" ] ; then
+  echo copying ${GENERATOR} version ${VERSION} from ${INSTALLDIR} to the nominal place
+  rm -rf ${MCGENERATORS}/${GENERATOR}/${VERSION}/${LCGPLATFORM}
+  rm -rf ${MCGENERATORS}/${GENERATOR}/${VERSION}/share
+  mkdir -p ${MCGENERATORS}/${GENERATOR}/${VERSION}
+  rcp -rp ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM} ${MCGENERATORS}/${GENERATOR}/${VERSION}/.
+  rcp -rp ${INSTALLDIR}/${GENERATOR}/${VERSION}/share ${MCGENERATORS}/${GENERATOR}/${VERSION}/.
+  rcp -rp ${INSTALLDIR}/distribution/${GENERATOR}-${VERSION}-${LCGPLATFORM}.tgz ${MCGENERATORS}/distribution/.
+  exit 1
+else
+  echo Usage: build_install arg1  with arg1 = install or test or installfromtest
+  echo default test directory is MCGenerators/test or MCGTESTDIR if set
+  exit 1
+fi
+
+#
+mkdir -p build
+cd build
+cp -f ${MCGENERATORS}/distribution/${GENERATOR}-${VERSION}-src.tgz .
+if [ ! -e ${GENERATOR}-${VERSION}-src.tgz ]; then
+  echo There is no source tarball ${GENERATOR}-${VERSION}-src.tgz in .../MCGenerators/distribution! Exiting.
+  exit 1
+fi
+rm -rf ${GENERATOR}
+tar xvfz ${GENERATOR}-${VERSION}-src.tgz
+
+cd ${GENERATOR}/${VERSION}
+
+rm -f compile.log
+
+echo running lcg_configure...
+./lcg_configure >& compile.log
+
+echo compiling...
+rm -f compile1.log
+make >& compile1.log
+cat compile1.log >> compile.log
+rm -f compile1.log
+#
+
+echo cleaning...
+find . -name 'CVS' -exec rm -rf {} \;
+rm -rf lcgscripts
+rm -rf tmp
+
+echo copying to ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM} ...
+
+rm -rf ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM}
+rm -rf ${INSTALLDIR}/${GENERATOR}/${VERSION}/share
+mkdir -p ${INSTALLDIR}/${GENERATOR}/${VERSION}
+
+cd ${INSTALLDIR}/${GENERATOR}/${VERSION}
+mkdir ${LCGPLATFORM}
+mkdir share
+cd -
+rcp -rp * ${INSTALLDIR}/${GENERATOR}/${VERSION}/share/.
+rm -f ${INSTALLDIR}/${GENERATOR}/${VERSION}/share/config.mk
+rm -f ${INSTALLDIR}/${GENERATOR}/${VERSION}/share/compile.log
+rm -rf ${INSTALLDIR}/${GENERATOR}/${VERSION}/share/data
+rm -rf ${INSTALLDIR}/${GENERATOR}/${VERSION}/share/lib
+
+cp -f config.mk ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM}/.
+cp -f compile.log ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM}/.
+cp -rp lib/ ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM}/.
+
+cd ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM}/
+for dir in cmt EvtGen EvtGenBase EvtGenModels ; do 
+	ln -s ../share/$dir .
+done
+
+#    preparing tarball with libraries:
+cd -
+cd ..
+
+mkdir tmp
+cd tmp
+mkdir -p ${GENERATOR}/${VERSION}/${LCGPLATFORM}
+cd ${GENERATOR}/${VERSION}/${LCGPLATFORM}
+
+rcp -rp ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM}/lib .
+cp -f ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM}/config.mk .
+cp -f ${INSTALLDIR}/${GENERATOR}/${VERSION}/${LCGPLATFORM}/compile.log .
+
+cd ../../..
+
+tar -czf ${GENERATOR}-${VERSION}-${LCGPLATFORM}.tgz ${GENERATOR}
+mkdir -p ${INSTALLDIR}/distribution
+mv ${GENERATOR}-${VERSION}-${LCGPLATFORM}.tgz ${INSTALLDIR}/distribution/.
+cd ..
+rm -rf tmp
+
+echo successfully finished

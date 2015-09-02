@@ -1,0 +1,31 @@
+# $Id: Bu_D0K,Kmunu.dec,v 1.1 2007/02/07 18:43:59 robbep Exp $
+#
+# This is the decay file for the decay B+ -> D0bar (K mu nu) K+
+# 
+# EventType: 12573010
+#
+# Descriptor: [B+ -> (D~0 -> K+ mu- anti-nu_mu) K+]cc
+#
+# NickName: Bu_D0K,Kmunu
+#
+# Physics:
+#
+# Tested: Yes
+# By: Mitesh Patel
+# Date: 7 Feb 2007
+#
+Alias      MyD0        D0
+Alias Myanti-D0   anti-D0
+ChargeConj        MyD0       Myanti-D0
+#
+Decay B+sig
+  1.000     Myanti-D0  K+               PHSP;
+Enddecay
+CDecay B-sig
+#
+Decay Myanti-D0
+  1.000        K+  mu- anti-nu_mu       ISGW2;
+Enddecay
+CDecay MyD0
+#
+End

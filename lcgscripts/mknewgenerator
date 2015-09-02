@@ -1,0 +1,145 @@
+#!/bin/sh
+
+#--- Revision 13.12.2006 by ozenin@cern.ch ----
+#--- Revision 21.05.2007 by Alexander.Toropin@cern.ch ----
+
+#package-dependent:>
+
+# Evtgenlhc version v8r15 with DataFiles version v13r10
+
+GENERATOR=evtgenlhc
+VERSION=8.15
+LHCB_CVS_TAG=$(echo ${VERSION} | sed 's/^/v/;s/\./r/;')
+LHCB_PARTICLE_DATA_CVS_TAG=v13r10
+
+LHCb_URL=http://isscvs.cern.ch/cgi-bin/cvsweb.cgi/Gen/EvtGen/doc/release.notes?cvsroot=lhcb
+BASE_URL=http://www.slac.stanford.edu/~lange/EvtGen/
+
+if [ x$MCGENERATORS = x ]; then
+  echo
+  echo MCGENERATORS variable is not defined !
+  echo it can be defined as a path to replica of MCGenerators area: 
+  echo MCGENERATORS=/afs/.cern.ch/sw/lcg/external/MCGenerators
+  echo
+  exit 1
+fi
+
+SRC_GENSER_TARFILE=${MCGENERATORS}/tarFiles/${GENERATOR}-${VERSION}.tgz
+
+#-------------------------------------------------------------------------------
+
+post_install () {
+cat <<EOT
+
+---------------------------------------------------
+
+Installation of ${GENERATOR} ${VERSION} to 
+${WORKDIR}/simu/GENSER2/build/${GENERATOR}/ finished.
+
+You may add new examples, etc. 
+Not that a content of *this* directory is created only for build purposes
+and should not be committed to simu/GENSER2/
+
+All the changes must be performed and checked into CVS 
+in .../simu/GENSER2/${GENERATOR} which is the skeleton of 
+${GENERATOR} build directory.
+
+---------------------------------------------------
+
+EOT
+}
+
+#--------------------------------------------------------------------------------
+
+rm -rf ${GENERATOR}
+mkdir ${GENERATOR}
+mv simu/GENSER2/${GENERATOR} ${GENERATOR}/${VERSION}
+rm -rf simu
+
+cd ${GENERATOR}/${VERSION}
+
+cp src/Makefile makefile
+rm -rf src
+
+echo -n "Looking for a stored source tarball ${SRC_GENSER_TARFILE} ..."
+
+if [ -s ${SRC_GENSER_TARFILE} ] ; then
+  echo -ne " found.\nInflating it ... "
+  tar zxvf ${SRC_GENSER_TARFILE}
+  echo " done"
+else
+  echo " not found. Checking it out from LHCb CVS:"
+  cvs -d :kserver:isscvs.cern.ch:/local/reps/lhcb co -r ${LHCB_CVS_TAG} Gen/EvtGen
+  cvs -d :kserver:isscvs.cern.ch:/local/reps/lhcb co -r ${LHCB_PARTICLE_DATA_CVS_TAG} Gen/DecFiles
+# Attention !!!! Very temporary thing to avoid problem with decays Xi_cc*
+# Taking file modified by O.Zenin for evtgenlhc-8.14
+cd Gen/DecFiles/dkfiles
+mv DECAY.DEC DECAY.DEC.save
+cp $MCGENERATORS/evtgenlhc/8.14/share/DecFiles/dkfiles/DECAY.DEC .
+cd -
+# Attention !!!! Very temporary thing to avoid problem with decays Xi_cc*
+  echo ---- Preparing tarball for .../MCGenerators/tarFiles ....
+  tar -czf ${GENERATOR}-${VERSION}.tgz Gen/
+  cp -f ${GENERATOR}-${VERSION}.tgz ${MCGENERATORS}/tarFiles/.
+  rm -f ${GENERATOR}-${VERSION}.tgz
+fi
+
+mv ./Gen/EvtGen/* .
+
+mv makefile src/Makefile
+
+mkdir -p ./doc/
+
+if [ "x${BASE_URL}" != "x" ] ; then
+	cat > ./doc/URL <<EOT
+
+${GENERATOR} home page:
+${BASE_URL}
+EOT
+fi
+
+if [ "x${LHCb_URL}" != "x" ] ; then
+	cat > ./doc/LHCb_URL <<EOT
+
+${LHCb_URL}
+EOT
+fi
+
+mv ./Gen/DecFiles/ .
+rm -fr ./Gen/
+mv -f ./DecFiles/doc/release.notes ./doc/release.notes_DecFiles
+rm -fr ./DecFiles/doc/
+rm -f makefile.mcginstall
+rm -rf data
+
+cat > README <<EOT
+
+This is EvtGenLHC package.
+
+This is the installation instruction specific for GENSER2.
+We remove author's sophisticated configuration scripts and 
+makefiles and use a simple ./configure script plus a set of makefiles 
+instead.
+Type './configure  --help' to list possible configuration options.
+
+EOT
+#
+
+cd ../
+
+echo
+echo ----- cleaning .....
+echo
+find . -name 'CVS' -exec rm -rf {} \;
+
+echo
+echo ---- Preparing tarball with source files .....
+echo
+
+cd ../
+
+tar -czf ${GENERATOR}-${VERSION}-src.tgz ${GENERATOR}
+cp -f ${GENERATOR}-${VERSION}-src.tgz ${MCGENERATORS}/distribution/.
+
+post_install
+exit

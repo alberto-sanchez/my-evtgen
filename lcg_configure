@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+
+if [ x$MCGENERATORS = x ]; then
+  echo
+  echo MCGENERATORS variable is not defined !
+  echo it can be defined as a path to replica of MCGenerators area: 
+  echo MCGENERATORS=/afs/.cern.ch/sw/lcg/external/MCGenerators
+  echo
+  exit 1
+fi
+
+./configure 

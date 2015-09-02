@@ -1,0 +1,31 @@
+# $Id: Bd_pipipi=CPV,DecProdCut.dec,v 1.1 2007/01/22 21:15:07 robbep Exp $
+#
+# This is the decay file for the decay B0 -> PI+ PI- PI0(-> GAMM GAMM)
+#
+# EventType: 11102402
+#
+# Descriptor: [B0 => pi+ pi- (pi0 -> gamma gamma)]cc
+#
+# NickName: Bd_pipipi=CPV,DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Includes CP violation, includes rho resonances, pi0 forced to gamma gamma
+#
+# Tested: Yes
+# By:
+# Date:
+#
+Alias      Mypi0   pi0
+ChargeConj Mypi0   Mypi0
+Decay B0sig
+1.000       pi+     pi-     Mypi0     BTO3PI_CP dm alpha;
+Enddecay
+CDecay anti-B0sig
+#
+Decay Mypi0
+  1.000     gamma   gamma             PHSP;
+Enddecay
+#
+End
+

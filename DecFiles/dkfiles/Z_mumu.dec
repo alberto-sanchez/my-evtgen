@@ -1,0 +1,22 @@
+# $Id: Z_mumu.dec,v 1.2 2007/02/27 22:09:17 robbep Exp $
+#
+# EventType: 42112000
+#
+# Descriptor: pp -> (Z0 -> mu+ mu-) ... 
+#
+# NickName: Z_mumu
+#
+# Physics: 1 lepton with pT > 4 GeV
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+#
+# ExtraOptions: Zmumu
+#
+# Tested: Yes
+# By: Karol Hennessy
+# Date: 27 Oct 2005
+#
+End
+#

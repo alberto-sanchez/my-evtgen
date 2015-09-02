@@ -1,0 +1,20 @@
+# $Id: beamGasVelo,12=Xenon.dec,v 1.1 2007/03/07 17:03:37 gcorti Exp $
+#
+# This decay file contains the steering for beam gas (on Xenon) using
+# Hijing as production engine. It is for beam 1 and 2 at the same time.
+#
+# Author Daniele Gregori
+# Date   2007-03-05
+# Tested Yes
+#
+# EventType: 60000054
+#
+# Descriptor: p Xe131[0.0] => ?
+#
+# NickName: beamGasVelo,12=Xenon
+#
+# Production: Hijing
+#
+# ExtraOptions: BeamGasVeLo
+#
+End

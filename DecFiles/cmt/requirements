@@ -1,0 +1,12 @@
+package DecFiles
+
+version v13r10
+
+branches dkfiles options doc cmt scripts
+
+#=============================================================
+private
+
+macro make_option_files "make_options"
+
+setup_script $(make_option_files)

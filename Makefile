@@ -41,5 +41,3 @@ help:
 
 .PHONY: examples dumm pdfdumm distclean clean tmp	
 
-
-

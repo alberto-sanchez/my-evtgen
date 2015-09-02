@@ -1,0 +1,168 @@
+# $Id: Bu_Dst+X,incl.dec,v 1.1 2007/01/09 21:39:44 robbep Exp $
+#
+# This is the decay file for the decay B+ -> D*(-> D0( -> Kpi, pipi, KK, piK ) pi) X
+#
+# EventType: 12961000
+#
+# Descriptor: {[B+ -> (D*(2010)- -> D~0 pi-) X]cc, [B+ -> (D*(2010)+ -> D0 pi+) X]cc}
+#
+# NickName: Bu_Dst+X,incl
+#
+# Physics: Inclusive D* production (sum of exculsive modes), D not forced
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 9 Jan 2007
+#
+Alias      MyD*+       D*+
+Alias      MyD*-       D*-
+ChargeConj MyD*+       MyD*-
+# 66.7 %
+Alias      MyD_10      D_10
+Alias      Myanti-D_10      anti-D_10
+ChargeConj Myanti-D_10      MyD_10
+# 66.7 %
+Alias      MyD'_10     D'_10
+Alias      Myanti-D'_10     anti-D'_10
+ChargeConj Myanti-D'_10     MyD'_10
+# 20.9 %
+Alias      MyD_2*0     D_2*0
+Alias      Myanti-D_2*0     anti-D_2*0
+ChargeConj MyD_2*0     Myanti-D_2*0
+#
+Decay B+sig
+  0.0037352   Myanti-D_10    e+   nu_e    PHOTOS   ISGW2 ;
+  0.006       Myanti-D'_10   e+   nu_e    PHOTOS   ISGW2 ;
+  0.000627    Myanti-D_2*0   e+   nu_e    PHOTOS   ISGW2 ;
+  0.0006      MyD*-          pi+   e+   nu_e   PHOTOS GOITY_ROBERTS ;
+#
+  0.0037352   Myanti-D_10    mu+   nu_mu    PHOTOS   ISGW2 ;
+  0.006       Myanti-D'_10   mu+   nu_mu    PHOTOS   ISGW2 ;
+  0.000627    Myanti-D_2*0   mu+   nu_mu    PHOTOS   ISGW2 ;
+  0.0006      MyD*-          pi+   mu+   nu_mu   PHOTOS GOITY_ROBERTS ;
+#
+  0.0008671   Myanti-D_10    tau+   nu_tau   ISGW2 ;
+  0.001334    Myanti-D'_10   tau+   nu_tau   ISGW2 ;
+  0.000418    Myanti-D_2*0   tau+   nu_tau   ISGW2 ;
+#
+  0.0004      Myanti-D'_10   D_s+            SVS ;
+  0.0008      Myanti-D'_10   D_s*+           SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0 ;
+  0.0008      Myanti-D_10    D_s+            SVS ;
+  0.0016      Myanti-D_10    D_s*+           SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0 ;
+  0.0008778   Myanti-D_2*0   D_s+            STS ;
+  0.000836    Myanti-D_2*0   D_s*+           PHSP ;
+#
+  0.0049      anti-D0   MyD*+    K0          PHSP ;
+  0.0005      MyD*+     D-       K+          PHSP ;
+  0.0015      D+        MyD*-    K+          PHSP ;
+  0.0015      MyD*+     D*-      K+          PHSP ;
+  0.0015      D*+       MyD*-    K+          PHSP ;
+  0.0025      anti-D0   MyD*+    K*0         PHSP ;
+  0.0050      anti-D*0  MyD*+    K*0         PHSP ;
+  0.0005      MyD*+     D-       K*+         PHSP ;
+  0.0005      D+        MyD*-    K*+         PHSP ;
+  0.0010      MyD*+     D*-      K*+         PHSP ;
+  0.0010      D*+       MyD*-    K*+         PHSP ;
+#
+  0.000335    MyD*+     anti-D0       SVS ;
+  0.00104     anti-D*0  MyD*+         SVV_HELAMP 0.56 0.0 0.96 0.0 0.47 0.0 ;
+#
+  0.00125     MyD*-   pi+    pi+      PHSP ;
+  0.0020      MyD*-   rho+   pi+      PHSP ;
+  0.0150      MyD*-   pi0   pi+   pi+   PHSP ;
+  0.000667    Myanti-D_10   pi+    SVS ;
+  0.0005      Myanti-D'_10  pi+    SVS ;
+  0.000016    Myanti-D_2*0  pi+    STS ;
+  0.0004669   Myanti-D_10   rho+   PHSP ;
+  0.0014674   Myanti-D'_10  rho+   PHSP ;
+  0.0007942   Myanti-D_2*0  rho+   PHSP ;
+#
+  0.00000054 MyD*+   pi0   SVS ;
+  0.000006   MyD*+   anti-K0    SVS ;
+Enddecay
+#
+Decay B-sig
+  0.0037352   MyD_10    e-   anti-nu_e    PHOTOS   ISGW2 ;
+  0.006       MyD'_10   e-   anti-nu_e    PHOTOS   ISGW2 ;
+  0.000627    MyD_2*0   e-   anti-nu_e    PHOTOS   ISGW2 ;
+  0.0006      MyD*+          pi-  e-   anti-nu_e   PHOTOS GOITY_ROBERTS ;
+#
+  0.0037352   MyD_10    mu-   anti-nu_mu    PHOTOS   ISGW2 ;
+  0.006       MyD'_10   mu-   anti-nu_mu    PHOTOS   ISGW2 ;
+  0.000627    MyD_2*0   mu-   anti-nu_mu    PHOTOS   ISGW2 ;
+  0.0006      MyD*+          pi-   mu-   anti-nu_mu   PHOTOS GOITY_ROBERTS ;
+#
+  0.0008671   MyD_10    tau-   anti-nu_tau   ISGW2 ;
+  0.001334    MyD'_10   tau-   anti-nu_tau   ISGW2 ;
+  0.000418    MyD_2*0   tau-   anti-nu_tau   ISGW2 ;
+#
+  0.0004      MyD'_10   D_s-            SVS ;
+  0.0008      MyD'_10   D_s*-           SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0 ;
+  0.0008      MyD_10    D_s-            SVS ;
+  0.0016      MyD_10    D_s*-          SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0 ;
+  0.0008778   MyD_2*0   D_s-            STS ;
+  0.000836    MyD_2*0   D_s*-           PHSP ;
+#
+  0.0049      D0   MyD*-    anti-K0          PHSP ;
+  0.0005      MyD*-     D+       K-          PHSP ;
+  0.0015      D-        MyD*+    K-          PHSP ;
+  0.0015      MyD*-     D*+      K-          PHSP ;
+  0.0015      D*-       MyD*+    K-          PHSP ;
+  0.0025      D0   MyD*-    anti-K*0         PHSP ;
+  0.0050      D*0  MyD*-    anti-K*0         PHSP ;
+  0.0005      MyD*-     D+       K*-         PHSP ;
+  0.0005      D-        MyD*+    K*-         PHSP ;
+  0.0010      MyD*-     D*+      K*-         PHSP ;
+  0.0010      D*-       MyD*+    K*-         PHSP ;
+#
+  0.000335    MyD*-     D0       SVS ;
+  0.00104     D*0  MyD*-         SVV_HELAMP 0.47 0.0 0.96 0.0 0.56 0.0 ;
+#
+  0.00125     MyD*+   pi-    pi-      PHSP ;
+  0.0020      MyD*+   rho-   pi-      PHSP ;
+  0.0150      MyD*+   pi0   pi-   pi-   PHSP ;
+  0.000667    MyD_10   pi-    SVS ;
+  0.0005      MyD'_10  pi-    SVS ;
+  0.000016    MyD_2*0  pi-    STS ;
+  0.0004669   MyD_10   rho-   PHSP ;
+  0.0014674   MyD'_10  rho-   PHSP ;
+  0.0007942   MyD_2*0  rho-   PHSP ;
+#
+  0.00000054 MyD*-   pi0   SVS ;
+  0.000006   MyD*-   K0    SVS ;
+Enddecay
+#
+SetLineshapePW MyD_10  MyD*+   pi-  2 
+SetLineshapePW Myanti-D_10 MyD*-  pi+  2
+Decay MyD_10
+  0.6667    MyD*+      pi-          VVS_PWAVE 0.0 0.0 0.0 0.0 1.0 0.0;
+Enddecay
+Decay Myanti-D_10
+  0.3333    MyD*-      pi+          VVS_PWAVE 0.0 0.0 0.0 0.0 1.0 0.0;
+Enddecay
+#
+Decay MyD'_10
+  0.6667    MyD*+      pi-          VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+Decay Myanti-D'_10
+  0.3333    MyD*-      pi+          VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+#
+SetLineshapePW  MyD_2*0  MyD*+ pi-  2
+SetLineshapePW  Myanti-D_2*0  MyD*- pi+  2
+Decay MyD_2*0
+  0.1030    MyD*+      pi-          TVS_PWAVE 0.0 0.0 1.0 0.0 0.0 0.0;
+Enddecay
+Decay Myanti-D_2*0
+  0.1030    MyD*-      pi+          TVS_PWAVE 0.0 0.0 1.0 0.0 0.0 0.0;
+Enddecay
+#
+Decay MyD*+
+  0.6830    D0       pi+          VSS;
+Enddecay
+Decay MyD*-
+  0.6830    anti-D0  pi-          VSS;
+Enddecay
+#
+End
+#

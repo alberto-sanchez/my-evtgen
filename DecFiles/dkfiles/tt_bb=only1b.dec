@@ -1,0 +1,22 @@
+# $Id: tt_bb=only1b.dec,v 1.3 2007/02/27 22:09:17 robbep Exp $
+#
+# EventType: 41900001
+#
+# Descriptor: pp => (t => b ...) (t~ => b~ ...) ... 
+#
+# NickName: tt_bb=only1b
+#
+# Physics: Only 1 b in LHCb acceptance
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 10*GeV LeptonIsFromWZ true NumberOfbquarks 1 MotherOfThebquarks 6
+#
+# ExtraOptions: Top
+#
+# Tested: Yes
+# By: Cedric Potterat
+# Date: 20 Feb 2007
+#
+End
+#

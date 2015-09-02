@@ -6,6 +6,194 @@
 ! The documentation for event types can be found at the web address:
 ! http://lhcb-comp.web.cern.ch/lhcb-comp/event_types_v2.1.pdf
 
+!===================== DecFiles v13r10 2007-05-16 =============================
+! 2007-05-08 - Patrick Robbe
+ - New event types:
+  . 14143011 Bc_Jpsipi,mm=BcVegPy,DecProdCut
+ - create_options.py: mofidy to take into account signal production of Bc with 
+   special generator BcVegPy and pile-up
+ - add DiMuon.opts file to generate DiMuon samples with repeatDecay method
+
+! 2007-05-02 - Patrick Robbe
+ - New event types:
+  . 11104000 Bd_Kst0Kst0.dec
+  . 11104001 Bd_Kst0Kst0=DecProdCut.dec
+  . 13104001 Bs_Kst0Kst0=DecProdCut.dec
+  . 13104000 Bs_Kst0Kst0.dec (update decay parameters)
+
+! 2007-04-27 - Patrick Koppenburg
+ - Bug fix in the new event types Bs_Kstmumu and  Bs_Kstmumu=DecProdCut:
+   Bs->K*~mumu, not K*mumu.
+
+! 2007-04-27 - Patrick Robbe
+ - Add new event types:
+   . 13114010, Bs_Kstmumu
+   . 13114011, Bs_Kstmumu=DecProdCut
+
+! 2007-04-26 - Patrick Robbe
+ - Add new event types:
+   . 12103401, Bu_rho+rho0=DecProdCut
+   . 11102411, Bd_rho+rho-=DecProdCut
+   . 11104011, Bd_rho0rho0=DecProdCut
+
+! 2007-03-27 - Patrick Robbe
+ - Add new event type:
+   . 40911007, Higgs_bb=mH140GeV,onlyl,10GeV
+
+!===================== DecFiles v13r9 2007-03-09 =============================
+! 2007-03-09 - Patrick Robbe
+ - Add new event types:
+   . 10012000, incl_b=DiMuon
+   . 30012000, minbias=DiMuon
+
+! 2007-03-08 - Patrick Robbe
+ - Modify Higgs.opts, Top.opts, Wenue.opts, Wmunumu.opts, WZenuebb.opts,
+   WZmunumubb.opts, Zee.opts, Zmumu.opts, ZZeebb.opts, ZZmumubb.opts to 
+   include proper options for pile-up generation.
+
+! 2007-03-07 - Gloria CORTI
+ - Introduce changes in create_options.py to generate options for Beam Gas
+   in LHCb (Velo). 
+ - Add options for beam gas in Velo with various gases (provided by Daniele
+   GREGORI):
+   . 60000006, beamGasVelo,12=Carbon.dec 
+   . 60000001, beamGasVelo,12=Hydrogen.dec
+   . 60000008, beamGasVelo,12=Oxygen.dec
+   . 60000054, beamGasVelo,12=Xenon.dec
+   . 60001006, beamGasVelo,1=Carbon.dec
+   . 60001001, beamGasVelo,1=Hydrogen.dec
+   . 60001008, beamGasVelo,1=Oxygen.dec
+   . 60001054, beamGasVelo,1=Xenon.dec
+   . 60002006, beamGasVelo,2=Carbon.dec
+   . 60002001, beamGasVelo,2=Hydrogen.dec
+   . 60002008, beamGasVelo,2=Oxygen.dec
+   . 60002054, beamGasVelo,2=Xenon.dec
+ - Remove obsolete decay file for beam gas in Velo (replaced by 60001001)
+   . bkg_gas=VELO.dec
+ - Introduce {} in options written with keyword ParticleTable
+
+! 2007-03-03 - Patrick Robbe
+ - Use ExtraOptions keyword to include "Higgs.opts" instead of being
+   hardwired in create_options.py
+ 
+! 2007-02-22 - Gloria CORTI
+ - Add new decay file for D0_mumu=DecProdCut (event type 22112001), provided
+   by Victor EGORYCHEV
+
+! 2007-03-01 - Patrick Robbe
+ - Modify create_option script to use the "ParticleTable" keyword to
+   add a table to the ParticlePropertySvc instead of overwriting it
+   (linked to the option OtherFiles of the service)
+ - Modify Higgs decay files to use "ParticleValue" to set the mass
+   instead of specific Pythia options.
+
+! 2007-02-27 - Patrick Robbe for Victor Coco
+ - Modify create_option script to handle generation of special Higgs,
+   top, W and Z events
+ - Update decay files for:
+    . 40911001 Higgs_bb=mH115GeV,onlyl
+    . 40911000 Higgs_bb=mH115GeV 
+    . 40911006 Higgs_bb=mH120GeV,onlyl,10GeV
+    . 40911003 Higgs_bb=mH120GeV,onlyl
+    . 40911002 Higgs_bb=mH120GeV
+    . 40911005 Higgs_bb=mH140GeV,onlyl
+    . 40911004 Higgs_bb=mH140GeV
+    . 41900000 tt_bb
+    . 41900001 tt_bb=only1b
+    . 41900002 tt_bb=onlyl,10GeV
+    . 42321000 W_enue
+    . 42311000 W_munumu
+    . 42921000 WZ_enue,bb
+    . 42911000 WZ_munumu,bb
+    . 42122000 Z_ee
+    . 42112000 Z_mumu
+    . 42922000 ZZ_ee,bb
+    . 42912000 ZZ_mumu,bb
+
+!===================== DecFiles v13r8 2007-02-07 =============================
+! 2007-02-07 - Patrick Robbe
+ - Add new event types 12573010 (Bu_D0K,Kmunu) and 12573011 
+   (Bu_D0K,Kmunu=DecProdCut)
+
+! 2007-02-07 - Patrick Robbe
+ - Add event types 15102308 (Lb_gammaLambda=pol,DecProdCut) and 
+   15102228 (Lb_gammaLambda1670=pol,DecProdCut)
+
+! 2007-01-25 - Patrick Robbe
+ - Add event type 12203021, Bu_pi+pi-K+=res,DecProdCut
+
+! 2007-01-24 - Patrick Robbe
+ - Adapt option script for polarized Lambda_b
+
+!===================== DecFiles v13r7 2007-01-23 ==============================
+! 2007-01-23 - Gloria Corti
+ - Remove spread of beam from BeamGasVeLo.opts because it would prevent easy
+   options setting for PilotRun in production.
+ 
+! 2007-01-22 - Patrick Robbe for Alexei Morozov
+ - Fix decay parameters in Bu_phiKgamma and Bu_phiKgamma=DecProdCut
+ - Add new event types:
+   . 12165102: Bu_D0K,KSpipi=DecProdCut
+   . 12165103: Bu_D0K,KSpipi=CPV,DecProdCut
+   . 11102402: Bd_pipipi=CPV,DecProdCut
+   . 15144102: Lb_JpsiLambda,mm=DecProdCut
+
+! 2007-01-18 - Patrick Robbe
+ - Add new event types:
+   . 12123001: Bu_Kee=DecProdCut
+   . 12113001: Bu_Kmumu=DecProdCut
+   . 12103201: Bu_phiKgamma=DecProdCut
+   . 11104101: Bd_phiKS=DecProdCut
+   . 11104102: Bd_phiKS=CPV
+   . 11104103: Bd_phiKS=CPV,DecProdCut
+
+!===================== DecFiles v13r6 2007-01-11 ==============================
+! 2007-01-10 - Patrick Robbe
+ - Modify create_options.py script: for event types with:
+   . G=2, S=7 and X=0 ---> D*+ (431,-431)
+   . G=2, S=7 and X=1 ---> D*0 (423, -423)
+   . G=2, S=7 and X=2 ---> D*s+ (433, -433)
+
+!===================== DecFiles v13r5 2007-01-10 ==============================
+! 2007-01-10 - Gloria CORTI for Alexei MOROZOV
+ - Add new event type:
+   . 12103200  Bu_phiKgamma
+
+! 2007-01-10 - Gloria CORTI for Vanya BELYEAV
+ - Add new event types for Hidden Valley generator through Higgs and 
+   multi v-pion production:
+   . 43900001  Higgs_AA_bbbb,mH=120GeV,mA=35GeV,tA=1ps,HidValley
+   . 43900002  Higgs_AA_bbbb,mH=120GeV,mA=35GeV,tA=10ps,HidValley
+   . 43900003  Higgs_AA_bbbb,mH=120GeV,mA=35GeV,tA=100ps,HidValley
+   . 43900004  Higgs_AA_bbbb,mH=180GeV,mA=35GeV,tA=100ps,HidValley
+   . 43900005  Higgs_AA_bbbb,mH=180GeV,mA=50GeV,tA=10ps,HidValley
+   . 43900006  Higgs_AA_bbbb,mH=180GeV,mA=70GeV,tA=1ps,HidValley 
+   . 44900001  multivpi,mZ=3TeV,mvpi0=35GeV,tvpi0=100ps,tvplus=inf,HidValley
+   . 44900002  multivpi,mZ=3TeV,mvpi0=50GeV,tvpi0=10ps,tvplus=inf,HidValley
+   . 44900003  multivpi,mZ=3TeV,mvpi0=70GeV,tvpi0=1ps,tvplus=inf,HidValley
+   . 44900004  multivpi,mZ=3TeV,mvpi0=120GeV,tvpi0=100fs,tvplus=10ps,HidValley
+   They require the new version of the create_options.py
+
+! 2007-01-10 - Gloria CORTI 
+ - Modify create_options.py to set production as "Special" in the case of 
+   digit G=4,S=3,4 as for Hidden Valley codes. 
+   Also allow one more keyword ParticleValues. The argument will be written
+   as the content of the list of the property ParticlePropertySvc.Particles.
+   Example:
+   # ParticleValues: "NewParticle_1 ..." , "NewParticle_2 ..." 
+    in decay files will translate in the options as
+   ParticlePropertySvc.Particles = { "NewParticle_1 ...", "NewParticle_2 ..." }
+ - Add options to be included by Hidden Valley event types
+   . options/HidValleyH.opts, HidValleyPI.opts
+   
+! 2007-01-09 - Patrick Robbe
+ - event type 13463000: invert D_s1 and D'_s1 definitions to be compatible
+   with DECAY.DEC
+ - add new event types:
+   . 11961000  Bd_Dst+X,incl
+   . 12961000  Bu_Dst+X,incl
+   . 13961000  Bs_Dst+X,incl
+
 !===================== DecFiles v13r4 2006-12-20 ==============================
 ! 2006-12-20 - Patrick Robbe
  - Add new event types:

@@ -1,0 +1,13 @@
+# $Id: minbias=DiMuon.dec,v 1.1 2007/03/10 11:42:33 robbep Exp $
+#
+# EventType: 30012000
+#
+# Descriptor: pp => ?
+#
+# NickName: minbias=DiMuon
+#
+# FullEventCuts: DiLeptonInAcceptance
+#
+# Physics: Di-muon filter
+#
+End

@@ -2,12 +2,8 @@
 
 #Package-specific:>
 
-GENERATOR="evtgenlhc"
-PKG_VERSION="8.14"
-PKG_VERSION_MCG=${PKG_VERSION}
-
-
-#RECOMMENDED:
+GENERATOR=evtgenlhc
+VERSION=8.15
 
 HEPMC_VERSION=2.00.03
 CLHEP_VERSION=1.9.2.3
@@ -21,10 +17,18 @@ LHAPDF_VERSION=5.2.3
 #<
 
 
+if [ x$MCGENERATORS = x ]; then
+  echo
+  echo MCGENERATORS variable is not defined !
+  echo it can be defined as a path to replica of MCGenerators area: 
+  echo MCGENERATORS=/afs/.cern.ch/sw/lcg/external/MCGenerators
+  echo
+  exit 1
+fi
 
 #LCG platform. Can be needed if external libraries are specified
 
-. .scripts/platform_functions
+. ${MCGENERATORS}/scripts/platform_functions
 lcgplatform=$(check_platform)
 
 if [ x$LCGPLATFORM = x ]; then
@@ -49,10 +53,10 @@ check_arguments () {
 			"--enable-optimize : turns on compiler optimizations\n"\
 			"--enable-debug    : turns on debugging flags\n"\
                         "--with-hepmc=/path/to/hepmc/    : ${PATH_TO_EXTERNAL}/HepMC/${HEPMC_VERSION}/${LCGPLATFORM} by default\n"\
-                        "--with-pythia6=/path/to/pythia6/: \n"\
-                        "--with-photos=/path/to/photos/  : \n"\
-                        "--with-clhep=/path/to/clhep/    : \n"\
-                        "--with-lhapdf=/path/to/lhapdf/  : \n"
+                        "--with-pythia6=/path/to/pythia6/: ${MCGENERATORS}/pythia6/${PYTHIA6_VERSION}/${LCGPLATFORM} by default\n"\
+                        "--with-photos=/path/to/photos/  : ${MCGENERATORS}/photos/${PHOTOS_VERSION}/${LCGPLATFORM} by default\n"\
+                        "--with-clhep=/path/to/clhep/    : ${PATH_TO_EXTERNAL}/clhep/${CLHEP_VERSION}/${LCGPLATFORM} by default\n"\
+                        "--with-lhapdf=/path/to/lhapdf/  : ${MCGENERATORS}/lhapdf/${LHAPDF_VERSION}/${LCGPLATFORM} by default\n"
 			exit
 		else
 			if [ "x${arg}" = "x${arg/=/}" ] ; then
@@ -123,8 +127,7 @@ fi
 #Package-specific:>
 
 if [ "x${HEPMC_PATH}" = "x" ] ; then
-	echo "Path to HepMC installation is not set. Run ./configure --with-hepmc=/path/to/hepmc . Exit" >&2
-	exit 1
+	HEPMC_PATH=${PATH_TO_EXTERNAL}/HepMC/${HEPMC_VERSION}/${LCGPLATFORM}
 fi
 INCLUDE_HEPMC_PATH=${HEPMC_PATH}/include
 INCLUDE_HEPMC=" -I${INCLUDE_HEPMC_PATH} "
@@ -135,8 +138,7 @@ echo "Assuming libHepMC* reside in ${LIBS_HEPMC_PATH}"
 echo "Assuming HepMC header files reside in ${INCLUDE_HEPMC_PATH}"
 
 if [ "x${CLHEP_PATH}" = "x" ] ; then
-	echo "Path to CLHEP installation is not set. Run ./configure --with-clhep=/path/to/clhep . Exit" >&2
-	exit 1
+	CLHEP_PATH=${PATH_TO_EXTERNAL}/clhep/${CLHEP_VERSION}/${LCGPLATFORM}
 fi
 INCLUDE_CLHEP_PATH=${CLHEP_PATH}/include
 INCLUDE_CLHEP=" -I${INCLUDE_CLHEP_PATH} "
@@ -147,8 +149,7 @@ echo "Assuming libCLHEP* reside in ${LIBS_CLHEP_PATH}"
 echo "Assuming CLHEP header files reside in ${INCLUDE_CLHEP_PATH}"
 
 if [ "x${LHAPDF_PATH}" = "x" ] ; then
-	echo "Path to LHAPDF installation is not set. Run ./configure --with-lhapdf=/path/to/lhapdf . Exit">&2
-	exit 1
+	LHAPDF_PATH=${MCGENERATORS}/lhapdf/${LHAPDF_VERSION}/${LCGPLATFORM}
 fi
 INCLUDE_LHAPDF_PATH=${LHAPDF_PATH}/include
 INCLUDE_LHAPDF=" -I${INCLUDE_LHAPDF_PATH} "
@@ -160,20 +161,18 @@ echo "Assuming LHAPDF header files reside in ${INCLUDE_LHAPDF_PATH}"
 
 #
 if [ "x${PYTHIA6_PATH}" = "x" ] ; then
-	echo "Path to Pythia6 installation is not set. Run ./configure --with-pythia6=/path/to/pythia6 . Exit">&2
-	exit 1
+  PYTHIA6_PATH=${MCGENERATORS}/pythia6/${PYTHIA6_VERSION}/${LCGPLATFORM}
 fi
 
 if [ "x${PHOTOS_PATH}" = "x" ] ; then
-  echo "Path to PHOTOS installation is not set. Run ./configure --with-photos=/path/to/photos . Exit">&2
-	exit 1
+  PHOTOS_PATH=${MCGENERATORS}/photos/${PHOTOS_VERSION}/${LCGPLATFORM}
 fi
 
 LIBS_PHOTOS_PATH=${PHOTOS_PATH}/lib
 
 	
 cat > ./README << EOT
-EvtGenLHC $VERSION
+This is EvtGenLHC package.
 EOT
 
 #
@@ -331,6 +330,7 @@ LIBS_PHOTOS_PATH = ${LIBS_PHOTOS_PATH}
 
 #<
 
+MCGENERATORS = ${MCGENERATORS}
 
 # from above:
 
@@ -398,6 +398,7 @@ export LIBS_LHAPDF_STATIC
 
 #<
 
+export MCGENERATORS 
 EOT
 
 echo " done"

@@ -1,0 +1,3 @@
+Generation.SampleGenerationTool = "RepeatDecay" ;
+Generation.RepeatDecay.NRedecay =  10 ;
+Generation.RepeatDecay.Inclusive.ProductionTool = "PythiaProduction";

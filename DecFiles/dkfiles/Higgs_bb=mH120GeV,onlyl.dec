@@ -1,0 +1,24 @@
+# $Id: Higgs_bb=mH120GeV,onlyl.dec,v 1.6 2007/03/04 21:39:24 robbep Exp $
+#
+# EventType: 40911003
+#
+# Descriptor: pp -> {[W+ -> {mu+ nu_mu, e+ nu_e}]cc, (Z0 -> {mu+ mu-, e+ e-})} (H_10 -> b anti-b) 
+#
+# NickName: Higgs_bb=mH120GeV,onlyl
+#
+# Physics: MHiggs=120 GeV, only lepton in LHCb acceptance
+#
+# Cuts: PythiaHiggsType
+#
+# ParticleValue: "H_10 87 25 0.0 120.000 9.400e-026 Higgs0 25 0.000e+000"
+#
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 5*GeV LeptonIsFromWZ true NumberOfbquarks 0 MotherOfThebquarks 25
+#
+# ExtraOptions: Higgs
+#
+# Tested: Yes
+# By: Victor Coco
+# Date: 20 Feb 2007
+#
+End
+

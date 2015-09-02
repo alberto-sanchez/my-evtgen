@@ -1,0 +1,23 @@
+# $Id: Z_ee.dec,v 1.2 2007/02/27 22:09:17 robbep Exp $
+#
+# EventType: 42122000
+#
+# Descriptor: pp -> (Z0 -> e+ e-) ... 
+#
+# NickName: Z_ee
+#
+# Physics: 1 lepton with pT > 4 GeV
+#
+# Cuts: PythiaHiggsType
+#
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+#
+# ExtraOptions: Zee
+#
+# Tested: Yes
+# By: Karol Hennessy
+# Date: 27 Oct 2005
+#
+End
+#
+
