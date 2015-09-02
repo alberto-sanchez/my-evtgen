@@ -21,6 +21,7 @@
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtPhotonParticle.hh"
+#include "EvtGenBase/EvtReport.hh"
 
 #include "Photos.h"
 #include "PhotosHepMCEvent.h"
@@ -36,15 +37,14 @@
 #include <string>
 #include <vector>
 
-using std::cout;
 using std::endl;
 
 EvtPhotosEngine::EvtPhotosEngine(std::string photonType) {
 
   _gammaId = EvtPDL::getId(photonType);
   if (_gammaId == EvtId(-1, -1)) {
-    cout<<"Error in EvtPhotosEngine. Do not recognise the photon type "
-	<<photonType<<". Setting this to \"gamma\". "<<endl;
+    report(INFO,"EvtGen")<<"Error in EvtPhotosEngine. Do not recognise the photon type "
+			 <<photonType<<". Setting this to \"gamma\". "<<endl;
     _gammaId = EvtPDL::getId("gamma");
   }
   _mPhoton = EvtPDL::getMeanMass(_gammaId);
@@ -61,7 +61,7 @@ void EvtPhotosEngine::initialise() {
 
   if (_initialised == false) {
 
-    cout<<"Initialising PHOTOS."<<endl;
+    report(INFO,"EvtGen")<<"Initialising PHOTOS."<<endl;
 
     Photos::initialize();
     // Set minimum photon energy (50keV at 1 GeV scale)
@@ -93,8 +93,7 @@ bool EvtPhotosEngine::doDecay(EvtParticle* theMother) {
   if (nDaug == 0) {return false;}
 
   // Create the dummy event.
-  HepMC::GenEvent* theEvent = new HepMC::GenEvent(1,1);
-  theEvent->use_units(HepMC::Units::GEV, HepMC::Units::MM);
+  HepMC::GenEvent* theEvent = new HepMC::GenEvent(HepMC::Units::GEV, HepMC::Units::MM);
 
   // Create the decay "vertex".
   HepMC::GenVertex* theVertex = new HepMC::GenVertex();

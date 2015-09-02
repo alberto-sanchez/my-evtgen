@@ -23,6 +23,7 @@
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtDecayTable.hh"
 #include "EvtGenBase/EvtRandom.hh"
+#include "EvtGenBase/EvtReport.hh"
 
 #include "Tauola.h"
 #include "TauolaHepMCEvent.h"
@@ -38,7 +39,6 @@
 #include <string>
 #include <cmath>
 
-using std::cout;
 using std::endl;
 
 EvtTauolaEngine::EvtTauolaEngine() {
@@ -64,7 +64,7 @@ void EvtTauolaEngine::initialise() {
 
   if (_initialised == false) {
 
-    cout<<"Initialising TAUOLA."<<endl;
+    report(INFO,"EvtGen")<<"Initialising TAUOLA."<<endl;
 
     // These three lines are not really necessary since they are the default.
     // But they are here so that we know what the initial conditions are.
@@ -167,19 +167,20 @@ void EvtTauolaEngine::setUpPossibleTauModes() {
       // let Tauola know about these normalised branching fractions
       if (totalTauModeBF > 0.0) {
 
-	cout<<"Setting TAUOLA BF modes using the definitions for the particle "<<EvtPDL::name(particleId)<<endl;
+	report(INFO,"EvtGen")<<"Setting TAUOLA BF modes using the definitions for the particle "
+			     <<EvtPDL::name(particleId)<<endl;
 
 	for (iTauMode = 0; iTauMode < _nTauolaModes; iTauMode++) {
 	  
 	  tauolaModeBFs[iTauMode] /= totalTauModeBF;
 	  double modeBF = tauolaModeBFs[iTauMode];
-	  cout<<"Setting TAUOLA BF for mode "<<iTauMode+1<<" = "<<modeBF<<endl;
+	  report(INFO,"EvtGen")<<"Setting TAUOLA BF for mode "<<iTauMode+1<<" = "<<modeBF<<endl;
 	  Tauola::setTauBr(iTauMode+1, modeBF);
 	  
 	}
 
-	cout<<"Any other TAUOLA BF modes for other tau particle decay mode definitions will be ignored!"
-	    <<endl;
+	report(INFO,"EvtGen")<<"Any other TAUOLA BF modes for other tau particle decay mode definitions will be ignored!"
+			     <<endl;
 
       }
   
@@ -241,8 +242,7 @@ void EvtTauolaEngine::decayTauEvent(EvtParticle* tauParticle) {
   // We also consider all other tau particles from the parent decay in the logic below.
   
   // Create the dummy event.
-  HepMC::GenEvent* theEvent = new HepMC::GenEvent(1,1);
-  theEvent->use_units(HepMC::Units::GEV, HepMC::Units::MM);
+  HepMC::GenEvent* theEvent = new HepMC::GenEvent(HepMC::Units::GEV, HepMC::Units::MM);
   
   // Create the decay "vertex".
   HepMC::GenVertex* theVertex = new HepMC::GenVertex();

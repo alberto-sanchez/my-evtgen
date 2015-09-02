@@ -22,13 +22,13 @@
 #include "EvtGenBase/EvtDecayTable.hh"
 #include "EvtGenBase/EvtSpinType.hh"
 #include "EvtGenBase/EvtParticleFactory.hh"
+#include "EvtGenBase/EvtReport.hh"
 
 #include "Event.h"
 
 #include <iostream>
 #include <sstream>
 
-using std::cout;
 using std::endl;
 
 EvtPythiaEngine::EvtPythiaEngine(std::string xmlDir, bool convertPhysCodes) {
@@ -41,11 +41,11 @@ EvtPythiaEngine::EvtPythiaEngine(std::string xmlDir, bool convertPhysCodes) {
   // versions in one Pythia generator, we can use two generators to 
   // get the required behaviour.
 
-  cout<<"Creating generic Pythia generator"<<endl;
+  report(INFO,"EvtGen")<<"Creating generic Pythia generator"<<endl;
   _genericPythiaGen = new Pythia8::Pythia(xmlDir);
   _genericPartData = _genericPythiaGen->particleData;
 
-  cout<<"Creating alias Pythia generator"<<endl;
+  report(INFO,"EvtGen")<<"Creating alias Pythia generator"<<endl;
   _aliasPythiaGen  = new Pythia8::Pythia(xmlDir);
   _aliasPartData = _aliasPythiaGen->particleData;
 
@@ -130,7 +130,7 @@ bool EvtPythiaEngine::doDecay(EvtParticle* theParticle) {
   // the EvtGen decay channel and the Pythia decay channel may be different.
   
   if (theParticle == 0) {
-    cout<<"Error in EvtPythiaEngine::doDecay. The mother particle is null. Not doing any Pythia decay."<<endl;
+    report(INFO,"EvtGen")<<"Error in EvtPythiaEngine::doDecay. The mother particle is null. Not doing any Pythia decay."<<endl;
     return false;
   }
 
@@ -167,8 +167,6 @@ bool EvtPythiaEngine::doDecay(EvtParticle* theParticle) {
   double E = m0;
 
   int entryIndex(0);
-  //cout<<"PYTHIA:: APPEND "<<PDGCode<<", "<<status<<", "<<colour<<", "<<anticolour<<", "
-  //    <<px<<", "<<py<<", "<<pz<<", "<<E<<", "<<m0<<endl;
   entryIndex = theEvent.append(PDGCode, status, colour, anticolour, px, py, pz, E, m0);
 
   // Generate the Pythia event
@@ -211,13 +209,6 @@ bool EvtPythiaEngine::doDecay(EvtParticle* theParticle) {
 
   } 
 
-  //else {
-  //  cout<<"Could not generate Pythia event"<<endl;
-  //  theParticle->printTree();
-  //  theEvent.list(true, true);
-  //  _thePythiaGenerator->info.list();
-  //}
-
   return success;
 
 }
@@ -233,15 +224,12 @@ void EvtPythiaEngine::storeDaughterInfo(EvtParticle* theParticle, int startInt) 
 
     int daugInt = *daugIter;
 
-    //cout<<"Daughter integer = "<<daugInt<<endl;
-
     // Ask if the daughter is a quark or gluon. If so, recursively search again.
     Pythia8::Particle& daugParticle = theEvent[daugInt];
 
     if (daugParticle.isQuark() || daugParticle.isGluon()) {
 
       // Recursively search for correct daughter type
-      //cout<<"We have a quark or gluon: "<<daugParticle.name()<<endl;
       this->storeDaughterInfo(theParticle, daugInt);
 
     } else {
@@ -283,7 +271,7 @@ void EvtPythiaEngine::storeDaughterInfo(EvtParticle* theParticle, int startInt) 
 void EvtPythiaEngine::createDaughterEvtParticles(EvtParticle* theParent) {
 
   if (theParent == 0) {
-    cout<<"Error in EvtPythiaEngine::createDaughterEvtParticles. The parent is null"<<endl;
+    report(INFO,"EvtGen")<<"Error in EvtPythiaEngine::createDaughterEvtParticles. The parent is null"<<endl;
     return;
   }
 
@@ -464,10 +452,10 @@ void EvtPythiaEngine::updateParticleLists() {
 
   } // Loop over EvtPDL entries
 
-  cout<<"Writing out changed generic Pythia decay list"<<endl;
+  report(INFO,"EvtGen")<<"Writing out changed generic Pythia decay list"<<endl;
   _genericPythiaGen->particleData.listChanged();
 
-  cout<<"Writing out changed alias Pythia decay list"<<endl;
+  report(INFO,"EvtGen")<<"Writing out changed alias Pythia decay list"<<endl;
   _aliasPythiaGen->particleData.listChanged();
 
 }
@@ -484,9 +472,6 @@ void EvtPythiaEngine::updatePythiaDecayTable(EvtId& particleId, int aliasInt, in
   int nModes = EvtDecayTable::getInstance()->getNModes(aliasInt);
   int iMode(0);
 
-  //cout<<"EvtPythiaEngine::updatePythiaDecayTable"<<endl;
-  //cout<<"nModes = "<<nModes<<" for "<<PDGCode<<", "<<EvtPDL::name(particleId)<<endl;
-    
   bool firstMode(true);
 
   // Only process positive PDG codes.
@@ -557,24 +542,22 @@ void EvtPythiaEngine::updatePythiaDecayTable(EvtId& particleId, int aliasInt, in
 	    
 	  } // Daughter list
 
-	  //cout<<"String = "<<oss.str()<<endl;
-	  
-	_thePythiaGenerator->readString(oss.str());
+	  _thePythiaGenerator->readString(oss.str());
 		
 	} // is Pythia
 
       } else {
 
-	cout<<"Warning in EvtPythiaEngine. Trying to redefine Pythia table for "
-	    <<EvtPDL::name(particleId)<<" for a decay channel that has no daughters."
-	    <<" Keeping Pythia default (if available)."<<endl;	  
+	report(INFO,"EvtGen")<<"Warning in EvtPythiaEngine. Trying to redefine Pythia table for "
+			     <<EvtPDL::name(particleId)<<" for a decay channel that has no daughters."
+			     <<" Keeping Pythia default (if available)."<<endl;	  
 
       }
 	
     } else {
 	
-      cout<<"Error in EvtPythiaEngine. decayModel is null for particle "
-	  <<EvtPDL::name(particleId)<<" mode number "<<iMode<<endl;
+      report(INFO,"EvtGen")<<"Error in EvtPythiaEngine. decayModel is null for particle "
+			   <<EvtPDL::name(particleId)<<" mode number "<<iMode<<endl;
 	
     }
 
@@ -662,7 +645,8 @@ int EvtPythiaEngine::getModeInt(EvtDecayBase* decayModel) {
     } else if (tmpModeInt == 102) {
       modeInt = 0; // off mass shell particles.
     } else {
-      cout<<"Pythia mode integer "<<tmpModeInt<<" is not recognised. Using phase-space model"<<endl;
+      report(INFO,"EvtGen")<<"Pythia mode integer "<<tmpModeInt
+			   <<" is not recognised. Using phase-space model"<<endl;
       modeInt = 0; // Use phase-space for anything else
     }
 
@@ -730,9 +714,14 @@ void EvtPythiaEngine::updatePhysicsParameters() {
   // what physics parameters to change. This will need to be done for the generic and
   // alias generator pointers, as appropriate.
 
-  // For now, do nothing extra.
+  // Set the multiplicity level for hadronic weak decays
+  std::string multiWeakCut("ParticleDecays:multIncreaseWeak = 2.0");
+  _genericPythiaGen->readString(multiWeakCut);
+  _aliasPythiaGen->readString(multiWeakCut);
 
-  //std::string multiCut("ParticleDecays:multIncrease = 1.0");
-  //_thePythiaGenerator->readString(multiCut);
+  // Set the multiplicity level for all other decays
+  std::string multiCut("ParticleDecays:multIncrease = 4.5");
+  _genericPythiaGen->readString(multiCut);
+  _aliasPythiaGen->readString(multiCut);
 
 }

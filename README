@@ -3,13 +3,14 @@ RELEASE NOTES
 
 The major points comparing this version with the 2009 release are the following:
 
-1. This version uses Pythia 8 and the C++ interfaced packages Photos and Tauola.
+1. This version uses Pythia 8 (version 8.153 and above is required) and the 
+   C++ interfaced packages Photos and Tauola.
    A new abstract interface has been created in EvtGenModels/EvtAbsExternalGen.hh
    to allow us to use external generators more easily. The EvtGenModel classes
    EvtPythiaEngine, EvtPhotosEngine and EvtTauolaEngine are used to create
    instances of these external generators, initialise them, and generate particle
-   decays (using the HepMC interface). These particles are then stored as EvtParticle
-   objects within EvtGen.
+   decays (using the HepMC interface, requiring version 2.04 and above). These 
+   particles are then stored as EvtParticle objects within EvtGen.
    
    The files Pythia8_README.txt and Tauola_README.txt files have more details about
    using the new Pythia 8 and Tauola generators (called via the PYTHIA and TAUOLA 

@@ -139,6 +139,11 @@
 #include "EvtGenModels/EvtDMix.hh"
 #include "EvtGenModels/EvtD0mixDalitz.hh"
 
+#include "EvtGenModels/EvtBcToNPi.hh"
+#include "EvtGenModels/EvtBcPsiNPi.hh"
+#include "EvtGenModels/EvtBcBsNPi.hh"
+#include "EvtGenModels/EvtBcBsStarNPi.hh"
+
 #include "EvtGenModels/EvtTauola.hh"
 
 #include "EvtGenModels/EvtModelReg.hh"
@@ -266,14 +271,12 @@ EvtModelReg::EvtModelReg(const std::list<EvtDecayBase*>* extraModels)
     modelist.registerModel(new EvtPVVCPLH);
     modelist.registerModel(new EvtSSD_DirectCP);
 
+    modelist.registerModel(new EvtBcToNPi(true)); // true = print author info
+    modelist.registerModel(new EvtBcPsiNPi);
+    modelist.registerModel(new EvtBcBsNPi);
+    modelist.registerModel(new EvtBcBsStarNPi);
+
     modelist.registerModel(new EvtPythia);
     modelist.registerModel(new EvtTauola);
 
 }
-
-
-
-
-
-
-

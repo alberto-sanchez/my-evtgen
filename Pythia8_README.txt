@@ -1,4 +1,5 @@
 This README file contains development notes for the EvtGen-Pythia8 interface.
+Pythia8 version number 8.153 or above is required.
 
 Changed EvtPythia to use Pythia 8. The same EvtPythia ("PYTHIA") name/class is used, but
 the old interface to the fortran Pythia 6 has been replaced by Pythia 8 C++ routines.

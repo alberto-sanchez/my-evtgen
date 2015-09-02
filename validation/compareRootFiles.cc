@@ -593,7 +593,7 @@ TH1D* compareRootFiles::getDaugHist(TFile* theFile, string histName) {
   int nDaug;
   nDaugTree->SetBranchAddress("nDaug", &nDaug);
 
-  int nDaugMax = nDaugTree->GetMaximum("nDaug");
+  int nDaugMax = (int) nDaugTree->GetMaximum("nDaug");
   int nDaugLimit = nDaugMax + 2;
   
   TH1D* nDaugHist = new TH1D(histName.c_str(), "", nDaugLimit, 0, nDaugLimit);

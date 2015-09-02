@@ -23,6 +23,8 @@
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtPDL.hh"
 
+#include "HepMC/Units.h"
+
 EvtHepMCEvent::EvtHepMCEvent() : 
   _theEvent(0), 
   _translation(0.0, 0.0, 0.0, 0.0)

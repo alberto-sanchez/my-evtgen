@@ -20,15 +20,14 @@
 //
 
 #include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
 #include "EvtGenModels/EvtExternalGenFactory.hh"
+#include "EvtGenBase/EvtReport.hh"
 
 #include "EvtGenModels/EvtPythiaEngine.hh"
 #include "EvtGenModels/EvtPhotosEngine.hh"
 #include "EvtGenModels/EvtTauolaEngine.hh"
 
 #include <iostream>
-using std::cout;
 using std::endl;
 
 EvtExternalGenFactory::EvtExternalGenFactory() {
@@ -103,7 +102,8 @@ EvtAbsExternalGen* EvtExternalGenFactory::getGenerator(int genId) {
 
   } else {
 
-    cout<<"EvtAbsExternalGen::getGenerator: could not find generator for genId = "<<genId<<endl;
+    report(INFO,"EvtGen")<<"EvtAbsExternalGen::getGenerator: could not find generator for genId = "
+			 <<genId<<endl;
 
   }
 
