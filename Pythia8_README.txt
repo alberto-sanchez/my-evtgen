@@ -8,9 +8,8 @@ EvtPythiaEngine class talks to Pythia 8 rotines; EvtPythia does not need to know
 specific Pythia 8 functions. The class EvtExternalGenFactory creates an instance of the 
 Pythia engine whenever Pythia decays are used. All cloned EvtPythia models that are 
 created when new PYTHIA decay modes are encountered in the decay.dec file use the same
-pointer to the Pythia engine. It is forseen that other external generators, such as 
-Tauola++ or Photos++, can be implemented within EvtGen using this abstract factory 
-interface.
+pointer to the Pythia engine. Other external generators, such as the C++ interfaced Tauola 
+and Photos, use this same abstract factory interface.
 
 The configure script has been modified to specify the location of the new 
 Pythia 8 libraries. This can be done by using the PYTHIA8DATA environment 

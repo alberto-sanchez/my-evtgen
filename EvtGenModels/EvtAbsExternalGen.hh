@@ -30,10 +30,9 @@ public:
   virtual ~EvtAbsExternalGen() {};
 
   virtual bool doDecay(EvtParticle* theMother) = 0;
+  virtual void initialise() = 0;
 
 protected:
-
-  virtual void initialise() = 0;
 
 private:
 

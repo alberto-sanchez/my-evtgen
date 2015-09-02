@@ -1,23 +1,39 @@
 RELEASE NOTES 
 =============
 
-The major points comparing this version with the last official (2009)
-release are the following:
+The major points comparing this version with the 2009 release are the following:
 
-1. This version of EvtGen is a merger of the latest LHCb and BaBar EvtGenBase
+1. This version uses Pythia 8 and the C++ interfaced packages Photos and Tauola.
+   A new abstract interface has been created in EvtGenModels/EvtAbsExternalGen.hh
+   to allow us to use external generators more easily. The EvtGenModel classes
+   EvtPythiaEngine, EvtPhotosEngine and EvtTauolaEngine are used to create
+   instances of these external generators, initialise them, and generate particle
+   decays (using the HepMC interface). These particles are then stored as EvtParticle
+   objects within EvtGen.
+   
+   The files Pythia8_README.txt and Tauola_README.txt files have more details about
+   using the new Pythia 8 and Tauola generators (called via the PYTHIA and TAUOLA 
+   "decay.dec" model names). The new Photos generator is still called via the PHOTOS 
+   "decay.dec" model name.
+
+   It is now possible to use alias particle decays for the Pythia 8 model.
+   Two Pythia 8 instances are used in EvtPythiaEngine for normal and aliased decays.
+   Since the underlying code for Photos and Tauola is still Fortran, it is only
+   possible to have one (unique) instance of each of these external generators. 
+   This can only be fixed if these packages are converted to pure C++ code.
+
+
+2. This version of EvtGen is a merger of the latest LHCb and BaBar EvtGenBase
    and EvtGenModels code. Most changes since the last release are related to
    bug/compiler fixes.
 
-2. Bug fixes for Bs mixing decay/CP violation amplitudes.
+
+3. Bug fixes for Bs mixing decay/CP violation amplitudes.
    Added the capability to use either coherent or incoherent mixing in EvtCPUtil. 
    One or the other can be chosen as the mixing method for the B system by
    choosing 0 (coherent) or 1 (incoherent) for the last integer argument 
    in the EvtGen() constructor.
 
-3. The interface to both PYTHIA and PHOTOS are _unchanged_, so it is not
-   possible to have multiple instances of either generators within EvtGen,
-   since they use FORTRAN code. This will be addressed in the next version 
-   of EvtGen.
 
 4. Added two sub-amplitude types LASS_ELASTIC and LASS_RESONANT to the EvtLASSAmp
    model. Also added EvtBaryonPCR and EvtBaryonPCRFF models for baryonic semileptonic 
@@ -26,40 +42,69 @@ release are the following:
 5. Changed EvtWilsonCoeficients to EvtWilsonCoefficients, used in 
    EvtGenModels/EvtLb2Lll.hh.
 
-6. Bug fix correction to EvtTensor4C::cont().
-
 
 BUILDING THE CODE
 =================
 
-To build the EvtGen code, do
+To build the EvtGen code, first make sure that there are valid (C++) versions
+of HepMC, Pythia8, Photos and Tauola available:
+
+HepMC    https://savannah.cern.ch/projects/hepmc
+
+Pythia8  http://home.thep.lu.se/~torbjorn/Pythia.html
+
+Photos   http://www.ph.unimelb.edu.au/~ndavidson/photos/doxygen/index.html
+
+Tauola   http://www.ph.unimelb.edu.au/~ndavidson/tauola/doxygen/index.html
+
+All of these packages have instructions for building them, usually by
+running their "configure" script. HepMC is used to store particle information
+that is passed between the external generators and EvtGen.
+
+Once these packages are available, set up the EvtGen release by running
 
 ./configure
 
-then
+within the EvtGen base directory. When succesful, this will create a config.mk 
+file that specifies the locations of the include and library directories of
+the above external generators.
+
+Then compile the EvtGen code using
 
 make
 
 This should create the libraries lib/libEvtGen.so and lib/archive/libEvtGen.a.
 
-Since EvtGen still uses Fortran routines for some calculations gfortran is needed
-to compile the code. The alternative (not recommended) compilers g77 (f77) can be
-used instead by changing the FC variable in the configure script.
+Note that gfortran is needed to compile the code (mainly for Photos/Tauola).
+The alternative (not recommended) compilers g77 (f77) can be used instead 
+by changing the FC variable in the configure script.
 
-Note that PHOTOS v2 and PYTHIA v6 are required to run EvtGen. Suitable versions are 
-available here: 
-
-PYTHIA  http://projects.hepforge.org/pythia6/
-
-PHOTOS  http://wasm.home.cern.ch/wasm/f77.html
 
 To create an EvtGen executable, the following libraries need to be included
-in the link path, owing to the dependence on PHOTOS, PYTHIA and Fortran code: 
+in the link path, owing to the dependence on the above external packages and 
+Fortran code (for some EvtGenModels and for Photos/Tauola):
 
--lphotos -lpythia6 -lpythia6_dummy -lgfortran
+BASEDIR   = <EvtGen directory>
+HEPMCDIR  = <base directory of HepMC>
+PHOTOSDIR = <base directory of C++ Photos>
+TAUOLADIR = <base directory of C++ Tauola>
+PYTHIADIR = <base directory of Pythia8>
 
-Two example programs using EvtGen can be seen in the test sub-directory along 
-with the required Makefile.
+LIBS = -L${BASEDIR}/lib/archive -L${HEPMCDIR}/lib -L${PHOTOSDIR}/lib \
+       -L${TAUOLADIR}/lib -L${PYTHIADIR}/lib/archive -lEvtGen -lgfortran \
+       -lHepMC -lPhotosCxxInterface -lTauolaCxxInterface -lTauolaFortran \
+       -lpythia8 -llhapdfdummy -lhepmcinterface
+
+Three example programs using EvtGen can be seen in the test sub-directory along 
+with the required Makefile. If there are errors about missing shared libraries,
+and they have been built correctly, then the LD_LIBRARY_PATH needs to be set-up
+to include them:
+
+setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of HepMC library directory>
+setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Pythia 8 library directory>
+setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Tauola library directory>
+setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Photos library directory>
+
 
 Examples
 ========
@@ -70,4 +115,3 @@ To run these, first build EvtGen, then type "make" in the test directory. Note
 that these tests require ROOT to be installed. Running the script "./do_tests"
 will run a series of EvtGen examples. Example decay files are in the
 test/exampleFiles sub-directory.
-

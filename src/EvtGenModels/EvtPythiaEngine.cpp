@@ -50,7 +50,7 @@ EvtPythiaEngine::EvtPythiaEngine(std::string xmlDir, bool convertPhysCodes) {
   _aliasPartData = _aliasPythiaGen->particleData;
 
   _thePythiaGenerator = 0;
-  _decayTable.clear(); _daugPDGVector.clear(); _daugP4Vector.clear();
+  _daugPDGVector.clear(); _daugP4Vector.clear();
 
   _convertPhysCodes = convertPhysCodes;
 
@@ -64,7 +64,6 @@ EvtPythiaEngine::~EvtPythiaEngine() {
   delete _aliasPythiaGen; _aliasPythiaGen = 0;
 
   _thePythiaGenerator = 0;
-  _decayTable.clear();
 
   this->clearDaughterVectors();
   this->clearPythiaModeMap();
@@ -309,7 +308,6 @@ void EvtPythiaEngine::createDaughterEvtParticles(EvtParticle* theParent) {
   }
 
   std::vector<int> pythiaModes = _pythiaModeMap[pythiaAliasInt];
-  EvtParticleDecayList decayList = _decayTable[aliasInt];
 
   // Loop over all available Pythia decay modes and find the channel that matches
   // the daughter ids. Set each daughter id to also use the alias integer.
@@ -325,7 +323,7 @@ void EvtPythiaEngine::createDaughterEvtParticles(EvtParticle* theParent) {
 
     int pythiaModeInt = *modeIter;
 
-    EvtDecayBase* decayModel = decayList.getDecayModel(pythiaModeInt);
+    EvtDecayBase* decayModel = EvtDecayTable::getInstance()->findDecayModel(aliasInt, pythiaModeInt);
 
     if (decayModel != 0) {
 
@@ -416,8 +414,6 @@ void EvtPythiaEngine::updateParticleLists() {
   int iPDL;
   int nPDL = EvtPDL::entries();
 
-  _decayTable = EvtDecayTable::getInstance()->getDecayTable();
-
   for (iPDL = 0; iPDL < nPDL; iPDL++) {
 
     EvtId particleId = EvtPDL::getEntry(iPDL);
@@ -427,9 +423,8 @@ void EvtPythiaEngine::updateParticleLists() {
     // Get the list of all possible decays for the particle, using the alias integer.
     // If the particle is not actually an alias, aliasInt = idInt.
 
-    EvtParticleDecayList decayList = _decayTable[aliasInt];
     // Should change isJetSet to isPythia eventually.
-    bool hasPythiaDecays = decayList.isJetSet();
+    bool hasPythiaDecays = EvtDecayTable::getInstance()->hasPythia(aliasInt);
 
     if (hasPythiaDecays) {
 
@@ -486,9 +481,7 @@ void EvtPythiaEngine::updatePythiaDecayTable(EvtId& particleId, int aliasInt, in
   // Since we do not want to implement CP violation here, just use the same branching
   // fractions for particle and anti-particle modes.
 
-  EvtParticleDecayList decayList = _decayTable[aliasInt];
-
-  int nModes = decayList.getNMode();
+  int nModes = EvtDecayTable::getInstance()->getNModes(aliasInt);
   int iMode(0);
 
   //cout<<"EvtPythiaEngine::updatePythiaDecayTable"<<endl;
@@ -505,7 +498,8 @@ void EvtPythiaEngine::updatePythiaDecayTable(EvtId& particleId, int aliasInt, in
   // Loop over the decay modes for this particle
   for (iMode = 0; iMode < nModes; iMode++) {
       
-    EvtDecayBase* decayModel = decayList.getDecayModel(iMode);
+    EvtDecayBase* decayModel = EvtDecayTable::getInstance()->findDecayModel(aliasInt, iMode);
+
     if (decayModel != 0) {
 
       int nDaug = decayModel->getNDaug();

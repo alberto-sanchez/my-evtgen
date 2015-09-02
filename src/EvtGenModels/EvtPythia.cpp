@@ -33,7 +33,6 @@
 #include "EvtGenModels/EvtAbsExternalGen.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 
-#include <string>
 #include <iostream>
 #include <cmath>
 
@@ -46,7 +45,9 @@ EvtPythia::EvtPythia() {
 
 }
 
-EvtPythia::~EvtPythia() {}
+EvtPythia::~EvtPythia() {
+  _commandList.clear();
+}
 
 std::string EvtPythia::getName(){
 
@@ -140,4 +141,22 @@ void EvtPythia::fixPolarisations(EvtParticle *p) {
       }
     }
   }
+}
+
+std::string EvtPythia::commandName() {
+
+  // Allow backward compatibility for decay.dec files
+  // having JetSetPar parameters. They are obsolete for Pythia 8, 
+  // since the JetSet-type array variables do not exist.
+  // Need to think about including user defined parameters in 
+  // EvtPythiaEngine::updatePhysicsParameters().
+  return std::string("JetSetPar");
+  
+}
+
+void EvtPythia::command(std::string cmd) {
+
+  // Locally store commands in a vector
+  _commandList.push_back(cmd);
+
 }

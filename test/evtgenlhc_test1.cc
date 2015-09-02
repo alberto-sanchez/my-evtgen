@@ -1207,7 +1207,7 @@ void runRepeat(int nevent) {
   
   for(i=0;i<nevent;i++){
     
-    EvtDecayTable::readDecayFile(std::string("../DECAY.DEC"));
+    EvtDecayTable::getInstance()->readDecayFile(std::string("../DECAY.DEC"));
     
   }
   report(INFO,"EvtGen") << "SUCCESS\n";

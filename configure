@@ -8,7 +8,10 @@ GENERATOR=EvtGen
 # === Default values of input parameters ====
 PATH_TO_EXTERNAL=
 CLHEP_VERSION=
-PYTHIADIR=${PYTHIA8DATA}/..
+PYTHIADIR=${PYTHIADIR}
+PHOTOSDIR=${PHOTOSDIR}
+TAUOLADIR=${TAUOLADIR}
+HEPMCDIR=${HEPMCDIR}
 COMPMODE=OPT        # Default: compiler optimization mode
 
 #<
@@ -23,8 +26,11 @@ check_arguments () {
       echo -e \
       "\nUsage: ./configure [options] , where options are:\n\n"\
       "--help                       : prints this help\n"\
-      "--enable-debug               : turns on debugging flags\n"\
-      "--pythiadir=[directory]      : specifies location of Pythia 8 base directory\n"
+      "--pythiadir=[full directory path]      : specifies location of Pythia 8 base directory\n"\
+      "--hepmcdir=[full directory path]       : specifies location of HepMC base directory\n"\
+      "--photosdir=[full directory path]      : specifies location of PHOTOS base directory\n"\
+      "--tauoladir=[full directory path]      : specifies location of TAUOLA base directory\n"\
+      "--enable-debug               : turns on debugging flags\n"
       exit
     else
       if [ "x${arg}" = "x${arg/=/}" ] ; then
@@ -34,6 +40,12 @@ check_arguments () {
         value=${arg/*=/}
 	if [ "x${option}" = "x--pythiadir" ] ; then
 	    PYTHIADIR=${value}
+	elif [ "x${option}" = "x--hepmcdir" ] ; then
+	    HEPMCDIR=${value}
+	elif [ "x${option}" = "x--photosdir" ] ; then
+	    PHOTOSDIR=${value}
+	elif [ "x${option}" = "x--tauoladir" ] ; then
+	    TAUOLADIR=${value}
 	else
 	  echo "${arg}: wrong option. Ignored." >&2
 	fi
@@ -45,7 +57,64 @@ check_arguments () {
 		
 #---------------------------------------
 
+# Check that we can see (some of) the header files for the external generators.
+# If not, print a warning message and ask the user to re-run configure
+# specifying the base directory correct location(s).
+
+check_dirs() {
+
+  pythiaFile=${PYTHIADIR}/include/Pythia.h
+  hepmcFile=${HEPMCDIR}/include/HepMC/GenParticle.h
+  photosFile=${PHOTOSDIR}/include/Photos.h
+  tauolaFile=${TAUOLADIR}/include/Tauola.h
+
+  stop=0
+  if [ -f $pythiaFile ]; then
+      echo "PYTHIADIR set to $PYTHIADIR"
+  else
+      echo "Please specify the location of the PYTHIA base directory"\
+            "using the configure option --pythiadir=[full directory path]"\
+            "or set the PYTHIADIR environment variable"
+      stop=1    
+  fi
+
+  if [ -f $hepmcFile ]; then
+      echo "HEPMCDIR set to $HEPMCDIR"
+  else
+      echo "Please specify the location of the HepMC base directory"\
+            "using the configure option --hepmcdir=[full directory path]"\
+            "or set the HEPMCDIR environment variable"
+      stop=1    
+  fi
+
+  if [ -f $photosFile ]; then
+      echo "PHOTOSDIR set to $PHOTOSDIR"
+  else
+      echo "Please specify the location of the PHOTOS base directory"\
+            "using the configure option --photosdir=[full directory path]"\
+            "or set the PHOTOSDIR environment variable"
+      stop=1    
+  fi
+
+  if [ -f $tauolaFile ]; then
+      echo "TAUOLADIR set to $TAUOLADIR"
+  else
+      echo "Please specify the location of the TAUOLA base directory"\
+            "using the configure option --tauoladir=[full directory path]"\
+            "or set the TAUOLADIR environment variable"
+      stop=1    
+  fi
+
+  if [ $stop = 1 ] ; then
+      exit
+  fi
+
+}
+
+#---------------------------------------
+
 check_arguments $* 
+check_dirs
 
 echo  "Compilation mode is ${COMPMODE}"
 
@@ -158,6 +227,15 @@ INCLUDEDIR = \$(TOPDIR)
 PYTHIADIR = ${PYTHIADIR}
 PYTHIAINCDIR = ${PYTHIADIR}/include
 PYTHIALIBDIR = ${PYTHIADIR}/lib/archive
+HEPMCDIR = ${HEPMCDIR}
+HEPMCINCDIR = ${HEPMCDIR}/include
+HEPMCLIBDIR = ${HEPMCDIR}/lib
+PHOTOSDIR = ${PHOTOSDIR}
+PHOTOSINCDIR = ${PHOTOSDIR}/include
+PHOTOSLIBDIR = ${PHOTOSDIR}/lib
+TAUOLADIR = ${TAUOLADIR}
+TAUOLAINCDIR = ${TAUOLADIR}/include
+TAUOLALIBDIR = ${TAUOLADIR}/lib
 SRCDIR = \$(TOPDIR)/src
 LIBDIR_SHARED = \$(TOPDIR)/lib
 LIBDIR_ARCHIVE = \$(TOPDIR)/lib/archive

@@ -23,7 +23,6 @@
 #include "EvtGenModels/EvtAbsExternalGen.hh"
 
 #include "EvtGenBase/EvtId.hh"
-#include "EvtGenBase/EvtParticleDecayList.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 #include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtVector4R.hh"
@@ -44,9 +43,9 @@ public:
 
   virtual bool doDecay(EvtParticle* theMother);
 
-protected:
-
   virtual void initialise();
+
+protected:
 
 private:
 
@@ -71,7 +70,6 @@ private:
   Pythia8::ParticleData _genericPartData, _aliasPartData;  
   Pythia8::ParticleData _theParticleData;
 
-  std::vector<EvtParticleDecayList> _decayTable;
   std::vector<int> _daugPDGVector;
   std::vector<EvtVector4R> _daugP4Vector;
 

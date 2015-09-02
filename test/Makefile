@@ -7,23 +7,24 @@ SOFLAGS = -shared
 DIRNAME = ${PWD}
 # Base directory where the EvtGen libraries are
 BASEDIR = ${DIRNAME}/../
+# Base directory location of HepMC
+HEPMCDIR = ${DIRNAME}/../../HepMC-2.06.05/build
+# Base directory location of Photos
+PHOTOSDIR = ${DIRNAME}/../../PHOTOS
+# Base directory location of Tauola
+TAUOLADIR = ${DIRNAME}/../../TAUOLA
+# Base directory location of Pythia 8
+PYTHIADIR = ${DIRNAME}/../../pythia8150
 
-# Specify the base location for the Pythia 8 libraries.
 # PYTHIA8DATA is the location of the xmldoc Pythia 8 directory.
 # Include files/libraries are usually located in the same main directory.
-PYTHIADIR = ${PYTHIA8DATA}/..
-
-# Base directory location of the Photos library
-PHOTOSDIR = ${DIRNAME}/../../photos_215_5/share
+# PYTHIADIR = ${PYTHIA8DATA}/..
 
 # Define the path to all required libraries
-LIBS = -L${BASEDIR}/lib/archive -L${PHOTOSDIR}/lib/archive -L${PYTHIADIR}/lib/archive \
-	-lEvtGen -lphotos -lpythia8 -llhapdfdummy -lgfortran
-
-# CERN configuration - need to find out where Pythia 8 libraries are installed...
-#CERNLIBDIR = /afs/cern.ch/sw/lcg/external/cernlib/2006b/x86_64-slc5-gcc41-opt
-#LIBS = -L${BASEDIR}/lib/archive -L${CERNLIBDIR}/lib \
-#        -lEvtGen -lphotos202 -lpythia6205 -lgfortran
+LIBS = -L${BASEDIR}/lib/archive -L${HEPMCDIR}/lib -L${PHOTOSDIR}/lib \
+       -L${TAUOLADIR}/lib -L${PYTHIADIR}/lib/archive -lEvtGen -lgfortran \
+       -lHepMC -lPhotosCxxInterface -lTauolaCxxInterface -lTauolaFortran \
+       -lpythia8 -llhapdfdummy -lhepmcinterface
 
 INCLUDEDIR = ${BASEDIR}
 
@@ -34,9 +35,6 @@ INCLUDEDIR = ${BASEDIR}
     $(error running of root-config failed or reported null value)
   endif
 #endif
-
-# CERN configuration
-#ROOTSYS = /afs/cern.ch/sw/lcg/external/root/5.21.04/slc4_amd64_gcc34/root
 
 ROOTCFLAGS    = $(shell ${ROOTSYS}/bin/root-config --cflags)
 ROOTLIBS      = $(shell ${ROOTSYS}/bin/root-config --libs)

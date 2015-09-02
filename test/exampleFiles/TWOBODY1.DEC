@@ -1,3 +1,4 @@
+noPhotos
 #
 #need to turn off mixing to prevent B0 from becoming an anti-B0
 Define dm_incohMix_B0 0.0

@@ -55,6 +55,15 @@ public:
 
   std::vector<EvtParticleDecayList> getDecayTable() {return _decaytable;};
 
+  EvtDecayBase* findDecayModel(int aliasInt, int modeInt);
+  EvtDecayBase* findDecayModel(EvtId id, int modeInt);
+
+  bool hasPythia(int aliasInt);
+  bool hasPythia(EvtId id);
+
+  int getNModes(int aliasInt);
+  int getNModes(EvtId id);
+
 protected:  
 
   EvtDecayTable();

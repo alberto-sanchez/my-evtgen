@@ -46,7 +46,6 @@ time ./evtgenlhc_test1 etacphiphi 10000
 time ./evtgenlhc_test1 vvpipi 1000
 time ./evtgenlhc_test1 svvhelamp 1000
 time ./evtgenlhc_test1 partwave 1000
-time ./evtgenlhc_test1 partwave2 1000
 time ./evtgenlhc_test1 twobody 1000 exampleFiles/TWOBODY1.DEC twobody1.root
 time ./evtgenlhc_test1 twobody 1000 exampleFiles/TWOBODY2.DEC twobody2.root
 time ./evtgenlhc_test1 twobody 1000 exampleFiles/TWOBODY3.DEC twobody3.root

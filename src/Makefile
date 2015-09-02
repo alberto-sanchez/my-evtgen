@@ -30,7 +30,7 @@ $(LIB_ARCHIVE) : $(objects)
 #---- The following is for dependency checking:
 
 $(TMPDIR)/%.mk: %.cpp
-	$(CXX) -MM $(CXXFLAGS) $< -I$(INCLUDEDIR) -I$(PYTHIAINCDIR) | sed 's,[^ ]*\.o:,$(TMPDIR)/&,' > $@
+	$(CXX) -MM $(CXXFLAGS) $< -I$(INCLUDEDIR) -I$(PYTHIAINCDIR) -I$(PHOTOSINCDIR) -I$(TAUOLAINCDIR) -I$(HEPMCINCDIR) | sed 's,[^ ]*\.o:,$(TMPDIR)/&,' > $@
 
 $(TMPDIR)/%.mk: %.F
 	$(FC) $(FFLAGS) -c $< -I$(INCLUDEDIR) | sed 's,[^ ]*\.o:,$(TMPDIR)/&,' > $@
@@ -45,7 +45,7 @@ endif
 #----
 
 $(TMPDIR)/%.o : %.cpp  $(TMPDIR)/%.mk
-	$(CXX) $(CXXFLAGS) $(CXXFLAGSSHARED) -c -o $@ $< -I$(INCLUDEDIR) -I$(PYTHIAINCDIR)
+	$(CXX) $(CXXFLAGS) $(CXXFLAGSSHARED) -c -o $@ $< -I$(INCLUDEDIR) -I$(PYTHIAINCDIR) -I$(PHOTOSINCDIR) -I$(TAUOLAINCDIR) -I$(HEPMCINCDIR)
 
 $(TMPDIR)/%.o: %.F $(TMPDIR)/%.mk
 	$(FC) $(FFLAGS) $(FFLAGSSHARED) -c -o $@ $< -I$(INCLUDEDIR)

@@ -12,8 +12,8 @@
 // Module: EvtGen/EvtPythia.hh
 //
 // Description:
-//Class to handle generic phase space decays not done
-//in other decay models.
+// Class to handle generic phase space decays not done
+// in other decay models.
 //
 // Modification history:
 //
@@ -26,6 +26,9 @@
 #define EVTPYTHIA_HH
 
 #include "EvtGenBase/EvtDecayIncoherent.hh"
+
+#include <string>
+#include <vector>
 
 class EvtParticle;
 class EvtAbsExternalGen;
@@ -46,7 +49,10 @@ public:
 
   void init();
 
-  void decay(EvtParticle *p); 
+  void decay(EvtParticle *p);
+
+  std::string commandName();
+  void command(std::string);
 
 protected:
 
@@ -55,6 +61,7 @@ protected:
 private:
 
   void fixPolarisations(EvtParticle *p);
+  std::vector<std::string> _commandList;
 
 };
 
