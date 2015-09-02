@@ -1,4 +1,4 @@
-# $Id: DrellYan_mumu=2GeV.dec,v 1.1 2007/09/21 09:59:41 robbep Exp $
+# $Id: DrellYan_mumu=2GeV.dec,v 1.2 2008/01/08 21:02:30 robbep Exp $
 #
 # EventType: 42112010
 #
@@ -10,7 +10,7 @@
 #
 # Cuts: PythiaHiggsType
 #
-# CutsOptions: NumberOfLepton 1 LeptonIsFromWZ true NumberOfbquarks -1
+# CutsOptions: NumberOfLepton 1 LeptonIsFromMother true NumberOfbquarks -1
 #
 # ExtraOptions: DrellYanmumu2GeV
 #

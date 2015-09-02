@@ -1,4 +1,4 @@
-# $Id: DECAY.DEC,v 1.39 2006/12/20 23:25:33 robbep Exp $ 
+# $Id: DECAY.DEC,v 1.40 2007/12/06 16:52:46 ibelyaev Exp $ 
 #Define the B0B0bar mass difference
 Define dm 0.502e12
 Define dgamma 0
@@ -99,6 +99,9 @@ ChargeConj D_s+sig           D_s-sig
 Alias      Lambda_c+sig      Lambda_c+
 Alias      anti-Lambda_c-sig anti-Lambda_c-
 ChargeConj Lambda_c+sig      anti-Lambda_c-sig
+Alias      tau+sig           tau+
+Alias      tau-sig           tau-
+ChargeConj tau+sig           tau-sig
 #
 #JetSet parameter modifications
 #(Very important that there are no blank spaces in the parameter string!)

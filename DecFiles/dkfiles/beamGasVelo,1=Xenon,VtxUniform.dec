@@ -1,4 +1,4 @@
-# $Id: beamGasVelo,1=Xenon,VtxUniform.dec,v 1.1 2007/10/09 16:25:23 gcorti Exp $
+# $Id: beamGasVelo,1=Xenon,VtxUniform.dec,v 1.2 2008/01/08 13:02:46 gcorti Exp $
 #
 # This decay file contains the steering for beam gas (on Xenon) using
 # Hijing as production engine. It is for beam 1.
@@ -12,7 +12,7 @@
 #
 # Descriptor: p Xe131[0.0] => ?
 #
-# NickName: beamGasVelo,2=Xenon,VtxUniform
+# NickName: beamGasVelo,1=Xenon,VtxUniform
 #
 # Production: Hijing
 #

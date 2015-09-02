@@ -1,4 +1,4 @@
-# $Id: W_munumu.dec,v 1.4 2007/09/21 09:31:08 robbep Exp $
+# $Id: W_munumu.dec,v 1.5 2008/01/08 13:05:14 gcorti Exp $
 #
 # EventType: 42311000
 #
@@ -10,7 +10,7 @@
 #
 # Cuts: PythiaHiggsType
 #
-# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromMother true NumberOfbquarks -1
 #
 # ExtraOptions: Wmunu
 #

@@ -1,4 +1,4 @@
-# $Id: Z_mumujet.dec,v 1.1 2007/09/21 10:20:29 robbep Exp $
+# $Id: Z_mumujet.dec,v 1.2 2008/01/08 21:02:30 robbep Exp $
 #
 # EventType: 42112020
 #
@@ -10,7 +10,7 @@
 #
 # Cuts: PythiaHiggsType
 #
-# CutsOptions: NumberOfLepton 2 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+# CutsOptions: NumberOfLepton 2 LeptonPtMin 4*GeV LeptonIsFromMother true NumberOfbquarks -1
 #
 # ExtraOptions: Zmumujet
 #

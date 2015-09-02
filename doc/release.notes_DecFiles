@@ -6,6 +6,86 @@
 ! The documentation for event types can be found at the web address:
 ! http://lhcb-comp.web.cern.ch/lhcb-comp/event_types_v2.1.pdf
 
+!========================= DecFiles v14r2 2008-03-27 =========================
+! 2008-03-19 - Patrick Robbe
+ - Add new event types:
+   . 11912010, Bd_D0X,Kpi
+   . 12912010, Bu_D0X,Kpi
+   . 13912010, Bs_D0X,Kpi
+
+! 2008-03-06 - Patrick Robbe
+ - Add new event types:
+   . 12103002, Bu_pi+pi-pi+=phsp,DecProdCut
+   . 12103012, Bu_K+K-K+=phsp,DecProdCut
+   . 12103032, Bu_pi+K-K+=phsp,DecProdCut
+   . 12103051, Bu_pppi=DecProdCut
+   . 12103022, Bu_pi+pi-K+=phsp,DecProdCut
+
+!========================= DecFiles v14r1 2008-02-08 =========================
+! 2008-02-06 - Patrick Robbe
+ - Add new event types:
+   . 11164400, Bd_D-rho+
+   . 11164401, Bd_D-rho+=DecProdCut
+
+!========================= DecFiles v14r0 2008-02-04 =========================
+! 2008-01-08 - Gloria CORTI
+ - Modify options for the following event types (require LbPythia >= v6r0) 
+   allowing choice of type of lepton and their mother via options, provided 
+   by Victor COCO. The options produced will not work with DC06 versions of
+   Gauss < v25r14 (or < v30r6 for post-DC06)
+   . 40911000, Higgs_bb=mH115GeV.dec
+   . 40911001, Higgs_bb=mH115GeV,onlyl.dec
+   . 40911002, Higgs_bb=mH120GeV.dec
+   . 40911006, Higgs_bb=mH120GeV,onlyl,10GeV.dec
+   . 40911003, Higgs_bb=mH120GeV,onlyl.dec
+   . 40911004, Higgs_bb=mH140GeV.dec
+   . 40911007, Higgs_bb=mH140GeV,onlyl,10GeV.dec
+   . 40911005, Higgs_bb=mH140GeV,onlyl.dec
+   . 41900000, tt_bb.dec
+   . 41900001, tt_bb=only1b.dec
+   . 41900002, tt_bb=onlyl,10GeV.dec
+   . 42321000, W_enue.dec
+   . 42311000, W_munumu.dec
+   . 42921000, WZ_enue,bb.dec
+   . 42911000, WZ_munumu,bb.dec
+   . 42122000, Z_ee.dec
+   . 42112000, Z_mumu.dec
+   . 42922000, ZZ_ee,bb.dec
+   . 42912000, ZZ_mumu,bb.dec
+   . 42112011, DrellYan_mumu=10GeV
+   . 42112010, DrellYan_mumu=2GeV
+   . 42311010, W_munujet
+   . 42112020, Z_mumujet
+
+! 2008-01-07 - Gloria CORTI
+ - Add new event types (requires Generators >= v7r6) where signal comes from b,
+   provided by Chris JONES
+   . 77173000, b_Dst_D0pi,Kmunu.dec
+   . 77173001, b_Dst_D0pi,Kmunu=DecProdCut.dec
+ - Modify script to support new value in digit "G". Value = 7 now means that
+   the signal comes b quark.
+   . create_options.py
+
+! 2008-01-02 - Patrick Robbe
+ - Add new event type
+   . 11876001, Bd_Dstmunu,Kpipipi=DecProdCut
+
+!========================= DecFiles v13r17 2007-12-19 =========================
+! 2007-12-19 - Gloria CORTI for Chris JONES
+ - Add new event types
+   . 27173000, Dst_D0pi,Kmunu.dec
+   . 27173001, Dst_D0pi,Kmunu=DecProdCut.dec
+
+! 2007-12-06 - Vanya BELYAEV
+  1) dkfiles/DECAY.DEC
+      add the aliases "tau+sig" and "tau-sig"
+  2) add new event type 
+     31113001 : Tau_mumumu=DecProdCut
+     the inclusive production of tau -> 3mu
+  3) cmt/create_options.py
+     few fixes to allow the production of type "31" (inclusive tau)
+
+!========================= DecFiles v13r16 2007-12-06 =========================
 ! 2007-11-29 - Patrick Robbe
  - Add new event type:
    . 11102201, Bd_Kstgamma=DecProdCut

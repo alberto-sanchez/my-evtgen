@@ -23,7 +23,7 @@ lib_archive: $(LIB_ARCHIVE)
 $(LIB_SHARED) : $(objects)
 	mkdir -p $(LIBDIR_SHARED)
 	@echo creating the shared library $@
-	$(CXX) $(LDFLAGSSHARED) $(objects) -o $@ -shared -Wl,-soname,$(notdir $@) $(FLIBS)
+	$(CXX) $(LDFLAGSSHARED) $(objects) -o $@ -shared -Wl,-soname,$(notdir $@) $(LIBS_CLHEP) $(FLIBS)
 
 $(LIB_ARCHIVE) : $(objects)
 	ar cru $(LIB_ARCHIVE) $(objects)

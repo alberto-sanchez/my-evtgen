@@ -1,4 +1,4 @@
-# $Id: Higgs_bb=mH140GeV,onlyl.dec,v 1.6 2007/03/04 21:39:24 robbep Exp $
+# $Id: Higgs_bb=mH140GeV,onlyl.dec,v 1.7 2008/01/08 13:05:09 gcorti Exp $
 #
 # EventType: 40911005
 #
@@ -12,7 +12,7 @@
 #
 # ParticleValue: "H_10 87 25 0.0 140.000 9.400e-026 Higgs0 25 0.000e+000"
 #
-# CutsOptions: NumberOfLepton 1 LeptonPtMin 10*GeV LeptonIsFromWZ true NumberOfbquarks 0 MotherOfThebquarks 25
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 10*GeV LeptonIsFromMother true NumberOfbquarks 0
 #
 # ExtraOptions: Higgs
 #

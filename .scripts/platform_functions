@@ -38,6 +38,11 @@ echo $machine >&2
 
 platform="${distribution}${slc_major}_${machine}_gcc${gcc_major}${gcc_minor}"
 platform=$(echo ${platform} | sed 's/gcc34[0-9]*$/gcc34/')
+platform=$(echo ${platform} | sed 's/gcc41[0-9]*$/gcc41/')
+platform=$(echo ${platform} | sed 's/gcc42[0-9]*$/gcc42/')
+platform=$(echo ${platform} | sed 's/gcc43[0-9]*$/gcc43/')
+platform=$(echo ${platform} | sed 's/gcc44[0-9]*$/gcc44/')
+platform=$(echo ${platform} | sed 's/gcc45[0-9]*$/gcc45/')
 
 #echo "Platform is "${platform}
 echo ${platform}

@@ -1,0 +1,124 @@
+# $Id: Bu_D0X,Kpi.dec,v 1.1 2008/03/19 16:18:54 robbep Exp $ 
+# This is the decay file for the decay B0 -> D0( -> Kpi) X
+#
+# EventType: 12912010
+#
+# Descriptor: {[B+ -> (D~0 -> K+ pi-) X]cc, [B+ -> (D0 -> K- pi+) X]cc}
+#
+# NickName: Bu_D0X,Kpi
+#
+# Physics: Inclusive D0 production (sum of exculsive modes), not coming from D*, D forced into K pi
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 17 March 2008
+#
+
+Alias myD0 D0
+Alias myanti-D0 anti-D0
+ChargeConj myD0 myanti-D0
+Alias myD_0*0 D_0*0
+Alias myanti-D_0*0 anti-D_0*0
+ChargeConj myD_0*0 myanti-D_0*0
+Alias myD_2*0 D_2*0
+Alias myanti-D_2*0 anti-D_2*0
+ChargeConj myD_2*0 myanti-D_2*0
+Alias mypsi(3770) psi(3770)
+ChargeConj mypsi(3770) mypsi(3770)
+
+Decay B-sig
+#
+#                  b -> c semileptonic
+#
+0.0224   myD0     e-   anti-nu_e         PHOTOS  ISGW2;
+0.00163   myD_0*0   e-   anti-nu_e         PHOTOS  ISGW2;
+0.000687   myD_2*0   e-   anti-nu_e         PHOTOS  ISGW2;
+0.0010   myD0   pi0   e-   anti-nu_e     PHOTOS  GOITY_ROBERTS;
+#
+0.0224   myD0    mu-  anti-nu_mu         PHOTOS   ISGW2;
+0.00163   myD_0*0  mu-  anti-nu_mu        PHOTOS    ISGW2;
+0.000687   myD_2*0  mu-  anti-nu_mu        PHOTOS    ISGW2;
+0.0010   myD0    pi0   mu-   anti-nu_mu  PHOTOS   GOITY_ROBERTS;
+#
+#                   b -> c tau nu
+#
+0.0070   myD0     tau- anti-nu_tau                 ISGW2;
+0.000433   myD_0*0   tau- anti-nu_tau                 ISGW2;
+0.000458   myD_2*0   tau- anti-nu_tau                 ISGW2;
+#
+0.00096   mypsi(3770) K-                    SVS;   
+0.001     mypsi(3770) K*-                   PHSP;
+0.0006    mypsi(3770) anti-K0   pi-         PHSP;
+0.0004    mypsi(3770) K-  pi0               PHSP;
+0.0004    mypsi(3770) K-  pi+  pi-          PHSP;
+0.0002    mypsi(3770) K-  pi0  pi0          PHSP;
+0.0002    mypsi(3770) anti-K0   pi-  pi0    PHSP;
+0.0006    mypsi(3770) K_1-                  PHSP;
+
+0.0129    myD0   D_s-                      PHSP;
+0.0111    D_s*- myD0                       SVS;
+0.0009618   myD_2*0  D_s-                      STS;
+0.000916    myD_2*0  D_s*-                    PHSP;
+
+0.0018    D_s-  myD0  pi0                  PHSP;
+0.0018    D_s*- myD0  pi0                  PHSP;
+0.0008    D_s-  myD0  pi0  pi0             PHSP;
+0.0033    D_s*- myD0  pi-  pi+             PHSP;
+0.0008    D_s*- myD0  pi0  pi0             PHSP;
+0.0017   myD0  D-   anti-K0                PHSP;
+0.0049   myD0  D*-  anti-K0                   PHSP; 
+0.0015   myD0  anti-D0  K-                    PHSP; 
+0.0015   D0  myanti-D0  K-                    PHSP; 
+#
+0.0025   myD0  D-   anti-K*0               PHSP;
+0.0025   myD0  D*-  anti-K*0                  PHSP;
+#
+0.0025   myD0  anti-D0  K*-                   PHSP;
+0.0025   D0  myanti-D0  K*-                   PHSP;
+#
+0.00027     D-   myD0               PHSP;
+
+0.0050   myD0   pi-                       PHSP;
+0.0134   rho-   myD0                      SVS;
+#
+0.0005   myD0  pi0  pi-                   PHSP;
+0.00887  a_1- myD0                         SVS;
+0.0021   myD0  rho0 pi-                   PHSP;
+0.0050   myD0  pi+  pi-  pi-              PHSP;
+0.0001832   myD_2*0 pi-                      STS;
+0.0008702   myD_2*0 rho- 			PHSP;
+0.0003033   myD_0*0 pi- PHSP;
+0.00041  myD0  K-				PHSP;
+0.00061  K*- myD0  			SVS;
+0.0016 myD0 D_s0*- PHSP;
+0.0041 D_s1- myD0 SVS;
+Enddecay
+CDecay B+sig
+
+Decay myD0
+  1.0   K-  pi+    PHSP;
+Enddecay
+CDecay myanti-D0
+
+Decay myD_2*0
+  1.0 myD0  pi0     TSS;
+Enddecay
+
+Decay myanti-D_2*0
+  1.0 myanti-D0  pi0     TSS;
+Enddecay
+
+Decay myD_0*0
+  1.0 myD0 pi0 PHSP;
+Enddecay
+
+Decay myanti-D_0*0
+  1.0 myanti-D0 pi0 PHSP;
+Enddecay
+
+Decay mypsi(3770)
+  0.5 D0 myanti-D0 VSS;
+  0.5 myD0 anti-D0 VSS;
+Enddecay
+
+End

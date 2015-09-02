@@ -1,0 +1,25 @@
+# $Id: Bu_pi+pi-pi+=phsp,DecProdCut.dec,v 1.1 2008/03/06 21:48:56 robbep Exp $
+#
+# This is the decay file for the decay B+ -> PI+ PI- PI+
+#
+# EventType: 12103002
+#
+# Descriptor: [B+ -> pi+ pi- pi+]cc
+#
+# Cuts: DaughtersInLHCb
+#
+# NickName: Bu_pi+pi-pi+=phsp,DecProdCut
+#
+# Physics: Phase space decay model
+#
+# Tested: Yes
+# By: Gabriel Guerrer
+# Date: 20 Sep 2005
+#
+Decay B+sig
+1.000       pi+     pi-     pi+     PHSP;
+Enddecay
+CDecay B-sig
+#
+End
+

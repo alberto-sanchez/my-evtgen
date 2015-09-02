@@ -1,42 +1,274 @@
-#!/bin/bash
+_check_cc () {
+	local _prog=$1 ; 
+	local _args=   ;
+	local _res=1   ;
+	shift          ;
+	_args="$*"     ;
+	echo  -n "Checking if $_prog $_args can create an executable from .c file ... ">&2 ; 
+	echo   "int main (int argc, char** argv) { return 0; }" > .___t.c && $_prog $_args -o .___t .___t.c >&2 && test -x .___t && ./.___t && _res=0 ; 
+	rm -f .___t .___t.c 2>&1 1>/dev/null ;
+	if test $_res = 0 ; then
+		echo "it can." >&2 ; 
+	else
+		echo "it can't">&2 ;
+	fi ;
+	return $_res ;
+};
+	
+_check_cxx () {
+	local _prog=$1 ; 
+	local _args=   ;
+	local _res=1   ;
+	shift          ;
+	_args="$*"     ;
+	echo  -n "Checking if $_prog $_args can create an executable from .cxx file ... ">&2 ; 
+	echo  "int main (int argc, char** argv) { return 0; }" > .___t.cxx && $_prog $_args -o .___t .___t.cxx >&2 && test -x .___t && ./.___t && _res=0 ; 
+	rm -f .___t .___t.cxx 2>&1 1>/dev/null  ;
+	if test $_res = 0 ; then
+		echo "it can." >&2 ; 
+	else
+		echo "it can't">&2 ;
+	fi ;
+	return $_res ;
+};
 
-# Find platform.
-#
-#check_platform () {
+_check_fc () {
+	local _prog=$1 ; 
+	local _args=   ;
+	local _res=1   ;
+	shift          ;
+	_args="$*"     ;
+	echo  -n "Checking if $_prog $_args can create an executable from .f file ... " >&2 ;
+	( echo  " " " " " " " " " " " " "program t"     ; 
+	  echo  " " " " " " " " " " " " "implicit none" ;
+	  echo  " " " " " " " " " " " " "end"  ) > .___t.f && $_prog $_args -o .___t .___t.f >&2 && test -x .___t && ./.___t && _res=0 ; 
+	rm -f .___t .___t.f 2>&1 1>/dev/null ; 
+	if test $_res = 0 ; then
+		echo "it can." >&2 ;
+	else
+		echo "it can't">&2 ;
+	fi ;
+	return $_res ; 
+};
 
-export ARCH="`uname`"
+	
 
-gcc_major=$(g++ --version | sed '2,$d;s/^[^ ]\+[ ]\+[^ ]\+[ ]\+\([0-9]\+\)\..*$/\1/')
-gcc_minor=$(g++ --version | sed '2,$d;s/^.*GCC)[ ]\+[0-9]\+\.\([0-9]\+\)\.\([0-9]\+\).*$/\1\2/')
+lcg_platform () {
+	
+local _cc=           ;
+local _cc_found=0    ;
+local _fc=           ;
+local _fc_found=0    ;
+local _cxx=          ;
+local _cxx_found=0   ;
 
-slc_major=""
+LCG_PLATFORM=        ;
 
-echo -n  "Checking for OS ... " >&2
-if [ ! -s /etc/redhat-release ] ; then
-   echo " not RedHat-derived. Stop." >&2
-   exit 1
-fi
-if [ "x$(grep "Scientific Linux" /etc/redhat-release)" = "x" ] ; then   
-   echo "not SLC! Scientific Linux [34] expected. Stop." >&2
-   exit 1
-fi
-slc_major=$(sed 's/^.*[Rr]elease[ ]\+\([0-9]\+\)\..*$/\1/' < /etc/redhat-release)
-echo "SLC "$slc_major >&2
+LCG_CC_VERSION=      ;
 
-echo -n "Checking for machine ... " >&2
-machine=$(uname -m | grep -E "i[3456]86")
-if [ "x$machine" = "x" ] ; then
-	machine=$(uname -m)
-	case "X${machine}" in 
-		"Xx86_64") machine="amd64" ;; 
-	esac
+if test "x${CC}" = "x" ; then
+	echo "INFO: CC variable is not set." >&2 ;
+	_cc_file= ;
+	for _cc in gcc cc ; do 
+		_cc_file=`which ${_cc}` ; 
+		if test "x${_cc_file}" != "x" && test -x ${_cc_file} &&  _check_cc ${_cc_file} ${CFLAGS} ; then
+			CC=${_cc_file} ; 
+			break ; 
+		fi ;
+	done ;
 else
-	machine="ia32"
-fi
-echo $machine >&2
+	echo "WARNING: CC='${CC}', hopefully, you know what you're doing." >&2 ;
+	_prog=`echo ${CC} | sed 's, .*$,,;'` ;
+	_args="`echo ${CC} | sed 's,^[^ ][^ ]*\(.*\)$,\1,;'`" ;
+	_cc=`echo $_prog | sed 's,^.*/\([^\/][^\/]*\)$,\1,;'`  ;
+	echo -n "Trying $_prog ... " >&2                   ;
+	_prog_file=`which ${_prog} 2>/dev/null`            ;
+	if test "x$_prog_file" != "x" && test -x $_prog_file ; then
+		echo $_prog_file >&2 ;
+		if ! _check_cc $_prog_file $_args ${CFLAGS} ; then
+			echo "ERROR: $CC can't create an executable.">&2 ;
+			CC= ;
+		else
+			CC="$_prog_file $_args " ;
+		fi ;
+	else
+		echo "not found" >&2 ;
+		CC= ;
+	fi ;
+fi ;
 
-platform="slc${slc_major}_${machine}_gcc${gcc_major}${gcc_minor}"
-platform=$(echo ${platform} | sed 's/gcc34[0-9]*$/gcc34/')
+if test "x${CC}" = "x" ; then
+	echo "ERROR: Can't find C compiler. Setting CC and PATH variables can help." >&2 ;
+	_cc_found=0 ;
+else
+	_cc_found=1 ;
+fi ;
 
-#echo "Platform is "${platform}
-echo ${platform}
+if test "x${FC}" = "x" ; then
+	echo "INFO: FC variable is not set." >&2 ;
+	_fc_file= ;
+	for _fc in g77 gfortran f77 ; do 
+		_fc_file=`which ${_fc}` ; 
+		if test "x${_fc_file}" != "x" && test -x ${_fc_file} && _check_fc ${_fc_file} ${FFLAGS} ; then
+			FC=${_fc_file} ;
+			break ;
+		fi ;
+	done ;
+else
+	echo "WARNING: FC='${FC}', hopefully, you know what you're doing." >&2 ;
+	_prog=`echo ${FC} | sed 's, .*$,,;'` ;
+	_args="`echo ${FC} | sed 's,^[^ ][^ ]*\(.*\)$,\1,;'`" ;
+	_fc=`echo $_prog | sed 's,^.*/\([^\/][^\/]*\)$,\1,;'`  ;
+	echo -n "Trying $_prog ... " >&2 ;
+	_prog_file=`which ${_prog} 2>/dev/null` ;
+	if test "x$_prog_file" != "x" && test -x $_prog_file ; then
+		echo $_prog_file >&2 ;
+		if ! _check_fc $_prog_file $_args ${FFLAGS} ; then
+			echo "ERROR: $FC can't create an executable.">&2 ;
+			FC= ;
+		else
+			FC="$_prog_file $_args " ;
+		fi ;
+	else
+		echo "not found" >&2 ;
+		FC= ;
+	fi ;
+fi ;
+
+if test "x${FC}" = "x" ; then
+	echo "ERROR: Can't find Fortran compiler. Setting FC and PATH variables can help." >&2 ;
+	_fc_found=0 ;
+else
+	_fc_found=1 ;
+fi ;
+
+if test "x${CXX}" = "x" ; then
+	echo "INFO: CXX variable is not set." >&2 ;
+	_cxx_file= ;
+	for _cxx in g++ c++ ; do 
+		_cxx_file=`which ${_cxx}` ;
+		if test "x${_cxx_file}" != "x" && test -x ${_cxx_file} && _check_cxx ${_cxx_file} ${CXXFLAGS} ; then
+			CXX=${_cxx_file} ;
+			break ;
+		fi ;
+	done ;
+else
+	echo "WARNING: CXX='${CXX}', hopefully, you know what you're doing." >&2 ;
+	_prog=`echo ${CXX} | sed 's, .*$,,;'` ;
+	_args="`echo ${CXX} | sed 's,^[^ ][^ ]*\(.*\)$,\1,;'`" ;
+	_cxx=`echo $_prog | sed 's,^.*/\([^\/][^\/]*\)$,\1,;'`  ;
+	echo -n "Trying $_prog ... " >&2                    ;
+	_prog_file=`which ${_prog} 2>/dev/null`             ;
+	if test "x$_prog_file" != "x" && test -x $_prog_file ; then
+		echo $_prog_file >&2 ;
+		if ! _check_cxx $_prog_file $_args ${CXXFLAGS} ; then
+			echo "ERROR: $CXX can't create an executable.">&2 ;
+			CXX= ;
+		else 
+			CXX="$_prog_file $_args " ;
+		fi ;
+	else
+		echo "not found" >&2 ;
+		CXX= ;
+	fi ;
+fi ;
+
+if test "x${CXX}" = "x" ; then
+	echo "ERROR: Can't find C++ compiler. Setting CXX and PATH variables can help." >&2 ;
+	_cxx_found=0 ;
+else
+	_cxx_found=1 ;
+fi ;
+
+is_gcc() {
+	local _cc="$*" ;
+	if test "x`${_cc} --version | grep -i gcc`" != "x" ; then
+		return 0 ;
+	else
+		return 1 ;
+	fi ;
+};
+
+if test "x${CC}" != "x" && is_gcc ${CC} ; then
+	CC_VERSION=`${CC} --version | head -n 1 | sed "s,^.*(GCC)[ ]*,,;s, .*$,,;"` ;
+	CC_MAJOR=`echo ${CC_VERSION} | sed "s,\..*$,,;"` ;
+	CC_MINOR=`echo ${CC_VERSION} | sed "s,^[ ]*[0-9][0-9]*\.,,;"` ;
+	if test "x${CC_MAJOR}" = "x3" && test "x${CC_MINOR}" = "x2.3" ; then 
+		LCG_CC_VERSION=gcc323 ; 
+	elif test "x${CC_MAJOR}" = "x4" && test "x${CC_MINOR}" = "x0.1" ; then
+		LCG_CC_VERSION=gcc401 ; 
+	else 
+	 	LCG_CC_VERSION=gcc${CC_MAJOR}`echo ${CC_MINOR} | sed 's,\..*$,,g;'` ; 
+	fi ;
+	if test "x${ENABLE_DEBUG}" != "x" ; then 
+		CFLAGS="-g" ;      
+		FFLAGS="-g -Wuninitialized" ; 
+		CXXFLAGS="-g -Wall" ; 
+		LCG_CC_VERSION=${LCG_CC_VERSION}_dbg ;
+	else                                    
+		if test "x$CFLAGS" = "x" ; then 
+			CFLAGS="-O2 -fPIC" ;
+		else
+			echo "WARNING: retaining user's CFLAGS='$CFLAGS'">&2 ;
+		fi ;
+		if test "x$FFLAGS" = "x" ; then
+			FFLAGS="-O2 -fPIC -Wuninitialized" ; 
+		else
+			echo "WARNING: retaining user's FFLAGS='$FFLAGS'">&2 ;
+		fi ;
+		if test "x$CXXFLAGS" = "x" ; then
+	        	CXXFLAGS="-O2 -fPIC -Wall" ; 
+		else
+			echo "WARNING: retaining user's CXXFLAGS='$CXXFLAGS'">&2 ;
+		fi ;
+	fi ;
+else 
+	LCG_CC_VERSION="${_cc}" ;
+	echo "WARNING: gcc is not used. Retaining user's CFLAGS, CXXFLAGS, FFLAGS." >&2 ;
+fi ;
+
+if test "x${MACHINE_ARCH}" = "x" ; then
+	MACHINE_ARCH=`uname -m` ;
+fi ;
+if   test "x`echo ${MACHINE_ARCH} | sed 's,^i.86$,,;'`" != "x${MACHINE_ARCH}" ; then
+	LCG_MACHINE_ARCH=ia32 ;
+elif test ${MACHINE_ARCH} = x86_64 ; then
+	LCG_MACHINE_ARCH=amd64 ;
+else
+	LCG_MACHINE_ARCH=${MACHINE_ARCH} ;
+	echo "WARNING: ${LCG_MACHINE_ARCH}: non-x86 machine" >&2 ;
+fi ;
+
+if test "x${LCG_OPSYS}" = "x" ; then
+	if test -s /etc/redhat-release ; then
+		_release=`cat /etc/redhat-release` ; 
+		_release_num=`echo ${_release} | sed 's,^.*release[ ][ ]*\([0-9\.][0-9\.]*\) .*$,\1,'` ; 
+       		if test "x`echo ${_release} | sed 's,SLC,,;'`" != "x${_release}" ; then 
+			LCG_OPSYS=slc`echo ${_release_num} | sed 's,\([0-9][0-9]*\)\..*$,\1,'`; 
+		elif test "x`echo ${_release} | sed 's,[Rr]ed[Hh]at,,'`" != "x${_release}" ; then 
+		        LCG_OPSYS=rh`echo ${_release_num} | sed 's,\.,,g'` ; 
+		else 
+			LCG_OPSYS=Linux ;
+		fi ;
+	else 
+		LCG_OPSYS=`uname -s` ;
+	fi ;
+else
+	echo "WARNING: LCG_OPSYS was set to ${LCG_OPSYS}. Leaving it intact." >&2 ;
+fi ;
+
+LCG_PLATFORM=${LCG_OPSYS}_${LCG_MACHINE_ARCH}_${LCG_CC_VERSION} ;
+
+if test $_cc_found = 1 && test $_fc_found = 1 && test $_cxx_found = 1 ; then
+	return 0 ;
+else
+	return 1 ;
+fi ;
+}
+
+lcg_platform
+echo
+echo platform is:
+echo
+echo $LCG_PLATFORM
+echo

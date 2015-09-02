@@ -1,4 +1,4 @@
-# $Id: W_enue.dec,v 1.3 2007/02/27 22:09:17 robbep Exp $
+# $Id: W_enue.dec,v 1.4 2008/01/08 13:05:14 gcorti Exp $
 #
 # EventType: 42321000
 #
@@ -10,7 +10,7 @@
 #
 # Cuts: PythiaHiggsType
 #
-# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromMother true NumberOfbquarks -1
 #
 # ExtraOptions: Wenue
 #

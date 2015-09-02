@@ -1,4 +1,4 @@
-# $Id: Z_ee.dec,v 1.2 2007/02/27 22:09:17 robbep Exp $
+# $Id: Z_ee.dec,v 1.3 2008/01/08 13:05:15 gcorti Exp $
 #
 # EventType: 42122000
 #
@@ -10,7 +10,7 @@
 #
 # Cuts: PythiaHiggsType
 #
-# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromMother true NumberOfbquarks -1
 #
 # ExtraOptions: Zee
 #

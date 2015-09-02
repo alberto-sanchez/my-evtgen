@@ -1,6 +1,5 @@
 #! /bin/bash
 #
-# run ./configure --help   for available options
 
 . .scripts/platform_functions
 lcgplatform=$(check_platform)

@@ -1,4 +1,4 @@
-# $Id: tt_bb=onlyl,10GeV.dec,v 1.3 2007/02/27 22:09:17 robbep Exp $
+# $Id: tt_bb=onlyl,10GeV.dec,v 1.5 2008/01/08 13:25:05 gcorti Exp $
 #
 # EventType: 41900002
 #
@@ -10,7 +10,7 @@
 #
 # Cuts: PythiaHiggsType
 #
-# CutsOptions: NumberOfLepton 1 LeptonPtMin 10*GeV LeptonIsFromWZ true NumberOfbquarks 0 MotherOfThebquarks 6
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 10*GeV LeptonIsFromMother true NumberOfbquarks 0 MotherOfThebquarks "t"
 #
 # ExtraOptions: Top
 #

@@ -1,4 +1,4 @@
-# $Id: W_munujet.dec,v 1.1 2007/09/21 10:20:29 robbep Exp $
+# $Id: W_munujet.dec,v 1.2 2008/01/08 21:02:30 robbep Exp $
 #
 # EventType: 42311010
 #
@@ -10,7 +10,7 @@
 #
 # Cuts: PythiaHiggsType
 #
-# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromWZ true NumberOfbquarks -1
+# CutsOptions: NumberOfLepton 1 LeptonPtMin 4*GeV LeptonIsFromMother true NumberOfbquarks -1
 #
 # ExtraOptions: Wmunujet
 #
