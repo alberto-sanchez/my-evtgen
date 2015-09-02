@@ -2,13 +2,10 @@ include ../config.mk
 
 TMPDIR=../tmp
 
-#objects := $(patsubst %.cpp,%.o,$(wildcard *.cpp))
-
 sources := $(shell find . -type 'f' -name '*.cpp')
 sources += $(shell find . -type 'f' -name '*.[Ff]')
 objects := $(shell echo $(sources) | sed 's,\./,$(TMPDIR)/,g;s,\.cpp,\.o,g;s,\.F,\.o,g;')
 mkfiles := $(shell echo $(sources) | sed 's,\./,$(TMPDIR)/,g;s,\.cpp,\.mk,g;s,\.F,\.mk,g;s,\.f,\.mk,g;')
-
 
 default: all
 
@@ -18,14 +15,12 @@ lib_shared: $(LIB_SHARED)
 
 lib_archive: $(LIB_ARCHIVE)
 
-
 $(LIB_SHARED) : $(objects)
 	mkdir -p $(LIBDIR_SHARED)
 	@echo creating the shared library $@
 	$(CXX) $(LDFLAGSSHARED) $(objects) -o $@ -shared -Wl,-soname,$(notdir $@) $(FLIBS) \
-	-L$(HEPMCSHLIBDIR) -lHepMC \
-	-L$(PHOTOSSHLIBDIR) -lPhotosCxxInterface -L$(TAUOLASHLIBDIR) -lTauolaCxxInterface -lTauolaFortran \
-	-L$(PYTHIASHLIBDIR) -lpythia8 -llhapdfdummy -lhepmcinterface
+	-L$(HEPMCSHLIBDIR) $(HEPMCLIBLIST) -L$(PHOTOSSHLIBDIR) $(PHOTOSLIBLIST) \
+	-L$(TAUOLASHLIBDIR) $(TAUOLALIBLIST) -L$(PYTHIASHLIBDIR) $(PYTHIALIBLIST)
 
 $(LIB_ARCHIVE) : $(objects)
 	ar cru $(LIB_ARCHIVE) $(objects)

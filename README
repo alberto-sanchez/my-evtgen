@@ -106,6 +106,21 @@ setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Pythia 8 library directory
 setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Tauola library directory>
 setenv LD_LIBRAY_PATH ${LD_LIBRARY_PATH}:<location of Photos library directory>
 
+Code validation
+===============
+
+The validation sub-directory contains code validation test cases for Pythia, Tauola and B mixing models.
+Run the "configure" script here, which should create a file called extraConfig.mk, and build the 
+examples using "gmake". Note that some extra configuration may be necessary to set the location 
+of the ROOT libraries, which are only used to create ntuples and plots for the validation examples.
+
+The script genAllDecayExamples.sh runs other scripts that generate a range of decay modes
+using the genExampleRootFiles.cc program. The script compareAllDecays.sh runs a range
+of scripts that creates comparison plots using the compareRootFiles.cc program. For now,
+the comparisons use the same plots, but each of the "compare.sh" files can be edited to
+compare any two versions of ROOT data created by the genExampleRootFiles.cc program.
+
+The testCPVDecays.cc program runs a test for the B mixing decay model.
 
 Examples
 ========

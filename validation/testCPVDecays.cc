@@ -28,11 +28,13 @@
 #include "TF1.h"
 #include "TStyle.h"
 #include "TCanvas.h"
+#include "TLine.h"
 #include "TROOT.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
+#include <list>
 
 using std::cout;
 using std::endl;
@@ -68,14 +70,18 @@ int main(int argc, char** argv) {
   int nEvents(10000);
   if (argc > 4) {nEvents = atoi(argv[4]);}
 
+  double sin2Beta = sin(0.775);
+  if (argc > 5) {sin2Beta = atof(argv[5]);}
+
   cout<<"Number of events is "<<nEvents<<endl;
+  cout<<"sin2Beta = "<<sin2Beta<<" (used to draw oscillation maxima lines)"<<endl;
 
   EvtRandomEngine* myRandomEngine = new EvtStdlibRandomEngine();
 
   // Initialize the generator - read in the decay table and particle properties.
 
   int mixingType = EvtCPUtil::Incoherent;
-  EvtGen myGenerator("../DECAY.DEC", "../evt.pdl", myRandomEngine, 0, 0, mixingType);
+  EvtGen myGenerator("../DECAY_2011.DEC", "../evt.pdl", myRandomEngine, 0, 0, mixingType);
   myGenerator.readUDecay(decayFileName.c_str());
 
   EvtId theId = EvtPDL::getId(parentName);
@@ -134,7 +140,7 @@ int main(int argc, char** argv) {
   TH1F* H_DiffSum = dynamic_cast<TH1F*>(H_Diff->Clone("H_DiffSum"));
   H_DiffSum->Divide(H_total);
 
-  TF1* sineFit = new TF1("sineFit", sineFitFun, 0, 12, 3);
+  TF1* sineFit = new TF1("sineFit", sineFitFun, 0.0, 12.0, 3);
 
   sineFit->SetParName(0, "N");
   sineFit->SetParName(1, "a");
@@ -145,7 +151,7 @@ int main(int argc, char** argv) {
   H_DiffSum->Fit(sineFit );
 
 
-  TF1* timeFit = new TF1("timeFit", timeFitFun, 0, 12, 2);
+  TF1* timeFit = new TF1("timeFit", timeFitFun, 0.0, 12.0, 2);
   timeFit->SetParName(0, "N");
   timeFit->SetParName(1, "#Gamma");
   timeFit->SetParameter(0, 500);
@@ -160,6 +166,10 @@ int main(int argc, char** argv) {
 
   H_DiffSum->SetXTitle("t (ps)");
   H_DiffSum->Draw();
+
+  // Plot +- sin(2beta) lines
+  TLine line1(0.0, sin2Beta, 12.0, sin2Beta); line1.Draw();
+  TLine line2(0.0, -sin2Beta, 12.0, -sin2Beta); line2.Draw();
   theCanvas->Print("BCPVSinFit.gif");
 
   H_total->SetXTitle("t (ps)");

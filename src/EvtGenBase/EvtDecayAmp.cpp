@@ -67,10 +67,10 @@ void EvtDecayAmp::makeDecay(EvtParticle* p, bool recursive){
     if (prob!=prob) {
 
       report(DEBUG,"EvtGen") << "Forward density matrix:"<<endl;
-      report(ERROR,"EvtGen") << p->getSpinDensityForward();
+      report(DEBUG,"EvtGen") << p->getSpinDensityForward();
 
       report(DEBUG,"EvtGen") << "Decay density matrix:"<<endl;
-      report(ERROR,"EvtGen") << rho;
+      report(DEBUG,"EvtGen") << rho;
 
       report(DEBUG,"EvtGen") << "prob:"<<prob<<endl;
       

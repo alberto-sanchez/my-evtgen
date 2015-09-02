@@ -111,10 +111,31 @@ check_dirs() {
 
 }
 
-#---------------------------------------
+#--------------------------------------------------------------
+
+check_extlibs () {
+
+    # Set default shared libary lists for external packages
+    HEPMCLIBLIST="-lHepMC"
+    PHOTOSLIBLIST="-lPhotosCxxInterface"
+    TAUOLALIBLIST="-lTauolaCxxInterface -lTauolaFortran"
+    PYTHIALIBLIST="-lpythia8 -llhapdfdummy -lhepmcinterface"
+
+    # Check if the extra Photos fortran library is present.
+    # If so, add it to the list of external libraries.
+    # This is usually the case for CERN Genser libraries.
+    photosFortLib=${PHOTOSDIR}/lib/libPhotosFortran.so;
+    if [ -f $photosFortLib ]; then
+	    PHOTOSLIBLIST+=" -lPhotosFortran"
+    fi
+
+}
+
+#-------------------------------------------------------------
 
 check_arguments $* 
 check_dirs
+check_extlibs
 
 echo  "Compilation mode is ${COMPMODE}"
 
@@ -123,13 +144,14 @@ echo  "Compilation mode is ${COMPMODE}"
 #
 # User-changeable part, experts  -----------------------------
 #
-FFLAGS_OPT="-O2 -Wuninitialized"
-FFLAGS_DBG="-g"
-CFLAGS_OPT=-O2
-CFLAGS_DBG=-g
-CXX="g++"
+CXX=g++
 CXXFLAGS_OPT="-O2 -Wall"
 CXXFLAGS_DBG="-g -Wall"
+CFLAGS_OPT=-O2
+CFLAGS_DBG=-g
+FC=gfortran
+FFLAGS_OPT="-O2 -Wuninitialized"
+FFLAGS_DBG=-g
  
 FFLAGSSHARED=-fPIC
 CFLAGSSHARED=-fPIC
@@ -148,12 +170,11 @@ fi
 echo "Platform is $ARCH"
 
 #default platform settings:
-FC=gfortran
-CC=g++
 FFLAGS="${FFLAGS_OPT}"
 CFLAGS="${CFLAGS_OPT}"
 CXXFLAGS="${CXXFLAGS_OPT}"
 FLIBS="-lfrtbegin -lg2c"
+
 if [ ${COMPMODE} = OPT ]; then
   FFLAGS="${FFLAGS_OPT}"
   CFLAGS="${CFLAGS_OPT}"
@@ -165,7 +186,6 @@ if [ ${COMPMODE} = DBG ]; then
   CXXFLAGS="${CXXFLAGS_DBG}"
 fi
 if [ $ARCH = Linux ]; then
-  FC=gfortran
   FFLAGS="${FFLAGS_OPT} -Wno-globals"
   CFLAGS="${CFLAGS_OPT}"
   CXXFLAGS="${CXXFLAGS_OPT}"
@@ -181,9 +201,9 @@ if [ $ARCH = Linux ]; then
     CXXFLAGS="${CXXFLAGS_DBG}"
   fi
 fi
+
 # Linux platform with gcc4: new Fortran90 compiler.
 if [ $ARCH = Linux-gcc4 ]; then
-  FC=gfortran
   FFLAGS="${FFLAGS_OPT}"
   CFLAGS="${CFLAGS_OPT}"
   CXXFLAGS="${CXXFLAGS_OPT}"
@@ -220,29 +240,33 @@ CFLAGS = ${CFLAGS}
 CXX = ${CXX}
 CXXFLAGS = ${CXXFLAGS}
 
-TOPDIR = $(pwd)
+EVTGENDIR = $(pwd)
 
-TMPDIR = \$(TOPDIR)/tmp
-INCLUDEDIR = \$(TOPDIR)
+TMPDIR = \$(EVTGENDIR)/tmp
+INCLUDEDIR = \$(EVTGENDIR)
 PYTHIADIR = ${PYTHIADIR}
 PYTHIAINCDIR = ${PYTHIADIR}/include
 PYTHIALIBDIR = ${PYTHIADIR}/lib/archive
 PYTHIASHLIBDIR = ${PYTHIADIR}/lib
+PYTHIALIBLIST = ${PYTHIALIBLIST}
 HEPMCDIR = ${HEPMCDIR}
 HEPMCINCDIR = ${HEPMCDIR}/include
 HEPMCLIBDIR = ${HEPMCDIR}/lib
 HEPMCSHLIBDIR = ${HEPMCDIR}/lib
+HEPMCLIBLIST = ${HEPMCLIBLIST}
 PHOTOSDIR = ${PHOTOSDIR}
 PHOTOSINCDIR = ${PHOTOSDIR}/include
 PHOTOSLIBDIR = ${PHOTOSDIR}/lib
 PHOTOSSHLIBDIR = ${PHOTOSDIR}/lib
+PHOTOSLIBLIST = ${PHOTOSLIBLIST}
 TAUOLADIR = ${TAUOLADIR}
 TAUOLAINCDIR = ${TAUOLADIR}/include
 TAUOLALIBDIR = ${TAUOLADIR}/lib
 TAUOLASHLIBDIR = ${TAUOLADIR}/lib
-SRCDIR = \$(TOPDIR)/src
-LIBDIR_SHARED = \$(TOPDIR)/lib
-LIBDIR_ARCHIVE = \$(TOPDIR)/lib/archive
+TAUOLALIBLIST = ${TAUOLALIBLIST}
+SRCDIR = \$(EVTGENDIR)/src
+LIBDIR_SHARED = \$(EVTGENDIR)/lib
+LIBDIR_ARCHIVE = \$(EVTGENDIR)/lib/archive
 
 LIB_SHARED = \$(LIBDIR_SHARED)/lib\$(GENERATOR).so
 LIB_ARCHIVE = \$(LIBDIR_ARCHIVE)/lib\$(GENERATOR).a

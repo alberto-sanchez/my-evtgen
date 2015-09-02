@@ -26,7 +26,7 @@ using std::string;
 
 int main(int argc, char** argv) {
 
-  string decayFileName("../DECAY.DEC");
+  string decayFileName("../DECAY_2011.DEC");
   if (argc > 1) {decayFileName = argv[1];}
   cout<<"Decay file name is "<<decayFileName<<endl;
 
