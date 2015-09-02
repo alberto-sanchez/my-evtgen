@@ -1,0 +1,40 @@
+# $Id: Bd_Dstmunu,Kpi.dec,v 1.2 2005/09/27 19:43:51 robbep Exp $
+#
+# This is the decay file for the decay B0 -> D*-(-> D0B(-> K+ PI-) PI-) mu+ nu_mu
+#
+# EventType: 11574000
+#
+# Descriptor: {[[B0]nos -> nu_mu mu+ (D*(2010)- -> pi- (D~0 -> K+ pi-))]cc, [[B0]os -> anti_nu_mu mu- (D*(2010)+ -> pi+ (D0 -> K- pi+))]cc}
+#
+# NickName: Bd_Dstmunu,Kpi
+#
+# Physics: D*+ forced into D0 pi+, D0 forced into Kpi
+# 
+# Tested: Yes
+# By: Marta Calvi
+# Date: 23 Sep 2005
+#
+Alias             MyD*-       D*-
+Alias             Myanti-D0   anti-D0
+Alias             MyD*+       D*+
+Alias             MyD0        D0
+ChargeConj        MyD*+       MyD*-
+ChargeConj        MyD0        Myanti-D0
+#
+Decay B0sig
+1.000 MyD*-    mu+  nu_mu            HQET 0.92 1.18 0.72;
+Enddecay
+CDecay anti-B0sig
+#
+Decay MyD*-
+1.000        Myanti-D0 pi-                    VSS;
+Enddecay
+CDecay MyD*+
+#
+Decay Myanti-D0
+1.000        K+        pi-                    PHSP;
+Enddecay
+CDecay MyD0
+#
+End
+#

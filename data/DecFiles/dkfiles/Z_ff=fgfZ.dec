@@ -1,0 +1,15 @@
+# $Id: Z_ff=fgfZ.dec,v 1.1 2006/02/23 23:08:19 robbep Exp $
+#
+# EventType: 42900030
+#
+# Descriptor: pp -> (Z0 -> f f~) ... 
+#
+# NickName: Z_ff=fgfZ
+#
+# Physics: Z0 in acceptance, process 30
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 23 Feb 2006
+#
+End

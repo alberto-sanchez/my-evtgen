@@ -1,0 +1,40 @@
+# $Id: Lb_D0Lambda.dec,v 1.2 2004/07/07 14:48:43 robbep Exp $
+# 
+# This is the decay file for the decay LAMB -> Lambda D~0(-> K+ PI-)
+#
+# EventType: 15164100
+#
+# Descriptor: [Lambda_b0 -> (Lambda0 -> p+ pi-) (D~0 -> K+ pi-)]cc
+#
+# NickName: Lb_D0Lambda
+#
+# Physics: Lambda0 forced into p pi, D0 forced into K- pi+
+#
+# Tested: Yes
+# By: James Storey
+# Date: 7 Jul 2004
+#
+Alias      MyD0          D0
+Alias      Myanti-D0     anti-D0
+ChargeConj MyD0          Myanti-D0
+Alias      MyLambda      Lambda0
+Alias      Myanti-Lambda anti-Lambda0
+ChargeConj Myanti-Lambda MyLambda
+#
+Decay Lambda_b0sig
+  1.000    MyLambda          Myanti-D0                 PHSP;
+Enddecay
+CDecay anti-Lambda_b0sig
+#
+Decay MyD0
+  1.000   K-          pi+                      PHSP;
+Enddecay
+CDecay Myanti-D0
+#
+Decay MyLambda
+  1.000   p+          pi-                      PHSP;
+Enddecay
+CDecay Myanti-Lambda
+#
+End
+#

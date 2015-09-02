@@ -1,0 +1,93 @@
+# $Id: Bs_Dsmunu=cocktail,DsmuInAcc.dec,v 1.1 2006/10/23 15:53:42 robbep Exp $
+#
+# This is the decay file for the decay Bs0 => D_s-(-> K+ K- pi-) mu+ nu_mu
+#
+# EventType: 13774001
+#
+# Descriptor: {[[B_s0]nos => (D_s- => K+ K- pi-) nu_mu mu+]cc, [[B_s0]os => (D_s+ => K- K+ pi+) anti_nu_mu mu-]cc}
+#
+# NickName: Bs_Dsmunu=cocktail,DsmuInAcc
+#
+# Cuts: ListOfDaughtersInLHCb
+#
+# ExtraOptions: DsmuInAcc
+#
+# Physics: Sum of D(*(*))_s mu nu_mu and D(*(*))_s tau nu_tau, includes resonances in Ds decay
+# 
+# Tested: No
+# By: 
+# Date: 
+#
+Alias      MyD_s-     D_s-
+Alias      MyD_s+     D_s+
+ChargeConj MyD_s+     MyD_s-
+Alias      Myphi      phi
+Alias      MyK*0      K*0
+Alias      Myanti-K*0 anti-K*0
+ChargeConj MyK*0      Myanti-K*0
+ChargeConj Myphi      Myphi
+Alias      MyD_s*+    D_s*+
+Alias      MyD_s*-    D_s*-
+ChargeConj MyD_s*+    MyD_s*-
+Alias      MyD'_s1+   D'_s1+
+Alias      MyD'_s1-   D'_s1-
+ChargeConj MyD'_s1-   MyD'_s1+
+Alias      MyD_s0*+   D_s0*+
+Alias      MyD_s0*-   D_s0*-
+ChargeConj MyD_s0*+   MyD_s0*-
+Alias      Mytau+     tau+
+Alias      Mytau-     tau-
+ChargeConj Mytau+     Mytau-
+#
+Decay anti-B_s0sig
+  0.0210   MyD_s+     mu-    anti-nu_mu     ISGW2;
+  0.0490   MyD_s*+    mu-    anti-nu_mu     ISGW2;
+  0.0040   MyD'_s1+   mu-    anti-nu_mu     ISGW2;
+  0.0040   MyD_s0*+   mu-    anti-nu_mu     ISGW2;
+  # correct for the fact that we force tau -> mu anti_nu_mu nu_tau (17.3%)
+  0.00138  MyD_s+     Mytau-   anti-nu_tau          ISGW2;
+  0.00277  MyD_s*+    Mytau-   anti-nu_tau          ISGW2;
+  0.00031  MyD'_s1+   Mytau-   anti-nu_tau          ISGW2;
+  0.00031  MyD_s0*+   Mytau-   anti-nu_tau          ISGW2;
+Enddecay
+CDecay B_s0sig
+#
+Decay MyD_s-
+  0.017712   Myphi pi-                 SVS;
+  0.009     K+    K-     pi-          PHSP;
+  0.022     MyK*0 K-                  SVS;
+Enddecay
+CDecay MyD_s+
+#
+Decay Myphi
+  1.000 K+   K-                    VSS;
+Enddecay
+#
+Decay MyK*0
+  1.000 K+   pi-                   VSS;
+Enddecay
+CDecay Myanti-K*0
+#
+Decay MyD_s*+
+  0.942   MyD_s+  gamma                      VSP_PWAVE;
+  0.058   MyD_s+  pi0                        VSS;
+Enddecay
+CDecay MyD_s*-
+#
+Decay MyD'_s1+
+  0.79000  MyD_s0*+ pi0                       PHSP;
+  0.21000  gamma MyD_s+                       PHSP;
+Enddecay
+CDecay MyD'_s1-
+#
+Decay MyD_s0*+
+  1.000    MyD_s+ pi0                        PHSP;
+Enddecay
+CDecay MyD_s0*-
+#
+Decay Mytau-
+  0.1731         mu-  anti-nu_mu   nu_tau        TAULNUNU;
+Enddecay
+CDecay Mytau+
+#
+End

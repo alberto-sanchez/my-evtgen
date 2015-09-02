@@ -1,0 +1,42 @@
+# $Id: Bd_pi+pi-pi0pi0.dec,v 1.2 2005/11/08 17:23:50 robbep Exp $
+#
+# This is the decay file for the decay B0 -> pi+ pi- pi0 pi0
+#
+# EventType: 11202420
+#
+# Descriptor: {[B0 => pi+ pi- (pi0 -> gamma gamma) (pi0 -> gamma gamma)]cc}
+#
+# NickName: Bd_pi+pi-pi0pi0
+#
+# Physics: pi0 forced to gamma gamma, resonant structure
+#
+# Tested: Yes
+# By: Olivier Deschamps
+# Date: 7 Nov 2005
+#
+Alias      Mypi0      pi0
+ChargeConj Mypi0      Mypi0
+Alias      Myrho+     rho+
+Alias      Myrho-     rho-
+ChargeConj Myrho+     Myrho-
+#
+Decay B0sig
+  0.0000262   Myrho+   Myrho-        SVV_HELAMP 0.0 0.0 1.0 0.0 0.0 0.0;
+  0.000010   Myrho+   pi-   Mypi0   PHSP;
+  0.000010   pi+  Mypi0 pi-  Mypi0  PHSP;
+  0.000001   rho0  Mypi0  Mypi0     PHSP;
+  0.000010   Myrho-   pi+   Mypi0   PHSP;
+Enddecay
+CDecay anti-B0sig
+#
+Decay Myrho+
+  1.000        pi+        Mypi0            VSS;
+Enddecay
+CDecay Myrho-
+#
+Decay Mypi0
+  1.000        gamma      gamma            PHSP;
+Enddecay
+#
+End
+

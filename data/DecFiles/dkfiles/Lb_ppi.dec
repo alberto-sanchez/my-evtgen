@@ -1,0 +1,23 @@
+# $Id: Lb_ppi.dec,v 1.2 2004/04/28 15:34:21 robbep Exp $
+# 
+# This is the decay file to generate LAMB -> P+ pi-
+#
+# EventType: 15102010
+#
+# Descriptor: [Lambda_b0 -> p+ pi-]cc
+#
+# NickName: Lb_ppi
+#
+# Physics: phase space decay
+#
+# Tested: Yes
+# By: Vincenzo Vagnoni
+# Date: 7 Apr 2004
+#
+Decay Lambda_b0sig
+  1.000    p+        pi-         PHSP;
+Enddecay
+CDecay anti-Lambda_b0sig
+#
+End
+#

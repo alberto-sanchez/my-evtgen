@@ -1,0 +1,38 @@
+# $Id: Bs_KstKS.dec,v 1.4 2004/05/11 13:07:11 robbep Exp $
+# 
+# these is the decay file to generate  BS0 -> K*B(-> K- PI+)  K0S(-> PI+ PI-)
+#
+# EventType: 13104110
+#
+# Descriptor: {[[B_s0]nos -> (K*(892)~0 -> K- pi+) (KS0 -> pi+ pi-)]cc, [[B_s0]os -> (K*(892)0 -> K+ pi-) (K_S0 -> pi+ pi-)]cc}
+#
+# NickName: Bs_KstKS
+#
+# Physics: K*0 decaying into K- pi+, K0s decaying into pi- pi+, No CP violation
+#
+# Tested: Yes
+# By: Vincenzo Vagnoni
+# Date: 7 Apr 2004
+#
+Alias      MyK0s      K_S0
+Alias      MyK*0      K*0
+Alias      Myanti-K*0 anti-K*0
+ChargeConj MyK0s      MyK0s
+ChargeConj MyK*0      Myanti-K*0
+#
+Decay B_s0sig
+  1.000    Myanti-K*0        MyK0s         SVS;
+Enddecay
+CDecay anti-B_s0sig
+#
+Decay MyK0s
+  1.000    pi+          pi-           PHSP;
+Enddecay
+#
+Decay MyK*0
+  1.000    K+           pi-           VSS;
+Enddecay
+CDecay Myanti-K*0
+#
+End
+#

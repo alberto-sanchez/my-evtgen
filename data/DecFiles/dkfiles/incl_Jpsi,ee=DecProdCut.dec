@@ -1,0 +1,27 @@
+# $Id: incl_Jpsi,ee=DecProdCut.dec,v 1.1 2006/12/19 09:59:14 robbep Exp $
+#
+# Author Patrick Robbe
+# Date   2004-03-17 
+# 
+# This is the decay file for the decay prompt J/psi -> e+ e- 
+#
+# EventType: 24152001
+#
+# Descriptor: J/psi(1S) -> e+ e- {,gamma} {,gamma}
+#
+# Cuts: DaughtersInLHCb
+#
+# NickName: incl_Jpsi,ee=DecProdCut
+#
+# Physics: J/psi decay products in LHCb acceptance
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 10 May 2004
+#
+Decay J/psisig
+  1.000         e+        e-        VLL;
+Enddecay
+#
+End
+#

@@ -1,0 +1,35 @@
+# $Id: Bu_D0munu,Kpi.dec,v 1.2 2005/12/10 09:50:57 robbep Exp $
+# 
+# Author Olivier Leroy
+# Date   2005-12-06
+#
+# This is the decay file for the decay B+ -> D0 bar ( -> K+ PI- ) Mu+ Nu
+#
+# EventType: 12573000
+#
+# Descriptor: [B+ -> nu_mu mu+ (D~0 -> K+ pi-) ]cc
+#
+# NickName: Bu_D0munu,Kpi
+#
+# Physics: control channel to measure opposite side mistag
+#
+# Tested: Yes
+# By: Julien Babel
+# Date: 8 Dec 2005
+#
+Alias      MyD0        D0
+Alias Myanti-D0   anti-D0
+ChargeConj        MyD0       Myanti-D0
+#
+Decay B+sig
+  1.000     Myanti-D0  mu+  nu_mu         ISGW2;
+Enddecay
+CDecay B-sig
+#
+Decay Myanti-D0
+  1.000        K+        pi-                    PHSP;
+Enddecay
+CDecay MyD0
+#
+End
+

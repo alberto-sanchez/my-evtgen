@@ -1,0 +1,26 @@
+# $Id: Bs_gammagamma.dec,v 1.1 2004/04/25 18:38:41 robbep Exp $
+#
+# Author Thomas Martin Schietinger
+# Date   2004-04-15
+# 
+# This is the decay file for B_s0->gamma gamma
+#
+# EventType: 13100200
+#
+# Descriptor: [B_s0 -> gamma gamma]cc
+#
+# NickName: Bs_gammagamma
+#
+# Physics: phase space decay model
+#
+# Tested: Yes
+# By: Thomas Schietinger
+# Date: 15 Apr 2004
+#
+Decay B_s0sig
+  1.000        gamma gamma                  PHSP;
+Enddecay
+CDecay anti-B_s0sig
+#
+End
+#

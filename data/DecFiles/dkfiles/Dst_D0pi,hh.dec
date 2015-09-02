@@ -1,0 +1,36 @@
+# $Id: Dst_D0pi,hh.dec,v 1.2 2006/12/20 23:59:39 robbep Exp $
+#
+# This is the decay file for the decay D* -> D0 pi+
+#
+# EventType: 27313000
+#
+# Descriptor: [D*(2010)+ -> (D0 -> {K+ pi-, K- pi+, K+ K-, pi+ pi-}) pi+]cc
+#
+# NickName: Dst_D0pi,hh
+#
+# Physics: 
+#
+# Tested: No
+# By: 
+# Date: 
+#
+
+Alias MyD0 D0
+Alias MyantiD0 anti-D0
+ChargeConj MyD0 Myanti-D0
+
+Decay D*+sig
+  1.000 MyD0  pi+    VSS;
+Enddecay
+CDecay D*-sig
+
+Decay MyD0
+  0.0383   K-  pi+   PHSP;
+  0.0043   K+  K-    PHSP;
+  0.0015   pi+ pi-   PHSP;
+  0.00015  K+  pi-   PHSP;
+Enddecay
+CDecay myantiD0
+#
+End
+

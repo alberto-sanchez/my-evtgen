@@ -1,0 +1,48 @@
+# $Id: Bs_psi2Sphi,mm.dec,v 1.2 2006/02/22 23:15:52 robbep Exp $
+#
+#   This is the decay file for the decay BS0 -> PSI(2S)(-> MU+ MU-) PHI(-> K+ K-)
+#
+#   EventType: 13144010
+#
+#   Descriptor: [B_s0 -> (psi(2S) -> (mu+ mu- {,gamma}) (phi(1020) -> K+ K-)]cc
+#
+#   NickName: Bs_psi2Sphi,mm
+#
+#   Physics: Includes radiative mode, No CP violation
+#
+#   Tested: Yes
+#   By: Roberta Santacesaria
+#   Date: 21 Feb 2006
+#
+Define Hp 0.159
+Define Hz 0.775
+Define Hm 0.612
+Define pHp 1.563
+Define pHz 0.0
+Define pHm 2.712
+#
+Alias      Mypsi2s  psi(2S)
+Alias      MyJ/psi  J/psi
+Alias      MyPhi    phi
+ChargeConj Mypsi2s  Mypsi2s
+ChargeConj MyJ/psi  MyJ/psi
+ChargeConj MyPhi    MyPhi
+#
+Decay B_s0sig
+  1.000         Mypsi2s     MyPhi        SVV_HELAMP Hp pHp Hz pHz Hm pHm;
+Enddecay
+Decay anti-B_s0sig
+  1.000         Mypsi2s     MyPhi        SVV_HELAMP Hm pHm Hz pHz Hp pHp;
+Enddecay
+#
+
+Decay Mypsi2s
+  1.000         mu+          mu-         PHOTOS VLL;
+Enddecay
+
+#
+Decay MyPhi
+  1.000         K+          K-           VSS;
+Enddecay
+End
+

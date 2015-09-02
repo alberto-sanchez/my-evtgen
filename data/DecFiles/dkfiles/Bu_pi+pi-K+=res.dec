@@ -1,0 +1,71 @@
+# $Id: Bu_pi+pi-K+=res.dec,v 1.1 2006/02/12 14:38:21 robbep Exp $
+#
+# This is the decay file for the decay B+ -> PI+ PI- K+
+#
+# EventType: 12203020
+#
+# Descriptor: [B+ -> pi+ pi- K+]cc
+#
+# NickName: Bu_pi+pi-K+=res
+#
+# Physics: decay model for B ---> pi pi k with reso
+#
+# Tested: Yes
+# By: Pascal DAVID
+# Date: 17 Janv 2006
+#
+Decay B+sig
+
+1.0  pi+ pi- K+     PTO3P       
+
+        #MAXPDF 36.48
+        SCANPDF 100000
+      
+        # rho0(770) 
+        AMPLITUDE      RESONANCE       AB        rho0    
+        ANGULAR         BC              
+	TYPE            RBW_ZEMACH
+        COEFFICIENT     POLAR_RAD       1.000   -0.36
+	
+        # omega(780) 
+        AMPLITUDE	RESONANCE	AB	 omega	 
+        ANGULAR 	BC		 
+	TYPE		RBW_ZEMACH
+        COEFFICIENT	POLAR_RAD	0.043    1.74
+	
+        # f0(980) 
+        AMPLITUDE      RESONANCE       AB        f_0     
+        ANGULAR         BC
+        TYPE            RBW_ZEMACH
+        COEFFICIENT     POLAR_RAD       0.212    1.17
+	
+        # f2(1270) 
+        AMPLITUDE      RESONANCE       AB        f_2
+        ANGULAR         BC
+        TYPE            RBW_ZEMACH
+        COEFFICIENT     POLAR_RAD       1.414    2.44
+	
+	# k*(892)
+        AMPLITUDE      RESONANCE       BC        K*0
+        ANGULAR         AB      
+        TYPE            RBW_ZEMACH
+        COEFFICIENT     POLAR_DEG       1.170    0.0
+	
+	# k*(1430)0
+        AMPLITUDE      RESONANCE       BC        K_0*0
+        ANGULAR         AB      
+        TYPE            RBW_ZEMACH
+        COEFFICIENT     POLAR_DEG       1.330    0.95
+		
+        # Non-resonant
+        AMPLITUDE       PHASESPACE      
+        COEFFICIENT     POLAR_RAD       0.627    0.0
+	
+        ;  
+	
+Enddecay
+
+CDecay B-sig 
+
+End
+

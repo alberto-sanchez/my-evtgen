@@ -1,0 +1,23 @@
+# $Id: D0_mumu.dec,v 1.2 2004/05/11 12:57:16 robbep Exp $
+#
+# This is the decay file for the decay D0 -> mu+ mu-
+#
+# EventType: 22112000
+#
+# Descriptor: [D0 -> mu+ mu-]cc
+#
+# NickName: D0_mumu
+#
+# Physics: Phase space decay model
+#
+# Tested: Yes
+# By: Davide Pinci
+# Date: 6 May 2004
+#
+Decay D0sig
+  1.000       mu+     mu-              PHSP;
+Enddecay
+CDecay anti-D0sig
+#
+End
+

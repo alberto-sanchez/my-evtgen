@@ -1,0 +1,50 @@
+# $Id: Lb_rhoLambda=DecProdCut.dec,v 1.1 2006/10/01 22:25:37 robbep Exp $
+# 
+# This is the decay file for the decay LAMB -> Lambda(-> p pi) rho0 (pi+ pi-)
+#
+# EventType: 15104103
+#
+# Descriptor: [Lambda_b0 -> (Lambda0 -> p+ pi-) (rho(770)0 -> pi+ pi-)]cc
+#
+# NickName: Lb_rhoLambda=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Lambda0 forced into p pi, decay through phase space
+#
+# Tested: Yes
+# By: Eric Conte (LPC Clermont)
+# Date: 15 April 2006
+
+Define     Lb_polariz    1.0
+Define     Vtype         2
+#############################
+# VTYPE :
+#1 --> JPSI
+#2 --> RHO
+#3 --> OMEGA
+#4 --> MIXING RHO-OMEGA
+#############################
+
+Alias      MyLambda      Lambda0
+Alias      Myanti-Lambda anti-Lambda0
+ChargeConj Myanti-Lambda MyLambda
+Alias      MyRho       rho0
+ChargeConj MyRho       MyRho
+#
+Decay Lambda_b0sig
+  1.000    MyLambda          MyRho      LAMBDAB2LAMBDAV    Lb_polariz Vtype;
+Enddecay                                 
+CDecay anti-Lambda_b0sig
+#
+Decay MyRho
+  1.000     pi+  pi-                      V2VPVMFORLAMBDAB2LAMBDAV  Lb_polariz Vtype;
+Enddecay
+#
+Decay MyLambda
+  1.000   p+          pi-                 LAMBDA2PPIFORLAMBDAB2LAMBDAV Lb_polariz Vtype;
+Enddecay                                  
+CDecay Myanti-Lambda
+#
+End
+#

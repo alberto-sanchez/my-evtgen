@@ -1,0 +1,58 @@
+# $Id: Bd_K+pi-pi0pi0.dec,v 1.2 2005/11/08 17:17:06 robbep Exp $
+#
+# This is the decay file for the decay B0 -> K+ pi- pi0 pi0
+#
+# EventType: 11202410
+#
+# Descriptor: {[[B0]nos => K+ pi- (pi0 -> gamma gamma) (pi0 -> gamma gamma)]cc, [[B0]os => K- pi+ (pi0 -> gamma gamma) (pi0 -> gamma gamma)]cc}
+#
+# NickName: Bd_K+pi-pi0pi0
+#
+# Physics: pi0 forced to gamma gamma, resonant structure
+#
+# Tested: Yes
+# By: Olivier Deschamps
+# Date: 7 Nov 2005
+#
+Alias      Mypi0      pi0
+ChargeConj Mypi0      Mypi0
+Alias      MyK*+      K*+
+Alias      MyK*-      K*-
+ChargeConj MyK*+      MyK*-
+Alias      Myrho-     rho-
+Alias      Myrho+     rho+
+ChargeConj Myrho+     Myrho-
+Alias      MyK*0      K*0
+Alias      Myanti-K*0 anti-K*0
+ChargeConj MyK*0      Myanti-K*0
+#
+Decay B0sig
+  0.00000666    Myrho-     MyK*+      SVV_HELAMP  0.0 0.0 1.0 0.0 0.0 0.0;
+  0.00000333    MyK*+      pi-       Mypi0            PHSP;
+  0.00001000    K+         Mypi0     Myrho-           PHSP;
+  0.00001000    K+         Mypi0     pi-     Mypi0    PHSP;
+  0.00000666    MyK*0      Mypi0     Mypi0            PHSP;
+Enddecay
+CDecay anti-B0sig
+#
+Decay MyK*+
+  1.000        K+         Mypi0            VSS;
+Enddecay
+CDecay MyK*-
+#
+Decay Myrho+
+  1.000        pi+        Mypi0            VSS;
+Enddecay
+CDecay Myrho-
+#
+Decay Mypi0
+  1.000        gamma      gamma            PHSP;
+Enddecay
+#
+Decay MyK*0
+  1.000        K+         pi-              VSS;
+Enddecay
+CDecay Myanti-K*0
+#
+End
+

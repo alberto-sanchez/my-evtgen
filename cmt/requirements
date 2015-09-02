@@ -1,0 +1,22 @@
+package     EvtGen
+version     v8r14
+ 
+branches    cmt src doc EvtGen EvtGenModels EvtGenBase
+
+use         GaudiPolicy  v*
+use         CLHEP        v*  LCG_Interfaces
+use         GENSER       v*  Gen
+
+
+include_dirs  $(EVTGENROOT) 
+
+library       EvtGen *.cpp *.F
+
+macro_append EvtGen_cppflags "-DEVTSTANDALONE"
+
+apply_pattern linker_library  library=EvtGen
+apply_pattern linker_stamps   library=EvtGen
+
+macro_append EvtGen_pp_fflags "" WIN32 "/DWIN32"
+
+

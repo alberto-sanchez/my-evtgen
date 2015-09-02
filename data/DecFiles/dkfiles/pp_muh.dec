@@ -1,0 +1,21 @@
+# $Id: pp_muh.dec,v 1.2 2006/09/05 13:24:39 gcorti Exp $
+# 
+# Author Ivan Belyaev
+# Date   2006-06-19
+# 
+# Decay file for Maximu bias
+#
+# EventType: 30912000
+#
+# Descriptor: pp => (mu H) X
+#
+# NickName: pp_muh
+#
+# FullEventCuts: MuXMaxBias
+#
+# ExtraOptions: LoKi
+#
+# Physics:
+#
+End
+#

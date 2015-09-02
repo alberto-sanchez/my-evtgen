@@ -1,0 +1,30 @@
+# $Id: Bd_K+K-KS.dec,v 1.2 2004/05/11 13:18:41 robbep Exp $
+#
+# This is the decay file for the decay B0 -> K+ K- K0S(-> PI+ PI-)
+#
+# EventType: 11104110
+#
+# Descriptor: [B0 -> K+ K- (KS0 -> pi+ pi-)]cc
+#
+# NickName: Bd_K+K-KS
+#
+# Physics: Non resonant, K0s forced into pi+ pi-
+#
+# Tested: Yes
+# By: Yuehong Xie
+# Date: 11 May 2004
+#
+Alias      MyKs    K_S0
+ChargeConj MyKs    MyKs
+#
+Decay B0sig
+  1.000        K+     K-      MyKs        PHSP;
+Enddecay
+CDecay anti-B0sig
+#
+Decay MyKs
+  1.000        pi+      pi-                 PHSP;
+Enddecay
+#
+End
+

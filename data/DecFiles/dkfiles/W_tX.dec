@@ -1,0 +1,14 @@
+#
+# EventType: 41900010
+#
+# Descriptor: pp -> [W+ -> {t d~, t s~, t b~}]cc ... 
+#
+# NickName: W_tX
+#
+# Physics: 1 b quark in LHCb acceptance
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 7 Jul 2005
+#
+End

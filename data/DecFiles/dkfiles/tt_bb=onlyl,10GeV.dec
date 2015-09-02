@@ -1,0 +1,14 @@
+#
+# EventType: 41900002
+#
+# Descriptor: pp => (t => b ...) (t~ => b~ ...) ... 
+#
+# NickName: tt_bb=onlyl,10GeV
+#
+# Physics: One lepton in acceptance with pT > 10 GeV
+#
+# Tested: Yes
+# By: Victor Coco
+# Date: 18 Feb 2006
+#
+End

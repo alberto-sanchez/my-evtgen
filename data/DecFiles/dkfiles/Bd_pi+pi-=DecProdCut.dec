@@ -1,0 +1,25 @@
+# $Id: Bd_pi+pi-=DecProdCut.dec,v 1.1 2006/10/01 22:15:22 robbep Exp $
+#
+# This is the decay file for the decay B0 -> PI+ PI-
+#
+# EventType: 11102011
+#
+# Descriptor: [B0 -> pi+ pi-]cc
+#
+# NickName: Bd_pi+pi-=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: No CP violation
+#
+# Tested: Yes
+# By: Vincenzo Vagnoni
+# Date: 07 Apr 2004
+#
+Decay B0sig
+  1.000       pi+     pi-              PHSP;
+Enddecay
+CDecay anti-B0sig
+#
+End
+

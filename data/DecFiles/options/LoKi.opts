@@ -1,0 +1,10 @@
+// $Id: LoKi.opts,v 1.2 2006/09/05 12:22:56 gcorti Exp $
+/** @file
+ *  Options to include when having code for a given type that uses LoKiGen
+ *
+ *  @author I. Belyaev
+ *  @date   2006-06-19
+ */
+ 
+ApplicationMgr.DLLs   += { "LoKiCore" };
+ApplicationMgr.ExtSvc += { "LoKiSvc" };

@@ -1,0 +1,52 @@
+#  $Id: Bs_psi2Sphi,chic0g,rhopipi.dec,v 1.1 2006/02/22 22:31:21 robbep Exp $
+#
+#   This is the decay file for the decay BS0 -> PSI( -> gamma chic_0) phi (KK)
+#
+#   EventType: 13136220
+#
+#   Descriptor: [B_s0 -> (psi(2S) -> gamma chi_c0 (-> rho pi+ pi-) (phi(1020) -> K+ K-)]cc
+#
+#   NickName: Bs_psi2Sphi,chic0g,rhopipi
+#
+#   Physics: Includes radiative mode, No CP violation
+#
+#   Tested: Yes
+#   By: Roberta Santacesaria
+#   Date: 21 Feb 2006
+#
+Define Hp 0.159
+Define Hz 0.775
+Define Hm 0.612
+Define pHp 1.563
+Define pHz 0.0
+Define pHm 2.712
+#
+Alias      Mypsi2s  psi(2S)
+Alias      MyJ/psi  J/psi
+Alias      MyPhi    phi
+Alias      Mychi_c0 chi_c0
+ChargeConj Mypsi2s  Mypsi2s
+ChargeConj MyJ/psi  MyJ/psi
+ChargeConj MyPhi    MyPhi
+ChargeConj Mychi_c0 Mychi_c0
+#
+Decay B_s0sig
+  1.000         Mypsi2s     MyPhi        SVV_HELAMP Hp pHp Hz pHz Hm pHm;
+Enddecay
+Decay anti-B_s0sig
+  1.000         Mypsi2s     MyPhi        SVV_HELAMP Hm pHm Hz pHz Hp pHp;
+Enddecay
+#
+
+Decay Mypsi2s
+  1.000         gamma       Mychi_c0     PHSP;
+Enddecay
+
+Decay Mychi_c0
+  1.000         rho0       pi+   pi-     PHSP;
+Enddecay
+#
+Decay MyPhi
+  1.000         K+          K-           VSS;
+Enddecay
+End

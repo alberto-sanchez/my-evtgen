@@ -1,0 +1,15 @@
+# $Id: pp_qqWbb=AcerMC.dec,v 1.2 2005/10/19 15:23:40 robbep Exp $
+#
+# EventType: 42711000
+#
+# Descriptor: pp -> [W+ -> {e+ nu_e, mu+ nu_mu}]cc b b~ ... 
+#
+# NickName: pp_qqWbb=AcerMC
+#
+# Physics: 1 lepton with pT > 4 GeV, 2 b quarks in acceptance, uses AcerMC
+#
+# Tested: Yes
+# By: Victor Coco
+# Date: 10 Oct 2005
+#
+End

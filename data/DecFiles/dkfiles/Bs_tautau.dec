@@ -1,0 +1,40 @@
+# $Id: Bs_tautau.dec,v 1.2 2004/04/26 08:24:19 robbep Exp $
+# 
+# This is the decay file for the decay BS0 -> TAU+(-> {PI+ PI- PI+ NUTB, PI+ PI- PI + NUTB PI0(-> GAMM GAMM)}) 
+#                                             TAU-(-> {PI+ PI- PI- NUT, PI+ PI- PI- NUT PI0(-> GAMM GAMM)})
+#
+# EventType: 13806000
+#
+# Descriptor: [B_s0 -> (tau+ -> {pi+ pi- pi+ nu, pi+ pi- pi+ nu (pi0 -> gamma gamma)}) (tau- -> {pi+ pi- pi- nu, pi+ pi- pi- nu (pi0 -> gamma gamma)})]cc
+#
+# NickName: Bs_tautau
+#
+# Physics: tau forced to 3 charged pi or 3 charged pi and one pi0, pi0 forced to gamma gamma 
+#
+# Tested: No
+# By:
+# Date:
+#
+Alias         Mytau+  tau+
+Alias         Mytau-  tau-
+ChargeConj    Mytau+  Mytau-
+Alias         Mypi0   pi0
+ChargeConj    Mypi0   Mypi0
+#
+Decay B_s0sig
+  1.000       Mytau+        Mytau-             PHSP;
+Enddecay
+CDecay anti-B_s0sig
+#
+Decay Mytau-
+  0.0917      pi-     pi-      pi+     nu_tau                TAUHADNU -0.108 0.775 0.149 1.364 0.400 1.23 0.4;
+  0.0251      nu_tau  pi-      pi+     pi-      Mypi0        PHSP;
+Enddecay
+CDecay Mytau+
+#
+Decay Mypi0
+  1.0000      gamma      gamma        PHSP;
+Enddecay
+#       
+End
+#

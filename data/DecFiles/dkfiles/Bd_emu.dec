@@ -1,0 +1,23 @@
+# $Id: Bd_emu.dec,v 1.1 2006/02/24 13:00:47 robbep Exp $
+#
+# This is the decay file for the decay B0 -> e-  MU+ 
+#
+# EventType: 11112010
+#
+# Descriptor: {[B0 -> e- mu+]cc, [B0 -> e+ mu-]cc}
+#
+# NickName: Bd_emu
+#
+# Physics: 
+#
+# Tested: Yes
+# By: Ulrik Egede
+# Date: 24 Feb 2006
+#
+Decay B0sig
+  0.5000       e-    mu+              PHSP;
+  0.5000       e+    mu-              PHSP;
+Enddecay
+CDecay anti-B0sig
+#
+End

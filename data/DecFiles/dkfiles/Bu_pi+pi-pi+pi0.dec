@@ -1,0 +1,49 @@
+# $Id: Bu_pi+pi-pi+pi0.dec,v 1.3 2005/11/10 13:40:30 robbep Exp $
+#
+# This is the decay file for the decay B+ -> pi+ pi- pi+ pi0
+#
+# EventType: 12203410
+#
+# Descriptor: {[B+ => pi+ pi- pi+ (pi0 -> gamma gamma)]cc}
+#
+# NickName: Bu_pi+pi-pi+pi0
+#
+# Physics: pi0 forced to gamma gamma, resonant structure
+#
+# Tested: Yes
+# By: Olivier Deschamps
+# Date: 7 Nov 2005
+#
+Alias      Mypi0      pi0
+ChargeConj Mypi0      Mypi0
+Alias      Myrho+     rho+
+Alias      Myrho-     rho-
+ChargeConj Myrho+     Myrho-
+#
+Decay B+sig
+  0.0000264    Myrho+   rho0         SVV_HELAMP 0.0 0.0 1.0 0.0 0.0 0.0;
+  0.00001    Myrho+   pi+   pi-    PHSP;
+  0.00001    rho0     pi+   Mypi0  PHSP;
+  0.00001    pi+  pi-  pi+  Mypi0  PHSP;
+  0.00001    Myrho-  pi+ pi+       PHSP;
+Enddecay
+#
+Decay B-sig
+  0.000015    Myrho-   rho0         SVV_HELAMP 0.0 0.0 1.0 0.0 0.0 0.0;
+  0.00001    Myrho-   pi-   pi+    PHSP;
+  0.00001    rho0     pi-   Mypi0  PHSP;
+  0.00001    pi-  pi+  pi-  Mypi0  PHSP;
+  0.00001    Myrho+  pi- pi-       PHSP;
+Enddecay
+#
+Decay Myrho+
+  1.000        pi+        Mypi0            VSS;
+Enddecay
+CDecay Myrho-
+#
+Decay Mypi0
+  1.000        gamma      gamma            PHSP;
+Enddecay
+#
+End
+

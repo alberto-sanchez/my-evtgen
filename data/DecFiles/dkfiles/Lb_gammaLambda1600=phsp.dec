@@ -1,0 +1,41 @@
+# $Id: Lb_gammaLambda1600=phsp.dec,v 1.2 2005/03/09 18:08:31 robbep Exp $
+#
+# Author  Federica Legger
+# Date    2 Dec 2004
+# 
+# This is the decay file for the decay LAMB -> Lambda(1600)(-> p K) gamma
+#
+# EventType: 15102211
+#
+# Descriptor: [Lambda_b0 -> (Lambda(1600)0 -> p+ K-) gamma]cc
+#
+# NickName: Lb_gammaLambda1600=phsp
+#
+# Physics: Lambda(1600)0 forced into p K, decay with generic phase space       
+#
+# Tested: Yes
+# By: Federica Legger (EPFL)
+# Date: 2 Dec 2004
+#
+Alias      MyLambda(1600)0 Lambda(1600)0
+Alias      Myanti-Lambda(1600)0 anti-Lambda(1600)0
+ChargeConj MyLambda(1600)0 Myanti-Lambda(1600)0
+
+Decay Lambda_b0sig
+  1.000      MyLambda(1600)0         gamma  PHSP;
+Enddecay
+
+Decay anti-Lambda_b0sig
+  1.000      Myanti-Lambda(1600)0         gamma PHSP;
+Enddecay
+
+Decay MyLambda(1600)0  
+  1.000   p+          K-        PHSP;              
+Enddecay
+
+Decay Myanti-Lambda(1600)0  
+  1.000   anti-p-          K+        PHSP;              
+Enddecay
+
+End
+#

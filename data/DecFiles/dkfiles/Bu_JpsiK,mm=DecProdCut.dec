@@ -1,0 +1,32 @@
+# $Id: Bu_JpsiK,mm=DecProdCut.dec,v 1.1 2006/10/01 22:24:08 robbep Exp $
+#
+# This is the decay file for the decay B+ -> PSI(-> MU+ MU-) K+
+#
+# EventType: 12143001
+#
+# Descriptor: [B+ -> K+ (J/psi(1S) -> mu+ mu- {,gamma} {,gamma})]cc
+#
+# NickName: Bu_JpsiK,mm=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Includes radiative mode
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 10 May 2004
+#
+Alias      MyJ/psi J/psi
+ChargeConj MyJ/psi MyJ/psi
+#
+Decay B+sig
+  1.000     MyJ/psi  K+                   SVS;
+Enddecay
+CDecay B-sig
+#
+Decay MyJ/psi
+  1.000     mu+  mu-                      PHOTOS  VLL;
+Enddecay
+#
+End
+

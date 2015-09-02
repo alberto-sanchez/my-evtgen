@@ -1,0 +1,104 @@
+# $Id: Bu_D0munu,Kpi=cocktail.dec,v 1.3 2006/10/23 15:55:11 robbep Exp $
+#
+# This is the decay file for the decay B+ => D0 bar(-> K+ pi-) mu+ nu_mu
+#
+# EventType: 12873000
+#
+# Descriptor: {[B+ => (D~0 -> K+ pi-) nu_mu mu+]cc}
+#
+# NickName: Bu_D0munu,Kpi=cocktail
+#
+# Physics: Sum of D0(*(*)) mu nu_mu and D0(*(*)) tau nu_tau, includes resonances in D0 decay
+# 
+# Tested: Yes
+# By: Julien Babel
+# Date: 04 May 2006
+#
+Alias      MyD0           D0
+Alias      Myanti-D0      anti-D0
+ChargeConj MyD0           Myanti-D0
+Alias      MyD*0          D*0
+Alias      Myanti-D*0     anti-D*0
+ChargeConj MyD*0          Myanti-D*0
+Alias      MyD_10         D_10
+Alias      Myanti-D_10    anti-D_10
+ChargeConj MyD_10         Myanti-D_10
+Alias      MyD_0*0        D_0*0
+Alias      Myanti-D_0*0   anti-D_0*0
+ChargeConj MyD_0*0        Myanti-D_0*0
+Alias      MyD'_10        D'_10
+Alias      Myanti-D'_10   anti-D'_10 
+ChargeConj MyD'_10        Myanti-D'_10
+Alias      MyD_2*0        D_2*0
+Alias      Myanti-D_2*0   anti-D_2*0
+ChargeConj MyD_2*0        Myanti-D_2*0
+Alias      MyD*+          D*+
+Alias      MyD*-          D*-
+ChargeConj MyD*+          MyD*-
+Alias      Mytau+         tau+
+Alias      Mytau-         tau-
+ChargeConj Mytau+         Mytau-
+#
+Decay B+sig
+ 0.0560   Myanti-D*0    mu+  nu_mu            HQET 0.92 1.18 0.72;
+ 0.0210   Myanti-D0     mu+  nu_mu            ISGW2;
+ 0.0044   Myanti-D_10   mu+  nu_mu            ISGW2;
+ 0.000667   Myanti-D_0*0  mu+  nu_mu            ISGW2;
+ 0.0029   Myanti-D'_10  mu+  nu_mu            ISGW2;
+ 0.00176   Myanti-D_2*0  mu+  nu_mu            ISGW2;
+ # correct for the fact that we force tau -> mu anti_nu_mu nu_tau (17.3%)
+ 0.0160   Myanti-D*0    Mytau+ nu_tau         ISGW2;
+ 0.0070   Myanti-D0     Mytau+ nu_tau         ISGW2;
+ 0.00103   Myanti-D_10   Mytau+ nu_tau         ISGW2;
+ 0.000433   Myanti-D_0*0  Mytau+ nu_tau         ISGW2;
+ 0.00158   Myanti-D'_10  Mytau+ nu_tau         ISGW2;
+ 0.000949   Myanti-D_2*0  Mytau+ nu_tau         ISGW2;
+Enddecay
+CDecay B-sig
+#
+Decay MyD0
+0.0383    K-  pi+                          PHSP;
+Enddecay
+CDecay Myanti-D0
+#
+Decay MyD*0
+0.6190    MyD0  pi0                        VSS;
+0.3810    MyD0  gamma                      VSP_PWAVE;
+Enddecay
+CDecay Myanti-D*0
+#
+Decay MyD_10
+0.3333    MyD*0 pi0                        VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+0.4554    MyD*+ pi-                        VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+Enddecay
+CDecay Myanti-D_10
+#
+Decay MyD'_10
+0.4554    MyD*+ pi-                        VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
+0.3333    MyD*0 pi0                        VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+CDecay Myanti-D'_10
+#
+Decay MyD_0*0
+0.3333    MyD0  pi0                         PHSP;
+Enddecay
+CDecay Myanti-D_0*0
+#
+Decay MyD_2*0
+0.1427    MyD*+ pi-                        TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+0.1030    MyD*0 pi0                        TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+0.2290    MyD0  pi0                        TSS;
+Enddecay
+CDecay Myanti-D_2*0
+#
+Decay MyD*+
+0.6830    MyD0  pi+                        VSS;
+Enddecay
+CDecay MyD*-
+#
+Decay Mytau-
+  0.1731         mu-  anti-nu_mu   nu_tau        TAULNUNU;
+Enddecay
+CDecay Mytau+
+#
+End

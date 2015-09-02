@@ -1,0 +1,15 @@
+# $Id: W_ff=fgfW.dec,v 1.1 2006/02/23 23:26:36 robbep Exp $
+#
+# EventType: 42900060
+#
+# Descriptor: pp -> (W0 -> f f'~) ... 
+#
+# NickName: W_ff=fgfW
+#
+# Physics: W in acceptance, process 31
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 23 Feb 2006
+#
+End

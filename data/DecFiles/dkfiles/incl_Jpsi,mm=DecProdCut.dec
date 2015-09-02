@@ -1,0 +1,28 @@
+# $Id: incl_Jpsi,mm=DecProdCut.dec,v 1.1 2006/12/19 09:59:14 robbep Exp $
+#
+# Author Patrick Robbe
+# Date   2004-03-17
+#
+# This is the decay file for the decay prompt J/psi -> mu+ mu- 
+#
+# EventType: 24142001
+#
+# Cuts: DaughtersInLHCb
+#
+# Descriptor: J/psi(1S) -> mu+ mu- {,gamma} {,gamma}
+#
+# NickName: incl_Jpsi,mm=DecProdCut
+#
+# Physics: J/psi daughters in acceptance
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 10 May 2004
+#
+#
+Decay J/psisig
+  1.000         mu+        mu-        VLL;
+Enddecay
+#
+End
+#

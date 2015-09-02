@@ -1,0 +1,19 @@
+# $Id: electrons_fixE.dec,v 1.1 2006/09/05 13:24:38 gcorti Exp $
+# 
+# Author Gloria CORTI
+# Date   2006-08-24
+# 
+# Decay file for (particle gun) electrons of different energies in Calorimeters
+# acceptance
+#
+# EventType: 51000000
+#
+# Descriptor: e- => ? 
+#
+# NickName: electrons_fixE
+# 
+# Momentum: 5.0*GeV  10.0*GeV  16.8*GeV  33.8*GeV  50.0*GeV  100.0*GeV  168.0*GeV
+# ExtraOptions: CaloAcceptance
+#
+End
+#

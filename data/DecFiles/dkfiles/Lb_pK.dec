@@ -1,0 +1,23 @@
+# $Id: Lb_pK.dec,v 1.2 2004/04/28 15:34:21 robbep Exp $
+# 
+# This is the decay file to generate LAMB -> P+ K-
+#
+# EventType: 15102000
+#
+# Descriptor: [Lambda_b0 -> p+ K-]cc
+#
+# NickName: Lb_pK
+#
+# Physics: phase space decay
+#
+# Tested: Yes
+# By: Vincenzo Vagnoni
+# Date: 7 Apr 2004
+#
+Decay Lambda_b0sig
+  1.000    p+        K-         PHSP;
+Enddecay
+CDecay anti-Lambda_b0sig
+#
+End
+#

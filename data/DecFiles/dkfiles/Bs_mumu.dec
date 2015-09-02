@@ -1,0 +1,23 @@
+# $Id: Bs_mumu.dec,v 1.2 2004/04/30 17:03:46 robbep Exp $
+#
+# This is the decay file for the decay BS0 -> MU+ MU-
+#
+# EventType: 13112000
+#
+# Descriptor: [B_s0 -> mu+ mu-]cc
+#
+# NickName: Bs_mumu
+#
+# Physics:
+#
+# Tested: Yes
+# By: Franciole da Cunha Marinho
+# Date: 30 Apr 2004
+#
+Decay B_s0sig
+  1.000       mu+     mu-              PHSP;
+Enddecay
+CDecay anti-B_s0sig
+#
+End
+

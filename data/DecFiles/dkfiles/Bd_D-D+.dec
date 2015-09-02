@@ -1,0 +1,32 @@
+# $Id: Bd_D-D+.dec,v 1.2 2004/09/02 15:13:22 robbep Exp $
+#
+# This is the decay file for the decay B0 -> D+(-> K- PI+ PI+) D-(-> K+ PI- PI-)
+#
+# EventType: 11296000
+#
+# Descriptor: [B0 -> (D+ => K- pi+ pi+) (D- => K+ pi- pi-)]cc
+#
+# NickName: Bd_D-D+
+#
+# Physics: D+ forced into K- pi+ pi+ with resonances
+#
+# Tested: Yes
+# By: Cristina Lazzeroni
+# Date: 25 Aug 2004
+#
+Alias      MyD+  D+
+Alias      MyD-  D-
+ChargeConj MyD+  MyD-
+#
+Decay B0sig
+  1.000     MyD+       MyD-               PHSP;
+Enddecay
+CDecay anti-B0sig
+# D_DALITZ model includes resonances in D+ decay
+Decay MyD-
+  1.000  K+ pi- pi-                 D_DALITZ;
+Enddecay
+CDecay MyD+
+#
+End
+

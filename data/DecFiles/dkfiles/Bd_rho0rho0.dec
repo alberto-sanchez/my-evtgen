@@ -1,0 +1,27 @@
+# $Id: Bd_rho0rho0.dec,v 1.2 2004/05/05 09:55:13 robbep Exp $
+#
+# This is the decay file for the decay B0 -> RHO0(-> PI+ PI-) RHO0(-> PI- PI+)
+#
+# EventType: 11104010
+#
+# Descriptor: [B0 -> (rho(770)0 -> pi+ pi-) (rho(770)0 -> pi+ pi-)]cc
+#
+# NickName: Bd_rho0rho0
+#
+# Physics: No CP violation, longitudinal polarization
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 5 May 2004
+#
+### Longitudinal polarization = 0 0 1 0 0 0
+### Transverse polarization = 1 0 0 0 1 0
+Decay B0sig
+  1.000         rho0      rho0            SVV_HELAMP 0.0 0.0 1.0 0.0 0.0 0.0; 
+Enddecay
+Decay anti-B0sig
+  1.000         rho0      rho0            SVV_HELAMP 0.0 0.0 1.0 0.0 0.0 0.0;
+Enddecay
+#
+End
+

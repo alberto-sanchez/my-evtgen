@@ -1,0 +1,12 @@
+// $Id: CaloAcceptance.opts,v 1.1 2006/09/05 12:25:30 gcorti Exp $
+/** @file
+ *  Options to include to specify generation in Calorimeter acceptance 
+ *  for particle guns with automatic generation of options
+ *  
+ *  @author G. Corti
+ *  @date   2006-08-24
+ */
+
+ParticleGun.ThetMin = 0.037;
+ParticleGun.ThetMax = 0.240;
+

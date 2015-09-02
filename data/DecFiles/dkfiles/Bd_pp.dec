@@ -1,0 +1,23 @@
+# $Id: Bd_pp.dec,v 1.1 2005/09/01 21:42:50 robbep Exp $
+#
+# This is the decay file for the decay B0 -> p pbar
+#
+# EventType: 11102030
+#
+# Descriptor: [B0 -> p+ p~-]cc
+#
+# NickName: Bd_pp
+#
+# Physics: 
+#
+# Tested: No
+# By: 
+# Date: 
+#
+Decay B0sig
+  1.000       p+     anti-p-              PHSP;
+Enddecay
+CDecay anti-B0sig
+#
+End
+

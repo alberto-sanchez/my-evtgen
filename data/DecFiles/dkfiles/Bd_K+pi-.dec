@@ -1,0 +1,23 @@
+# $Id: Bd_K+pi-.dec,v 1.4 2004/05/11 13:18:10 robbep Exp $
+#
+# This is the decay file for the decay B0 -> K+ PI-
+#
+# EventType: 11102000
+#
+# Descriptor: {[[B0]nos -> K+ pi-]cc, [[B0]os -> K- pi+]cc}
+#
+# NickName: Bd_K+pi-
+#
+# Physics: No CP violation
+#
+# Tested: Yes
+# By: Vincenzo Vagnoni
+# Date: 7 Apr 2004
+#
+Decay B0sig
+  1.000        K+       pi-               PHSP;
+Enddecay
+CDecay anti-B0sig
+#
+End
+

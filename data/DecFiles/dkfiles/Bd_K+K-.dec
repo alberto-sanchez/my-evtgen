@@ -1,0 +1,23 @@
+# $Id: Bd_K+K-.dec,v 1.2 2004/04/28 15:34:21 robbep Exp $
+#
+# This is the decay file for the decay B0 -> K+ K-
+#
+# EventType: 11102020
+#
+# Descriptor: [B0 -> K+ K-]cc
+#
+# NickName: Bd_K+K-
+#
+# Physics: No CP violation
+#
+# Tested: Yes
+# By: Vincenzo Vagnoni
+# Date: 7 Apr 2004
+#
+Decay B0sig
+  1.000        K+       K-               PHSP;
+Enddecay
+CDecay anti-B0sig
+#
+End
+

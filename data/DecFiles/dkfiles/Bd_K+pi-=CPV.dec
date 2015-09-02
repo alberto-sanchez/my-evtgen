@@ -1,0 +1,23 @@
+# $Id: Bd_K+pi-=CPV.dec,v 1.2 2006/11/26 21:14:00 robbep Exp $
+#
+# This is the decay file for the decay B0 -> K+ PI-
+#
+# EventType: 11102002
+#
+# Descriptor: {[[B0]nos -> K+ pi-]cc, [[B0]os -> K- pi+]cc}
+#
+# NickName: Bd_K+pi-=CPV
+#
+# Physics: Direct CP violation
+#
+# Tested: No
+# By: 
+# Date:
+#
+Decay B0sig
+  1.000        K+       pi-               SSD_DirectCP  -0.1 ;
+Enddecay
+CDecay anti-B0sig
+#
+End
+

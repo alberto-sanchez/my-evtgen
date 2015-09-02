@@ -1,0 +1,63 @@
+# $Id: Bu_psi2SX,Jpsipipi,mm.dec,v 1.1 2006/02/22 22:31:21 robbep Exp $
+#
+#   This is the decay file for the decay B -> X PSI(2s)(-> J/psi(MU+ MU-)pi+pi-)
+#
+#   EventType: 12444000
+#
+#   Descriptor: [B+ -> X (psi(2S) -> (J/psi(1S) -> mu+ mu- {,gamma} {,gamma}) pi+pi-)]cc
+#
+#   NickName: Bu_psi2SX,Jpsipipi,mm
+#
+#   Physics: Includes radiative mode, No CP violation
+#
+#   Tested: Yes
+#   By: Alessia Satta
+#   Date: 21 Feb 2006
+#
+Define Hp 0.159
+Define Hz 0.775
+Define Hm 0.612
+Define pHp 1.563
+Define pHz 0.0
+Define pHm 2.712
+#
+Alias      Mypsi2s  psi(2S)
+Alias      MyJ/psi  J/psi
+Alias      MyPhi    phi
+ChargeConj Mypsi2s  Mypsi2s
+ChargeConj MyJ/psi  MyJ/psi
+ChargeConj MyPhi    MyPhi
+#
+Decay B-sig
+0.2124   Mypsi2s  K-                        SVS;
+0.3082   Mypsi2s K*-                       SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus;
+0.1370   Mypsi2s anti-K0   pi-                   PHSP;
+0.0685   Mypsi2s K-  pi0                   PHSP;
+0.0685   Mypsi2s K-  pi+  pi-              PHSP;
+0.0342   Mypsi2s K-  pi0  pi0              PHSP;
+0.0342   Mypsi2s anti-K0   pi-  pi0              PHSP;
+0.1370   Mypsi2s  K_1-              PHSP;
+Enddecay
+#
+Decay B+sig
+0.2124    Mypsi2s  K+                        SVS;
+0.3082    Mypsi2s K*+                       SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus;
+0.1370   Mypsi2s  K0  pi+                   PHSP;
+0.0685   Mypsi2s K+  pi0                   PHSP;
+0.0685   Mypsi2s K+  pi-  pi+              PHSP;
+0.0342   Mypsi2s  K+  pi0  pi0              PHSP;
+0.0342   Mypsi2s K0  pi+  pi0              PHSP;
+0.1370   Mypsi2s  K_1+                     PHSP;
+Enddecay
+#
+
+Decay Mypsi2s
+  1.000         MyJ/psi         pi+   pi-         VVPIPI;
+Enddecay
+
+Decay MyJ/psi
+  1.000         mu+         mu-          PHOTOS VLL;
+Enddecay
+#
+End
+

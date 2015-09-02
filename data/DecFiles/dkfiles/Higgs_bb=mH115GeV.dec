@@ -1,0 +1,14 @@
+#
+# EventType: 40911000
+#
+# Descriptor: pp -> {[W+ -> {mu+ nu_mu, e+ nu_e}]cc, (Z0 -> {mu+ mu-, e+ e-})} (H_10 -> b anti-b) 
+#
+# NickName: Higgs_bb=mH115GeV
+#
+# Physics: MHiggs=115 GeV, lepton and both b quarks in LHCb acceptance
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 7 Jul 2005
+#
+End

@@ -1,0 +1,42 @@
+# $Id: incl_Ds=DecProdCut.dec,v 1.1 2006/12/19 09:59:14 robbep Exp $
+#
+# This is the decay file for inclusive D_s -> K K pi (produced directly
+# or through a Ds* or B decay)
+#
+# EventType: 23263001
+#
+# Cuts: DaughtersInLHCb
+#
+# Descriptor: [D_s+ => K- K+ pi+]cc
+#
+# NickName: incl_Ds=DecProdCut
+#
+# Physics: Includes resonances in Ds decay, Ds products in acceptance
+#
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 1 Jul 2005
+#
+Alias      Myphi      phi
+Alias      MyK*0      K*0
+Alias      Myanti-K*0 anti-K*0
+ChargeConj Myanti-K*0 MyK*0
+ChargeConj Myphi      Myphi
+#
+Decay D_s-sig
+  0.017712   Myphi pi-                 SVS;
+  0.009      K+    K-     pi-          PHSP;
+  0.022      MyK*0 K-                  SVS;
+Enddecay
+CDecay D_s+sig
+#
+Decay Myphi
+  1.000 K+   K-                    VSS;
+Enddecay
+#
+Decay MyK*0
+  1.000 K+   pi-                   VSS;
+Enddecay
+CDecay Myanti-K*0
+End
+

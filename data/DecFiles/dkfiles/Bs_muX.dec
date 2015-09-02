@@ -1,0 +1,56 @@
+# $Id: Bs_muX.dec,v 1.1 2004/09/20 07:51:16 robbep Exp $ 
+#
+# This is the decay file for the decay Bs -> mu X
+#
+# EventType: 13911000
+#
+# Descriptor: {[[B_s0]nos -> mu+ ...]cc, [[B_s0]os -> mu- ...]cc}
+#
+# NickName: Bs_muX
+#
+# Physics: 
+# 
+# Tested: Yes
+# By: Patrick Robbe
+# Date: 17 Sep 2004
+#
+
+Decay anti-B_s0sig
+#                                        b --> c  (l nu)
+0.0210   D_s+     mu-    anti-nu_mu     ISGW2;
+0.0490   D_s*+    mu-    anti-nu_mu     ISGW2;
+0.0040   D'_s1+    mu-    anti-nu_mu     ISGW2;
+0.0040   D_s0*+   mu-    anti-nu_mu     ISGW2;
+0.0070   D_s1+   mu-    anti-nu_mu     ISGW2;
+0.0070   D_s2*+   mu-    anti-nu_mu     ISGW2;
+#		                      
+#
+0.000200    K+          mu-        anti-nu_mu          ISGW2;
+0.000300    K*+         mu-        anti-nu_mu          ISGW2;
+0.000300    K_1+        mu-        anti-nu_mu          ISGW2;
+0.000200    K'_1+       mu-        anti-nu_mu          ISGW2;
+#
+Enddecay
+# -------------------------------------------------------
+Decay B_s0sig
+#    b --> c (l nu)
+0.0210   D_s-     mu+    nu_mu          ISGW2;
+0.0490   D_s*-    mu+    nu_mu          ISGW2;
+0.0040   D'_s1-    mu+    nu_mu          ISGW2;
+0.0040   D_s0*-   mu+    nu_mu          ISGW2;
+0.0070   D_s1-   mu+    nu_mu          ISGW2;
+0.0070   D_s2*-   mu+    nu_mu          ISGW2;
+#
+#		                      
+0.000200    K-          mu+        nu_mu          ISGW2;
+0.000300    K*-         mu+        nu_mu          ISGW2;
+0.000300    K_1-        mu+        nu_mu          ISGW2;
+0.000200    K'_1-       mu+        nu_mu          ISGW2;
+#
+Enddecay
+
+End
+
+
+
+

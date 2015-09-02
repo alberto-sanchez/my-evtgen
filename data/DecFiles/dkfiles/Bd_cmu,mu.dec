@@ -1,0 +1,156 @@
+# $Id: Bd_cmu,mu.dec,v 1.4 2004/07/29 10:22:54 robbep Exp $ 
+#
+# This is the decay file for the decay B0 -> Dbar (-> mu- X) mu+ X
+#
+# EventType: 11972000
+#
+# Descriptor: {[[B0]nos -> mu+ {(<Xc~> => (<Xc~> -> mu- ...) ...), (<Xc~> -> mu- ...)} ...]cc, [[B0]os -> mu- {(<Xc> => (<Xc> -> mu+ ...) ...), (<Xc> -> mu+ ...)} ...]cc} 
+#
+# NickName: Bd_cmu,mu
+#
+# Physics: sum of exclusive modes
+# 
+# Tested: Yes
+# By: Franciole da Cunha Marinho
+# Date: 23 Jul 2004
+#
+Alias      MyD*+ D*+
+Alias      MyD*- D*-
+ChargeConj MyD*+ MyD*-
+Alias      MyD+  D+
+Alias      MyD-  D-
+ChargeConj MyD+  MyD-
+Alias      MyD_1+ D_1+
+Alias      MyD_1- D_1-
+ChargeConj MyD_1+ MyD_1-
+Alias      MyD_0*+ D_0*+
+Alias      MyD_0*- D_0*-
+ChargeConj MyD_0*- MyD_0*+
+Alias      MyD'_1+ D'_1+
+Alias      MyD'_1- D'_1-
+ChargeConj MyD'_1- MyD'_1+
+Alias      MyD_2*+ D_2*+
+Alias      MyD_2*- D_2*-
+ChargeConj MyD_2*+ MyD_2*-
+Alias      MyD*0      D*0
+Alias      Myanti-D*0 anti-D*0
+ChargeConj MyD*0      Myanti-D*0
+Alias      MyD0       D0
+Alias      Myanti-D0  anti-D0
+ChargeConj Myanti-D0  MyD0
+#
+#  total = 0.009894
+Decay anti-B0sig
+  0.004834   MyD*+    mu-  anti-nu_mu           HQET 0.92 1.18 0.72;
+  0.002936   MyD+     mu-  anti-nu_mu           ISGW2;
+  0.000391   MyD_1+   mu-  anti-nu_mu           ISGW2;
+  0.000175   MyD_0*+   mu-  anti-nu_mu           ISGW2;
+  0.000258   MyD'_1+   mu-  anti-nu_mu           ISGW2;
+  0.000303   MyD_2*+   mu-  anti-nu_mu           ISGW2;
+  0.000086   MyD*+  pi0   mu-  anti-nu_mu       GOITY_ROBERTS;
+  0.000123   MyD*0  pi+   mu-  anti-nu_mu       GOITY_ROBERTS;
+  0.000419   MyD+   pi0   mu-  anti-nu_mu       GOITY_ROBERTS;
+  0.000369   MyD0   pi+   mu-  anti-nu_mu       GOITY_ROBERTS;
+Enddecay
+Decay B0sig
+  0.004834   MyD*-    mu+  nu_mu            HQET 0.92 1.18 0.72;
+  0.002936   MyD-     mu+  nu_mu            ISGW2;
+  0.000391   MyD_1-   mu+  nu_mu            ISGW2;
+  0.000175   MyD_0*-   mu+  nu_mu            ISGW2;
+  0.000258   MyD'_1-   mu+  nu_mu            ISGW2;
+  0.000303   MyD_2*-   mu+  nu_mu            ISGW2;
+  0.000086   MyD*-  pi0   mu+  nu_mu        GOITY_ROBERTS;
+  0.000123   Myanti-D*0  pi-   mu+  nu_mu        GOITY_ROBERTS;
+  0.000419   MyD-   pi0   mu+  nu_mu        GOITY_ROBERTS;
+  0.000369   Myanti-D0  pi-   mu+  nu_mu        GOITY_ROBERTS;
+Enddecay
+
+# D_2*+
+# Total D_2*+ = 0.08198
+SetLineshapePW MyD_2*+ MyD*+ pi0 2
+SetLineshapePW MyD_2*+ MyD*0 pi+ 2
+SetLineshapePW MyD_2*- MyD*- pi0 2
+SetLineshapePW MyD_2*- Myanti-D*0 pi- 2
+Decay MyD_2*+
+  0.00889    MyD*+ pi0                     TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+  0.01285    MyD*0 pi+                     TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+  0.03201    MyD+  pi0                     TSS;
+  0.02823    MyD0  pi+                     TSS;
+Enddecay
+CDecay MyD_2*-
+
+# D'_1+
+# Total D'_1+ = 0.06977
+Decay MyD'_1+
+  0.02877    MyD*+ pi0                    VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
+  0.04100    MyD*0 pi+                    VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+CDecay MyD'_1-
+
+# D_1+
+# Total D_1+ = 0.06977
+SetLineshapePW MyD_1+ MyD*+ pi0 2
+SetLineshapePW MyD_1+ MyD*0 pi+ 2
+SetLineshapePW MyD_1- MyD*- pi0 2
+SetLineshapePW MyD_1- Myanti-D*0 pi- 2
+Decay MyD_1+
+  0.02877    MyD*+ pi0                    VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+  0.04100    MyD*0 pi+                    VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+Enddecay
+CDecay MyD_1-
+
+# D_0*+
+# Total D_0*+ = 0.0876
+Decay MyD_0*+
+  0.04660   MyD+  pi0                         PHSP;
+  0.04100   MyD0  pi+                         PHSP;
+Enddecay
+CDecay MyD_0*-
+
+# D*0
+# Total D*0 = 0.0615
+Decay MyD*0
+  0.03807    MyD0  pi0                        VSS;
+  0.02343    MyD0  gamma                      VSP_PWAVE;
+Enddecay
+CDecay Myanti-D*0
+
+# D*+
+# Total D*+ = 0.08632 
+Decay MyD*+
+  0.04200    MyD0  pi+                        VSS;
+  0.04278    MyD+  pi0                        VSS;
+  0.00154    MyD+  gamma                      VSP_PWAVE;
+Enddecay
+CDecay MyD*-
+
+# D+ -> mu X
+# Total D+ = 0.1398
+Decay MyD+
+  0.0430   anti-K*0  mu+  nu_mu            ISGW2;
+  0.0700   anti-K0    mu+  nu_mu           ISGW2;
+  0.0036   anti-K_10  mu+  nu_mu           ISGW2;
+  0.0038   anti-K_2*0 mu+  nu_mu           ISGW2;
+  0.0064   pi0  mu+  nu_mu                 ISGW2;
+  0.0028   eta  mu+  nu_mu                 ISGW2;
+  0.0011   eta' mu+  nu_mu                 ISGW2;
+  0.0027   rho0 mu+  nu_mu                 ISGW2;
+  0.0029   omega mu+  nu_mu                ISGW2;
+  0.0027   K-  pi+  mu+ nu_e               PHSP;
+  0.0008   mu+ nu_mu                       SLN;
+Enddecay
+CDecay MyD-
+
+# D0 -> mu X
+# Total D0 = 0.0615
+Decay MyD0
+  0.0198   K*-  mu+ nu_mu            ISGW2;
+  0.0322   K-   mu+ nu_mu            ISGW2;
+  0.0014   K_1-  mu+ nu_mu            ISGW2;
+  0.0015   K_2*- mu+ nu_mu            ISGW2;
+  0.0037   pi-  mu+ nu_mu            ISGW2;
+  0.0029   rho- mu+ nu_mu            ISGW2;
+Enddecay
+CDecay Myanti-D0
+
+End

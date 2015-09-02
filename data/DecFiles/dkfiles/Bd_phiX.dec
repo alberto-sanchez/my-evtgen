@@ -1,0 +1,777 @@
+# $Id: Bd_phiX.dec,v 1.5 2004/07/07 16:17:53 robbep Exp $
+#
+# This is the decay file for the decay B0 -> phi X
+#
+# EventType: 11902000
+#
+# Descriptor: [B0 => (phi(1020) -> K+ K-) ...]cc
+#
+# NickName: Bd_phiX
+#
+# Physics: phi forced into K+ K-, sum of exclusive modes
+#
+# Tested: Yes
+# By: Stephanie Moreau
+# Date: 7 Jul 2004
+#
+Alias      MyD*+   D*+
+Alias      MyD*-   D*-
+ChargeConj MyD*+   MyD*-
+Alias      MyD-    D-
+Alias      MyD+    D+
+ChargeConj MyD+    MyD-
+Alias      MyD_1+  D_1+
+Alias      MyD_1-  D_1-
+ChargeConj MyD_1+  MyD_1-
+Alias      MyD_0*+ D_0*+
+Alias      MyD_0*- D_0*-
+ChargeConj MyD_0*+ MyD_0*-
+Alias      MyD'_1+ D'_1+
+Alias      MyD'_1- D'_1-
+ChargeConj MyD'_1+ MyD'_1-
+Alias      MyD_2*- D_2*-
+Alias      MyD_2*+ D_2*+
+ChargeConj MyD_2*+ MyD_2*-
+Alias      MyD*0   D*0
+Alias      Myanti-D*0 anti-D*0
+ChargeConj MyD*0      Myanti-D*0
+Alias      MyD0       D0
+Alias      Myanti-D0  anti-D0
+ChargeConj MyD0       Myanti-D0
+Alias      MyD_s+     D_s+
+Alias      MyD_s-     D_s-
+ChargeConj MyD_s+     MyD_s-
+Alias      MyD_s*+    D_s*+
+Alias      MyD_s*-    D_s*-
+ChargeConj MyD_s*+    MyD_s*-
+Alias      Myphi      phi
+ChargeConj Myphi      Myphi
+Alias      MyphiNonKK phi
+ChargeConj MyphiNonKK MyphiNonKK
+Alias      MyJ/psi    J/psi
+ChargeConj MyJ/psi    MyJ/psi
+Alias      Mypsi(2S)  psi(2S)
+ChargeConj Mypsi(2S)  Mypsi(2S)
+Alias      Myeta_c    eta_c
+ChargeConj Myeta_c    Myeta_c
+Alias      Mychi_c0   chi_c0
+ChargeConj Mychi_c0   Mychi_c0
+Alias      Mychi_c1   chi_c1
+ChargeConj Mychi_c1   Mychi_c1
+Alias      Mychi_c2   chi_c2
+ChargeConj Mychi_c2   Mychi_c2
+
+# Total B0 => phi(->KK) X = 1.634 %
+Decay B0sig
+# Semi leptonic 
+# b -> c e nu   Total = 0.0009632
+  0.0004578    MyD*-     e+   nu_e            HQET 0.92 1.18 0.72;
+  0.00031      MyD-      e+   nu_e            ISGW2;
+  0.00003436   MyD_1-    e+   nu_e            ISGW2;
+  0.00001666   MyD_0*-   e+   nu_e            ISGW2;
+  0.0000227    MyD'_1-   e+   nu_e            ISGW2;
+  0.00002827   MyD_2*-   e+   nu_e            ISGW2;
+  0.000008175  MyD*-       pi0  e+    nu_e        GOITY_ROBERTS;
+  0.00001023   Myanti-D*0  pi-  e+    nu_e        GOITY_ROBERTS;
+  0.00004428   MyD-        pi0  e+    nu_e        GOITY_ROBERTS;
+  0.00003070   Myanti-D0   pi-   e+   nu_e        GOITY_ROBERTS;
+# b -> c mu nu   Total = 0.0009632
+  0.0004578    MyD*-     mu+  nu_mu           HQET 0.92 1.18 0.72;
+  0.00031      MyD-      mu+  nu_mu           ISGW2;
+  0.00003436   MyD_1-    mu+  nu_mu           ISGW2;
+  0.00001666   MyD_0*-   mu+  nu_mu           ISGW2;
+  0.0000227    MyD'_1-   mu+  nu_mu           ISGW2;
+  0.00002827   MyD_2*-   mu+  nu_mu           ISGW2;
+  0.000008175    MyD*-      pi0   mu+  nu_mu        GOITY_ROBERTS;
+  0.00001023   Myanti-D*0 pi-   mu+  nu_mu        GOITY_ROBERTS;
+  0.00004428   MyD-       pi0   mu+  nu_mu        GOITY_ROBERTS;
+  0.00003070   Myanti-D0  pi-   mu+  nu_mu        GOITY_ROBERTS;
+#                    b -> c tau nu  Total = 0.0002805
+  0.0001308    MyD*-     tau+  nu_tau                  ISGW2;
+  0.0001033    MyD-      tau+  nu_tau                  ISGW2;
+  0.000007977  MyD_1-    tau+  nu_tau                  ISGW2;
+  0.00001083   MyD_0*-   tau+  nu_tau                  ISGW2;
+  0.00001227   MyD'_1-   tau+  nu_tau                  ISGW2;
+  0.00001528   MyD_2*-   tau+  nu_tau                  ISGW2;
+# hadronic decays
+# b -> u  Total = 0.00002462
+  0.000002961   MyD_s+   pi-   PHSP;
+  0.000002961   MyD_s+   K-    PHSP;
+  0.000002961   MyD_s*+  pi-   SVS;
+  0.000001851   MyD_s*+  K-    SVS;
+  0.000004257   rho-     MyD_s+  SVS;
+  0.000002684   K*-      MyD_s+  SVS;
+  0.000004257   MyD_s*+  rho-  SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
+  0.000002684   MyD_s*+  K*-   SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
+# Penguin modes Total = 0.00000492
+  0.00000246   Myphi  K_S0    SVS;
+  0.00000246   Myphi  K_L0    SVS;
+# phipi0 has no simple Pengiun or tree so who knows - ditto phieta/eta'?
+# Total = 0.00002684
+  0.000000492   Myphi  pi0     SVS;
+  0.000000492   Myphi  eta     SVS;
+  0.000000492   Myphi  eta'    SVS;
+  0.000000492   Myphi  omega   SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.0000000492  Myphi  rho0    SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.0000000492  Myphi  pi- pi+ PHSP;
+  0.000005412  Myphi   K*0              SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.00000492  Myphi K+ pi-             PHSP;
+  0.00000492   Myphi K0 pi0             PHSP;
+  0.000003444  Myphi K0 eta             PHSP;
+  0.00000492   Myphi   K_2*0            PHSP;
+  0.000000984  Myphi   K'_10            PHSP;
+  0.00000002499 Myphi   MyphiNonKK      SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.00000002499 MyphiNonKK   Myphi      SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.00000002421 Myphi   Myphi           SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.0000000492 Myphi K+ K-              PHSP;
+  0.0000000492 Myphi K0 anti-K0         PHSP;
+#       b -> c cbar s   J/psi Total = 0.00005601 
+  0.000001107     MyJ/psi  K_S0          SVS;
+  0.000001107     MyJ/psi  K_L0          SVS;
+  0.000003198     MyJ/psi  K*0           SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus;
+  0.0000000492    MyJ/psi  pi0           SVS;
+  0.0000000738    MyJ/psi  rho0          SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus; 
+  0.0000000738    MyJ/psi  omega         SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus;
+  0.000000492     MyJ/psi  K+  pi-        PHSP;
+  0.000000246     MyJ/psi  K0  pi0        PHSP;
+  0.00000369      MyJ/psi  K_10           SVV_HELAMP 0.5 0.0 1.0 0.0 0.5 0.0;
+  0.000000246     MyJ/psi  K'_10          SVV_HELAMP 0.5 0.0 1.0 0.0 0.5 0.0;
+  0.00000123      MyJ/psi  K_2*0          PHSP;
+  0.0000002214    MyJ/psi  phi K0         PHSP;
+  0.00004428      J/psi    Myphi K0       PHSP;
+#  Psi(2S) Total = 0.000004506
+  0.0000004783     Mypsi(2S)  K_S0         SVS;
+  0.0000004783     Mypsi(2S)  K_L0         SVS;
+  0.000001389      Mypsi(2S)  K*0          SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus; 
+  0.0000006171     Mypsi(2S)  K+  pi-          PHSP;
+  0.0000003086     Mypsi(2S)  K0  pi0          PHSP;
+  0.0000003086     Mypsi(2S)  K0  pi-  pi+     PHSP;
+  0.0000001543     Mypsi(2S)  K0  pi0  pi0     PHSP;
+  0.0000001543     Mypsi(2S)  K+  pi-  pi0     PHSP;
+  0.0000006171     Mypsi(2S)  K_10             PHSP;
+#  eta_c Total = 0.000006541
+  0.000001090      Myeta_c    K_S0             PHSP;
+  0.000001090      Myeta_c    K_L0             PHSP;
+  0.000002453      K*0      Myeta_c            SVS;
+  0.0000005452     Myeta_c  K+  pi-            PHSP;
+  0.0000002726     Myeta_c  K0  pi0            PHSP;
+  0.0000005452     Myeta_c  K0  pi-  pi+       PHSP;
+  0.0000002726     Myeta_c  K0  pi0  pi0       PHSP;
+  0.0000002726     Myeta_c  K+  pi-  pi0       PHSP;
+#     chi_c0 Total = 0.0000008315
+  0.00000006928     Mychi_c0 K_S0               PHSP;
+  0.00000006928     Mychi_c0 K_L0               PHSP;
+  0.0000002079      K*0 Mychi_c0               SVS;
+  0.0000001386      Mychi_c0  K+  pi-           PHSP;
+  0.00000006928     Mychi_c0  K0  pi0           PHSP;
+  0.0000001386      Mychi_c0  K0  pi-  pi+      PHSP;
+  0.00000006928     Mychi_c0  K0  pi0  pi0      PHSP;
+  0.00000006928     Mychi_c0  K+  pi-  pi0      PHSP;
+#    chi_c1 Total = 0.000002022
+  0.0000002332     Mychi_c1 K_S0                 SVS;
+  0.0000002332     Mychi_c1 K_L0                 SVS;
+  0.000000467      Mychi_c1  K*0                SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus;
+  0.0000003109     Mychi_c1  K+  pi-          PHSP;
+  0.0000001555     Mychi_c1  K0  pi0          PHSP;
+  0.0000003109     Mychi_c1  K0  pi-  pi+     PHSP;
+  0.0000001555     Mychi_c1  K0  pi0  pi0     PHSP;
+  0.0000001555     Mychi_c1  K+  pi-  pi0     PHSP;
+#    chi_c2 Total = 0.000002626
+  0.0000001944     Mychi_c2 K_S0               STS;
+  0.0000001944     Mychi_c2 K_L0               STS;
+  0.0000008761     Mychi_c2  K*0               PHSP;
+  0.0000003888     Mychi_c2  K+  pi-           PHSP;
+  0.0000001944     Mychi_c2  K0  pi0           PHSP;
+  0.0000003888     Mychi_c2  K0  pi-  pi+      PHSP;
+  0.0000001944     Mychi_c2  K0  pi0  pi0      PHSP;
+  0.0000001944     Mychi_c2  K+  pi-  pi0      PHSP;
+# b-> c cbar d D(*)D(*)  Total = 0.00003691
+  0.000003985     MyD-    D+                  PHSP;
+  0.000003985     D-      MyD+                PHSP;
+  0.000002739     MyD*-   D+                  SVS;
+  0.000004945    D*-     MyD+                SVS;
+  0.000002739    MyD*+   D-                  SVS;
+  0.000004945    D*+     MyD-                SVS;
+  0.000006785     MyD*-   D*+                 SVV_HELAMP 0.56 0.0 0.96 0.0 0.47 0.0;
+  0.000006785     D*-     MyD*+               SVV_HELAMP 0.56 0.0 0.96 0.0 0.47 0.0;
+# b -> c cbar s (DsD) Total = 0.007606
+  0.0001092        MyD-    D_s+         PHSP;
+  0.0006848        D-      MyD_s+       PHSP;
+  0.0000842        MyD*-   D_s+         SVS;
+  0.0009532        D*-     MyD_s+       SVS;
+  0.0006848        MyD_s*+ D-           SVS;
+  0.0001092        D_s*+   MyD-         SVS;
+  0.001823         MyD_s*+ D*-    SVV_HELAMP 0.4904 0.0 0.7204 0.0 0.4904 0.0;
+  0.000161         D_s*+   MyD*-  SVV_HELAMP 0.4904 0.0 0.7204 0.0 0.4904 0.0;
+  0.000006136      MyD'_1- D_s+         SVS;
+  0.00009255       D'_1-   MyD_s+       SVS;
+  0.00001635       MyD'_1-  D_s*+       SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0;
+  0.0001851        D'_1-    MyD_s*+     SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0;
+  0.00001227       MyD_1-   D_s+        SVS;
+  0.0001851        D_1-     MyD_s+      SVS;
+  0.00002454       MyD_1-   D_s*+       SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0;
+  0.0003702        D_1-     MyD_s*+     SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0;
+  0.00005348       MyD_2*-  D_s+        STS;
+  0.0006478        D_2*-    MyD_s+      STS;
+  0.000107         MyD_2*-  D_s*+       PHSP;
+  0.001296         D_2*-    MyD_s*+     PHSP;
+#  Ds D pi  Total = 0.004405
+  0.0002776   MyD_s+  D-      pi0                   PHSP;
+  0.00004428   D_s+    MyD-    pi0                   PHSP;
+  0.0005553   MyD_s+  anti-D0 pi-                   PHSP;
+  0.0000307   D_s+    Myanti-D0  pi-                PHSP;
+  0.0002776   MyD_s*+ D-      pi0                   PHSP;
+  0.00004428   D_s*+   MyD-    pi0                   PHSP;
+  0.0005553   MyD_s*+ anti-D0 pi-                   PHSP;
+  0.0000307   D_s*+   Myanti-D0  pi-                PHSP;
+  0.0004627    MyD_s+  D-      pi-  pi+              PHSP;
+  0.0000738    D_s+    MyD-    pi-  pi+              PHSP;
+  0.0003424    MyD_s+  D-      pi0  pi0              PHSP;
+  0.00005461   D_s+    MyD-    pi0  pi0              PHSP;
+  0.0003424    MyD_s+  anti-D0 pi-  pi0              PHSP;
+  0.00001893   D_s+    Myanti-D0 pi-  pi0            PHSP;
+  0.0004627    MyD_s*+ D-      pi-  pi+              PHSP;
+  0.0000738    D_s*+   MyD-    pi-  pi+              PHSP;
+  0.0003424    MyD_s*+ D-      pi0  pi0              PHSP;
+  0.00005461   D_s*+   MyD-    pi0  pi0              PHSP;
+  0.0003424    MyD_s*+ anti-D0 pi-  pi0              PHSP;
+  0.00001893   D_s*+   Myanti-D0 pi-  pi0            PHSP;
+# b -> c cbar s (D Dbar K(*) ) Total = 0.0001986
+  0.00002509    MyD-  D0   K+                    PHSP;
+  0.000008699   D-    MyD0 K+                    PHSP;
+  0.00002066    MyD-  D+   K0                    PHSP;
+  0.00002066    D-    MyD+  K0                   PHSP;
+  0.0000369     MyD-  D0   K*+                   PHSP;
+  0.00001279    D-    MyD0 K*+                   PHSP;
+  0.0000369     MyD-  D+   K*0                   PHSP;
+  0.0000369     D-    MyD+ K*0                   PHSP;
+# D* D K  Total = 0.0003184
+  0.00002534   MyD*- D0   K+                    PHSP;
+  0.00001586   D*-   MyD0 K+                    PHSP;
+  0.00002698   MyD*- D+   K0                    PHSP;
+  0.00004871   D*-   MyD+ K0                    PHSP;
+  0.00006790    MyD-  D*0  K+                    PHSP;
+  0.00002354    D-    MyD*0  K+                  PHSP;
+  0.00007085    MyD-  D*+  K0                    PHSP;
+  0.00003924    D-    MyD*+ K0                   PHSP;
+# D* D K*   Total = 0.0001976
+  0.00002044   MyD*- D0   K*+                   PHSP;
+  0.00001279   D*-   MyD0 K*+                   PHSP;
+  0.00002044   MyD*- D+   K*0                   PHSP;
+  0.0000369    D*-   MyD+ K*0                   PHSP;
+  0.0000369    MyD-  D*0  K*+                   PHSP;
+  0.00001279   D-    MyD*0 K*+                  PHSP;
+  0.0000369    MyD-  D*+  K*0                   PHSP;
+  0.00002044   D-    MyD*+ K*0                  PHSP;
+# D*D*K(*)   Total = 0.000449
+  0.00009647   MyD*- D*0  K+                    PHSP;
+  0.00006038   D*-   MyD*0  K+                  PHSP;
+  0.00007194   MyD*- D*+  K0                    PHSP;
+  0.00007194   D*-   MyD*+  K0                  PHSP;
+  0.00004088   MyD*- D*0  K*+                   PHSP;
+  0.00002558   D*-   MyD*0  K*+                 PHSP;
+  0.00004088   MyD*- D*+  K*0                   PHSP;
+  0.00004088   D*-   MyD*+  K*0                 PHSP;
+# DDK color suppressed Total = 0.00006242
+  0.000002558    MyD0  anti-D0  K0                PHSP;
+  0.000002558    D0    Myanti-D0 K0               PHSP;
+  0.000002558    MyD0  anti-D0  K*0               PHSP;
+  0.000002558    D0    Myanti-D0 K*0              PHSP;
+  0.000005117    MyD0  anti-D*0  K0               PHSP;
+  0.000005117    D0    Myanti-D*0 K0              PHSP;
+  0.000002558    MyD0  anti-D*0  K*0              PHSP;
+  0.000002558    D0    Myanti-D*0  K*0            PHSP;
+  0.000005117    MyD*0  anti-D0  K0               PHSP;
+  0.000005117    D*0    Myanti-D0 K0              PHSP;
+  0.000002558    MyD*0  anti-D0  K*0              PHSP;
+  0.000002558    D*0    Myanti-D0   K*0           PHSP;
+  0.000005628    MyD*0  anti-D*0  K0              PHSP;
+  0.000005628    D*0    Myanti-D*0  K0            PHSP;
+  0.000005117    MyD*0  anti-D*0  K*0             PHSP;
+  0.000005117    D*0    Myanti-D*0  K*0           PHSP;
+#  B -> D(*) X  Exclusive modes   Total = 0.0006352
+  0.00002207   MyD*-   pi+            SVS;
+  0.00004428   MyD-    pi+            PHSP;
+  0.0001210    rho+  MyD-             SVS;
+  0.00005559   rho+  MyD*-        SVV_HELAMP  0.317 0.19 0.936 0.0 0.152 1.47; 
+  0.00001476   MyD-  pi+  pi0         PHSP;
+  0.00005823   MyD*- pi+  pi0         PHSP;
+  0.000005117  Myanti-D0  pi-  pi+    PHSP;
+  0.000005117  Myanti-D*0 pi-  pi+    PHSP;
+  0.000002558  Myanti-D*0 pi0  pi0    PHSP;
+  0.0001231    a_1+ MyD-              SVS;
+  0.00001624   MyD-  rho0  pi+        PHSP;
+  0.00001624   MyD-  rho+  pi0        PHSP;
+  0.00003245   MyD-  pi-  pi+  pi+    PHSP;
+  0.00001476   MyD-  pi0  pi+  pi0             PHSP;
+  0.000005117   Myanti-D0  pi-  pi+  pi0        PHSP;
+  0.0000005117   Myanti-D0  pi0  pi0  pi0         PHSP;
+  0.0000981    MyD*-  a_1+            SVV_HELAMP 0.336 0.0 0.88 0.0 0.336 0.0;
+#   D* X Total = 0.00007347
+  0.000008175   MyD*-  rho0  pi+                 PHSP;
+  0.000008175   MyD*-  rho+  pi0                 PHSP;
+  0.000008175   MyD*-  pi0  pi+  pi0             PHSP;
+  0.000005117   Myanti-D*0  pi-  pi+  pi0        PHSP;
+  0.0000005117  Myanti-D*0  pi0  pi0  pi0        PHSP;
+  0.000003682   MyD_1- pi+                       SVS;
+  0.000005522   MyD'_1- pi+                      SVS;
+  0.000006876   MyD_2*- pi+                      STS;
+  0.000002454   MyD_1- rho+                      PHSP;  
+  0.000007977   MyD'_1- rho+                     PHSP;  
+  0.00001681    MyD_2*- rho+                     PHSP;  
+# D K Total = 0.00001319
+  0.00000139    MyD*- K+             SVS;
+  0.000002952   MyD-  K+             PHSP;
+  0.000003107   MyD*- K*+            SVV_HELAMP  0.283 0.0 0.932 0.0 0.228 0.0;
+  0.000005461   K*+ MyD-             SVS;
+  0.0000002456  K*0 Myanti-D0        SVS;
+  0.00000003582 K*0 MyD0             SVS;
+#  D(*)0 pi0  Total = 0.000002712
+  0.000001484  Myanti-D0 pi0                PHSP;
+  0.000001228  Myanti-D*0 pi0               SVS;
+#  D(*)0 rho0  Total = 0.000002558
+  0.000001279  rho0 Myanti-D0        SVS;
+  0.000001279  Myanti-D*0 rho0       SVV_HELAMP 0.283 0.0 0.932 0.0 0.228 0.0;
+#  D(*)0 eta Total = 0.000002456
+  0.000001228  Myanti-D0 eta                PHSP;
+  0.000001228  Myanti-D*0 eta               SVS;
+#  D(*)0 eta' Total = 0.000002456 
+  0.000001228  Myanti-D0 eta'               PHSP;
+  0.000001228  Myanti-D*0 eta'              SVS;
+#  D(*)0 omega Total = 0.000002558
+  0.000001279  omega Myanti-D0       SVS;
+  0.000001279  Myanti-D*0 omega      SVV_HELAMP 0.283 0.0 0.932 0.0 0.228 0.0;
+Enddecay
+
+#
+Decay anti-B0sig
+# Semi leptonic 
+# b -> c e nu   Total = 0.0009632
+  0.0004578    MyD*+     e-   anti-nu_e            HQET 0.92 1.18 0.72;
+  0.00031      MyD+      e-   anti-nu_e            ISGW2;
+  0.00003436   MyD_1+    e-   anti-nu_e            ISGW2;
+  0.00001666   MyD_0*+   e-   anti-nu_e            ISGW2;
+  0.0000227    MyD'_1+   e-   anti-nu_e            ISGW2;
+  0.00002827   MyD_2*+   e-   anti-nu_e            ISGW2;
+  0.000008175  MyD*+       pi0  e-  anti-nu_e        GOITY_ROBERTS;
+  0.00001023   MyD*0     pi+  e-    anti-nu_e        GOITY_ROBERTS;
+  0.00004428   MyD+        pi0  e-  anti-nu_e        GOITY_ROBERTS;
+  0.00003070   MyD0      pi+   e-   anti-nu_e        GOITY_ROBERTS;
+# b -> c mu nu   Total = 0.0009632
+  0.0004578    MyD*+     mu-  anti-nu_mu           HQET 0.92 1.18 0.72;
+  0.00031      MyD+      mu-  anti-nu_mu           ISGW2;
+  0.00003436   MyD_1+    mu-  anti-nu_mu           ISGW2;
+  0.00001666   MyD_0*+   mu-  anti-nu_mu           ISGW2;
+  0.0000227    MyD'_1+   mu-  anti-nu_mu           ISGW2;
+  0.00002827   MyD_2*+   mu-  anti-nu_mu           ISGW2;
+  0.000008175    MyD*+      pi0   mu-  anti-nu_mu        GOITY_ROBERTS;
+  0.00001023   MyD*0 pi+   mu-  anti-nu_mu               GOITY_ROBERTS;
+  0.00004428   MyD+       pi0   mu-  anti-nu_mu          GOITY_ROBERTS;
+  0.00003070   MyD0  pi+   mu-  anti-nu_mu               GOITY_ROBERTS;
+#                    b -> c tau nu  Total = 0.0002805
+  0.0001308    MyD*+     tau-  anti-nu_tau                  ISGW2;
+  0.0001033    MyD+      tau-  anti-nu_tau                  ISGW2;
+  0.000007977  MyD_1+    tau-  anti-nu_tau                  ISGW2;
+  0.00001083   MyD_0*+   tau-  anti-nu_tau                  ISGW2;
+  0.00001227   MyD'_1+   tau-  anti-nu_tau                  ISGW2;
+  0.00001528   MyD_2*+   tau-  anti-nu_tau                  ISGW2;
+# hadronic decays
+# b -> u  Total = 0.00002462
+  0.000002961   MyD_s-   pi+   PHSP;
+  0.000002961   MyD_s-   K+    PHSP;
+  0.000002961   MyD_s*-  pi+   SVS;
+  0.000001851   MyD_s*-  K+    SVS;
+  0.000004257   rho+     MyD_s-  SVS;
+  0.000002684   K*+      MyD_s-  SVS;
+  0.000004257   MyD_s*-  rho+  SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
+  0.000002684   MyD_s*-  K*+   SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
+# Penguin modes Total = 0.00000492
+  0.00000246   Myphi  K_S0    SVS;
+  0.00000246   Myphi  K_L0    SVS;
+# phipi0 has no simple Pengiun or tree so who knows - ditto phieta/eta'?
+# Total = 0.00002684
+  0.000000492   Myphi  pi0      SVS;
+  0.000000492   Myphi  eta      SVS;
+  0.000000492   Myphi  eta'     SVS;
+  0.000000492   Myphi  omega    SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.0000000492  Myphi  rho0     SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.0000000492  Myphi  pi- pi+  PHSP;
+  0.000005412   Myphi  anti-K*0 SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.00000492    Myphi K- pi+             PHSP;
+  0.00000492    Myphi anti-K0 pi0             PHSP;
+  0.000003444   Myphi anti-K0 eta             PHSP;
+  0.00000492    Myphi   anti-K_2*0            PHSP;
+  0.000000984   Myphi   anti-K'_10      PHSP;
+  0.00000002499 Myphi   MyphiNonKK      SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.00000002499 MyphiNonKK   Myphi      SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.00000002421 Myphi   Myphi           SVV_HELAMP  1.0 0.0 1.7 0.0 1.0 0.0;
+  0.0000000492  Myphi K+ K-             PHSP;
+  0.0000000492  Myphi K0 anti-K0        PHSP;
+#       b -> c cbar s   J/psi Total = 0.00005601 
+  0.000001107     MyJ/psi  K_S0          SVS;
+  0.000001107     MyJ/psi  K_L0          SVS;
+  0.000003198     MyJ/psi  anti-K*0      SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus;
+  0.0000000492    MyJ/psi  pi0           SVS;
+  0.0000000738    MyJ/psi  rho0          SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus; 
+  0.0000000738    MyJ/psi  omega         SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus;
+  0.000000492     MyJ/psi  K-  pi+        PHSP;
+  0.000000246     MyJ/psi  anti-K0  pi0        PHSP;
+  0.00000369      MyJ/psi  anti-K_10           SVV_HELAMP 0.5 0.0 1.0 0.0 0.5 0.0;
+  0.000000246     MyJ/psi  anti-K'_10          SVV_HELAMP 0.5 0.0 1.0 0.0 0.5 0.0;
+  0.00000123      MyJ/psi  anti-K_2*0          PHSP;
+  0.0000002214    MyJ/psi  phi anti-K0         PHSP;
+  0.00004428      J/psi    Myphi anti-K0       PHSP;
+#  Psi(2S) Total = 0.000004506
+  0.0000004783     Mypsi(2S)  K_S0         SVS;
+  0.0000004783     Mypsi(2S)  K_L0         SVS;
+  0.000001389      Mypsi(2S)  anti-K*0          SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus; 
+  0.0000006171     Mypsi(2S)  K-  pi+          PHSP;
+  0.0000003086     Mypsi(2S)  anti-K0  pi0          PHSP;
+  0.0000003086     Mypsi(2S)  anti-K0  pi-  pi+     PHSP;
+  0.0000001543     Mypsi(2S)  anti-K0  pi0  pi0     PHSP;
+  0.0000001543     Mypsi(2S)  K-  pi+  pi0     PHSP;
+  0.0000006171     Mypsi(2S)  anti-K_10             PHSP;
+#  eta_c Total = 0.000006541
+  0.000001090      Myeta_c    K_S0             PHSP;
+  0.000001090      Myeta_c    K_L0             PHSP;
+  0.000002453      anti-K*0      Myeta_c            SVS;
+  0.0000005452     Myeta_c  K-  pi+            PHSP;
+  0.0000002726     Myeta_c  anti-K0  pi0            PHSP;
+  0.0000005452     Myeta_c  anti-K0  pi-  pi+       PHSP;
+  0.0000002726     Myeta_c  anti-K0  pi0  pi0       PHSP;
+  0.0000002726     Myeta_c  K-  pi+  pi0       PHSP;
+#     chi_c0 Total = 0.0000008315
+  0.00000006928     Mychi_c0 K_S0               PHSP;
+  0.00000006928     Mychi_c0 K_L0               PHSP;
+  0.0000002079      anti-K*0 Mychi_c0               SVS;
+  0.0000001386      Mychi_c0  K-  pi+           PHSP;
+  0.00000006928     Mychi_c0  anti-K0  pi0           PHSP;
+  0.0000001386      Mychi_c0  anti-K0  pi-  pi+      PHSP;
+  0.00000006928     Mychi_c0  anti-K0  pi0  pi0      PHSP;
+  0.00000006928     Mychi_c0  K-  pi+  pi0      PHSP;
+#    chi_c1 Total = 0.000002022
+  0.0000002332     Mychi_c1 K_S0                 SVS;
+  0.0000002332     Mychi_c1 K_L0                 SVS;
+  0.000000467      Mychi_c1  anti-K*0            SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus;
+  0.0000003109     Mychi_c1  K-  pi+          PHSP;
+  0.0000001555     Mychi_c1  anti-K0  pi0          PHSP;
+  0.0000003109     Mychi_c1  anti-K0  pi-  pi+     PHSP;
+  0.0000001555     Mychi_c1  anti-K0  pi0  pi0     PHSP;
+  0.0000001555     Mychi_c1  K-  pi+  pi0     PHSP;
+#    chi_c2 Total = 0.000002626
+  0.0000001944     Mychi_c2 K_S0               STS;
+  0.0000001944     Mychi_c2 K_L0               STS;
+  0.0000008761     Mychi_c2  anti-K*0               PHSP;
+  0.0000003888     Mychi_c2  K-  pi+           PHSP;
+  0.0000001944     Mychi_c2  anti-K0  pi0           PHSP;
+  0.0000003888     Mychi_c2  anti-K0  pi-  pi+      PHSP;
+  0.0000001944     Mychi_c2  anti-K0  pi0  pi0      PHSP;
+  0.0000001944     Mychi_c2  K-  pi+  pi0      PHSP;
+# b-> c cbar d D(*)D(*)  Total = 0.00003691
+  0.000003985     MyD+    D-                  PHSP;
+  0.000003985     D+      MyD-                PHSP;
+  0.000002739     MyD*+   D-                 SVS;
+  0.000004945    D*+     MyD-                SVS;
+  0.000002739    MyD*-   D+                  SVS;
+  0.000004945    D*-     MyD+                SVS;
+  0.000006785     MyD*+   D*-                 SVV_HELAMP 0.47 0.0 0.96 0.0 0.56 0.0;
+  0.000006785     D*+     MyD*-               SVV_HELAMP 0.47 0.0 0.96 0.0 0.56 0.0;
+# b -> c cbar s (DsD) Total = 0.007606
+  0.0001092        MyD+    D_s-         PHSP;
+  0.0006848        D+      MyD_s-       PHSP;
+  0.0000842        MyD*+   D_s-         SVS;
+  0.0009532        D*+     MyD_s-       SVS;
+  0.0006848        MyD_s*- D+           SVS;
+  0.0001092        D_s*-   MyD+         SVS;
+  0.001823         MyD_s*- D*+    SVV_HELAMP 0.4904 0.0 0.7204 0.0 0.4904 0.0;
+  0.000161         D_s*-   MyD*+  SVV_HELAMP 0.4904 0.0 0.7204 0.0 0.4904 0.0;
+  0.000006136      MyD'_1+ D_s-         SVS;
+  0.00009255       D'_1+   MyD_s-       SVS;
+  0.00001635       MyD'_1+  D_s*-       SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0;
+  0.0001851        D'_1+    MyD_s*-     SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0;
+  0.00001227       MyD_1+   D_s-        SVS;
+  0.0001851        D_1+     MyD_s-      SVS;
+  0.00002454       MyD_1+   D_s*-       SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0;
+  0.0003702        D_1+     MyD_s*-     SVV_HELAMP 0.48 0.0 0.734 0.0 0.48 0.0;
+  0.00005348       MyD_2*+  D_s-        STS;
+  0.0006478        D_2*+    MyD_s-      STS;
+  0.000107         MyD_2*+  D_s*-       PHSP;
+  0.001296         D_2*+    MyD_s*-     PHSP;
+#  Ds D pi  Total = 0.004405
+  0.0002776   MyD_s-  D+      pi0                   PHSP;
+  0.00004428   D_s-    MyD+    pi0                   PHSP;
+  0.0005553   MyD_s-  D0 pi+                        PHSP;
+  0.0000307   D_s-    MyD0  pi+                PHSP;
+  0.0002776   MyD_s*- D+      pi0                   PHSP;
+  0.00004428   D_s*-   MyD+    pi0                   PHSP;
+  0.0005553   MyD_s*- D0 pi+                   PHSP;
+  0.0000307   D_s*-   MyD0  pi+                PHSP;
+  0.0004627    MyD_s-  D+      pi-  pi+              PHSP;
+  0.0000738    D_s-    MyD+    pi-  pi+              PHSP;
+  0.0003424    MyD_s-  D+      pi0  pi0              PHSP;
+  0.00005461   D_s-    MyD+    pi0  pi0              PHSP;
+  0.0003424    MyD_s-  D0 pi+  pi0              PHSP;
+  0.00001893   D_s-    MyD0 pi+  pi0            PHSP;
+  0.0004627    MyD_s*- D+      pi-  pi+              PHSP;
+  0.0000738    D_s*-   MyD+    pi-  pi+              PHSP;
+  0.0003424    MyD_s*- D+      pi0  pi0              PHSP;
+  0.00005461   D_s*-   MyD+    pi0  pi0              PHSP;
+  0.0003424    MyD_s*- D0 pi+  pi0              PHSP;
+  0.00001893   D_s*-   MyD0 pi+  pi0            PHSP;
+# b -> c cbar s (D Dbar K(*) ) Total = 0.0001986
+  0.00002509    MyD+  anti-D0   K-                    PHSP;
+  0.000008699   D+    Myanti-D0 K-                    PHSP;
+  0.00002066    MyD+  D-   anti-K0                    PHSP;
+  0.00002066    D+    MyD-  anti-K0                   PHSP;
+  0.0000369     MyD+  anti-D0   K*-                   PHSP;
+  0.00001279    D+    Myanti-D0 K*-                   PHSP;
+  0.0000369     MyD+  D-   anti-K*0                   PHSP;
+  0.0000369     D+    MyD- anti-K*0                   PHSP;
+# D* D K  Total = 0.0003184
+  0.00002534   MyD*+ anti-D0   K-                    PHSP;
+  0.00001586   D*+   Myanti-D0 K-                    PHSP;
+  0.00002698   MyD*+ D-   anti-K0                    PHSP;
+  0.00004871   D*+   MyD- anti-K0                    PHSP;
+  0.00006790    MyD+  anti-D*0  K-                    PHSP;
+  0.00002354    D+    Myanti-D*0  K-                  PHSP;
+  0.00007085    MyD+  D*-  anti-K0                    PHSP;
+  0.00003924    D+    MyD*- anti-K0                   PHSP;
+# D* D K*   Total = 0.0001976
+  0.00002044   MyD*+ anti-D0   K*-                   PHSP;
+  0.00001279   D*+   Myanti-D0 K*-                   PHSP;
+  0.00002044   MyD*+ D-   anti-K*0                   PHSP;
+  0.0000369    D*+   MyD- anti-K*0                   PHSP;
+  0.0000369    MyD+  anti-D*0  K*-                   PHSP;
+  0.00001279   D+    Myanti-D*0 K*-                  PHSP;
+  0.0000369    MyD+  D*-  anti-K*0                   PHSP;
+  0.00002044   D+    MyD*- anti-K*0                  PHSP;
+# D*D*K(*)   Total = 0.000449
+  0.00009647   MyD*+ anti-D*0  K-                    PHSP;
+  0.00006038   D*+   Myanti-D*0  K-                  PHSP;
+  0.00007194   MyD*+ D*-  anti-K0                    PHSP;
+  0.00007194   D*+   MyD*-  anti-K0                  PHSP;
+  0.00004088   MyD*+ anti-D*0  K*-                   PHSP;
+  0.00002558   D*+   Myanti-D*0  K*-                 PHSP;
+  0.00004088   MyD*+ D*-  anti-K*0                   PHSP;
+  0.00004088   D*+   MyD*-  anti-K*0                 PHSP;
+# DDK color suppressed Total = 0.00006242
+  0.000002558    Myanti-D0  D0  anti-K0                PHSP;
+  0.000002558    anti-D0    MyD0 anti-K0               PHSP;
+  0.000002558    Myanti-D0  D0  anti-K*0               PHSP;
+  0.000002558    anti-D0    MyD0 anti-K*0              PHSP;
+  0.000005117    Myanti-D0  D*0  anti-K0               PHSP;
+  0.000005117    anti-D0    MyD*0 anti-K0              PHSP;
+  0.000002558    Myanti-D0  D*0  anti-K*0              PHSP;
+  0.000002558    anti-D0    MyD*0  anti-K*0            PHSP;
+  0.000005117    Myanti-D*0  D0  anti-K0               PHSP;
+  0.000005117    anti-D*0    MyD0 anti-K0              PHSP;
+  0.000002558    Myanti-D*0  D0  anti-K*0              PHSP;
+  0.000002558    anti-D*0    MyD0   anti-K*0           PHSP;
+  0.000005628    Myanti-D*0  D*0  anti-K0              PHSP;
+  0.000005628    anti-D*0    MyD*0  anti-K0            PHSP;
+  0.000005117    Myanti-D*0  D*0  anti-K*0             PHSP;
+  0.000005117    anti-D*0    MyD*0  anti-K*0           PHSP;
+#  B -> D(*) X  Exclusive modes   Total = 0.0006352
+  0.00002207   MyD*+   pi-            SVS;
+  0.00004428   MyD+    pi-            PHSP;
+  0.0001210    rho-  MyD+             SVS;
+  0.00005559   rho-  MyD*+        SVV_HELAMP  0.152 1.47 0.936 0.0 0.317 0.19;
+  0.00001476   MyD+  pi-  pi0         PHSP;
+  0.00005823   MyD*+ pi-  pi0         PHSP;
+  0.000005117  MyD0  pi-  pi+    PHSP;
+  0.000005117  MyD*0 pi-  pi+    PHSP;
+  0.000002558  MyD*0 pi0  pi0    PHSP;
+  0.0001231    a_1- MyD+              SVS;
+  0.00001624   MyD+  rho0  pi-        PHSP;
+  0.00001624   MyD+  rho-  pi0        PHSP;
+  0.00003245   MyD+  pi+  pi-  pi-    PHSP;
+  0.00001476   MyD+  pi0  pi-  pi0             PHSP;
+  0.000005117   MyD0  pi-  pi+  pi0        PHSP;
+  0.0000005117   MyD0  pi0  pi0  pi0         PHSP;
+  0.0000981    MyD*+  a_1-            SVV_HELAMP 0.336 0.0 0.88 0.0 0.336 0.0;
+#   D* X Total = 0.00007347
+  0.000008175   MyD*+  rho0  pi-                 PHSP;
+  0.000008175   MyD*+  rho-  pi0                 PHSP;
+  0.000008175   MyD*+  pi0  pi-  pi0             PHSP;
+  0.000005117   MyD*0  pi-  pi+  pi0        PHSP;
+  0.0000005117  MyD*0  pi0  pi0  pi0        PHSP;
+  0.000003682   MyD_1+ pi-                       SVS;
+  0.000005522   MyD'_1+ pi-                      SVS;
+  0.000006876   MyD_2*+ pi-                      STS;
+  0.000002454   MyD_1+ rho-                      PHSP;  
+  0.000007977   MyD'_1+ rho-                     PHSP;  
+  0.00001681    MyD_2*+ rho-                     PHSP;  
+# D K Total = 0.00001319
+  0.00000139    MyD*+ K-             SVS;
+  0.000002952   MyD+  K-             PHSP;
+  0.000003107   MyD*+ K*-            SVV_HELAMP  0.228 0.0 0.932 0.0 0.283 0.0;
+  0.000005461   K*- MyD+             SVS;
+  0.0000002456  anti-K*0 MyD0        SVS;
+  0.00000003582 anti-K*0 Myanti-D0             SVS;
+#  D(*)0 pi0  Total = 0.000002712
+  0.000001484  MyD0 pi0                PHSP;
+  0.000001228  MyD*0 pi0               SVS;
+#  D(*)0 rho0  Total = 0.000002558
+  0.000001279  rho0 MyD0        SVS;
+  0.000001279  MyD*0 rho0       SVV_HELAMP 0.228 0.0 0.932 0.0 0.283 0.0;
+#  D(*)0 eta Total = 0.000002456
+  0.000001228  MyD0 eta                PHSP;
+  0.000001228  MyD*0 eta               SVS;
+#  D(*)0 eta' Total = 0.000002456 
+  0.000001228  MyD0 eta'               PHSP;
+  0.000001228  MyD*0 eta'              SVS;
+#  D(*)0 omega Total = 0.000002558
+  0.000001279  omega MyD0       SVS;
+  0.000001279  MyD*0 omega      SVV_HELAMP 0.228 0.0 0.932 0.0 0.283 0.0;
+Enddecay
+
+# D**
+# Total D_1+ = 0.006136
+SetLineshapePW MyD_1+ MyD*+ pi0 2
+SetLineshapePW MyD_1+ MyD*0 pi+ 2
+SetLineshapePW MyD_1- MyD*- pi0 2
+SetLineshapePW MyD_1- Myanti-D*0 pi- 2
+Decay MyD_1+
+  0.002725    MyD*+ pi0                   VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+  0.003411    MyD*0 pi+                   VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+Enddecay
+CDecay MyD_1-
+# Total D_0*+ = 0.008331
+Decay MyD_0*+
+  0.004920   MyD+  pi0                         PHSP;
+  0.003411   MyD0  pi+                         PHSP;
+Enddecay
+CDecay MyD_0*-
+# Total D'_1+ = 0.006136
+Decay MyD'_1+
+  0.002725   MyD*+ pi0                      VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
+  0.003411   MyD*0 pi+                      VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+CDecay MyD'_1-
+# Total D_2*+ = 0.00764
+SetLineshapePW MyD_2*+ MyD*+ pi0 2
+SetLineshapePW MyD_2*+ MyD*0 pi+ 2
+SetLineshapePW MyD_2*- MyD*- pi0 2
+SetLineshapePW MyD_2*- Myanti-D*0 pi- 2
+Decay MyD_2*+
+  0.0008420    MyD*+ pi0                    TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+  0.001069     MyD*0 pi+                    TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+  0.00338      MyD+  pi0                     TSS;
+  0.002349     MyD0  pi+                     TSS;
+Enddecay
+CDecay MyD_2*-
+# D*
+# total D*+ = 0.008175
+Decay MyD*+
+  0.003495    MyD0  pi+                         VSS;
+  0.004517    MyD+  pi0                         VSS;
+  0.000163    MyD+  gamma                       VSP_PWAVE;
+Enddecay
+CDecay MyD*-
+# total D*0 = 0.0051168 
+Decay MyD*0
+  0.003167    MyD0  pi0                         VSS;
+  0.001950    MyD0  gamma                       VSP_PWAVE;
+Enddecay
+CDecay Myanti-D*0
+# D
+# total D+ = 0.01476
+Decay MyD+
+  0.003444   Myphi pi+                         SVS;
+  0.011316   Myphi pi+  pi0                    PHSP;
+Enddecay 
+CDecay MyD-
+# total D0 = 0.0051168
+Decay MyD0
+  0.0042312   Myphi anti-K0                     SVS;
+  0.0003444   Myphi pi0                         SVS;
+  0.0005412   Myphi pi+  pi-                    PHSP;
+Enddecay
+CDecay Myanti-D0
+# D_s Total = 0.092546
+Decay MyD_s+
+  0.009840   Myphi   e+     nu_e           ISGW2;
+  0.009840   Myphi   mu+    nu_mu          ISGW2;
+  0.017712   Myphi   pi+                         SVS;
+  0.032964   Myphi   rho+                        SVV_HELAMP 1.0 0.0 1.0 0.0 1.0 0.0;
+  0.011316   Myphi   pi+    pi0                  PHSP;
+  0.005806   Myphi   pi+    pi-    pi+           PHSP;
+  0.004920   Myphi   pi+    pi0    pi0           PHSP;
+  0.000148   Myphi   K+                          SVS;
+Enddecay
+CDecay MyD_s-
+# Total D*s = 0.092546
+Decay MyD_s*+
+  0.087178    MyD_s+  gamma                 VSP_PWAVE;
+  0.005368    MyD_s+  pi0                   VSS;
+Enddecay
+CDecay MyD_s*-
+# charmonium
+# Total J/psi -> ( phi -> K+ K- ) = 0.00246
+Decay MyJ/psi
+  0.0002460   Myphi K*0 anti-K0             PHSP;
+  0.0002460   Myphi anti-K*0 K0             PHSP;
+  0.0002460   Myphi K*+      K-             PHSP;
+  0.0002460   Myphi K*-      K+             PHSP;
+  0.0007872   Myphi pi+ pi- pi+ pi-         PHSP;
+  0.0001476   Myphi K0 anti-K0              PHSP;
+  0.0001476   Myphi anti-K0 K0              PHSP;
+  0.0001968   Myphi K+      K-              PHSP;
+  0.0001968   Myphi K-      K+              PHSP;
+Enddecay
+# Total psi(2S) = 0.00154287
+Decay Mypsi(2S)
+  0.00075030   MyJ/psi  pi+   pi-            VVPIPI;
+  0.00044772   MyJ/psi  pi0   pi0            VVPIPI;
+  0.00007700   MyJ/psi  eta                  VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+  0.00000246   MyJ/psi  pi0                  VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+  0.00006028   gamma Mychi_c0                PHSP;
+  0.00006530   gamma Mychi_c1                PHSP;
+  0.00013218   gamma Mychi_c2                PHSP;
+  0.00000763   gamma Myeta_c                 PHSP;
+Enddecay
+# Total eta_c = 0.002726073
+Decay Myeta_c
+  0.000649834  Myphi    MyphiNonKK           SVV_HELAMP 1.0 0.0 0.0 0.0 -1.0 0.0;
+  0.000649834  MyphiNonKK Myphi              SVV_HELAMP 1.0 0.0 0.0 0.0 -1.0 0.0;
+  0.000629366  Myphi    Myphi                SVV_HELAMP 1.0 0.0 0.0 0.0 -1.0 0.0;
+  0.000797040  Myphi    K+     K-            PHSP;
+Enddecay
+# Total chi_c0 = 0.000692835
+Decay Mychi_c0
+  0.000025092   gamma MyJ/psi                 PHSP;
+  0.000224943   Myphi MyphiNonKK              PHSP;
+  0.000224943   MyphiNonKK Myphi              PHSP;
+  0.000217858   Myphi Myphi                   PHSP;
+Enddecay
+#
+Decay Mychi_c1
+  0.00077736   MyJ/psi  gamma            VVP 1.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+# Total chi_c2 = 0.00194389 
+Decay Mychi_c2
+  0.000460020   gamma MyJ/psi                 PHSP;
+  0.000499872   Myphi MyphiNonKK              PHSP;
+  0.000499872   MyphiNonKK  Myphi             PHSP;
+  0.000484128   Myphi Myphi                   PHSP;
+Enddecay
+# phi
+Decay Myphi
+  0.4920   K+   K-                       VSS;
+Enddecay
+# phi not going to K+ K-
+Decay MyphiNonKK
+  0.3400   K_L0  K_S0                      VSS;
+  0.0430   rho+ pi-                        VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+  0.0430   rho0 pi0                        VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+  0.0430   rho- pi+                        VVS_PWAVE 1.0 0.0 0.0 0.0 0.0 0.0;
+  0.0250   pi+  pi- pi0                    PHSP;
+  0.0121   eta gamma                       VSP_PWAVE;
+  0.0013   pi0 gamma                       VSP_PWAVE;
+  0.0003   e+  e-                    VLL;
+  0.0003   mu+ mu-                   VLL;
+Enddecay
+
+#
+End
+

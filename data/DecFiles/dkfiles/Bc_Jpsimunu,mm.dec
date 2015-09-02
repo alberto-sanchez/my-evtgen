@@ -1,0 +1,29 @@
+# $Id: Bc_Jpsimunu,mm.dec,v 1.1 2006/02/12 21:55:12 robbep Exp $
+#
+# This is the decay file for the decay B_c -> PSI(-> MU+ MU-) mu nu
+#
+# EventType: 14543000
+#
+# Descriptor: [B_c+ -> (J/psi(1S) -> mu+ mu- {,gamma} {,gamma}) mu+ nu_mu]cc
+#
+# NickName: Bc_Jpsimunu,mm
+#
+# Physics: includes radiative mode
+#
+# Tested: No
+# By: 
+# Date: 
+#
+Alias      MyJ/psi  J/psi
+ChargeConj MyJ/psi  MyJ/psi
+#
+Decay B_c+sig
+  1.000         MyJ/psi   mu+   nu_mu           PHSP;
+Enddecay
+CDecay B_c-sig
+#
+Decay MyJ/psi
+  1.000         mu+       mu-            PHOTOS VLL;
+Enddecay
+End
+

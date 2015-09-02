@@ -1,0 +1,25 @@
+# $Id: Bs_pp=DecProdCut.dec,v 1.1 2006/12/20 12:46:32 robbep Exp $
+#
+# This is the decay file for the decay BS0 -> p pbar
+#
+# EventType: 13102031
+#
+# Descriptor: [B_s0 -> p+ p~-]cc
+#
+# NickName: Bs_pp=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+# Physics: Decay products in acceptance
+#
+# Tested: No
+# By: 
+# Date: 
+#
+Decay B_s0sig
+  1.0000       p+       anti-p-                PHSP;
+Enddecay
+CDecay anti-B_s0sig
+#
+End
+

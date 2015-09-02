@@ -1,0 +1,10 @@
+Build procedure is ./configure [options] && make 
+
+Run ./configure --help to list the options.
+
+Tested with:  
+HepMC 2.00.00 , 
+CLHEP 1.9.2.3 ,
+Pythia6 408 (HEPEVT size = 10000) ,
+PHOTOS  215 (HEPEVT size = 10000) ,
+LHAPDF  5.2.3

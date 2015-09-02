@@ -1,0 +1,17 @@
+#
+# EventType: 60000000
+#
+# Descriptor: pp => ?
+#
+# NickName: bkg_gas=VELO
+#
+# ExtraOptions: BeamGasVeLo
+#
+# Physics:  Beam gas in VeLo, need special options to be included
+#
+# Tested:  No
+# Checked: Yes
+# By:      Gloria Corti
+# Date:    21 Jun 2006
+#
+End
