@@ -46,7 +46,7 @@ GLIBS          = $(filter-out -lNew, $(NGLIBS))
 .SUFFIXES: .cc
 
 # ================================================================================
-default: genExampleRootFiles compareRootFiles testCPVDecays
+default: genExampleRootFiles compareRootFiles testCPVDecays genRootDecayChain
 
 genExampleRootFiles: genExampleRootFiles.o
 	$(CXX) $(CXXFLAGS) $(EXTRAFLAGS) -o genExampleRootFiles genExampleRootFiles.o \
@@ -59,8 +59,12 @@ testCPVDecays: testCPVDecays.o
 	$(CXX) $(CXXFLAGS) $(EXTRAFLAGS) -o testCPVDecays testCPVDecays.o \
 	$(GENLIBS) $(LIBS)
 
+genRootDecayChain: genRootDecayChain.o
+	$(CXX) $(CXXFLAGS) $(EXTRAFLAGS) -o genRootDecayChain genRootDecayChain.o \
+	$(GENLIBS) $(LIBS)
+
 .cc.o:
 	$(CXX) $(CXXFLAGS) $(EXTRAFLAGS) -c -o $@ $< -I$(INCLUDEDIR) -I$(HEPMCINCDIR)
 
 clean:
-	rm -f genExampleRootFiles compareRootFiles testCPVDecays *.o
+	rm -f genExampleRootFiles compareRootFiles testCPVDecays genRootDecayChain *.o

@@ -4,6 +4,98 @@
 //
 //===========================================================================
 
+R01-05-00-------------------------------------------------------------------
+21st October 2015 John Back
+    New tag incorporating all changes below. Recommended external packages
+    are HepMC 2.06.09, pythia 8.186, Photos++ 3.61 and Tauola++ 1.1.5.
+
+    Added the EvtB2MuMuMuNu model for simulating the very rare four-leptonic 
+    decays B- -> mu+ mu- anti-nu_mu mu-, courtesy Nikolai Nikitin.
+
+16th October 2015 John Back
+    Updated the configure script to automatically select the library names
+    for PHOTOS++; version 3.56 and below uses Fortran, version 3.61 and above
+    uses C++ only (default). Avoid using v3.60, since it does not work.
+    This needs the PHOTOS libraries built before EvtGen is configured.
+    Modified setupEvtGen.sh to use Photos++ v3.61.
+
+7th October 2015 John Back
+    Updated EvtGenExternal/EvtPhotosEngine to check that additional particles
+    from the outgoing vertex are indeed (FSR) photons, since later versions of 
+    PHOTOS introduce pair emission, where particles may not always be photons.
+
+    Added the genRootDecayChain.cc validation program to create ROOT files 
+    containing information about the complete decay tree. Two example test
+    decay files BKstarGamma.dec and BuDst0rhop.dec can be used with this; the
+    first tests PHOTOS, the second looks at sequential decay chain storage.
+    The plotBKstarGamma.C ROOT macro can be used for B -> K* gamma plots.
+
+2nd October 2015 John Back    
+    Modified EvtSVPHelAmp and added a new EvtSVPHelCPMix model, implementing 
+    the complete mixing phenomenology of Bs to vector gamma decays, courtesy 
+    of Clara Remon (LHCb).
+
+    EvtD0mixDalitz code: cleanup, inverted q/p for decays of D0bar (simplifies
+    user decay files) and fixed y parameter bug, courtesy of Jordi Tico (LHCb).
+
+    Changed the initialisation order of the infrared cut-off in EvtPhotosEngine.
+    This actually has no effect, since the exponentiation function sets it to the
+    same 1e-7 value, but it's now in the correct order if we need to update it.
+
+    Removed all remaining obsolete pragma (Win32) warnings from some classes.
+
+23rd September 2015 Michal Kreps
+    Reimplement the real Spence function in C++ and removed its fortran
+    implementation.
+
+15th September 2015 Michal Kreps
+    Fixed accessed uninitialised memory in EvtPDL.cpp, line 213.
+    Modified the configure and setupEvtGen.sh scripts to work on Mac; needed
+    Mac compilation patch files added to the new "platform" subdirectory. 
+
+10th September 2015 John Back
+    Updated setupEvtGen.sh to use the recommended external packages:
+    HepMC 2.06.09, pythia 8.186, Photos++ 3.56 and Tauola++ 1.1.5. 
+
+    Fixed form-factor calculations for the BTOSLLBALL model 6 used to generate
+    b -> sll decays, courtesy of Christoph Langenbruch and David Loh (LHCb). 
+    Affects B->K*ll, B->rholl and B->omegall, particularly the electron modes.
+
+    In the validation directory, added runPhotosTest.sh for testing FSR in
+    Upsilon(4S) -> e+ e- decays, and changed the plot comparison scripts to
+    use the 2nd directory "oldRootFiles" (which could be a soft-link) for 
+    including ROOT histograms made from a previous version of EvtGen.    
+
+27th August 2015 John Back
+    Added Mersenne-Twister random number generator (RNG) EvtMTRandomEngine.
+    It requires c++11 compiler features (>= gcc 4.7), which should 
+    automatically be enabled by the configure script. Introduced the 
+    preprocessor environment variable EVTGEN_CPP11 for c++11 features.
+    EvtMTRandomEngine is the default RNG for the validation and test examples
+    if c++11 features are enabled.
+
+    Added a phase-space test validation/genPHSP.sh and PhaseSpacePlots.C to
+    visually check the flatness of Dalitz plots in order to ensure that the
+    RNG is not producing biased results that depend on particle ordering.
+
+    Added the models EvtbsToLLLLAmp and EvtbsToLLLLHyperCP for 
+    B0_q -> l+ l- l+ l- decays (SM and one supersymmetric scenario), 
+    courtesy of Nikolai Nikitin and Konstantin Toms. Documentation provided
+    in doc/evt_BQTOLLLL_model.pdf and doc/evt_BQTOLLLLHYPERCP_model.pdf.
+
+    Changed the installation and set-up script name to be just setupEvtGen.sh;
+    it uses the VERSION variable to specify the required tag. List of tags
+    are available using either "svn ls -v http://svn.cern.ch/guest/evtgen/tags"
+    or by going to http://svn.cern.ch/guest/evtgen/tags in a web browser.
+
+12th June 2015 John Back
+    Changed the width of chi_b1 in evt.pdl from 9.8928 GeV (!) to zero.
+
+1st May 2015 John Back
+    Added Bc -> scalar ell nu (EvtBcSMuNu) and Bc -> tensor ell nu 
+    (EvtBcTMuNu) decays, courtesy of Jack Wimberley, LHCb. Also included the 
+    chi_c1 mode for EvtBcVMuNu.   
+
 R01-04-00-------------------------------------------------------------------
 2nd April 2015 John Back
     Removed the EvtStdlibRandomEngine class since this can produce biases

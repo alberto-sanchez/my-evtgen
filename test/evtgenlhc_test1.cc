@@ -47,6 +47,7 @@
 #include "EvtGen/EvtGen.hh"
 #include "EvtGenBase/EvtParticleFactory.hh"
 #include "EvtGenBase/EvtSimpleRandomEngine.hh"
+#include "EvtGenBase/EvtMTRandomEngine.hh"
 #include "EvtGenBase/EvtIdSet.hh"
 #include "EvtGenBase/EvtParser.hh"
 
@@ -153,7 +154,15 @@ void runBaryonic(int nEvent, EvtGen& myGenerator);
 
 int main(int argc, char* argv[]){
 
-  EvtRandomEngine* myRandomEngine = new EvtSimpleRandomEngine();
+  // Define the random number generator
+  EvtRandomEngine* myRandomEngine = 0;
+
+#ifdef EVTGEN_CPP11
+  // Use the Mersenne-Twister generator (C++11 only)
+  myRandomEngine = new EvtMTRandomEngine();
+#else
+  myRandomEngine = new EvtSimpleRandomEngine();
+#endif
 
   if (!TROOT::Initialized()) {
     static TROOT root("RooTuple", "RooTuple ROOT in EvtGen");

@@ -11,6 +11,7 @@
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtSimpleRandomEngine.hh"
+#include "EvtGenBase/EvtMTRandomEngine.hh"
 #include "EvtGenBase/EvtHepMCEvent.hh"
 #include "EvtGenBase/EvtSpinDensity.hh"
 #include "EvtGenBase/EvtSpinType.hh"
@@ -83,7 +84,16 @@ int main(int argc, char** argv) {
   cout<<"Number of events is "<<nEvents<<endl;
   cout<<"sin2Beta = "<<sin2Beta<<" (used to draw oscillation maxima lines)"<<endl;
 
-  EvtRandomEngine* myRandomEngine = new EvtSimpleRandomEngine();
+  // Define the random number generator
+
+  EvtRandomEngine* myRandomEngine = 0;
+
+#ifdef EVTGEN_CPP11
+  // Use the Mersenne-Twister generator (C++11 only)
+  myRandomEngine = new EvtMTRandomEngine();
+#else
+  myRandomEngine = new EvtSimpleRandomEngine();
+#endif
 
   EvtAbsRadCorr* radCorrEngine = 0;
   std::list<EvtDecayBase*> extraModels;

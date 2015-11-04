@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <fstream>
 #include "EvtGenBase/EvtSimpleRandomEngine.hh"
+#include "EvtGenBase/EvtMTRandomEngine.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtVector4R.hh"
 #include "EvtGenBase/EvtParticle.hh"
@@ -57,7 +58,16 @@ int main(int argc, char* argv[]) {
 
   // Initialize EvtGen
 
-  EvtRandomEngine* eng = new EvtSimpleRandomEngine();
+  // Define the random number generator
+  EvtRandomEngine* eng = 0;
+
+#ifdef EVTGEN_CPP11
+  // Use the Mersenne-Twister generator (C++11 only)
+  eng = new EvtMTRandomEngine();
+#else
+  eng = new EvtSimpleRandomEngine();
+#endif
+
   EvtRandom::setRandomEngine(eng);
 
   EvtAbsRadCorr* radCorrEngine = 0;

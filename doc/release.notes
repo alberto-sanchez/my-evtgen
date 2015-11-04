@@ -1,8 +1,8 @@
-!-----------------------------------------------------------------------------
-! Package     : EvtGen
-! Responsible : Patrick Robbe, Mark Whitehead 
-! Purpose     : 
-!-----------------------------------------------------------------------------
+This file contains the old history information of the EvtGen package 
+from the LHCb collaboration, starting from the original version from 
+D.Lange and A.Ryd. This history is now superseded by the History.txt file.
+
+=============================================================================
 
 ! 2011-01-05 - John Back
  - EvtTensor4C.cpp: Correction to EvtTensor4C::cont() from Anders Ryd

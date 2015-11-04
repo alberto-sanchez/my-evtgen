@@ -128,7 +128,16 @@ check_extlibs () {
 
     # Set default shared libary lists for external packages
     HEPMCLIBLIST="-lHepMC"
-    PHOTOSLIBLIST="-lPhotosCxxInterface -lPhotosFortran"
+
+    # For PHOTOS version 3.61 and above: default setting.
+    # Aside: avoid 3.60 since this does not work properly for EvtGen!
+    PHOTOSLIBLIST="-lPhotospp -lPhotosppHepMC"
+    # For PHOTOS version 3.56 and below: check to see
+    # if we need to modify this library list
+    if [ -f ${PHOTOSDIR}/lib/libPhotosFortran.so ]; then
+	PHOTOSLIBLIST="-lPhotosCxxInterface -lPhotosFortran"
+    fi
+
     TAUOLALIBLIST="-lTauolaCxxInterface -lTauolaFortran"
     PYTHIALIBLIST="-lpythia8 -llhapdfdummy"
 
@@ -224,9 +233,41 @@ if [ $ARCH = Linux-gcc4 ]; then
   fi
 fi
 
+# Add C++11 options if required
+theGcc2=`g++ --version | grep '[0-9]\.[0-9]\.[0-9]' -o | head -1 | awk -F . '{print $2}'`
+gccVar=`echo $theGcc`
+gccVar2=`echo $theGcc2`
+# Flag to make sure c++11 is enabled for compiling certain classes, e.g. MT random engine.
+CPP11=1
+# Check that we have gcc version 4.7 and above
+if [ $gccVar -le 4 ]; then
+  if [ $gccVar2 -le 6 ]; then
+    echo "Not enabling c++11 features"
+    CPP11=0
+  fi
+fi
+
+if [ $CPP11 = 1 ]; then
+  echo "c++11 is enabled"
+fi
+
 # Mac OS platform with gcc4
 if [[ $ARCH == Darwin* ]]; then
-  FLIBS="-lgfortran"
+  tt=`gfortran -print-search-dirs|grep libraries|cut -d'=' -f2|sed  's/:/ /g'`
+  LIBGFORTRANLOCATION=''
+  for i in $tt
+  do
+    if [ -e $i/libgfortran.so ]
+    then
+      LIBGFORTRANLOCATION=$i
+      break
+    elif [ -e $i/libgfortran.dylib ]
+    then
+      LIBGFORTRANLOCATION=$i
+      break
+    fi
+  done
+  FLIBS="-L${LIBGFORTRANLOCATION} -lgfortran"
   SOFLAGS="-install_name"
 fi
 
@@ -316,6 +357,14 @@ if [ "${EVTGEN_TAUOLA}" == "1" ] ; then
   echo "TAUOLALIBDIR = ${TAUOLADIR}/lib" >> config.mk
   echo "TAUOLALIBLIST = ${TAUOLALIBLIST}" >> config.mk
 fi
+
+if [ ${CPP11} == "1" ] ; then
+  echo "" >> config.mk
+  echo "# c++11 features:" >> config.mk
+  echo "EVTGEN_CPP11 = 1" >> config.mk
+  echo "CXXFLAGS += -std=c++11 -D EVTGEN_CPP11" >> config.mk
+fi
+
 
 echo " done"
 

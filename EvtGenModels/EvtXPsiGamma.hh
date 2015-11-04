@@ -24,9 +24,8 @@
 #include <fstream>
 #include <stdio.h>
 
+
 #include "EvtGenBase/EvtDecayAmp.hh"
-#include "EvtGenBase/EvtSemiLeptonicFF.hh"
-#include "EvtGenBase/EvtSemiLeptonicAmp.hh"
 
 class EvtParticle;
 
@@ -47,8 +46,6 @@ public:
 
 
 private:
-//  EvtSemiLeptonicFF *ffmodel;
-//  EvtSemiLeptonicAmp *calcamp;
 //  int whichfit;
   EvtComplex fT2(EvtVector4R p, EvtVector4R q , EvtTensor4C epsPI, EvtVector4C epsEps, EvtVector4C epsEta); 
   EvtComplex fT3(EvtVector4R p, EvtVector4R q , EvtTensor4C epsPI, EvtVector4C epsEps, EvtVector4C epsEta);

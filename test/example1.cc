@@ -12,6 +12,7 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenBase/EvtHepMCEvent.hh"
 #include "EvtGenBase/EvtSimpleRandomEngine.hh"
+#include "EvtGenBase/EvtMTRandomEngine.hh"
 #include "EvtGenBase/EvtAbsRadCorr.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 
@@ -27,7 +28,16 @@ int main(int argc, char** argv) {
 
   EvtParticle* parent(0);
 
-  EvtRandomEngine* eng = new EvtSimpleRandomEngine();
+  // Define the random number generator
+  EvtRandomEngine* eng = 0;
+
+#ifdef EVTGEN_CPP11
+  // Use the Mersenne-Twister generator (C++11 only)
+  eng = new EvtMTRandomEngine();
+#else
+  eng = new EvtSimpleRandomEngine();
+#endif
+
   EvtRandom::setRandomEngine(eng);
 
   EvtAbsRadCorr* radCorrEngine = 0;

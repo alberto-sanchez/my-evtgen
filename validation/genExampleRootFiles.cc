@@ -11,6 +11,7 @@
 #include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtRandom.hh"
 #include "EvtGenBase/EvtSimpleRandomEngine.hh"
+#include "EvtGenBase/EvtMTRandomEngine.hh"
 #include "EvtGenBase/EvtDecayBase.hh"
 
 #ifdef EVTGEN_EXTERNAL
@@ -100,7 +101,15 @@ int main(int argc, char** argv) {
   EvtParticle* baseParticle(0);
   EvtParticle* theParent(0);
 
-  EvtRandomEngine* myRandomEngine = new EvtSimpleRandomEngine();
+  // Define the random number generator
+  EvtRandomEngine* myRandomEngine = 0;
+
+#ifdef EVTGEN_CPP11
+  // Use the Mersenne-Twister generator (C++11 only)
+  myRandomEngine = new EvtMTRandomEngine();
+#else
+  myRandomEngine = new EvtSimpleRandomEngine();
+#endif
   
   // Initialize the generator - read in the decay table and particle properties.
   // For our validation purposes, we just want to read in one decay file and create

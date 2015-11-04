@@ -82,6 +82,7 @@
 #include "EvtGenModels/EvtBToVlnuBall.hh"
 
 #include "EvtGenModels/EvtSVVHelCPMix.hh"
+#include "EvtGenModels/EvtSVPHelCPMix.hh"
 #include "EvtGenModels/EvtLb2Lll.hh"
 #include "EvtGenModels/EvtRareLbToLll.hh"
 #include "EvtGenModels/EvtHypNonLepton.hh"
@@ -145,11 +146,17 @@
 #include "EvtGenModels/EvtBcBsNPi.hh"
 #include "EvtGenModels/EvtBcBsStarNPi.hh"
 
+#include "EvtGenModels/EvtBcSMuNu.hh"
 #include "EvtGenModels/EvtBcVMuNu.hh"
+#include "EvtGenModels/EvtBcTMuNu.hh"
 #include "EvtGenModels/EvtBcVNpi.hh"
 #include "EvtGenModels/EvtSVP.hh"
 #include "EvtGenModels/EvtTVP.hh"
 #include "EvtGenModels/EvtXPsiGamma.hh"
+
+#include "EvtGenModels/EvtbsToLLLL.hh"
+#include "EvtGenModels/EvtbsToLLLLHyperCP.hh"
+#include "EvtGenModels/EvtB2MuMuMuNu.hh"
 
 #include "EvtGenModels/EvtGenericDalitz.hh"
 
@@ -251,6 +258,7 @@ EvtModelReg::EvtModelReg(const std::list<EvtDecayBase*>* extraModels)
     modelist.registerModel(new EvtRareLbToLll);
     modelist.registerModel(new EvtHypNonLepton);
     modelist.registerModel(new EvtSVVHelCPMix);
+    modelist.registerModel(new EvtSVPHelCPMix);
 
     modelist.registerModel(new EvtLNuGamma);
     modelist.registerModel(new EvtKstarstargamma);
@@ -286,11 +294,17 @@ EvtModelReg::EvtModelReg(const std::list<EvtDecayBase*>* extraModels)
     modelist.registerModel(new EvtBcBsNPi);
     modelist.registerModel(new EvtBcBsStarNPi);
 
+    modelist.registerModel(new EvtBcSMuNu);
     modelist.registerModel(new EvtBcVMuNu);
+    modelist.registerModel(new EvtBcTMuNu);
     modelist.registerModel(new EvtBcVNpi);
     modelist.registerModel(new EvtSVP);
     modelist.registerModel(new EvtTVP);
     modelist.registerModel(new EvtXPsiGamma);
+
+    modelist.registerModel(new EvtbsToLLLL);
+    modelist.registerModel(new EvtbsToLLLLHyperCP);
+    modelist.registerModel(new EvtB2MuMuMuNu);
 
     modelist.registerModel(new EvtGenericDalitz());
 
