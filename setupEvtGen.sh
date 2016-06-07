@@ -8,7 +8,7 @@
 # interface differences; see the specific tagged version of the EvtGen/README file for guidance
 
 # Version or tag number. No extraneous spaces on this line!
-VERSION=R01-05-00
+VERSION=R01-06-00
 
 mkdir -p EvtGen
 cd EvtGen

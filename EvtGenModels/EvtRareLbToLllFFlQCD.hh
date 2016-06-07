@@ -7,6 +7,7 @@
  *  
  *
  *  @author Michal Kreps
+ *  @date   2016-04-19
  *  @date   2014-10-23
  */
 
@@ -37,13 +38,16 @@ protected:
   
   
 private:
-  double formFactorParametrization(double var, double N, double X);
+  double formFactorParametrization(double q2, double a0, double a1, double pole);
+  double zvar(double q2);
 
-  double FiLQCDconsts[2][2];
-  double alphaS;
-  double cv;
-  double cgamma;
-  double csigma;
+  double fconsts[3][3];
+  double gconsts[3][3];
+  double hconsts[3][3];
+  double htildaconsts[3][3];
+
+  double t0;
+  double tplus;
 };
 
 #endif // EVTRARELBTOLLLFF_HH

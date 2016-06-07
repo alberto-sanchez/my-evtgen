@@ -158,6 +158,8 @@
 #include "EvtGenModels/EvtbsToLLLLHyperCP.hh"
 #include "EvtGenModels/EvtB2MuMuMuNu.hh"
 
+#include "EvtGenModels/EvtKStopizmumu.hh"
+
 #include "EvtGenModels/EvtGenericDalitz.hh"
 
 #include "EvtGenModels/EvtModelReg.hh"
@@ -305,6 +307,8 @@ EvtModelReg::EvtModelReg(const std::list<EvtDecayBase*>* extraModels)
     modelist.registerModel(new EvtbsToLLLL);
     modelist.registerModel(new EvtbsToLLLLHyperCP);
     modelist.registerModel(new EvtB2MuMuMuNu);
+
+    modelist.registerModel(new EvtKStopizmumu);
 
     modelist.registerModel(new EvtGenericDalitz());
 

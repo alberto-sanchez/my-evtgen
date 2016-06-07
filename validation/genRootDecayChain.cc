@@ -195,12 +195,12 @@ void genRootDecayChain::generateEvents() {
 	return;
     }
 
-    // Parent particle 4-momentum
-    EvtVector4R pInit(EvtPDL::getMass(theId), 0.0, 0.0, 0.0);
-
     // Loop to create nEvents
     int i;
     for (i = 0; i < _nEvents; i++) {
+
+        // Parent particle 4-momentum
+        EvtVector4R pInit(EvtPDL::getMass(theId), 0.0, 0.0, 0.0);
 
 	_eventId = i;
 

@@ -4,6 +4,45 @@
 //
 //===========================================================================
 
+R01-06-00-------------------------------------------------------------------
+1st June 2016 John Back
+    New tag incorporating all changes below. Recommended external packages
+    are HepMC 2.06.09, pythia 8.186, Photos++ 3.61 and Tauola++ 1.1.5.
+
+28th April 2016 Michal Kreps
+    For Ds+ --> 2pi+ pi- there was double counting of branching fraction
+    resulting in total branching fraction being 1.5 times larger than measured
+    one. Fix by revisiting submodes, which now fill total Ds --> 3pi.
+
+25th April 2016 Michal Kreps
+    Added DECAY.DEC/XML, which contain updated semileptonic charm and beauty 
+    branching fractions using the 2014 PDG, tuned to minimize disagreements 
+    between measurements and EvtGen for both inclusive and exclusive decays. 
+    Updated the evt.pdl particle properties file to the PDG 2014 edition.
+
+    Implemented new LQCD form factors for Lb --> L mu mu from arXiv paper 
+    1602.01399 (EvtRareLbToLllFFlQCD); old LQCD form factors are removed.
+
+18th March 2016 John Back
+    Fixed incorrect spinor algebra used in S1 -> 1/2 S2, 1/2 -> S3 S4 decays
+    in EvtDiracParticle::rotateToHelicityBasis() functions, courtesy of
+    Luis Miguel Garcia Martin and the IFIC Valencia LHCb group.
+
+19th Feburary 2016 John Back
+    Fixed bug in the definition of the initial spinor term Sinit in 
+    EvtRareLbToLll::HadronicAmpRS(), from Tom Blake (LHCb).
+
+12th February 2016 John Back
+    From LHCb, added extensions to the EvtHQET2(FF) model for semitauonic
+    decays from Brian Hamilton, which needs a patch to EvtSemiLeptonicAmp 
+    from Jack Wimberley to ensure that the q^2 range is physical when 
+    finding the maximum amplitude probability.
+
+2nd December 2015 John Back
+    From LHCb, added EvtKStopizmumu model for KS -> pi0 mu mu decays based on
+    JHEP08(1998)004, courtesy of Veronika Chobanova, Diego Martinez Santos
+    and Jeremy Dalseno. Added EvtConst::Fermi for Fermi coupling constant.
+
 R01-05-00-------------------------------------------------------------------
 21st October 2015 John Back
     New tag incorporating all changes below. Recommended external packages
