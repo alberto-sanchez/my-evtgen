@@ -47,7 +47,7 @@ GLIBS          = $(filter-out -lNew, $(NGLIBS))
 .SUFFIXES: .cc
 
 # ================================================================================
-default: evtgenlhc_test1 evt_dalitz example1
+default: evtgenlhc_test1 evt_dalitz example1 exampleWriteHepMC
 
 evtgenlhc_test1: evtgenlhc_test1.o
 	$(CXX) $(CXXFLAGS) $(EXTRAFLAGS) -o evtgenlhc_test1 evtgenlhc_test1.o $(GENLIBS) $(LIBS)
@@ -57,6 +57,9 @@ evt_dalitz: evt_dalitz.o
 
 example1: example1.o
 	$(CXX) $(CXXFLAGS) $(EXTRAFLAGS) -o example1 example1.o $(GENLIBS) $(LIBS)
+
+exampleWriteHepMC: exampleWriteHepMC.o
+	$(CXX) $(CXXFLAGS) $(EXTRAFLAGS) -o exampleWriteHepMC exampleWriteHepMC.o $(GENLIBS) $(LIBS)
 
 .cc.o:
 	$(CXX) $(CXXFLAGS) $(EXTRAFLAGS) -c -o $@ $< -I$(INCLUDEDIR) -I$(HEPMCINCDIR)

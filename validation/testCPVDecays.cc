@@ -99,7 +99,9 @@ int main(int argc, char** argv) {
   std::list<EvtDecayBase*> extraModels;
 
 #ifdef EVTGEN_EXTERNAL
-  EvtExternalGenList genList;
+  bool convertPythiaCodes(false);
+  bool useEvtGenRandom(true);
+  EvtExternalGenList genList(convertPythiaCodes, "", "gamma", useEvtGenRandom);
   radCorrEngine = genList.getPhotosModel();
   extraModels = genList.getListOfModels();
 #endif
@@ -107,7 +109,7 @@ int main(int argc, char** argv) {
   int mixingType = EvtCPUtil::Incoherent;
 
   // Initialize the generator - read in the decay table and particle properties.
-  EvtGen myGenerator("../DECAY_2010.DEC", "../evt.pdl", myRandomEngine, 
+  EvtGen myGenerator("../DECAY.DEC", "../evt.pdl", myRandomEngine,
 		     radCorrEngine, &extraModels, mixingType);
 
   myGenerator.readUDecay(decayFileName.c_str());

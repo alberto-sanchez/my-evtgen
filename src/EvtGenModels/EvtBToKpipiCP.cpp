@@ -23,6 +23,7 @@
 //
 // Modification history:
 //
+//    MK               September, 2016     Reimplementation to C++
 //    Versille     September, 1997         Module created
 //
 //------------------------------------------------------------------------
@@ -36,21 +37,8 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenModels/EvtBToKpipiCP.hh"
 #include "EvtGenBase/EvtId.hh"
+#include "EvtGenBase/EvtVector4R.hh"
 #include <string>
-
-#ifdef WIN32
-extern "C" {
-  extern void __stdcall EVTKPIPI(double *, double *, int *,double *,
-				 double *,double *,double *,double *,
-				 double *,double *,double *);
-}
-#else
-extern "C" {
-  extern void evtkpipi_(double *, double *, int *,double *,
-			double *,double *,double *,double *,
-			double *,double *,double *);
-}
-#endif
 
 EvtBToKpipiCP::~EvtBToKpipiCP() {}
 
@@ -85,17 +73,12 @@ void EvtBToKpipiCP::init(){
   int iset;
   iset=10000;
 
-  double p4Kplus[4],p4piminus[4],p4gamm1[4],p4gamm2[4]; 
+  EvtVector4R p4Kplus,p4piminus,p4gamm1,p4gamm2; 
 
   double realA,imgA,realbarA,imgbarA;
 
-#ifdef WIN32
-  EVTKPIPI(&alpha,&beta,&iset,p4Kplus,p4piminus,p4gamm1,p4gamm2,
-	     &realA,&imgA,&realbarA,&imgbarA);
-#else
-  evtkpipi_(&alpha,&beta,&iset,p4Kplus,p4piminus,p4gamm1,p4gamm2,
-	     &realA,&imgA,&realbarA,&imgbarA);
-#endif
+  generator.EvtKpipi(alpha, beta, iset, p4Kplus, p4piminus, p4gamm1, p4gamm2,
+                  realA, imgA, realbarA, imgbarA);
 }
 
 
@@ -126,22 +109,14 @@ void EvtBToKpipiCP::decay( EvtParticle *p){
 
   iset=0;
 
-  double p4Kplus[4],p4piminus[4],p4gamm1[4],p4gamm2[4]; 
+  EvtVector4R p4Kplus,p4piminus,p4gamm1,p4gamm2; 
 
   double realA,imgA,realbarA,imgbarA;
 
-#ifdef WIN32
-    EVTKPIPI(&alpha,&beta,&iset,p4Kplus,p4piminus,p4gamm1,p4gamm2,
-	     &realA,&imgA,&realbarA,&imgbarA);
-#else
-  evtkpipi_(&alpha,&beta,&iset,p4Kplus,p4piminus,p4gamm1,p4gamm2,
-	    &realA,&imgA,&realbarA,&imgbarA);
-#endif
+  generator.EvtKpipi(alpha, beta, iset, p4[0], p4[1], p4gamm1, p4gamm2,
+                  realA, imgA, realbarA, imgbarA);
 
-  p4[0].set(p4Kplus[3],p4Kplus[0],p4Kplus[1],p4Kplus[2]);
-  p4[1].set(p4piminus[3],p4piminus[0],p4piminus[1],p4piminus[2]);
-  p4[2].set(p4gamm1[3]+p4gamm2[3],p4gamm1[0]+p4gamm2[0],
-	    p4gamm1[1]+p4gamm2[1],p4gamm1[2]+p4gamm2[2]);
+   p4[2] = p4gamm1+p4gamm2;
 
    Kp->init( getDaug(0), p4[0] );
    pim->init( getDaug(1), p4[1] );

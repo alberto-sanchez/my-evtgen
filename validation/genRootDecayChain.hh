@@ -2,6 +2,7 @@
 #define GENROOT_DECAYCHAIN_HH
 
 #include "TFile.h"
+#include "TH1.h"
 #include "TTree.h"
 #include "TCanvas.h"
 
@@ -41,6 +42,7 @@ private:
 
     TFile* _theFile;
     TTree* _theTree;
+    TH1D* _probHist;
     TCanvas* _theCanvas;
 
     int _eventId;

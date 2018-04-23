@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
   std::string mother("B+");
   int N = 10;
   std::string datfile("output.dat");
-  std::string decfile =("../DECAY_2010.DEC");
+  std::string decfile =("../DECAY.DEC");
 
   // Get options
 
@@ -74,7 +74,9 @@ int main(int argc, char* argv[]) {
   std::list<EvtDecayBase*> extraModels;
 
 #ifdef EVTGEN_EXTERNAL
-  EvtExternalGenList genList;
+  bool convertPythiaCodes(false);
+  bool useEvtGenRandom(true);
+  EvtExternalGenList genList(convertPythiaCodes, "", "gamma", useEvtGenRandom);
   radCorrEngine = genList.getPhotosModel();
   extraModels = genList.getListOfModels();
 #endif

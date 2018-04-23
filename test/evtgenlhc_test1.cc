@@ -185,12 +185,14 @@ int main(int argc, char* argv[]){
   std::list<EvtDecayBase*> extraModels;
 
 #ifdef EVTGEN_EXTERNAL
-  EvtExternalGenList genList;
+  bool convertPythiaCodes(false);
+  bool useEvtGenRandom(true);
+  EvtExternalGenList genList(convertPythiaCodes, "", "gamma", useEvtGenRandom);
   radCorrEngine = genList.getPhotosModel();
   extraModels = genList.getListOfModels();
 #endif
 
-  EvtGen myGenerator("../DECAY_2010.DEC", "../evt.pdl", myRandomEngine,
+  EvtGen myGenerator("../DECAY.DEC", "../evt.pdl", myRandomEngine,
 		     radCorrEngine, &extraModels);
 
   if (!strcmp(argv[1],"file")) {
@@ -669,7 +671,6 @@ void runJpsiPolarization(int nevent, EvtGen &myGenerator) {
      EvtParticle *p = root_part;
                                                                              
      do{
-       EvtId type=p->getId();
        if (p->getId()==JPSI) { 
          EvtVector4R p4psi=p->getP4Lab();
          EvtVector4R p4Daug=p->getDaug(0)->getP4Lab();
@@ -742,7 +743,7 @@ void runPi0Dalitz(int nevent, EvtGen &myGenerator) {
 
       EvtVector4R ep=root_part->getDaug(0)->getP4Lab();
       EvtVector4R em=root_part->getDaug(1)->getP4Lab();
-      EvtVector4R gamma=root_part->getDaug(2)->getP4Lab();
+      //EvtVector4R gamma=root_part->getDaug(2)->getP4Lab();
 
       q2->Fill( (ep+em).mass2() );
       //      EvtGenReport(EVTGEN_INFO,"EvtGen") << ep << em << gamma <<std::endl;
@@ -1218,7 +1219,7 @@ void runRepeat(int nevent) {
   
   for(i=0;i<nevent;i++){
     
-    EvtDecayTable::getInstance()->readDecayFile(std::string("../DECAY_2010.DEC"));
+    EvtDecayTable::getInstance()->readDecayFile(std::string("../DECAY.DEC"));
     
   }
   EvtGenReport(EVTGEN_INFO,"EvtGen") << "SUCCESS\n";
@@ -1564,12 +1565,6 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
     static EvtIdSet theDM(DM);
 
     int count;
-
-    int stable_list[1];
-    stable_list[0]=-1;
-
-    EvtParticle *p;
-
     char udecay_name[100];
 
     strcpy(udecay_name,"exampleFiles/GENERIC.DEC");
@@ -1642,8 +1637,6 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
 	
 	myGenerator.generateDecay(root_part);
 	
-	p=root_part;
-
 	//EvtStdHep stdhep;
 	//stdhep.init();
 	//root_part->makeStdHep(stdhep);
@@ -1749,8 +1742,6 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
 	
 	myGenerator.generateDecay(root_part);
 	
-	p=root_part;
-	
 	root_part->deleteTree();  
 	
       }while (count++<nevent);
@@ -1766,7 +1757,7 @@ void runGeneric(int neventOrig, EvtGen &myGenerator,
 void runKstarnunu(int nevent, EvtGen &myGenerator) {
 
   static EvtId B0=EvtPDL::getId(std::string("B0"));
-  static EvtId B0B=EvtPDL::getId(std::string("anti-B0"));
+  //static EvtId B0B=EvtPDL::getId(std::string("anti-B0"));
 
   TFile *file=new TFile("kstarnunu.root", "RECREATE");
   
@@ -1869,24 +1860,9 @@ void runBsmix(int nevent, EvtGen &myGenerator) {
 void runSemic(int nevent, EvtGen &myGenerator) {
 
   static EvtId UPS4=EvtPDL::getId(std::string("Upsilon(4S)"));
-  static EvtId VPHO=EvtPDL::getId(std::string("vpho"));
-  static EvtId GAMM=EvtPDL::getId(std::string("gamma"));
-  static EvtId PSI=EvtPDL::getId(std::string("J/psi"));
-  static EvtId B0=EvtPDL::getId(std::string("B0"));
-  static EvtId B0B=EvtPDL::getId(std::string("anti-B0"));
-  static EvtId BS0=EvtPDL::getId(std::string("B_s0"));
-  static EvtId BSB=EvtPDL::getId(std::string("anti-B_s0"));
-
-  static EvtId PI0=EvtPDL::getId(std::string("pi0"));
-  static EvtId PIP=EvtPDL::getId(std::string("pi+"));
-  static EvtId PIM=EvtPDL::getId(std::string("pi-"));
 
   static EvtId EP=EvtPDL::getId(std::string("e+"));
-  static EvtId KP=EvtPDL::getId(std::string("K+"));
-  static EvtId MUP=EvtPDL::getId(std::string("mu+"));
   static EvtId EM=EvtPDL::getId(std::string("e-"));
-  static EvtId KM=EvtPDL::getId(std::string("K-"));
-  static EvtId MUM=EvtPDL::getId(std::string("mu-"));
 
   static EvtId DST0=EvtPDL::getId(std::string("D*0"));
   static EvtId DSTB=EvtPDL::getId(std::string("anti-D*0"));
@@ -1896,8 +1872,6 @@ void runSemic(int nevent, EvtGen &myGenerator) {
   static EvtId D0B=EvtPDL::getId(std::string("anti-D0"));
   static EvtId DP=EvtPDL::getId(std::string("D+"));
   static EvtId DM=EvtPDL::getId(std::string("D-"));
-
-  static EvtId K0L=EvtPDL::getId(std::string("K_L0"));
 
   static EvtId D1P1P=EvtPDL::getId(std::string("D_1+"));
   static EvtId D1P1N=EvtPDL::getId(std::string("D_1-"));
@@ -1918,11 +1892,6 @@ void runSemic(int nevent, EvtGen &myGenerator) {
   static EvtId D3P0N=EvtPDL::getId(std::string("D_0*-"));
   static EvtId D3P00=EvtPDL::getId(std::string("D_0*0"));
   static EvtId D3P0B=EvtPDL::getId(std::string("anti-D_0*0"));
-
-  static EvtId D21S0P=EvtPDL::getId(std::string("D(2S)+"));
-  static EvtId D21S0N=EvtPDL::getId(std::string("D(2S)-"));
-  static EvtId D21S00=EvtPDL::getId(std::string("D(2S)0"));
-  static EvtId D21S0B=EvtPDL::getId(std::string("anti-D(2S)0"));
 
   static EvtId D23S1P=EvtPDL::getId(std::string("D*(2S)+"));
   static EvtId D23S1N=EvtPDL::getId(std::string("D*(2S)-"));
@@ -2161,8 +2130,6 @@ void runKstarll(int nevent, EvtGen &myGenerator) {
 
   TH1F* _chictl  = new TH1F("h8","chictl",50,0.0,EvtConst::twoPi); 
 
-  
-  static EvtId UPS4=EvtPDL::getId(std::string("Upsilon(4S)"));
   static EvtId B0=EvtPDL::getId(std::string("B0"));
   
   int count=1;
@@ -2293,8 +2260,6 @@ void runKll(int nevent, EvtGen &myGenerator) {
 
   //  TH1F* _chictl  = new TH1F("h8","chictl",50,0.0,EvtConst::twoPi); 
 
-  
-  static EvtId UPS4=EvtPDL::getId(std::string("Upsilon(4S)"));
   static EvtId B0=EvtPDL::getId(std::string("B0"));
   
   int count=1;
@@ -2457,7 +2422,7 @@ void runHll(int nevent, EvtGen &myGenerator, char* mode) {
   std::vector<double> q2low(7);
   std::vector<double> q2high(7);
   std::vector<int> counts(7);
-  int n;
+  int n(0);
   if (modename == "kee" || modename == "ksee" || 
       modename == "piee" || modename == "pi0ee" || 
       modename == "etaee" || modename == "etapee")
@@ -2747,11 +2712,11 @@ void runBsquark(int nevent, EvtGen &myGenerator) {
 
       if (p->getId()==B0) {
 
-	EvtParticle *dstar=p->getDaug(0); 
+	//EvtParticle *dstar=p->getDaug(0);
 	EvtParticle *lepton=p->getDaug(1); 
 	EvtParticle *sneutrino=p->getDaug(2); 
 
-	EvtVector4R p4dstar=dstar->getP4();
+	//EvtVector4R p4dstar=dstar->getP4();
 	EvtVector4R p4lepton=lepton->getP4();
 	EvtVector4R p4sneutrino=sneutrino->getP4();
 
@@ -2764,11 +2729,11 @@ void runBsquark(int nevent, EvtGen &myGenerator) {
 
       if (p->getId()==B0B) {
 
-	EvtParticle *dstar=p->getDaug(0); 
-	EvtParticle *lepton=p->getDaug(1); 
+	//EvtParticle *dstar=p->getDaug(0);
+	EvtParticle *lepton=p->getDaug(1);
 	EvtParticle *sneutrino=p->getDaug(2); 
 
-	EvtVector4R p4dstar=dstar->getP4();
+	//EvtVector4R p4dstar=dstar->getP4();
 	EvtVector4R p4lepton=lepton->getP4();
 	EvtVector4R p4sneutrino=sneutrino->getP4();
 
@@ -2872,7 +2837,7 @@ void runLambda(int nevent, EvtGen &myGenerator) {
 
     EvtParticle *p=root_part->getDaug(0);
 
-    EvtVector4R p4lambda=root_part->getP4Lab();
+    //EvtVector4R p4lambda=root_part->getP4Lab();
     EvtVector4R p4p=p->getP4Lab();
 
     costheta->Fill(p4p.get(3)/p4p.d3mag());
@@ -3093,8 +3058,6 @@ void runJPsiKstar(int nevent, EvtGen &myGenerator, int modeInt) {
   if (modeInt==4) strcpy(udecay_name,"exampleFiles/JPSIKSTAR4.DEC");
   
   static EvtId UPS4=EvtPDL::getId(std::string("Upsilon(4S)"));
-  static EvtId VPHO=EvtPDL::getId(std::string("vpho"));
-  static EvtId GAMM=EvtPDL::getId(std::string("gamma"));
   static EvtId B0=EvtPDL::getId(std::string("B0"));
   static EvtId B0B=EvtPDL::getId(std::string("anti-B0"));
   
@@ -3185,7 +3148,6 @@ void runSVVCPLH(int nevent, EvtGen &myGenerator) {
   myGenerator.readUDecay(udecay_name);
 
   static EvtId BS0=EvtPDL::getId(std::string("B_s0"));
-  static EvtId BSB=EvtPDL::getId(std::string("anti-B_s0"));
   
   do{
     EvtVector4R p_init(EvtPDL::getMass(BS0),0.0,0.0,0.0);
@@ -3466,12 +3428,12 @@ void runDSTARPI(int nevent, EvtGen &myGenerator) {
     myGenerator.generateDecay(root_part);
 
     
-    EvtParticle *p_tag,*p_cp,*p_dstar,*p_pi;
+    EvtParticle *p_tag,*p_cp,*p_pi;
     
     p_tag=root_part->getDaug(0);
     p_cp=root_part->getDaug(1);
     
-    p_dstar=p_cp->getDaug(1);
+    //p_dstar=p_cp->getDaug(1);
     p_pi=p_cp->getDaug(0);
 
     double dt=p_cp->getLifetime()-p_tag->getLifetime();
@@ -3591,7 +3553,6 @@ void runVVPiPi(int nevent, EvtGen &myGenerator) {
   myGenerator.readUDecay(udecay_name);
 
   static EvtId B0=EvtPDL::getId(std::string("B0"));
-  static EvtId B0B=EvtPDL::getId(std::string("anti-B0"));
   
   do{
     EvtVector4R p_init(EvtPDL::getMass(B0),0.0,0.0,0.0);
@@ -3678,7 +3639,6 @@ void runSVVHelAmp(int nevent, EvtGen &myGenerator) {
   myGenerator.readUDecay(udecay_name);
 
   static EvtId B0=EvtPDL::getId(std::string("B0"));
-  static EvtId B0B=EvtPDL::getId(std::string("anti-B0"));
   
   do{
     EvtVector4R p_init(EvtPDL::getMass(B0),0.0,0.0,0.0);
@@ -3773,7 +3733,6 @@ void runPartWave(int nevent, EvtGen &myGenerator) {
   myGenerator.readUDecay(udecay_name);
 
   static EvtId B0=EvtPDL::getId(std::string("B0"));
-  static EvtId B0B=EvtPDL::getId(std::string("anti-B0"));
   
   do{
     EvtVector4R p_init(EvtPDL::getMass(B0),0.0,0.0,0.0);
@@ -3855,7 +3814,6 @@ void runPartWave2(int nevent, EvtGen &myGenerator) {
   strcpy(udecay_name,"exampleFiles/PARTWAVE2.DEC");
   myGenerator.readUDecay(udecay_name);
 
-  static EvtId JPSI=EvtPDL::getId(std::string("J/psi"));
   static EvtId B0=EvtPDL::getId(std::string("B0"));
   
   do{
@@ -3988,8 +3946,8 @@ void runTwoBody(int nevent, EvtGen &myGenerator, std::string decFile,
 //	    histograms.push_back(new TH1F(TString("h")+tmp,TString("cos theta")+tmp,50,-1.0,1.0));
         std::ostringstream strm;
         strm  << (nhist+1);
-        histograms.push_back( new TH1F(TString("h") + strm.str(),
-                                       TString("cos theta") + strm.str(),
+        histograms.push_back( new TH1F(TString("h") + strm.str().c_str(),
+                                       TString("cos theta") + strm.str().c_str(),
                                        50,-1.0,1.0) );
 	  }
 	  histograms[nhist++]->Fill(ctheta);
@@ -4005,8 +3963,8 @@ void runTwoBody(int nevent, EvtGen &myGenerator, std::string decFile,
 //	      histograms.push_back(new TH1F(TString("h")+tmp,TString("cos thetan")+tmp,50,-1.0,1.0));
           std::ostringstream strm;
           strm  << (nhist+1);
-          histograms.push_back( new TH1F(TString("h") + strm.str(),
-                                         TString("cos theta") + strm.str(),
+          histograms.push_back( new TH1F(TString("h") + strm.str().c_str(),
+                                         TString("cos theta") + strm.str().c_str(),
                                          50,-1.0,1.0) );
 	    }
 	    histograms[nhist++]->Fill(costhetan);
@@ -4023,8 +3981,8 @@ void runTwoBody(int nevent, EvtGen &myGenerator, std::string decFile,
 //	      histograms.push_back(new TH1F(TString("h")+tmp,TString("cos thetan")+tmp,50,-1.0,1.0));
           std::ostringstream strm;
           strm  << (nhist+1);
-          histograms.push_back( new TH1F(TString("h") + strm.str(),
-                                         TString("cos theta") + strm.str(),
+          histograms.push_back( new TH1F(TString("h") + strm.str().c_str(),
+                                         TString("cos theta") + strm.str().c_str(),
                                          50,-1.0,1.0) );
 	    }
 	    histograms[nhist++]->Fill(costhetan);
@@ -4067,8 +4025,6 @@ void runPiPi(int nevent, EvtGen &myGenerator) {
   int count=1;
 
   static EvtId UPS4=EvtPDL::getId(std::string("Upsilon(4S)"));
-  static EvtId VPHO=EvtPDL::getId(std::string("vpho"));
-  static EvtId GAMM=EvtPDL::getId(std::string("gamma"));
   static EvtId B0=EvtPDL::getId(std::string("B0"));
   static EvtId B0B=EvtPDL::getId(std::string("anti-B0"));
   
@@ -4319,38 +4275,38 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
       EvtGenReport(EVTGEN_INFO,"EvtGen") << "bId1a "<<bId1a<<" bId1b "<<bId1b<<" bId2a "<<bId2a<<" bId2b "<<bId2b<<" for event "<<count<<std::endl;
 
       EvtParticle *Bpeng = 0;
-      int bnum=0;
+      //int bnum=0;
       int pengcount=0;
       if (((bId1a == strangeid) && (bId1b == 22)) || ((bId1a == antistrangeid) && (bId1b == 22))|| ((bId1b == strangeid) && (bId1a == 22)) || ((bId1b == antistrangeid) && (bId1a == 22))) {
         Bpeng = B1;
-        bnum=1;
+        //bnum=1;
         pengcount++;
       } 
       if (((bId2a == strangeid) && (bId2b == 22)) || ((bId2a == antistrangeid) && (bId2b == 22)) || ((bId2b == strangeid) && (bId2a == 22)) || ((bId2b == antistrangeid) && (bId2a == 22))) {
         Bpeng = B2;
-        bnum=2;
+        //bnum=2;
         pengcount++;
       }
       if (pengcount == 0) {
         Bpeng=B1;
         EvtGenReport(EVTGEN_INFO,"EvtGen") << "No penguin decay for event "<<count<<std::endl;
-        bnum=0;
+        //bnum=0;
       } else if (pengcount == 2) {
         Bpeng=B1;
         EvtGenReport(EVTGEN_INFO,"EvtGen") << "Two penguin decays in event "<<count<<std::endl;
-        bnum=0;        
+        //bnum=0;
       }
       Bmulti = Bpeng->getNDaug();
       EvtParticle *Xs = Bpeng->getDaug(0);
-      EvtParticle *gam = Bpeng->getDaug(1);
+      //EvtParticle *gam = Bpeng->getDaug(1);
 
-      EvtVector4R p4Xs = Xs->getP4Lab();
+      //EvtVector4R p4Xs = Xs->getP4Lab();
 
-      EvtId BId = Bpeng->getId();
+      //EvtId BId = Bpeng->getId();
 
-      EvtId XsId = Xs->getId();
+      //EvtId XsId = Xs->getId();
       int Xsmulti = Xs->getNDaug();
-      EvtId gamId = gam->getId();
+      //EvtId gamId = gam->getId();
       
       //int bId = EvtPDL::getStdHep(BId);
       //int XId = EvtPDL::getStdHep(XsId);
@@ -4378,7 +4334,7 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
       int nTot(0);
       for(int i=0;i<Xsmulti;i++){
         EvtParticle *XsDaug = Xs->getDaug(i);
-        EvtVector4R p4XsDaug = XsDaug->getP4Lab();
+        //EvtVector4R p4XsDaug = XsDaug->getP4Lab();
         EvtId XsDaugId = XsDaug->getId();
         //XDaugId.push_back(EvtPDL::getStdHep(XsDaugId));
         //XsDaugMass.push_back( p4XsDaug.mass());
@@ -4386,8 +4342,8 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
 	int Daumulti = XsDaug->getNDaug();
 	if(abs(EvtPDL::getStdHep(XsDaugId))==321||EvtPDL::getStdHep(XsDaugId)==310||EvtPDL::getStdHep(XsDaugId)==111||abs(EvtPDL::getStdHep(XsDaugId))==211||Daumulti==0){
 	  nTot++;
-	  EvtVector4R p4XsDaugNephew = XsDaug->getP4Lab();
-	  EvtId XsDaugNephewId =XsDaug->getId() ;
+	  //EvtVector4R p4XsDaugNephew = XsDaug->getP4Lab();
+	  //EvtId XsDaugNephewId =XsDaug->getId() ;
 	  //XDaugNephewId.push_back(EvtPDL::getStdHep(XsDaugId));
 	  //XsDaugNephewMass.push_back( p4XsDaug.mass());
 
@@ -4400,15 +4356,15 @@ void runBtoXsgamma(int nevent, EvtGen &myGenerator) {
 	    
 	    if(Nephmulti==0||abs(EvtPDL::getStdHep(XsDaugNephewId))==321||EvtPDL::getStdHep(XsDaugNephewId)==310||EvtPDL::getStdHep(XsDaugNephewId)==111||abs(EvtPDL::getStdHep(XsDaugNephewId))==211) {
 	      nTot++;
-	      EvtVector4R p4XsDaugNephew = XsDaugNephew->getP4Lab();
+	      //EvtVector4R p4XsDaugNephew = XsDaugNephew->getP4Lab();
 	      //XDaugNephewId.push_back(EvtPDL::getStdHep(XsDaugNephewId));
 	      //XsDaugNephewMass.push_back( p4XsDaugNephew.mass());
 	    }else{
 	      for(int g=0;g<Nephmulti;g++){
 		nTot++;
-		EvtParticle *XsDaugNephewNephew = XsDaugNephew->getDaug(g);
-		EvtVector4R p4XsDaugNephewNephew = XsDaugNephewNephew->getP4Lab();
-		EvtId XsDaugNephewNephewId = XsDaugNephewNephew->getId();
+		//EvtParticle *XsDaugNephewNephew = XsDaugNephew->getDaug(g);
+		//EvtVector4R p4XsDaugNephewNephew = XsDaugNephewNephew->getP4Lab();
+		//EvtId XsDaugNephewNephewId = XsDaugNephewNephew->getId();
 		//XDaugNephewId.push_back(EvtPDL::getStdHep(XsDaugNephewNephewId));
 		//XsDaugNephewMass.push_back( p4XsDaugNephewNephew.mass());
 	      }
@@ -4501,38 +4457,38 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
       EvtGenReport(EVTGEN_INFO,"EvtGen") << "bId1a "<<bId1a<<" bId1b "<<bId1b<<" bId2a "<<bId2a<<" bId2b "<<bId2b<<" for event "<<count<<std::endl;
 
       EvtParticle *Bpeng = 0;
-      int bnum=0;
+      //int bnum=0;
       int pengcount=0;
       if (((bId1a == strangeid) && (bId1b == 22)) || ((bId1a == antistrangeid) && (bId1b == 22))|| ((bId1b == strangeid) && (bId1a == 22)) || ((bId1b == antistrangeid) && (bId1a == 22))) {
         Bpeng = B1;
-        bnum=1;
+        //bnum=1;
         pengcount++;
       } 
       if (((bId2a == strangeid) && (bId2b == 22)) || ((bId2a == antistrangeid) && (bId2b == 22)) || ((bId2b == strangeid) && (bId2a == 22)) || ((bId2b == antistrangeid) && (bId2a == 22))) {
         Bpeng = B2;
-        bnum=2;
+        //bnum=2;
         pengcount++;
       }
       if (pengcount == 0) {
         Bpeng=B1;
         EvtGenReport(EVTGEN_INFO,"EvtGen") << "No penguin decay for event "<<count<<std::endl;
-        bnum=0;
+        //bnum=0;
       } else if (pengcount == 2) {
         Bpeng=B1;
         EvtGenReport(EVTGEN_INFO,"EvtGen") << "Two penguin decays in event "<<count<<std::endl;
-        bnum=0;        
+        //bnum=0;
       }
       Bmulti = Bpeng->getNDaug();
-      EvtParticle *Ks = Bpeng->getDaug(0);
+      //EvtParticle *Ks = Bpeng->getDaug(0);
       //EvtParticle *gam = Bpeng->getDaug(1);
 
-      EvtVector4R p4Ks = Ks->getP4Lab();
+      //EvtVector4R p4Ks = Ks->getP4Lab();
       //const  EvtVector4R& p4gam = gam->getP4(); // gamma 4-mom in parent's rest frame
 
       //EvtId BId = Bpeng->getId();
 
       //EvtId KsId = Ks->getId();
-      int Ksmulti = Ks->getNDaug();
+      //int Ksmulti = Ks->getNDaug();
       //EvtId gamId = gam->getId();
       
       //int bId = EvtPDL::getStdHep(BId);
@@ -4556,15 +4512,15 @@ void runBtoK1273gamma(int nevent, EvtGen &myGenerator) {
       //tuple->column("gmass", gmass);
       //tuple->column("genergy", genergy);
 
-      for(int i=0;i<Ksmulti;i++){
-        EvtParticle *KsDaug = Ks->getDaug(i);
-        EvtVector4R p4KsDaug = KsDaug->getP4Lab();
-        EvtId KsDaugId = KsDaug->getId();
+      //for(int i=0;i<Ksmulti;i++){
+        //EvtParticle *KsDaug = Ks->getDaug(i);
+        //EvtVector4R p4KsDaug = KsDaug->getP4Lab();
+        //EvtId KsDaugId = KsDaug->getId();
         //int XDaugId = EvtPDL::getStdHep(KsDaugId);
         //double KsDaugMass = p4KsDaug.mass();
         //tuple->column("KsDaugId", XDaugId);
         //tuple->column("KsDaugMass", KsDaugMass);
-      }
+      //}
 
       //tuple->dumpData();
       
@@ -5423,10 +5379,6 @@ void runDump(int nevent, EvtGen &myGenerator) {
     int count;
 
 
-    int stable_list[1];
-    stable_list[0]=-1;
-
-  
     std::ofstream outmix;
     outmix.open("dump.dat");
 
@@ -5438,7 +5390,6 @@ void runDump(int nevent, EvtGen &myGenerator) {
 
     static EvtId UPS4=EvtPDL::getId(std::string("Upsilon(4S)"));
 
-    static EvtId PI0=EvtPDL::getId(std::string("pi0"));
     static EvtId PIP=EvtPDL::getId(std::string("pi+"));
     static EvtId PIM=EvtPDL::getId(std::string("pi-"));
     

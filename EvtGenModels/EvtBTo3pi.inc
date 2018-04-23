@@ -5,7 +5,7 @@ c Basic matrix elements
      >             ,MatKstarp,MatKstar0,MatKrho
      >             ,NatKstarp,NatKstar0,NatKrho                                     
       Real*8        alphaCP,betaCP,pi,MB2,MC2,Mass_rho,Gam_rho,one,eno 
-      Real*8        M_B,M_pip,M_pim,M_pi0
+      Real*8        M_B,M_pip,M_pim,M_pi0, MA2
       Real*8        M_Kp,Mass_Kstarp,Mass_Kstar0,Gam_Kstarp,Gam_Kstar0  
       Real*8        DeltaM,Gam_B,xd
       Real*8        M_Upsi, BetaBabar,ptcut,coscut
@@ -14,8 +14,8 @@ c Basic matrix elements
      >             ,Nat_S1,Nat_S2,Nat_S3,Nat_S4,Nat_S5
      >             ,MatKstarp,MatKstar0,MatKrho
      >             ,NatKstarp,NatKstar0,NatKrho                               
-     >             ,alphaCP, betaCP, pi                                                    
-     >             ,MB2,MC2,one,eno                                                 
+     >             ,alphaCP, betaCP, pi
+     >             ,MA2, MB2,MC2,one,eno
      >             ,Mass_rho,Gam_rho                                            
      >		   ,M_B, M_pip,M_pim,M_pi0  
      >		   ,DeltaM,Gam_B,xd

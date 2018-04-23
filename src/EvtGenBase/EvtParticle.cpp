@@ -66,7 +66,8 @@ EvtParticle::EvtParticle() {
    _validP4=false;
    _isDecayed=false;
    _decayProb=0;
-   _attributes.clear();
+   _intAttributes.clear();
+   _dblAttributes.clear();
    //   _mix=false;
 }
 
@@ -1207,9 +1208,26 @@ int EvtParticle::getAttribute(std::string attName) {
 
   int attValue = 0;
 
-  EvtAttributeMap::iterator mapIter;
+  EvtAttIntMap::iterator mapIter;
 
-  if ((mapIter = _attributes.find(attName)) != _attributes.end()) {
+  if ((mapIter = _intAttributes.find(attName)) != _intAttributes.end()) {
+    attValue = mapIter->second;
+  }
+
+  return attValue;
+
+}
+
+double EvtParticle::getAttributeDouble(std::string attName) {
+
+  // Retrieve the attribute double if the name exists.
+  // Otherwise, simply return 0.0
+
+  double attValue = 0.0;
+
+  EvtAttDblMap::iterator mapIter;
+
+  if ((mapIter = _dblAttributes.find(attName)) != _dblAttributes.end()) {
     attValue = mapIter->second;
   }
 

@@ -22,6 +22,8 @@
 #define EVTBTOKPIPICP_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
+#include "EvtGenBase/EvtVector4R.hh"
+#include "EvtGenModels/EvtBTo3hCP.hh"
 
 class EvtParticle;
 
@@ -38,6 +40,9 @@ public:
   void init();
   void decay(EvtParticle *p); 
 
+private:
+
+  EvtBTo3hCP generator;
 };
 
 #endif

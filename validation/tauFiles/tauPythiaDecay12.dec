@@ -1,5 +1,5 @@
 Decay tau-
-1.0        nu_tau     K-      pi-     K+              PYTHIA    41;
+1.0        nu_tau     K-      pi-     K+              PYTHIA    21;
 Enddecay
 #
 End

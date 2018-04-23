@@ -128,11 +128,18 @@ void compareRootFiles::getMtmPlots() {
       newHistMaxInt = iHist;
     }
 
+    newHist->SetMarkerSize(0.8);
+    newHist->SetMarkerStyle(kFullCircle);
+    newHist->SetMarkerColor(colour);
+
     totalNewFreq += newHist->Integral();
 
     TH1D* oldHist = oldHistVect[iHist];
     oldHist->SetLineStyle(kDashed);
     oldHist->SetLineColor(colour);
+    oldHist->SetMarkerSize(0.8);
+    oldHist->SetMarkerStyle(kOpenCircle);
+    oldHist->SetMarkerColor(colour);
 
     double theOldHistMax = oldHist->GetMaximum();
     if (theOldHistMax > oldHistMax) {
@@ -160,20 +167,20 @@ void compareRootFiles::getMtmPlots() {
     newFirstHist->SetYTitle(dxChar);
     newFirstHist->SetTitleOffset(1.25, "Y");
     newFirstHist->Scale(newScale);
-    newFirstHist->Draw();
+    newFirstHist->Draw("p");
 
     for (iHist = 0; iHist < nHistVect; iHist++) {
 
       if (iHist != newHistMaxInt) {
 	TH1D* otherNewHist = newHistVect[iHist];
 	otherNewHist->Scale(newScale);
-	otherNewHist->Draw("same");
+	otherNewHist->Draw("samep");
 
       }
 
       TH1D *otherOldHist = oldHistVect[iHist];
       otherOldHist->Scale(oldScale);
-      otherOldHist->Draw("same");
+      otherOldHist->Draw("samep");
 
     }
 
@@ -190,19 +197,19 @@ void compareRootFiles::getMtmPlots() {
     oldFirstHist->SetYTitle(dxChar);
     oldFirstHist->SetTitleOffset(1.25, "Y");
     oldFirstHist->Scale(oldScale);
-    oldFirstHist->Draw();
+    oldFirstHist->Draw("p");
 
     for (iHist = 0; iHist < nHistVect; iHist++) {
 
       if (iHist != oldHistMaxInt) {
 	TH1D* otherOldHist = oldHistVect[iHist];
 	otherOldHist->Scale(oldScale);
-	otherOldHist->Draw("same");
+	otherOldHist->Draw("samep");
       }
 
       TH1D* otherNewHist = newHistVect[iHist];
       otherNewHist->Scale(newScale);
-      otherNewHist->Draw("same");
+      otherNewHist->Draw("samep");
 
     }
 
@@ -212,12 +219,12 @@ void compareRootFiles::getMtmPlots() {
 
   TText* text = new TText();
   text->SetTextSize(0.03);
-  text->DrawTextNDC(0.1, 0.95, "New version = solid lines");
-  text->DrawTextNDC(0.1, 0.915, "Old version = dotted lines");
+  text->DrawTextNDC(0.1, 0.95, "New version = solid points");
+  text->DrawTextNDC(0.1, 0.915, "Old version = open points");
   TLatex* latexString = new TLatex();
   latexString->SetTextSize(0.03);
   latexString->SetNDC();
-  latexString->DrawLatex(0.5, 0.92, _description.c_str());
+  latexString->DrawLatex(0.7, 0.92, _description.c_str());
 
   string gifFileName("gifFiles/"); 
   gifFileName.append(_decayName); gifFileName.append("_mtmHist.gif");
@@ -240,7 +247,12 @@ void compareRootFiles::getPartIdPlots() {
   double newPartIdMax = newPartIdHist->GetMaximum();
   double oldPartIdMax = oldPartIdHist->GetMaximum();
 
+  newPartIdHist->SetMarkerSize(1.0);
+  newPartIdHist->SetMarkerStyle(kFullCircle);
+
   oldPartIdHist->SetLineStyle(kDashed);
+  oldPartIdHist->SetMarkerSize(1.0);
+  oldPartIdHist->SetMarkerStyle(kOpenCircle);
 
   if (newPartIdMax > oldPartIdMax) {
 
@@ -248,8 +260,8 @@ void compareRootFiles::getPartIdPlots() {
     newPartIdHist->SetYTitle("Normalised frequency");
     newPartIdHist->SetTitleOffset(1.25, "Y");
 
-    newPartIdHist->Draw();
-    oldPartIdHist->Draw("same");
+    newPartIdHist->Draw("p");
+    oldPartIdHist->Draw("samep");
 
   } else {
 
@@ -257,8 +269,8 @@ void compareRootFiles::getPartIdPlots() {
     oldPartIdHist->SetYTitle("Normalised frequency");
     oldPartIdHist->SetTitleOffset(1.25, "Y");
 
-    oldPartIdHist->Draw();
-    newPartIdHist->Draw("same");
+    oldPartIdHist->Draw("p");
+    newPartIdHist->Draw("samep");
 
   }
 
@@ -285,12 +297,12 @@ void compareRootFiles::getPartIdPlots() {
 
   TText* text = new TText();
   text->SetTextSize(0.03);
-  text->DrawTextNDC(0.1, 0.95, "New version = solid lines");
-  text->DrawTextNDC(0.1, 0.915, "Old version = dotted lines");
+  text->DrawTextNDC(0.1, 0.95, "New version = solid points");
+  text->DrawTextNDC(0.1, 0.915, "Old version = open points");
   TLatex* latexString = new TLatex();
   latexString->SetTextSize(0.03);
   latexString->SetNDC();
-  latexString->DrawLatex(0.5, 0.92, _description.c_str());
+  latexString->DrawLatex(0.7, 0.92, _description.c_str());
 
   string gifFileName("gifFiles/"); 
   gifFileName.append(_decayName); gifFileName.append("_partIdHist.gif");
@@ -313,7 +325,12 @@ void compareRootFiles::getAllIdPlots() {
   double newAllIdMax = newAllIdHist->GetMaximum();
   double oldAllIdMax = oldAllIdHist->GetMaximum();
 
+  newAllIdHist->SetMarkerSize(1.0);
+  newAllIdHist->SetMarkerStyle(kFullCircle);
+
   oldAllIdHist->SetLineStyle(kDashed);
+  oldAllIdHist->SetMarkerSize(1.0);
+  oldAllIdHist->SetMarkerStyle(kOpenCircle);
 
   if (newAllIdMax > oldAllIdMax) {
 
@@ -321,8 +338,8 @@ void compareRootFiles::getAllIdPlots() {
     newAllIdHist->SetYTitle("Normalised frequency");
     newAllIdHist->SetTitleOffset(1.25, "Y");
 
-    newAllIdHist->Draw();
-    oldAllIdHist->Draw("same");
+    newAllIdHist->Draw("p");
+    oldAllIdHist->Draw("samep");
 
   } else {
 
@@ -330,19 +347,19 @@ void compareRootFiles::getAllIdPlots() {
     oldAllIdHist->SetYTitle("Normalised frequency");
     oldAllIdHist->SetTitleOffset(1.25, "Y");
 
-    oldAllIdHist->Draw();
-    newAllIdHist->Draw("same");
+    oldAllIdHist->Draw("p");
+    newAllIdHist->Draw("samep");
 
   }
 
   TText* text = new TText();
   text->SetTextSize(0.03);
-  text->DrawTextNDC(0.1, 0.95, "New version = solid lines");
-  text->DrawTextNDC(0.1, 0.915, "Old version = dotted lines");
+  text->DrawTextNDC(0.1, 0.95, "New version = solid points");
+  text->DrawTextNDC(0.1, 0.915, "Old version = open points");
   TLatex* latexString = new TLatex();
   latexString->SetTextSize(0.03);
   latexString->SetNDC();
-  latexString->DrawLatex(0.5, 0.92, _description.c_str());
+  latexString->DrawLatex(0.7, 0.92, _description.c_str());
 
   string gifFileName("gifFiles/"); 
   gifFileName.append(_decayName); gifFileName.append("_allIdHist.gif");
@@ -364,7 +381,12 @@ void compareRootFiles::getNDaugPlots() {
   double newDaugMax = newDaugHist->GetMaximum();
   double oldDaugMax = oldDaugHist->GetMaximum();
 
+  newDaugHist->SetMarkerSize(1.0);
+  newDaugHist->SetMarkerStyle(kFullCircle);
+
   oldDaugHist->SetLineStyle(kDashed);
+  oldDaugHist->SetMarkerSize(1.0);
+  oldDaugHist->SetMarkerStyle(kOpenCircle);
 
   if (newDaugMax > oldDaugMax) {
 
@@ -372,8 +394,8 @@ void compareRootFiles::getNDaugPlots() {
     newDaugHist->SetYTitle("Normalised frequency");
     newDaugHist->SetTitleOffset(1.25, "Y");
 
-    newDaugHist->Draw();
-    oldDaugHist->Draw("same");
+    newDaugHist->Draw("p");
+    oldDaugHist->Draw("samep");
 
   } else {
 
@@ -381,19 +403,19 @@ void compareRootFiles::getNDaugPlots() {
     oldDaugHist->SetYTitle("Normalised frequency");
     oldDaugHist->SetTitleOffset(1.25, "Y");
 
-    oldDaugHist->Draw();
-    newDaugHist->Draw("same");
+    oldDaugHist->Draw("p");
+    newDaugHist->Draw("samep");
 
   }
 
   TText* text = new TText();
   text->SetTextSize(0.03);
-  text->DrawTextNDC(0.1, 0.95, "New version = solid lines");
-  text->DrawTextNDC(0.1, 0.915, "Old version = dotted lines");
+  text->DrawTextNDC(0.1, 0.95, "New version = solid points");
+  text->DrawTextNDC(0.1, 0.915, "Old version = open points");
   TLatex* latexString = new TLatex();
   latexString->SetTextSize(0.03);
   latexString->SetNDC();
-  latexString->DrawLatex(0.5, 0.92, _description.c_str());
+  latexString->DrawLatex(0.7, 0.92, _description.c_str());
 
   string gifFileName("gifFiles/"); 
   gifFileName.append(_decayName); gifFileName.append("_daugHist.gif");

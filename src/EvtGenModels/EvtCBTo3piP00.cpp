@@ -15,6 +15,7 @@
 //
 // Modification history:
 //
+//    MK               September, 2016     Reimplementation to C++
 //    RYD,Versille     May 6, 1997         Module created
 //
 //------------------------------------------------------------------------
@@ -27,27 +28,6 @@
 #include "EvtGenBase/EvtReport.hh"
 #include "EvtGenModels/EvtCBTo3piP00.hh"
 #include <string>
-
-//Below you will have do modify the declaration to be appropriate
-//for your new routine for the calculation of the amplitude
-
-#ifdef WIN32
-extern "C" {
-  extern void EVT3PIONSP00(double *,int *,
-			   double *,
-			   double *,double *,
-			   double *,double *,
-			   double *,double *,double *,double *);
-}
-#else
-extern "C" {
-  extern void evt3pionsp00_(double *,int *,
-			     double *,
-			     double *,double *,
-			     double *,double *,
-			     double *,double *,double *,double *);
-}
-#endif
 
 EvtCBTo3piP00::~EvtCBTo3piP00() {}
 
@@ -114,27 +94,16 @@ void EvtCBTo3piP00::decay( EvtParticle *p ){
     iset=0;
   }
 
-  double p4pi1[4],p4Gamma11[4],p4Gamma12[4];
-  double p4Gamma21[4],p4Gamma22[4];
+  EvtVector4R p4pi1,p4Gamma11,p4Gamma12;
+  EvtVector4R p4Gamma21,p4Gamma22;
 
   double realA,imgA,realbarA,imgbarA;
+  generator.Evt3piP00(alpha, iset, p4[0], p4Gamma11, p4Gamma12,
+                      p4Gamma21, p4Gamma22, realA, imgA, realbarA,
+                      imgbarA);
 
-  evt3pionsp00_(&alpha,&iset,
-		 p4pi1,
-		 p4Gamma11,p4Gamma12,
-		 p4Gamma21,p4Gamma22,
-		 &realA,&imgA,&realbarA,&imgbarA);
-
-  p4[0].set(p4pi1[3],p4pi1[0],p4pi1[1],p4pi1[2]);
-  p4[1].set(p4Gamma11[3]+p4Gamma12[3],
-	    p4Gamma11[0]+p4Gamma12[0],
-	    p4Gamma11[1]+p4Gamma12[1],
-	    p4Gamma11[2]+p4Gamma12[2]);
-  p4[2].set(p4Gamma21[3]+p4Gamma22[3],
-	    p4Gamma21[0]+p4Gamma22[0],
-	    p4Gamma21[1]+p4Gamma22[1],
-	    p4Gamma21[2]+p4Gamma22[2]);
-
+  p4[1] = p4Gamma11+p4Gamma12;
+  p4[2] = p4Gamma21+p4Gamma22;
   pi1->init( getDaug(0), p4[0] );
   pi2->init( getDaug(1), p4[1] );
   pi3->init( getDaug(2), p4[2] );

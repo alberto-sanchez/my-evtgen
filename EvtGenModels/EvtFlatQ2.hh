@@ -39,6 +39,9 @@ public:
   void initProbMax();
 
   void decay(EvtParticle *p);
+
+private:
+  bool _usePhsp;
 };
 
 #endif

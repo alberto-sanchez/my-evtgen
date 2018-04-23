@@ -44,13 +44,15 @@ int main(int argc, char** argv) {
   std::list<EvtDecayBase*> extraModels;
 
 #ifdef EVTGEN_EXTERNAL
-  EvtExternalGenList genList;
+  bool convertPythiaCodes(false);
+  bool useEvtGenRandom(true);
+  EvtExternalGenList genList(convertPythiaCodes, "", "gamma", useEvtGenRandom);
   radCorrEngine = genList.getPhotosModel();
   extraModels = genList.getListOfModels();
 #endif
 
   //Initialize the generator - read in the decay table and particle properties
-  EvtGen myGenerator("../DECAY_2010.DEC","../evt.pdl", eng,
+  EvtGen myGenerator("../DECAY.DEC","../evt.pdl", eng,
   		     radCorrEngine, &extraModels);
 
   //If I wanted a user decay file, I would read it in now.

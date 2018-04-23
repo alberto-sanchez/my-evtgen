@@ -139,7 +139,12 @@ check_extlibs () {
     fi
 
     TAUOLALIBLIST="-lTauolaCxxInterface -lTauolaFortran"
-    PYTHIALIBLIST="-lpythia8 -llhapdfdummy"
+
+    PYTHIALIBLIST="-lpythia8"
+    # For PYTHIA 8.1x and below, check to see if we need lhapdfdummy
+    if [ -f ${PYTHIADIR}/lib/liblhapdfdummy.so ]; then
+	PYTHIALIBLIST="-lpythia8 -llhapdfdummy"
+    fi
 
 }
 
@@ -178,6 +183,12 @@ ARCH=`uname`
 theGcc=`g++ --version | grep '[0-9]\.[0-9]\.[0-9]' -o | head -1 | awk -F . '{print $1}'`
 if [ ${theGcc} = 4 ]; then
   ARCH=${ARCH}-gcc4
+fi
+if [ ${theGcc} = 5 ]; then
+  ARCH=${ARCH}-gcc5
+fi
+if [ ${theGcc} = 6 ]; then
+  ARCH=${ARCH}-gcc6
 fi
 echo "Platform is $ARCH"
 
@@ -220,7 +231,39 @@ if [ $ARCH = Linux-gcc4 ]; then
   FFLAGS="${FFLAGS_OPT}"
   CFLAGS="${CFLAGS_OPT}"
   CXXFLAGS="${CXXFLAGS_OPT}"
-  FLIBS="-lgfortran -lgfortranbegin"
+  FLIBS="-lgfortran"
+  if [ ${COMPMODE} = OPT ]; then
+    FFLAGS="${FFLAGS_OPT}"
+    CFLAGS="${CFLAGS_OPT}"
+    CXXFLAGS="${CXXFLAGS_OPT}"
+  fi
+  if [ ${COMPMODE} = DBG ]; then
+    FFLAGS="${FFLAGS_DBG}"
+    CFLAGS="${CFLAGS_DBG}"
+    CXXFLAGS="${CXXFLAGS_DBG}"
+  fi
+fi
+if [ $ARCH = Linux-gcc5 ]; then
+  FFLAGS="${FFLAGS_OPT}"
+  CFLAGS="${CFLAGS_OPT}"
+  CXXFLAGS="${CXXFLAGS_OPT}"
+  FLIBS="-lgfortran"
+  if [ ${COMPMODE} = OPT ]; then
+    FFLAGS="${FFLAGS_OPT}"
+    CFLAGS="${CFLAGS_OPT}"
+    CXXFLAGS="${CXXFLAGS_OPT}"
+  fi
+  if [ ${COMPMODE} = DBG ]; then
+    FFLAGS="${FFLAGS_DBG}"
+    CFLAGS="${CFLAGS_DBG}"
+    CXXFLAGS="${CXXFLAGS_DBG}"
+  fi
+fi
+if [ $ARCH = Linux-gcc6 ]; then
+  FFLAGS="${FFLAGS_OPT}"
+  CFLAGS="${CFLAGS_OPT}"
+  CXXFLAGS="${CXXFLAGS_OPT}"
+  FLIBS="-lgfortran"
   if [ ${COMPMODE} = OPT ]; then
     FFLAGS="${FFLAGS_OPT}"
     CFLAGS="${CFLAGS_OPT}"

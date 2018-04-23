@@ -10,28 +10,27 @@
 //
 // Module: EvtGen/EvtSVP.hh
 //
-// Description:Implementation of the Melikhov semileptonic model
+// Description: Routine to implement radiative decay
+//                   chi_c0 -> psi gamma
+//                   chi_c0 -> psi ell ell
 //
 // Modification history:
-//
-//    DJL     April 20, 1998         Module created
+//	AVL	Jul 6, 2012:	chi_c0 -> gamma psi  mode created
+//	AVL	Oct 10, 2017: chi_c0 -> psi mu mu  mode created
+//      AVL     Nov 9 2017:   models joined
 //
 //------------------------------------------------------------------------
 
 #ifndef EvtSVP_HH
 #define EvtSVP_HH
 
-#include <fstream>
-#include <stdio.h>
-
-
 #include "EvtGenBase/EvtDecayAmp.hh"
-#include "EvtGenBase/EvtSemiLeptonicFF.hh"
-#include "EvtGenBase/EvtSemiLeptonicAmp.hh"
+#include <string>
 
 class EvtParticle;
+class EvtDecayBase;
 
-class EvtSVP:public  EvtDecayAmp  {
+class EvtSVP: public EvtDecayAmp  {
 
 public:
 
@@ -46,9 +45,12 @@ public:
 
   virtual void initProbMax();
 
-
 private:
-  int ncall;
+
+  void decay_2body(EvtParticle *p);
+  void decay_3body(EvtParticle *p);
+  double delta; // form factor parameter
+
 };
 
 #endif

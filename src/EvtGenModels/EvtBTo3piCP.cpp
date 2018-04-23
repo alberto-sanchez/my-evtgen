@@ -15,6 +15,7 @@
 //
 // Modification history:
 //
+//    MK               September, 2016     Reimplementation to C++
 //    RYD/VERSILLE     March 2, 1997        Module created
 //
 //------------------------------------------------------------------------
@@ -29,20 +30,6 @@
 #include "EvtGenBase/EvtId.hh"
 #include <string>
 #include "EvtGenBase/EvtConst.hh"
-
-#ifdef WIN32
-extern "C" {
-  extern void __stdcall EVT3PIONS(double *,int *,double *,
-				  double *,double *,double *,double *,
-				  double *,double *,double *);
-}
-#else
-extern "C" {
-  extern void evt3pions_(double *,int *,double *,
-			 double *,double *,double *,double *,
-			 double *,double *,double *);
-}
-#endif
 
 EvtBTo3piCP::~EvtBTo3piCP() {}
 
@@ -84,17 +71,12 @@ void EvtBTo3piCP::initProbMax(){
 
   iset=10000;
 
-  double p4piplus[4],p4piminus[4],p4gamm1[4],p4gamm2[4]; 
+  EvtVector4R p4piplus,p4piminus,p4gamm1,p4gamm2; 
 
   double realA,imgA,realbarA,imgbarA;
 
-#ifdef WIN32
-  EVT3PIONS(&alpha,&iset,p4piplus,p4piminus,p4gamm1,p4gamm2,
-	     &realA,&imgA,&realbarA,&imgbarA);
-#else
-  evt3pions_(&alpha,&iset,p4piplus,p4piminus,p4gamm1,p4gamm2,
-	     &realA,&imgA,&realbarA,&imgbarA);
-#endif
+  generator.Evt3pi(alpha, iset, p4piplus, p4piminus, p4gamm1, p4gamm2, realA,
+                   imgA, realbarA, imgbarA);
 
   setProbMax(1.5);
 
@@ -128,22 +110,14 @@ void EvtBTo3piCP::decay( EvtParticle *p){
 
   iset=0;
 
-  double p4piplus[4],p4piminus[4],p4gamm1[4],p4gamm2[4]; 
+  EvtVector4R p4piplus,p4piminus,p4gamm1,p4gamm2; 
 
   double realA,imgA,realbarA,imgbarA;
 
-#ifdef WIN32
-  EVT3PIONS(&alpha,&iset,p4piplus,p4piminus,p4gamm1,p4gamm2,
-	    &realA,&imgA,&realbarA,&imgbarA);
-#else
-  evt3pions_(&alpha,&iset,p4piplus,p4piminus,p4gamm1,p4gamm2,
-	     &realA,&imgA,&realbarA,&imgbarA);
-#endif
+  generator.Evt3pi(alpha, iset, p4[0], p4[1], p4gamm1, p4gamm2, realA,
+                   imgA, realbarA, imgbarA);
 
-  p4[0].set(p4piplus[3],p4piplus[0],p4piplus[1],p4piplus[2]);
-  p4[1].set(p4piminus[3],p4piminus[0],p4piminus[1],p4piminus[2]);
-  p4[2].set(p4gamm1[3]+p4gamm2[3],p4gamm1[0]+p4gamm2[0],
-	    p4gamm1[1]+p4gamm2[1],p4gamm1[2]+p4gamm2[2]);
+  p4[2] = p4gamm1+p4gamm2;
 
   if (pip->getId()==EvtPDL::getId("pi+")) {
     pip->init( getDaug(0), p4[0] );

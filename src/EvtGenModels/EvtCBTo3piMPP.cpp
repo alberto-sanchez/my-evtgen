@@ -15,6 +15,7 @@
 //
 // Modification history:
 //
+//    MK               September, 2016     Reimplementation to C++
 //    RYD/Versille     May 6, 1997         Module created
 //
 //------------------------------------------------------------------------
@@ -28,19 +29,6 @@
 #include "EvtGenBase/EvtId.hh"
 #include "EvtGenModels/EvtCBTo3piMPP.hh"
 #include <string>
-
-//Below you will have do modify the declaration to be appropriate
-//for your new routine for the calculation of the amplitude
-
-#ifdef WIN32
-extern "C" void __stdcall EVT3PIONSMPP(double *,int *,double *,
-				       double *,double *,double *,
-				       double *,double *,double *);
-#else
-extern "C" void evt3pionsmpp_(double *,int *,double *,
-			 double *,double *,double *,
-			 double *,double *,double *);
-#endif
 
 EvtCBTo3piMPP::~EvtCBTo3piMPP() {}
 
@@ -105,21 +93,10 @@ void EvtCBTo3piMPP::decay( EvtParticle *p ){
     iset=0;
   }
 
-  double p4pi1[4],p4pi2[4],p4pi3[4]; 
-
   double realA,imgA,realbarA,imgbarA;
 
-#ifdef WIN32
-  EVT3PIONSMPP(&alpha,&iset,p4pi1,p4pi2,p4pi3,
-	       &realA,&imgA,&realbarA,&imgbarA);
-#else
-  evt3pionsmpp_(&alpha,&iset,p4pi1,p4pi2,p4pi3,
-		&realA,&imgA,&realbarA,&imgbarA);
-#endif
-
-  p4[0].set(p4pi1[3],p4pi1[0],p4pi1[1],p4pi1[2]);
-  p4[1].set(p4pi2[3],p4pi2[0],p4pi2[1],p4pi2[2]);
-  p4[2].set(p4pi3[3],p4pi3[0],p4pi3[1],p4pi3[2]);
+  generator.Evt3piMPP(alpha, iset, p4[0], p4[1], p4[2], 
+                  realA, imgA, realbarA, imgbarA);
 
   pi1->init( getDaug(0), p4[0] );
   pi2->init( getDaug(1), p4[1] );

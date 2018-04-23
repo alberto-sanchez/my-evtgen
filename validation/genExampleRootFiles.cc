@@ -30,19 +30,18 @@
 
 using std::cout;
 using std::endl;
-using std::string;
 
 int main(int argc, char** argv) {
 
-  string decayFileName("../DECAY_2010.DEC");
+  std::string decayFileName("../DECAY.DEC");
   if (argc > 1) {decayFileName = argv[1];}
   cout<<"Decay file name is "<<decayFileName<<endl;
 
-  string rootFileName("evtgenTest.root");
+  std::string rootFileName("evtgenTest.root");
   if (argc > 2) {rootFileName = argv[2];}
   cout<<"Root file name is "<<rootFileName<<endl;
 
-  string parentName("Upsilon(4S)");
+  std::string parentName("Upsilon(4S)");
   if (argc > 3) {parentName = argv[3];}
   cout<<"Parent name is "<<parentName<<endl;
 
@@ -52,7 +51,7 @@ int main(int argc, char** argv) {
   bool useXml = false;
   if(argc > 5) {useXml = (atoi(argv[5])==1);}
 
-  bool useEvtGenRandom = false;
+  bool useEvtGenRandom = true;
   if (argc > 6) {useEvtGenRandom = (atoi(argv[6])==1);}
 
   cout<<"Number of events is "<<nEvents<<endl;
@@ -119,7 +118,8 @@ int main(int argc, char** argv) {
   std::list<EvtDecayBase*> extraModels;
 
 #ifdef EVTGEN_EXTERNAL
-  EvtExternalGenList genList(true, "", "gamma", useEvtGenRandom);
+  bool convertPythiaCodes(false);
+  EvtExternalGenList genList(convertPythiaCodes, "", "gamma", useEvtGenRandom);
   radCorrEngine = genList.getPhotosModel();
   extraModels = genList.getListOfModels();
 #endif

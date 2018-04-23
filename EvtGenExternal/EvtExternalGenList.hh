@@ -31,7 +31,7 @@ class EvtExternalGenList {
 
 public:
 
-  EvtExternalGenList(bool convertPythiaCodes = true, std::string pythiaXmlDir = "", 
+  EvtExternalGenList(bool convertPythiaCodes = false, std::string pythiaXmlDir = "",
 		     std::string photonType = "gamma", bool useEvtGenRandom = true);
 
   virtual ~EvtExternalGenList();

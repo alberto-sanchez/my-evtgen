@@ -49,11 +49,13 @@ protected:
 private:
 
   bool _initialised;
-  int _tauPDG, _nTauolaModes;
+  int _tauPDG, _nTauolaModes;    
+  int _neutPropType, _posPropType, _negPropType;
 
   HepMC::GenParticle* createGenParticle(EvtParticle* theParticle);
 
   void setUpPossibleTauModes();
+  void setOtherParameters();
 
   int getModeInt(EvtDecayBase* decayModel);
 

@@ -58,16 +58,24 @@ void EvtbTosllVectorAmp::CalcAmp( EvtParticle *parent,
 
 
   EvtId daught = parent->getDaug(0)->getId();
+  EvtId parentId = parent->getId();
   bool btod = false;
   bool nnlo = true;
- if 
-  (
-   daught == EvtPDL::getId(std::string("rho+")) ||
-   daught == EvtPDL::getId(std::string("rho-")) ||
-   daught == EvtPDL::getId(std::string("rho0")) ||
-   daught == EvtPDL::getId(std::string("omega"))
-  ) 
-   btod = true;
+  if ((parentId == EvtPDL::getId("B0") || parentId == EvtPDL::getId("anti-B0") ||
+       parentId == EvtPDL::getId("B+") || parentId == EvtPDL::getId("B-")) &&
+      (daught == EvtPDL::getId(std::string("rho+")) ||
+      daught == EvtPDL::getId(std::string("rho-")) ||
+      daught == EvtPDL::getId(std::string("rho0")) ||
+      daught == EvtPDL::getId(std::string("omega")))) {
+    btod = true;
+  }
+  if ((parentId == EvtPDL::getId("B_s0") || parentId == EvtPDL::getId("anti-B_s0")) &&
+      (daught == EvtPDL::getId(std::string("K*0")) ||
+       daught == EvtPDL::getId(std::string("anti-K*0")) ||
+       daught == EvtPDL::getId(std::string("K*+")) ||
+       daught == EvtPDL::getId(std::string("K*-")))) {
+    btod = true;
+  }
 
   EvtVector4R p4b;
   p4b.set(parent->mass(),0.0,0.0,0.0);

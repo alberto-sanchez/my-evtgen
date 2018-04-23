@@ -418,11 +418,20 @@ public:
   // a set value. By default, nothing is set, but derived classes
   // can set this to mean something specific, e.g. if a photon is FSR
   void setAttribute(std::string attName, int attValue) {
-      _attributes[attName] = attValue;
+      _intAttributes[attName] = attValue;
   }
 
   // Retrieve the integer value for the given attribute name
   int getAttribute(std::string attName);
+
+  // Specify if the particle has a double attribute value, e.g. amplitude weight.
+  // By default, nothing is set, but derived classes can set this to mean something specific
+  void setAttributeDouble(std::string attName, double attValue) {
+      _dblAttributes[attName] = attValue;
+  }
+
+  // Retrieve the double value for the given attribute name
+  double getAttributeDouble(std::string attName);
 
 protected:
 
@@ -445,9 +454,12 @@ protected:
   bool           _validP4;
 
   // A typedef to define the attribute (name, integer) map
-  typedef std::map<std::string, int> EvtAttributeMap;
+  typedef std::map<std::string, int> EvtAttIntMap;
+  EvtAttIntMap _intAttributes;
 
-  EvtAttributeMap _attributes;
+  // A typedef to define the attribute (name, double) map
+  typedef std::map<std::string, double> EvtAttDblMap;
+  EvtAttDblMap _dblAttributes;
 
 private:
 

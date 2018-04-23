@@ -4,6 +4,92 @@
 //
 //===========================================================================
 
+R01-07-00-------------------------------------------------------------------
+13th December 2016 John Back
+    New tag incorporating all changes below. Recommended external packages
+    are HepMC 2.06.09, pythia 8.230, Photos++ 3.61 and Tauola++ 1.1.6c,
+    as used in the setupEvtGen.sh script.
+
+12th December 2017 John Back
+    Changed Pythia validation example decay files to use Pythia8 codes.
+
+6th December 2017 John Back
+    Modified the examples to use DECAY.DEC (see 25th April 2016) instead of
+    DECAY_2010.DEC. Changed EvtExternalGenList to assume Pythia8 codes are
+    used in decay files by default, which is the case for DECAY.DEC. Also
+    updated the setupEvtGen.sh script to work with Pythia 8.2x versions.
+
+29th November 2017 John Back
+    Modified EvtSVP, EvtVVP and EvtTVP models to handle both radiative and
+    two-lepton decays, courtesy of Aleksei Luchinskii (LHCb).
+
+14th July 2017 John Back
+    Only create external generator objects if they don't already exist in
+    EvtExternalGenFactory. Modified configure script to work with Pythia 8.2x
+
+5th July 2017 Michal Kreps
+    Register the VTOSLL model.
+
+14th June 2017 John Back
+    Add isNeutralKaon() boolean function and corrected comments in EvtDDalitz.
+
+8th May 2017 Michal Kreps
+    Fix bug in EvtbTosllVectorAmp to recognise Bs --> K*bar mu mu decay as
+    b --> d ll transition. 
+
+8th May 2017 Michal Kreps
+    Significantly simplify way how we decide on decay mode and daughters
+    ordering in DDalitz model. With new code by definition all orderings of
+    daughters in the decay file will yield same output.
+
+4th May 2017 John Back
+    Further fixes to DDalitz particle ordering (including charge-conjugates):
+    Mode 5:  D0 -> K- K0bar K+ and K+ K- K0bar
+    Mode 12: D0 -> pi0 pi- pi+ and pi+ pi0 pi-
+    Removed unneeded index ordering checks for mode 10 (D+ -> pi- pi+ pi+)
+    and mode 11 (Ds+ -> pi- pi+ pi+)
+
+27th April 2017 John Back
+    Fixed DDalitz particle ordering for mode 7: D+ -> pi+ K- K+ and K+ pi+ K-
+    and their charge-conjugates
+
+7th April 2017 John Back
+    Modified EvtGenExternal/EvtPythiaEngine to ensure that the EvtGen-based
+    instances of Pythia8 (for generic and alias decays) use the same
+    particle properties as defined by EvtGen, courtesy Patrick Robbe (LHCb).
+
+5th April 2017 Michal Kreps
+    Fixed indexing in copy constructor of Evt3Rank3C, which would otherwise
+    produce an infinite loop; bug report from David Grellscheid.
+
+3rd November 2016 John Back
+    Modified EvtFlatQ2 model to work for all B -> X lepton lepton modes, as
+    well as adding an extra phase space factor to correct for the dip at low
+    q^2, courtesy of Marcin Chrzaszcz & Thomas Blake (LHCb), which is enabled
+    by using "FLATQ2 1" instead of just "FLATQ2" in the decay file.
+
+13th October 2016 John Back
+    Added the TauolaCurrentOption decfile keyword to select the hadronic 
+    current in Tauola; default is the BaBar-tuned current option (int = 1).
+    EvtParticles can store double attributes using the functions 
+    setAttributeDouble(name, double) and getAttributeDouble(name), which can
+    be useful for storing and retrieving amplitude weights, for example.
+    The analogous EvtParticle integer attribute interface remains unchanged:
+    setAttribute(name, int) and getAttribute(name).
+
+13th September 2016 John Back
+    Modified EvtTauolaEngine to use internal Tauola spin matrices for 
+    tau pair events by temporarily setting the PDG id of the mother as a
+    boson, keeping the same 4-momentum. The BaBar hadronic currents are now 
+    used by default. Also added the ability to change some Tauola parameters 
+    using the "Define" keyword in decay files. Added an example decay file
+    illustrating the new features: validation/TauolaFiles/Btautau.dec
+
+9th September 2016 Michal Kreps
+    Reimplement code in EvtBTo3pi.F, EvtBTo3piMPP.F, EvtBTo3piP00.F and 
+    EvtBToKpipi.F in C++ in order to remove dependence on Fortran compiler.
+    With this, there is no internal Fortran code in EvtGen.
+
 R01-06-00-------------------------------------------------------------------
 1st June 2016 John Back
     New tag incorporating all changes below. Recommended external packages
