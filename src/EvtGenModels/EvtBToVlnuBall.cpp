@@ -1,110 +1,92 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGenModels/EvtBToVlnuBall.cc
-//
-// Description:   B->Xu l nu with the Ball/Zwicky decay model
-//                Xu is a vector (rho, rho0, omega)
-//
-//
-// Modification history:
-//
-//    Wells Wulsin      2008 Aug 14         Module created
-//
-//------------------------------------------------------------------------
-// 
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include <assert.h>
-#include "EvtGenBase/EvtParticle.hh"
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#include "EvtGenModels/EvtBToVlnuBall.hh"
+
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenModels/EvtBToVlnuBall.hh"
-#include "EvtGenModels/EvtBToVlnuBallFF.hh"
-#include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicScalarAmp.hh"
+#include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
+
+#include "EvtGenModels/EvtBToVlnuBallFF.hh"
+
+#include <assert.h>
+#include <stdlib.h>
 #include <string>
 using std::endl;
 
-EvtBToVlnuBall::EvtBToVlnuBall():
-  _Ballmodel(0)
-  ,_calcamp(0)
-{}
-
-EvtBToVlnuBall::~EvtBToVlnuBall() {
-  delete _Ballmodel;
-  _Ballmodel=0;
-  delete _calcamp;
-  _calcamp=0;
+std::string EvtBToVlnuBall::getName()
+{
+    return "BTOVLNUBALL";
 }
 
-
-std::string EvtBToVlnuBall::getName(){
-  return "BTOVLNUBALL";
+EvtBToVlnuBall* EvtBToVlnuBall::clone()
+{
+    return new EvtBToVlnuBall;
 }
 
-
-EvtDecayBase* EvtBToVlnuBall::clone(){
-  return new EvtBToVlnuBall;
+void EvtBToVlnuBall::decay( EvtParticle* p )
+{
+    p->initializePhaseSpace( getNDaug(), getDaugs() );
+    _calcamp->CalcAmp( p, _amp2, _Ballmodel.get() );
 }
 
+void EvtBToVlnuBall::initProbMax()
+{
+    EvtId parnum, mesnum, lnum, nunum;
 
-void EvtBToVlnuBall::decay( EvtParticle *p ){
+    parnum = getParentId();
+    mesnum = getDaug( 0 );
+    lnum = getDaug( 1 );
+    nunum = getDaug( 2 );
 
-  p->initializePhaseSpace(getNDaug(),getDaugs());
-  _calcamp->CalcAmp(p,_amp2,_Ballmodel);
+    double mymaxprob = _calcamp->CalcMaxProb( parnum, mesnum, lnum, nunum,
+                                              _Ballmodel.get() );
 
-
-
-
+    setProbMax( mymaxprob );
 }
 
-void EvtBToVlnuBall::initProbMax(){
+void EvtBToVlnuBall::init()
+{
+    checkNDaug( 3 );
 
-EvtId parnum,mesnum,lnum,nunum;
+    //We expect the parent to be a scalar
+    //and the daughters to be X lepton neutrino
+    checkSpinParent( EvtSpinType::SCALAR );
 
-parnum = getParentId();
-mesnum = getDaug(0);
-lnum = getDaug(1);
-nunum = getDaug(2);
+    checkSpinDaughter( 1, EvtSpinType::DIRAC );
+    checkSpinDaughter( 2, EvtSpinType::NEUTRINO );
 
-double mymaxprob = _calcamp->CalcMaxProb(parnum,mesnum,
-                           lnum,nunum,_Ballmodel);
-
-setProbMax(mymaxprob);
-
+    EvtSpinType::spintype d1type = EvtPDL::getSpinType( getDaug( 0 ) );
+    if ( d1type == EvtSpinType::VECTOR ) {
+        checkNArg( 8 );    // the number of arguments needed for the Ball model
+        _Ballmodel = std::make_unique<EvtBToVlnuBallFF>(
+            getArg( 0 ), getArg( 1 ), getArg( 2 ), getArg( 3 ), getArg( 4 ),
+            getArg( 5 ), getArg( 6 ), getArg( 7 ) );
+        _calcamp = std::make_unique<EvtSemiLeptonicVectorAmp>();
+    } else {
+        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+            << "Ball model handles only vector meson daughters. Sorry." << endl;
+        ::abort();
+    }
 }
-
-
-void EvtBToVlnuBall::init(){
-
-  checkNDaug(3);
-
-  //We expect the parent to be a scalar 
-  //and the daughters to be X lepton neutrino
-  checkSpinParent(EvtSpinType::SCALAR);
-
-  checkSpinDaughter(1,EvtSpinType::DIRAC);
-  checkSpinDaughter(2,EvtSpinType::NEUTRINO);
-
-  EvtSpinType::spintype d1type = EvtPDL::getSpinType(getDaug(0));
-  if ( d1type==EvtSpinType::VECTOR) {
-    checkNArg(8);  // the number of arguments needed for the Ball model
-    _Ballmodel = new EvtBToVlnuBallFF(getArg(0),getArg(1),getArg(2),getArg(3),getArg(4),getArg(5),getArg(6),getArg(7));
-    _calcamp = new EvtSemiLeptonicVectorAmp; 
-  } else {
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "Ball model handles only vector meson daughters. Sorry." << endl;
-    ::abort();
-  }
-
-  
-}
-

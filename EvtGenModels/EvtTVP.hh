@@ -1,27 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtTVP.hh
-//
-// Description: Routine to implement radiative decay
-//                   chi_c2 -> psi gamma
-//                   chi_c2 -> psi ell ell
-//
-//
-// Modification history:
-//	AVL	Jul 6, 2012:	chi_c2 -> gamma psi  mode created
-//	AVL	Oct 10, 2017: chi_c2 -> psi mu mu  mode created
-//      AVL      Nov 9 2017:   models joined
-//
-//------------------------------------------------------------------------
-//
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EvtTVP_HH
 #define EvtTVP_HH
@@ -33,26 +28,25 @@
 class EvtDecayBase;
 class EvtParticle;
 
-class EvtTVP: public EvtDecayAmp  {
+// Description: Routine to implement radiative decay
+//                   chi_c2 -> psi gamma
+//                   chi_c2 -> psi ell ell
+//		matrix element from [S.P Baranov et al, PRD 85, 014034 (2012)]
 
-public:
+class EvtTVP : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtTVP() {}
-  virtual ~EvtTVP();
+    void decay( EvtParticle* p ) override;
+    void init() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+    void initProbMax() override;
 
-  void decay(EvtParticle *p);
-  void init();
-
-  virtual void initProbMax();
-
-private:
-  void decay_2body(EvtParticle *p);
-  void decay_3body(EvtParticle *p);
-  double delta; // form factor parameter
+  private:
+    void decay_2body( EvtParticle* p );
+    void decay_3body( EvtParticle* p );
+    double delta;    // form factor parameter
 };
 
 #endif
-

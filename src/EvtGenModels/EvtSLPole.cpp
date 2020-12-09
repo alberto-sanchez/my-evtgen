@@ -1,103 +1,99 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtSLPole.cc
-//
-// Description: Routine to implement semileptonic decays according
-//              to light cone sum rules
-//
-// Modification history:
-//
-//    DJL       April 23, 1998       Module created
-//
-//------------------------------------------------------------------------
-// 
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include "EvtGenBase/EvtParticle.hh"
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#include "EvtGenModels/EvtSLPole.hh"
+
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenModels/EvtSLPole.hh"
-#include "EvtGenModels/EvtSLPoleFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicScalarAmp.hh"
-#include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicTensorAmp.hh"
+#include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
+
+#include "EvtGenModels/EvtSLPoleFF.hh"
+
+#include <stdlib.h>
 #include <string>
 
-EvtSLPole::~EvtSLPole() {}
-
-std::string EvtSLPole::getName(){
-
-  return "SLPOLE";     
-
+std::string EvtSLPole::getName()
+{
+    return "SLPOLE";
 }
 
-
-EvtDecayBase* EvtSLPole::clone(){
-
-  return new EvtSLPole;
-
+EvtDecayBase* EvtSLPole::clone()
+{
+    return new EvtSLPole;
 }
 
-void EvtSLPole::decay( EvtParticle *p ){
-
-  p->initializePhaseSpace(getNDaug(),getDaugs(),_resetDaughterTree);
-  calcamp->CalcAmp(p,_amp2,SLPoleffmodel);
-  return;
+void EvtSLPole::decay( EvtParticle* p )
+{
+    p->initializePhaseSpace( getNDaug(), getDaugs(), _resetDaughterTree );
+    calcamp->CalcAmp( p, _amp2, SLPoleffmodel.get() );
 }
 
-void EvtSLPole::initProbMax(){
+void EvtSLPole::initProbMax()
+{
+    EvtId parnum, mesnum, lnum, nunum;
 
-EvtId parnum,mesnum,lnum,nunum;
+    parnum = getParentId();
+    mesnum = getDaug( 0 );
+    lnum = getDaug( 1 );
+    nunum = getDaug( 2 );
 
-parnum = getParentId();
-mesnum = getDaug(0);
-lnum = getDaug(1);
-nunum = getDaug(2);
+    double mymaxprob = calcamp->CalcMaxProb( parnum, mesnum, lnum, nunum,
+                                             SLPoleffmodel.get() );
 
-double mymaxprob = calcamp->CalcMaxProb(parnum,mesnum,
-                           lnum,nunum,SLPoleffmodel);
-
-setProbMax(mymaxprob);
-
+    setProbMax( mymaxprob );
 }
 
+void EvtSLPole::init()
+{
+    checkNDaug( 3 );
 
-void EvtSLPole::init(){
-  
-  checkNDaug(3);
+    //We expect the parent to be a scalar
+    //and the daughters to be X lepton neutrino
 
-  //We expect the parent to be a scalar 
-  //and the daughters to be X lepton neutrino
+    checkSpinParent( EvtSpinType::SCALAR );
+    checkSpinDaughter( 1, EvtSpinType::DIRAC );
+    checkSpinDaughter( 2, EvtSpinType::NEUTRINO );
 
-  checkSpinParent(EvtSpinType::SCALAR);
-  checkSpinDaughter(1,EvtSpinType::DIRAC);
-  checkSpinDaughter(2,EvtSpinType::NEUTRINO);
+    EvtSpinType::spintype mesontype = EvtPDL::getSpinType( getDaug( 0 ) );
 
-  EvtSpinType::spintype mesontype=EvtPDL::getSpinType(getDaug(0));
+    SLPoleffmodel = std::make_unique<EvtSLPoleFF>( getNArg(), getArgs() );
 
-  SLPoleffmodel = new EvtSLPoleFF(getNArg(),getArgs());
-  
-  if ( mesontype==EvtSpinType::SCALAR ) { 
-    calcamp = new EvtSemiLeptonicScalarAmp; 
-  }
-  if ( mesontype==EvtSpinType::VECTOR ) { 
-    calcamp = new EvtSemiLeptonicVectorAmp; 
-  }
-  if ( mesontype==EvtSpinType::TENSOR ) { 
-    calcamp = new EvtSemiLeptonicTensorAmp; 
-  }
+    switch ( mesontype ) {
+        case EvtSpinType::SCALAR:
+            calcamp = std::make_unique<EvtSemiLeptonicScalarAmp>();
+            break;
+        case EvtSpinType::VECTOR:
+            calcamp = std::make_unique<EvtSemiLeptonicVectorAmp>();
+            break;
+        case EvtSpinType::TENSOR:
+            calcamp = std::make_unique<EvtSemiLeptonicTensorAmp>();
+            break;
+        default:;
+    }
 
-  _resetDaughterTree=false;
-  if ( getArgStr(getNArg()-1) == "true") _resetDaughterTree=true;
-  
+    _resetDaughterTree = false;
+    if ( getArgStr( getNArg() - 1 ) == "true" )
+        _resetDaughterTree = true;
 }
-

@@ -1,15 +1,36 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-// 
-// Module: EvtGen/EvtVubHybrid.hh
-//
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#ifndef EVTVUBHYBRID_HH
+#define EVTVUBHYBRID_HH
+
+#include "EvtGenBase/EvtDecayIncoherent.hh"
+
+#include "EvtGenModels/EvtVubdGamma.hh"
+
+#include <memory>
+#include <vector>
+
+class EvtParticle;
+class RandGeneral;
+
 // Description:
 // Class to generate inclusive B to X_u l nu decays.
 // This class is based on EvtVub by Sven Menke with an update to
@@ -22,70 +43,49 @@
 //   with the other parameters specified (excl. BF, non-res BF, mb, a).
 // - If no binning/weights are specified in DECAY.DEC the hybrid
 //   reweighting is not activated
-//
-// Modification history:
-//
-//   Jochen Dingfelder February 1, 2005  Created Module as update of
-//                                       the module EvtVub including
-//                                       hybrid model.
-//------------------------------------------------------------------------
 
-#ifndef EVTVUBHYBRID_HH
-#define EVTVUBHYBRID_HH
+class EvtVubHybrid : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-#include "EvtGenBase/EvtDecayIncoherent.hh"
+    EvtDecayBase* clone() override;
 
-#include <vector>
+    void initProbMax() override;
 
-class EvtParticle;
-class EvtVubdGamma;
-class RandGeneral;
+    void init() override;
 
-class EvtVubHybrid:public  EvtDecayIncoherent  {
+    void decay( EvtParticle* p ) override;
 
-public:
-  
-  EvtVubHybrid();
-  virtual ~EvtVubHybrid();
+    void readWeights( int startArg = 0 );
 
-  std::string getName();
+    double getWeight( double mX, double q2, double El );
 
-  EvtDecayBase* clone();
+  private:
+    double findPFermi();
 
-  void initProbMax();
+    enum
+    {
+        nParameters = 3,
+        nVariables = 3
+    };
 
-  void init();
+    bool _noHybrid =
+        false;    // _noHybrid will be set TRUE if the DECAY.DEC file has no binning or weights
+    bool _storeQplus =
+        true;    // _storeQplus should alwasy be TRUE: writes out Fermi motion parameter
 
-  void decay(EvtParticle *p); 
-
-  void readWeights(int startArg=0);
-
-  double getWeight(double mX, double q2, double El);
-
-private:
-  double findPFermi();
-
-  enum { nParameters = 3, nVariables = 3 };
-  
-  bool _noHybrid;
-  bool _storeQplus;
-
-  double _mb;     // the b-quark pole mass in GeV (try 4.65 to 4.9)
-  double _a;      // Parameter for the Fermi Motion (1.29 is good)
-  double _alphas; // Strong Coupling at m_b (around 0.24)
-  double _dGMax;  // max dGamma*p2 value;
-  int    _nbins_mX;
-  int    _nbins_q2;
-  int    _nbins_El;
-  int    _nbins;
-  double _masscut;
-  double * _bins_mX;
-  double * _bins_q2;
-  double * _bins_El;
-  double * _weights;
-  EvtVubdGamma *_dGamma; // calculates the decay rate
-  std::vector<double> _pf;
+    double _mb = 4.62;        // the b-quark pole mass in GeV (try 4.65 to 4.9)
+    double _a = 2.27;         // Parameter for the Fermi Motion (1.29 is good)
+    double _alphas = 0.22;    // Strong Coupling at m_b (around 0.24)
+    double _dGMax = 3.;       // max dGamma*p2 value;
+    int _nbins = 0;
+    double _masscut = 0.28;
+    std::vector<double> _bins_mX;
+    std::vector<double> _bins_q2;
+    std::vector<double> _bins_El;
+    std::vector<double> _weights;
+    std::unique_ptr<EvtVubdGamma> _dGamma;    // calculates the decay rate
+    std::vector<double> _pf;
 };
 
 #endif
-

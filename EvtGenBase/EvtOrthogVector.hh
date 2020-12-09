@@ -1,54 +1,43 @@
-//--------------------------------------------------------------------------
-// 
-// Environment: 
-// This software is part of the EvtGen package developed jointly 
-// for the BaBar and CLEO collaborations.  If you use all or part 
-// of it, please give an appropriate acknowledgement.
-// 
-// Copyright Information: See EvtGen/COPYRIGHT 
-// Copyright (C) 2000 Caltech, LLNL
-// 
-// Module: EvtGen/EvtOrthogVector.hh
-// 
-// Description:
-// 
-// Modification history: 
-//
-// Lange August 11, 2000 Created
-//
-//------------------------------------------------------------------------
 
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTORTHOGVECTOR_HH
 #define EVTORTHOGVECTOR_HH
 
 #include <vector>
 
-class EvtOrthogVector {
+class EvtOrthogVector final {
+  public:
+    EvtOrthogVector( int n, std::vector<double>* vectors );
 
-public:
+    std::vector<double> getOrthogVector() { return _orthogVector; }
 
-  EvtOrthogVector(int n,
-		  std::vector<double> *vectors);
+  private:
+    int _dimen;
+    std::vector<int> _holder;
+    void findOrthog( int dim, std::vector<int> invect,
+                     std::vector<double>* vectors );
 
-  ~EvtOrthogVector();
+    std::vector<double> _orthogVector;
 
-  std::vector<double> getOrthogVector() {return _orthogVector;}
-
-
-private:
-
-  int _dimen;
-  std::vector<int> _holder;
-  void findOrthog(int dim, std::vector<int> invect,
-		  std::vector<double> *vectors);
-
-  std::vector<double> _orthogVector;
-
-  int findEvenOddSwaps();
-
-
+    int findEvenOddSwaps();
 };
 
 #endif
-

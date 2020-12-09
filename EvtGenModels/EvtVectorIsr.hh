@@ -1,27 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtVectorIsr2.hh
-//
-// Description: 
-//   This is a special decay model to generate e+e- -> phi gamma + soft gammas
-//   using soft collinear ISR calculation from AfkQed
-//   This is implemented as a decay of the VPHO.
-//
-// Modification history:
-//
-//    Joe Izen        Oct, 2005             Soft Colinear Photons (secondary ISR) ported from AfkQed
-//    Joe Izen        Dec  16, 2002         Fix cos_theta distribution - prevents boom at cos_theta=+/-1 
-//    RYD/Adriano     June 16, 1998         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTVECTORISR_HH
 #define EVTVECTORISR_HH
@@ -30,46 +25,32 @@
 
 class EvtParticle;
 
+// Description:
+//   This is a special decay model to generate e+e- -> phi gamma + soft gammas
+//   using soft collinear ISR calculation from AfkQed
+//   This is implemented as a decay of the VPHO.
 
-class EvtVectorIsr:public  EvtDecayIncoherent  {
+class EvtVectorIsr : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-public:
+    EvtDecayBase* clone() override;
 
-  EvtVectorIsr() {}
-  virtual ~EvtVectorIsr();
+    void decay( EvtParticle* p ) override;
 
+    void init() override;
 
-  std::string getName();
+    void initProbMax() override;
 
-  EvtDecayBase* clone();
+    double ckhrad1( double xx, double a, double b );
 
-  void decay(EvtParticle *p); 
+    void ckhrad( const double& e_beam, const double& q2_min, double& e01,
+                 double& e02, double& f );
 
-  void init();
-
-  void initProbMax();
-
-  double ckhrad1(double xx, double a, double b);
-  
-  void ckhrad(const double& e_beam,const double& q2_min,double& e01,double& e02,double& f);
-
-
-private:
-
-  double csfrmn,csbkmn;
-  double fmax;
-  bool firstorder;
+  private:
+    double csfrmn, csbkmn;
+    double fmax;
+    bool firstorder;
 };
 
 #endif
-
-
-
-
-
-
-
-
-
-
-

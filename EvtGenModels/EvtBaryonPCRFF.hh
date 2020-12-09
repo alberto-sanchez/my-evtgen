@@ -1,24 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtBaryonVminusAFF.hh
-//
-// Description:Form factor routines specific to EvtBaryonVminusA
-//
-// Modification history:
-//
-//    R.J. Tesarek     May 28, 2004     Module created
-//    Karen Gibson     1/20/2006        Module updated for 1/2+->1/2+,
-//                                      1/2+->1/2-, 1/2+->3/2- Lambda decays
-//    
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTBARYONPCRFF_HH
 #define EVTBARYONPCRFF_HH
@@ -27,34 +25,28 @@
 
 class EvtId;
 
+// Description:Form factor routines specific to EvtBaryonVminusA
+
 class EvtBaryonPCRFF : public EvtSemiLeptonicFF {
+  public:
+    void getscalarff( EvtId parent, EvtId daught, double t, double mass,
+                      double* fpf, double* f0f ) override;
+    void getvectorff( EvtId parent, EvtId daught, double t, double mass,
+                      double* a1f, double* a2f, double* vf,
+                      double* a0f ) override;
+    void gettensorff( EvtId parent, EvtId daught, double t, double mass,
+                      double* hf, double* kf, double* bpf, double* bmf ) override;
 
-public:
+    void getbaryonff( EvtId, EvtId, double, double, double*, double*, double*,
+                      double* ) override;
 
-  void getscalarff(EvtId parent, EvtId daught,
-		   double t, double mass, double *fpf,
-		   double *f0f );
-  void getvectorff(EvtId parent, EvtId daught,
-		   double t, double mass, double *a1f,
-		   double *a2f, double *vf, double *a0f );
-  void gettensorff(EvtId parent, EvtId daught,
-		   double t, double mass, double *hf,
-		   double *kf, double *bpf, double *bmf );
+    void getdiracff( EvtId parent, EvtId daught, double q2, double mass,
+                     double* f1, double* f2, double* f3, double* g1, double* g2,
+                     double* g3 ) override;
 
-  void getbaryonff(EvtId, EvtId, double, double, double*, 
-		   double*, double*, double*);
-
-  void getdiracff( EvtId parent, EvtId daught,
-		   double q2, double mass, 
-		   double *f1, double *f2, double *f3,
-		   double *g1, double *g2, double *g3 );
-
-  void getraritaff( EvtId parent, EvtId daught,
-		    double q2, double mass, 
-		    double *f1, double *f2, double *f3, double *f4,
-		    double *g1, double *g2, double *g3, double *g4 );
+    void getraritaff( EvtId parent, EvtId daught, double q2, double mass,
+                      double* f1, double* f2, double* f3, double* f4,
+                      double* g1, double* g2, double* g3, double* g4 ) override;
 };
 
 #endif
-
-

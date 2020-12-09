@@ -1,24 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtPhsp.hh
-//
-// Description:
-//Class to handle generic phase space decays not done
-//in other decay models.
-//
-// Modification history:
-//
-//    DJL/RYD     August 11, 1998         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTDMIX_HH
 #define EVTDMIX_HH
@@ -27,29 +25,22 @@
 
 class EvtParticle;
 
-class EvtDMix:public  EvtDecayIncoherent  {
+class EvtDMix : public EvtDecayIncoherent {
+  public:
+    std::string getName() override;
 
-public:
-  
-  EvtDMix() {}
-  virtual ~EvtDMix();
+    EvtDecayBase* clone() override;
 
-  std::string getName();
+    void initProbMax() override;
 
-  EvtDecayBase* clone();
+    void init() override;
 
-  void initProbMax();
+    void decay( EvtParticle* p ) override;
 
-  void init();
-
-  void decay(EvtParticle *p); 
-
-private:
-  double _rd;
-  double _xpr;
-  double _ypr;
-
+  private:
+    double _rd;
+    double _xpr;
+    double _ypr;
 };
 
 #endif
-

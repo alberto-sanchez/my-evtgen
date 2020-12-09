@@ -1,22 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtAmp.hh
-//
-// Description:This is the (new) amplitude class.
-//
-// Modification history:
-//
-//    DJL/RYD     May 29, 1997         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTAMP_HH
 #define EVTAMP_HH
@@ -28,92 +28,83 @@ class EvtSpinDensity;
 class EvtId;
 
 class EvtAmp {
+  public:
+    EvtAmp();
+    EvtAmp( const EvtAmp& amp );
 
-public:
+    void init( EvtId p, int ndaug, EvtId* daug );
 
-  EvtAmp();
-  EvtAmp(const EvtAmp& amp);
+    void setAmp( int* ind, const EvtComplex& amp );
 
-  void init(EvtId p,int ndaug,EvtId *daug);
+    const EvtComplex& getAmp( int* ind ) const;
 
-  void setAmp(int *ind,const EvtComplex& amp);
+    EvtSpinDensity getSpinDensity();
 
-  const EvtComplex& getAmp(int *ind)const;
+    EvtSpinDensity contract( int i, const EvtAmp& a );
+    EvtAmp contract( int i, const EvtSpinDensity& rho );
 
-  EvtSpinDensity getSpinDensity();
+    //sum over the i:th daugther of a1 and contract with parent of a2
+    EvtAmp contract( int i, const EvtAmp& a1, const EvtAmp& a2 );
 
-  EvtSpinDensity contract(int i,const EvtAmp& a);
-  EvtAmp contract(int i, const EvtSpinDensity& rho);
+    EvtSpinDensity getForwardSpinDensity( EvtSpinDensity* rho_list, int k );
+    EvtSpinDensity getBackwardSpinDensity( EvtSpinDensity* rho_list );
 
-  //sum over the i:th daugther of a1 and contract with parent of a2
-  EvtAmp contract(int i, const EvtAmp& a1,const EvtAmp& a2);
+    EvtAmp& operator=( const EvtAmp& amp );
 
-
-  EvtSpinDensity getForwardSpinDensity(EvtSpinDensity *rho_list,int k);
-  EvtSpinDensity getBackwardSpinDensity(EvtSpinDensity *rho_list);
-
-  EvtAmp& operator=(const EvtAmp& amp);
-
-
-  /**
+    /**
   * sets the amplitudes calculated in the decay objects
   */
-  void vertex(const EvtComplex& amp);
+    void vertex( const EvtComplex& amp );
 
-  /**
+    /**
   * sets the amplitudes calculated in the decay objects
   */
-  void vertex(int i1, const EvtComplex& amp);
+    void vertex( int i1, const EvtComplex& amp );
 
-  /**
+    /**
   * sets the amplitudes calculated in the decay objects
   */
-  void vertex(int i1, int i2, const EvtComplex& amp);
+    void vertex( int i1, int i2, const EvtComplex& amp );
 
-  /**
+    /**
   * sets the amplitudes calculated in the decay objects
   */
-  void vertex(int i1, int i2, int i3, const EvtComplex& amp);
+    void vertex( int i1, int i2, int i3, const EvtComplex& amp );
 
-  /**
+    /**
   * sets the amplitudes calculated in the decay objects
   */
-  void vertex(int *i1, const EvtComplex& amp);
+    void vertex( int* i1, const EvtComplex& amp );
 
+    void dump();
 
-  void dump();
+  private:
+    friend class EvtDecayAmp;
+    friend class EvtKstarstargamma;
 
-private:
+    void setNDaug( int n );
+    void setNState( int parent_states, int* daug_states );
 
-  friend class EvtDecayAmp;
-  friend class EvtKstarstargamma; 
+    // the amplitudes
+    EvtComplex _amp[125];
 
-  void setNDaug(int n);
-  void setNState(int parent_states,int *daug_states);
+    // the number of daughters
+    int _ndaug;
 
-  // the amplitudes
-  EvtComplex _amp[125];
+    // the number of states of the parent
+    int _pstates;
 
-  // the number of daughters
-  int _ndaug;
+    // number of states of the daughter
+    int dstates[10];
 
-  // the number of states of the parent
-  int _pstates;
+    // the nontrivial index of the daughter
+    int _dnontrivial[10];
 
-  // number of states of the daughter
-  int dstates[10];
+    // number of nontrivial daugts+parent
+    int _nontrivial;
 
-  // the nontrivial index of the daughter
-  int _dnontrivial[10];
-
-  // number of nontrivial daugts+parent
-  int _nontrivial;
-
-  // compact nstates
-  int _nstate[5];
-
+    // compact nstates
+    int _nstate[5];
 };
 
-
 #endif
-

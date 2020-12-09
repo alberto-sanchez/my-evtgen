@@ -1,24 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2001  Caltech
-//
-// Module: EvtGen/EvtLNuGamma.hh
-//
-// Description: B+ -> l+ nu gamma.  Form factor is tree level, from 
-//  Korchemsky, Pirjol, and Yan,Phy Rev D 61 (200) 114510
-//               
-//
-// Modification history:
-//
-//    Edward Chen     April 24, 2001         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTLNUGAMMA_HH
 #define EVTLNUGAMMA_HH
@@ -27,23 +25,20 @@
 
 class EvtParticle;
 
-class EvtLNuGamma:public  EvtDecayAmp  {
+// Description: B+ -> l+ nu gamma.  Form factor is tree level, from
+//  Korchemsky, Pirjol, and Yan,Phy Rev D 61 (200) 114510
 
-public:
+class EvtLNuGamma : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtLNuGamma();
-  virtual ~EvtLNuGamma();
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
+    double getFormFactor( double photonEnergy );
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p); 
-  void init();
-  void initProbMax();
-  double getFormFactor(double photonEnergy);
-
-  bool _fafvzero;
-
+    bool _fafvzero = false;
 };
 
 #endif

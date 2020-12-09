@@ -1,40 +1,50 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtDalitzFlatPdf.hh,v 1.2 2009-03-16 16:43:40 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#ifndef EVT_DALITZ_FLAT_PDF_HH
+#define EVT_DALITZ_FLAT_PDF_HH
+
+#include "EvtGenBase/EvtDalitzPlot.hh"
+#include "EvtGenBase/EvtDalitzPoint.hh"
+#include "EvtGenBase/EvtPdf.hh"
+
+#include <assert.h>
 
 /*
  * Uniform PDF defined on a Dalitz plot.
  */
 
-#ifndef EVT_DALITZ_FLAT_PDF_HH
-#define EVT_DALITZ_FLAT_PDF_HH
-
-#include <assert.h>
-#include "EvtGenBase/EvtPdf.hh"
-#include "EvtGenBase/EvtDalitzPlot.hh"
-#include "EvtGenBase/EvtDalitzPoint.hh"
-
 class EvtDalitzFlatPdf : public EvtPdf<EvtDalitzPoint> {
-public:
-  
-  EvtDalitzFlatPdf(const EvtDalitzPlot& dp);
-  EvtDalitzFlatPdf(const EvtDalitzFlatPdf& other);
-  virtual ~EvtDalitzFlatPdf();
-  virtual EvtPdf<EvtDalitzPoint>* clone() const;
-  
-  virtual EvtValError compute_integral(int N) const;
-  virtual EvtDalitzPoint randomPoint();
-  
-protected:
+  public:
+    EvtDalitzFlatPdf( const EvtDalitzPlot& dp );
+    EvtDalitzFlatPdf( const EvtDalitzFlatPdf& other );
+    EvtPdf<EvtDalitzPoint>* clone() const override;
 
-  virtual double pdf(const EvtDalitzPoint&) const;
+    using EvtPdf<EvtDalitzPoint>::compute_integral;
+    EvtValError compute_integral( int N ) const override;
+    EvtDalitzPoint randomPoint() override;
 
-  EvtDalitzPlot _dp;
+  protected:
+    double pdf( const EvtDalitzPoint& ) const override;
+
+    EvtDalitzPlot _dp;
 };
 
 #endif

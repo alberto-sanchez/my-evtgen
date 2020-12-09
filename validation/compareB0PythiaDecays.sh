@@ -1,3 +1,23 @@
+
+########################################################################
+# Copyright 1998-2020 CERN for the benefit of the EvtGen authors       #
+#                                                                      #
+# This file is part of EvtGen.                                         #
+#                                                                      #
+# EvtGen is free software: you can redistribute it and/or modify       #
+# it under the terms of the GNU General Public License as published by #
+# the Free Software Foundation, either version 3 of the License, or    #
+# (at your option) any later version.                                  #
+#                                                                      #
+# EvtGen is distributed in the hope that it will be useful,            #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of       #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        #
+# GNU General Public License for more details.                         #
+#                                                                      #
+# You should have received a copy of the GNU General Public License    #
+# along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     #
+########################################################################
+
 ./compareRootFiles "B0PythiaDecay1" "rootFiles/B0PythiaDecay1.root" "oldRootFiles/B0PythiaDecay1.root" "B^{0} #rightarrow #bar{cd}_{0} ud_{0}"
 ./compareRootFiles "B0PythiaDecay2" "rootFiles/B0PythiaDecay2.root" "oldRootFiles/B0PythiaDecay2.root" "B^{0} #rightarrow #bar{cd}_{1} ud_{1}"
 ./compareRootFiles "B0PythiaDecay3" "rootFiles/B0PythiaDecay3.root" "oldRootFiles/B0PythiaDecay3.root" "B^{0} #rightarrow #bar{cs}_{0} ud_{0}"

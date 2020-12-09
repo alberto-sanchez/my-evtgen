@@ -1,40 +1,50 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtIntervalFlatPdf.hh,v 1.2 2009-03-16 16:42:03 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#ifndef EVT_INTERVAL_FLAT_PDF_HH
+#define EVT_INTERVAL_FLAT_PDF_HH
+
+#include "EvtGenBase/EvtPdf.hh"
+#include "EvtGenBase/EvtPoint1D.hh"
+
+#include <assert.h>
 
 /*
  * Uniform PDF defined on a 1D interval.
  */
 
-#ifndef EVT_INTERVAL_FLAT_PDF_HH
-#define EVT_INTERVAL_FLAT_PDF_HH
-
-#include <assert.h>
-#include "EvtGenBase/EvtPdf.hh"
-#include "EvtGenBase/EvtPoint1D.hh"
-
 class EvtIntervalFlatPdf : public EvtPdf<EvtPoint1D> {
-public:
-  
-  EvtIntervalFlatPdf(double min, double max);
-  EvtIntervalFlatPdf(const EvtIntervalFlatPdf& other);
-  virtual ~EvtIntervalFlatPdf();
-  virtual EvtPdf<EvtPoint1D>* clone() const;
-  
-  virtual EvtValError compute_integral() const;
-  virtual EvtPoint1D randomPoint();
-  
-protected:
+  public:
+    EvtIntervalFlatPdf( double min, double max );
+    EvtIntervalFlatPdf( const EvtIntervalFlatPdf& other );
+    EvtPdf<EvtPoint1D>* clone() const override;
 
-  virtual double pdf(const EvtPoint1D&) const;
+    using EvtPdf<EvtPoint1D>::compute_integral;
+    EvtValError compute_integral() const override;
+    EvtPoint1D randomPoint() override;
 
-  double _min;
-  double _max;
+  protected:
+    double pdf( const EvtPoint1D& ) const override;
+
+    double _min;
+    double _max;
 };
 
 #endif

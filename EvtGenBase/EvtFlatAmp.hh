@@ -1,29 +1,45 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtFlatAmp.hh,v 1.2 2009-03-16 16:42:03 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
 
-// Flat amplitude
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVT_FLAT_AMP_HH
 #define EVT_FLAT_AMP_HH
 
 #include "EvtGenBase/EvtAmplitude.hh"
 
+// Flat amplitude
+
 template <class T>
-class EvtFlatAmp : public EvtAmplitude<T> {  
-public:
+class EvtFlatAmp : public EvtAmplitude<T> {
+  public:
+    EvtFlatAmp() {}
+    EvtFlatAmp( const EvtFlatAmp<T>& other ) : EvtAmplitude<T>( other ) {}
+    virtual ~EvtFlatAmp() {}
 
-  EvtFlatAmp() {}
-  EvtFlatAmp(const EvtFlatAmp<T>& other) : EvtAmplitude<T>(other) {}
-  virtual ~EvtFlatAmp() {}
-
-  virtual EvtAmplitude<T>* clone() const { return new EvtFlatAmp<T>(*this); }
-  virtual EvtComplex amplitude(const T& ) const { return EvtComplex(1.,0.); }
-}; 
+    EvtAmplitude<T>* clone() const override
+    {
+        return new EvtFlatAmp<T>( *this );
+    }
+    EvtComplex amplitude( const T& ) const override
+    {
+        return EvtComplex( 1., 0. );
+    }
+};
 
 #endif

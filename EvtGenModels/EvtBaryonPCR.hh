@@ -1,54 +1,50 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtBaryonPCR.hh
-//
-// Description:Implementation of the BaryonPCR model
-// Class to handle semileptonic decays using the BaryonVminusA
-// model.
-//
-// Modification history:
-//
-//    R.J. Tesarek     May 28, 2004     Module created
-//    Karen Gibson     1/20/2006        Module updated for 1/2+->1/2+,
-//                                      1/2+->1/2-, 1/2+->3/2- Lambda decays
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTBARYONPCR_HH
 #define EVTBARYONPCR_HH
 
 #include "EvtGenBase/EvtDecayAmp.hh"
-#include "EvtGenBase/EvtSemiLeptonicFF.hh"
 #include "EvtGenBase/EvtSemiLeptonicBaryonAmp.hh"
+#include "EvtGenBase/EvtSemiLeptonicFF.hh"
+
+#include <memory>
 
 class EvtParticle;
 
-class EvtBaryonPCR:public  EvtDecayAmp  {
+// Description:Implementation of the BaryonPCR model
+// Class to handle semileptonic decays using the BaryonVminusA
+// model.
 
-public:
+class EvtBaryonPCR : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtBaryonPCR* clone() override;
 
-  EvtBaryonPCR();
-  virtual ~EvtBaryonPCR();
+    void decay( EvtParticle* p ) override;
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void initProbMax();
-  void init();
-
-private:
-  EvtSemiLeptonicFF *baryonpcrffmodel;
-  EvtSemiLeptonicBaryonAmp *calcamp;
+  private:
+    std::unique_ptr<EvtSemiLeptonicFF> baryonpcrffmodel;
+    std::unique_ptr<EvtSemiLeptonicBaryonAmp> calcamp;
 };
 
 #endif
-

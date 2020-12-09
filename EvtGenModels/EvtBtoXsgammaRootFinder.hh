@@ -1,25 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2001      Brunel University
-//
-// Module: EvtGen/EvtBtoXsgammaRootFinder.hh
-//
-// Description:
-//       Root finding algorithms using the bilear method. Basic structure
-//       lifted from the BaBar IntegrationUtils root finding algorithm 
-//       (author John Back).
-//
-// Modification history:
-//
-//       Jane Tinslay     March 21, 2001         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTBTOXSGAMMAROOTFINDER_HH
 #define EVTBTOXSGAMMAROOTFINDER_HH
@@ -33,33 +30,23 @@ extern "C" {
 //#include "EvtGenBase/EvtItgAbsFunction.hh"
 class EvtItgAbsFunction;
 
-class EvtBtoXsgammaRootFinder{
+// Description:
+//       Root finding algorithms using the bilear method. Basic structure
+//       lifted from the BaBar IntegrationUtils root finding algorithm
+//       (author John Back).
 
-public:
+class EvtBtoXsgammaRootFinder final {
+  public:
+    double GetRootSingleFunc( const EvtItgAbsFunction* theFunc,
+                              double functionValue, double lowerValue,
+                              double upperValue, double precision );
 
-  // Constructors
-
-  EvtBtoXsgammaRootFinder();
-  
-  // Destructor
-  virtual ~EvtBtoXsgammaRootFinder( );
- 
-  double GetRootSingleFunc(const EvtItgAbsFunction* theFunc, double functionValue, 
-			   double lowerValue, double upperValue, double precision);
-
-  double GetGaussIntegFcnRoot(EvtItgAbsFunction *theFunc1, EvtItgAbsFunction *theFunc2, 
-			      double integ1Precision, double integ2Precision, 
-			      int maxLoop1, int maxLoop2, double integLower, 
-			      double integUpper, double lowerValue, double upperValue, 
-			      double precision);
-
-private:
-  
-  EvtBtoXsgammaRootFinder( const EvtBtoXsgammaRootFinder& );                // Copy Constructor
-  EvtBtoXsgammaRootFinder& operator= ( const EvtBtoXsgammaRootFinder& );    // Assignment op
-  
+    double GetGaussIntegFcnRoot( EvtItgAbsFunction* theFunc1,
+                                 EvtItgAbsFunction* theFunc2,
+                                 double integ1Precision, double integ2Precision,
+                                 int maxLoop1, int maxLoop2, double integLower,
+                                 double integUpper, double lowerValue,
+                                 double upperValue, double precision );
 };
 
 #endif
-
-

@@ -1,25 +1,22 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgSimpsonIntegrator.hh
-//
-// Description:
-//      Simpson integrator (Stolen and modified from 
-//      the BaBar IntegrationUtils package - author: Phil Strother).
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module adapted for use in 
-//                                                     EvtGen
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTITGSIMPSONINTEGRATOR_HH
 #define EVTITGSIMPSONINTEGRATOR_HH
@@ -32,29 +29,24 @@ extern "C" {
 
 #include "EvtGenModels/EvtItgAbsIntegrator.hh"
 
-class EvtItgSimpsonIntegrator: public EvtItgAbsIntegrator {
+// Description:
+//      Simpson integrator (Stolen and modified from
+//      the BaBar IntegrationUtils package - author: Phil Strother).
 
-public:
-  
-  EvtItgSimpsonIntegrator(const EvtItgAbsFunction &, double precision=1.0e-5, int maxLoop=20);
+class EvtItgSimpsonIntegrator : public EvtItgAbsIntegrator {
+  public:
+    EvtItgSimpsonIntegrator( const EvtItgAbsFunction&,
+                             double precision = 1.0e-5, int maxLoop = 20 );
 
-  virtual ~EvtItgSimpsonIntegrator( );
-  
-protected:
-  
-  virtual double evaluateIt(double , double) const;
-  
-private:
-  
-  double _precision;
-  double _maxLoop;
+  protected:
+    double evaluateIt( double, double ) const override;
 
-  EvtItgSimpsonIntegrator();
-  EvtItgSimpsonIntegrator( const EvtItgSimpsonIntegrator& );                //// Copy Constructor
-  EvtItgSimpsonIntegrator& operator= ( const EvtItgSimpsonIntegrator& );    // Assignment op
-  
+  private:
+    double _precision;
+    double _maxLoop;
+
+    //EvtItgSimpsonIntegrator( const EvtItgSimpsonIntegrator& );                //// Copy Constructor
+    //EvtItgSimpsonIntegrator& operator= ( const EvtItgSimpsonIntegrator& );    // Assignment op
 };
 
-
-
-#endif // ITGSIMPSONINTEGRATOR_HH
+#endif    // ITGSIMPSONINTEGRATOR_HH

@@ -1,24 +1,22 @@
-#ifdef EVTGEN_CPP11
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2015      University of Warwick, UK
-//
-// Module: EvtGenBase/EvtMTRandomEngine.hh
-//
-// Generate random numbers using the Mersenne-Twister MT19937.
-// Member function random returns a random number in the range ]0..1[.
-// This requires c++11 features, hence the EVTGEN_CPP11 preprocessor.
-//
-// Modification history:
-//
-//    John Back       Aug 2015            Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTMTRANDOMENGINE_HH
 #define EVTMTRANDOMENGINE_HH
@@ -28,22 +26,16 @@
 #include <random>
 
 class EvtMTRandomEngine : public EvtRandomEngine {
-
-public:
-
-    EvtMTRandomEngine(unsigned int seed = 1430957218);
+  public:
+    EvtMTRandomEngine( unsigned int seed = 1430957218 );
 
     virtual double random();
 
-private:
-
+  private:
     std::mt19937 engine_;
 
     typedef std::uniform_real_distribution<double> URDist;
     URDist distribution_;
-
 };
-
-#endif
 
 #endif

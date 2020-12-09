@@ -1,77 +1,78 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtStdHep.cc
-//
-// Description: Class produce the StdHep representation of the decay.
-//
-// Modification history:
-//
-//    RYD       March 11, 1998       Module created
-//
-//------------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
 
-#include <iostream>
-#include <iomanip>
-#include "EvtGenBase/EvtVector4R.hh"
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
 #include "EvtGenBase/EvtStdHep.hh"
+
+#include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtVector4R.hh"
+
+#include <iomanip>
+#include <iostream>
 using namespace std;
 
-
-void EvtStdHep::init(){
-  _npart=0;
-}
-  
-int EvtStdHep::getNPart(){
-  return _npart;
+void EvtStdHep::init()
+{
+    _npart = 0;
 }
 
-void EvtStdHep::createParticle(EvtVector4R p4,EvtVector4R x,int prntfirst,
-				int prntlast, int id){
+int EvtStdHep::getNPart()
+{
+    return _npart;
+}
 
-  _p4[_npart]=p4;
-  _x[_npart]=x;
-  _prntfirst[_npart]=prntfirst;
-  _prntlast[_npart]=prntlast;
-  _daugfirst[_npart]=-1;
-  _dauglast[_npart]=-1;
-  _id[_npart]=id;
-  _istat[_npart]=1;
+void EvtStdHep::createParticle( EvtVector4R p4, EvtVector4R x, int prntfirst,
+                                int prntlast, int id )
+{
+    _p4[_npart] = p4;
+    _x[_npart] = x;
+    _prntfirst[_npart] = prntfirst;
+    _prntlast[_npart] = prntlast;
+    _daugfirst[_npart] = -1;
+    _dauglast[_npart] = -1;
+    _id[_npart] = id;
+    _istat[_npart] = 1;
 
-  //we also need to fix up the parents pointer to the daughter!
+    //we also need to fix up the parents pointer to the daughter!
 
-  if (prntfirst>=0) {
-    int i;
-    for (i=prntfirst;i<=prntlast;i++){
-      _istat[i]=2;
-      if (_daugfirst[i]==-1) _daugfirst[i]=_npart;
-      if (_dauglast[i]<_npart) _dauglast[i]=_npart;
+    if ( prntfirst >= 0 ) {
+        int i;
+        for ( i = prntfirst; i <= prntlast; i++ ) {
+            _istat[i] = 2;
+            if ( _daugfirst[i] == -1 )
+                _daugfirst[i] = _npart;
+            if ( _dauglast[i] < _npart )
+                _dauglast[i] = _npart;
+        }
     }
- 
-  }
 
-  _npart++;
-
+    _npart++;
 }
 
-void EvtStdHep::translate(EvtVector4R d){
-
-  int i;
-  for(i=0;i<_npart;i++){
-    _x[i]+=d;
-  }
-
+void EvtStdHep::translate( EvtVector4R d )
+{
+    int i;
+    for ( i = 0; i < _npart; i++ ) {
+        _x[i] += d;
+    }
 }
 
- 
 /*
 ostream& operator<<(ostream& s, const EvtStdHep& stdhep){
 

@@ -1,22 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtParticleDecayList.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    DJL/RYD     August 11, 1998         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTPARTICLEDECAYLIST_HH
 #define EVTPARTICLEDECAYLIST_HH
@@ -25,59 +25,56 @@
 
 typedef EvtParticleDecay* EvtParticleDecayPtr;
 
-class EvtParticleDecayList{
+class EvtParticleDecayList {
+  public:
+    EvtParticleDecayList()
+    {
+        _decaylist = 0;
+        _nmode = 0;
+        _rawbrfrsum = 0;
+    }
 
-public:
+    EvtParticleDecayList( const EvtParticleDecayList& o );
 
-  EvtParticleDecayList(){ 
-   _decaylist=0;
-    _nmode=0;
-    _rawbrfrsum=0;
-  }
+    ~EvtParticleDecayList();
 
-  EvtParticleDecayList(const EvtParticleDecayList &o);
+    EvtParticleDecayList& operator=( const EvtParticleDecayList& o );
 
-  ~EvtParticleDecayList();
+    int getNMode() const { return _nmode; }
 
-  EvtParticleDecayList& operator=(const EvtParticleDecayList &o);
+    void setNMode( int nmode );
 
-  int getNMode() const {return _nmode;}
+    EvtDecayBase* getDecayModel( EvtParticle* p );
+    EvtDecayBase* getDecayModel( int imode );
 
-  void setNMode(int nmode);
+    EvtParticleDecay& getDecay( int nchannel ) const;
 
-  EvtDecayBase* getDecayModel(EvtParticle *p);
-  EvtDecayBase* getDecayModel(int imode);
+    double getRawBrfrSum() { return _rawbrfrsum; }
+    void setRawBrfrSum( double rawbrfrsum ) { _rawbrfrsum = rawbrfrsum; }
 
-  EvtParticleDecay& getDecay(int nchannel) const;
+    void makeChargeConj( EvtParticleDecayList* conjDecayList );
 
-  double getRawBrfrSum() {return _rawbrfrsum;}
-  void setRawBrfrSum(double rawbrfrsum) {_rawbrfrsum=rawbrfrsum;}
-  
-  void makeChargeConj(EvtParticleDecayList* conjDecayList);
+    void removeDecay();
 
-  void removeDecay();
+    void alocateDecay( int nmode )
+    {
+        _decaylist = new EvtParticleDecayPtr[nmode];
+    }
 
-  void alocateDecay(int nmode){
-    _decaylist= new EvtParticleDecayPtr[nmode];
-  }
+    void removeMode( EvtDecayBase* decay );
 
-  void removeMode(EvtDecayBase* decay);
+    void addMode( EvtDecayBase* decay, double brfr, double massmin );
+    void finalize();
 
-  void addMode(EvtDecayBase* decay,double brfr,double massmin);
-  void finalize();
+    void printSummary();
 
-  void printSummary();
+    bool isJetSet() const;
 
-  bool isJetSet() const ;
+  private:
+    EvtParticleDecayPtr* _decaylist;
 
-private:
-
-  EvtParticleDecayPtr* _decaylist;
-
-  double _rawbrfrsum;
-  int _nmode;
-
+    double _rawbrfrsum;
+    int _nmode;
 };
 
 #endif
-

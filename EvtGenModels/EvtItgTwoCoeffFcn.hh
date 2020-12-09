@@ -1,23 +1,22 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgTwoCoeffFcn.hh
-//
-// Description:
-//      Class describing a function with two vectors of coefficients. 
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTITTWOCOEFFFCN_HH
 #define EVTITTWOCOEFFFCN_HH
@@ -32,36 +31,30 @@ extern "C" {
 
 #include "EvtGenModels/EvtItgAbsFunction.hh"
 
-class EvtItgTwoCoeffFcn: public EvtItgAbsFunction {
+// Description:
+//      Class describing a function with two vectors of coefficients.
 
-public:
+class EvtItgTwoCoeffFcn : public EvtItgAbsFunction {
+  public:
+    EvtItgTwoCoeffFcn( double ( *theFunction )( double, const std::vector<double>&,
+                                                const std::vector<double>& ),
+                       double lowerRange, double upperRange,
+                       const std::vector<double>& coeffs1,
+                       const std::vector<double>& coeffs2 );
 
-  EvtItgTwoCoeffFcn( double (*theFunction)(double, const std::vector<double> &, const std::vector<double> &),
-		     double lowerRange, double upperRange, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2);
+    void setCoeff( int, int, double ) override;
+    double getCoeff( int, int ) override;
 
-  virtual ~EvtItgTwoCoeffFcn( );
+  protected:
+    double myFunction( double x ) const override;
 
-  virtual void setCoeff(int, int, double);
-  virtual double getCoeff(int, int);
+  private:
+    // Data members
+    double ( *_myFunction )( double x, const std::vector<double>& coeffs1,
+                             const std::vector<double>& coeffs2 );
 
-
-protected:
-  
-  virtual double myFunction(double x) const;
-
-private:
- 
-  // Data members
-  double (*_myFunction)(double x, const std::vector<double> & coeffs1, const std::vector<double> & coeffs2);
-
-  // Note: if your class needs a copy constructor or an assignment operator, 
-  // make one of the following public and implement it.
-   EvtItgTwoCoeffFcn( const EvtItgTwoCoeffFcn& );                //// Copy Constructor
-  EvtItgTwoCoeffFcn& operator= ( const EvtItgTwoCoeffFcn& );    // Assignment op
- 
-  std::vector<double> _coeffs1;
-  std::vector<double> _coeffs2;
-
+    std::vector<double> _coeffs1;
+    std::vector<double> _coeffs2;
 };
 
-#endif // EvtITGTWOCOEFFFUNCTION_HH
+#endif    // EvtITGTWOCOEFFFUNCTION_HH

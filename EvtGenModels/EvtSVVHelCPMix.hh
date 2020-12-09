@@ -1,22 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtSVVHelCPMix.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    DJL/RYD     August 11, 1998         Module (SVV_HELAMP) created
-//    CATMORE	  March 2004	  	  Amendments made t
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTSVVHELCPMIX_HH
 #define EVTSVVHELCPMIX_HH
@@ -27,41 +27,51 @@
 //according the the helicity amplitudes specified by the
 //user.  There are 6 arguements, orders as amplitude then
 //phase for H+, H0, and H-, in that order.
+//
+// Description: Routine to decay scalar -> 2 vectors
+//              by specifying the helicity amplitudes, taking appropriate
+//		weak phases into account to get mixing and CP violation through
+//		interference. Based on EvtSVVHelAmp. Particularly appropriate for
+//		Bs->J/Psi+Phi
+//
+// Model takes the following as user-specified arguments:
+//	deltaM, averageM - mass diference and average of light and heavy mass eigenstates (real scalars)
+//	gamma, deltagamma - average width and width difference of the l and h eigenstates (real scalars)
+//	delta1, delta2 - strong phases (real scalars)
+//	direct weak phase (real scalar) (for Bs->JPsiPhi this will be zero)
+//	weak mixing phase (real scalar) (this is equal to 2*arg(Vts Vtb) for Bs->JPsiPhi)
+//	Magnitudes of helicity amplitudes as in SVV_HELAMP
+// See Phys Rev D 34 p1404 - p1417 and chapters 5 and 7 of Physics Reports 370 p537-680 for more details
 
 class EvtAmp;
 class EvtParticle;
 class EvtId;
 
-class EvtSVVHelCPMix:public  EvtDecayAmp  {
+class EvtSVVHelCPMix : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
 
-  EvtSVVHelCPMix() {}
-  virtual ~EvtSVVHelCPMix();
+    EvtComplex hp;
+    EvtComplex h0;
+    EvtComplex hm;
+    double averageM;
+    double deltaM;
+    double gamma;
+    double deltagamma;
+    EvtComplex strongphase1;
+    EvtComplex strongphase2;
+    EvtComplex weakmixingphase;
+    EvtComplex weakdirectphase;
 
-  std::string getName();
-  EvtDecayBase* clone();
+    void initProbMax() override;
 
-  void init();
+    void decay( EvtParticle* p ) override;
 
-  EvtComplex hp;
-  EvtComplex h0;
-  EvtComplex hm;
-  double averageM;
-  double deltaM;
-  double gamma;
-  double deltagamma;
-  EvtComplex strongphase1;
-  EvtComplex strongphase2;
-  EvtComplex weakmixingphase;
-  EvtComplex weakdirectphase;
-
-  void initProbMax();
-
-  void decay(EvtParticle *p); 
-
-  std::string getParamName(int i);
-  std::string getParamDefault(int i);
+    std::string getParamName( int i ) override;
+    std::string getParamDefault( int i ) override;
 };
 
 #endif

@@ -1,44 +1,45 @@
-//-----------------------------------------------------------------------
-// File and Version Information: 
-//      $Id: EvtPto3P.hh,v 1.2 2009-03-16 16:31:05 robbep Exp $
-// 
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations. If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information:
-//      Copyright (C) 1998 Caltech, UCSB
-//
-// Module creator:
-//      Alexei Dvoretskii, Caltech, 2001-2002.
-//-----------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVT_PTO3P_HH
 #define EVT_PTO3P_HH
 
-#include <vector>
-#include "EvtGenBase/EvtVector4R.hh"
-#include "EvtGenModels/EvtIntervalDecayAmp.hh"
 #include "EvtGenBase/EvtDalitzPoint.hh"
+#include "EvtGenBase/EvtVector4R.hh"
 
+#include "EvtGenModels/EvtIntervalDecayAmp.hh"
 
-class EvtPto3P : public  EvtIntervalDecayAmp<EvtDalitzPoint> {
-  
-public:
-  
-  EvtPto3P() {}
-  virtual ~EvtPto3P() {}
-  std::string getName() { return "PTO3P"; }
-  EvtDecayBase* clone() { return new EvtPto3P(); } 
-  
-  
-  virtual EvtAmpFactory<EvtDalitzPoint>* createFactory(const EvtMultiChannelParser& parser);
-  virtual std::vector<EvtVector4R> initDaughters(const EvtDalitzPoint& p) const;
-  
-  EvtDalitzPlot dp();
-  
+#include <vector>
+
+class EvtPto3P : public EvtIntervalDecayAmp<EvtDalitzPoint> {
+  public:
+    EvtPto3P() {}
+    ~EvtPto3P() {}
+    std::string getName() override { return "PTO3P"; }
+    EvtDecayBase* clone() override { return new EvtPto3P(); }
+
+    EvtAmpFactory<EvtDalitzPoint>* createFactory(
+        const EvtMultiChannelParser& parser ) override;
+    std::vector<EvtVector4R> initDaughters( const EvtDalitzPoint& p ) const override;
+
+    EvtDalitzPlot dp();
 };
 
 #endif
-

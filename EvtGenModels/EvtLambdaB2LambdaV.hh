@@ -1,45 +1,51 @@
-//------------------------------------------------------------------------
-//
-// Module: EvtGen/EvtLambdaB2LambdaV.hh
-//
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#ifndef EVTLAMBDAB2LAMBDAV_HH
+#define EVTLAMBDAB2LAMBDAV_HH
+
+#include "EvtGenBase/EvtDecayProb.hh"
+#include "EvtGenBase/EvtGenKine.hh"
+#include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtReport.hh"
+
+#include <stdlib.h>
+#include <string>
+
+namespace VID {
+    enum VectorMesonType
+    {
+        JPSI,
+        OMEGA,
+        RHO,
+        RHO_OMEGA_MIXING
+    };
+}
+
 // Description:
 //   Class to generate LambdaB -> Lambda(p pi) V(Vp Vm) decays
 //   with V a vector meson such as J/psi (mu+mu-)
 //                                 Rho (pi+pi-)
 //                                 Omega (pi+pi-)
 //                                 Rho-omega mixing (pi+pi-)
-//
-// Author : Eric Conte (LPC Clermont-Ferrand)
-//          econte@clermont.in2p3.fr / ziad@clermont.in2p3.fr
-//
-// Modification history:
-//
-//    E. Conte        April 13, 2006         Module created
-//    E. Conte        February 5, 2006       First draft
-//
-//------------------------------------------------------------------------
-
-#ifndef EVTLAMBDAB2LAMBDAV_HH
-#define EVTLAMBDAB2LAMBDAV_HH
-
-#include <stdlib.h>
-#include <string>
-#include "EvtGenBase/EvtDecayProb.hh"
-#include "EvtGenBase/EvtParticle.hh"
-#include "EvtGenBase/EvtGenKine.hh"
-#include "EvtGenBase/EvtPDL.hh"
-#include "EvtGenBase/EvtReport.hh"
-
-namespace VID
-{
-  enum VectorMesonType{JPSI, OMEGA, RHO, RHO_OMEGA_MIXING};
-}
-
-//*******************************************************************
-//*                                                                 *
-//*                   Class EvtLambdaB2LambdaV                      *
-//*                                                                 *
-//*******************************************************************
 //
 // DECAY : LambdaB -> Lambda + vector meson
 //
@@ -51,47 +57,40 @@ namespace VID
 //      B (real)    : lambdaB polarisation
 //      C (complex) : lambdaB density matrix element rho+-
 //
-// cf : O. Leitner, Z.J Ajaltouni, E. Conte, 
+// cf : O. Leitner, Z.J Ajaltouni, E. Conte,
 //      PCCF RI 0601, ECT-05-15, LPNHE/2006-01, hep-ph/0602043
- 
-class EvtLambdaB2LambdaV:public  EvtDecayProb
-{
 
-public:
+class EvtLambdaB2LambdaV : public EvtDecayProb {
+  public:
+    EvtLambdaB2LambdaV();
 
-  EvtLambdaB2LambdaV();
-  virtual ~EvtLambdaB2LambdaV();
-  EvtDecayBase* clone();
+    EvtDecayBase* clone() override;
 
-  virtual std::string getName();
-  void init();
-  void initProbMax();
-  void decay(EvtParticle *lambdab);
- 
-private:
+    std::string getName() override;
+    void init() override;
+    void initProbMax() override;
+    void decay( EvtParticle* lambdab ) override;
 
-  //class name for report method
-  std::string fname;
+  private:
+    //class name for report method
+    std::string fname;
 
-  //meson vector identity 
-  VID::VectorMesonType Vtype;
+    //meson vector identity
+    VID::VectorMesonType Vtype;
 
-  //decay dynamics parameters 
-  double A;
-  double B;
-  EvtComplex C;
+    //decay dynamics parameters
+    double A;
+    double B;
+    EvtComplex C;
 
-  //V mass generator method
-  double getVMass(double MASS_LAMBDAB, double MASS_LAMBDA);
-  
-  //PDF generator method
-  double BreitWignerRelPDF(double m,double _m0, double _g0);
-  double RhoOmegaMixingPDF(double m, double _mr, double _gr, double _mo, double _go);
+    //V mass generator method
+    double getVMass( double MASS_LAMBDAB, double MASS_LAMBDA );
+
+    //PDF generator method
+    double BreitWignerRelPDF( double m, double _m0, double _g0 );
+    double RhoOmegaMixingPDF( double m, double _mr, double _gr, double _mo,
+                              double _go );
 };
-
-
-
-
 
 //*******************************************************************
 //*                                                                 *
@@ -113,38 +112,29 @@ private:
 // cf : O. Leitner, Z.J Ajaltouni, E. Conte
 //      PCCF RI 0601, ECT-05-15, LPNHE/2006-01, hep-ph/0602043
 
-class EvtLambda2PPiForLambdaB2LambdaV:public  EvtDecayProb
-{
+class EvtLambda2PPiForLambdaB2LambdaV : public EvtDecayProb {
+  public:
+    EvtLambda2PPiForLambdaB2LambdaV();
+    EvtDecayBase* clone() override;
 
-public:
+    std::string getName() override;
+    void init() override;
+    void initProbMax() override;
+    void decay( EvtParticle* lambda ) override;
 
-  EvtLambda2PPiForLambdaB2LambdaV();
-  virtual ~EvtLambda2PPiForLambdaB2LambdaV();
-  EvtDecayBase* clone();
+  private:
+    //class name for report method
+    std::string fname;
 
-  virtual std::string getName();
-  void init();
-  void initProbMax();
-  void decay(EvtParticle *lambda);  
+    //meson vector identity
+    VID::VectorMesonType Vtype;
 
-private :
-
-  //class name for report method
-  std::string fname;
-
-  //meson vector identity 
-  VID::VectorMesonType Vtype;
-
-  //decay dynamics parameters
-  double A;
-  double B;
-  double C;
-  EvtComplex D;
+    //decay dynamics parameters
+    double A;
+    double B;
+    double C;
+    EvtComplex D;
 };
-
-
-
-
 
 //*******************************************************************
 //*                                                                 *
@@ -168,30 +158,25 @@ private :
 // cf : O. Leitner, Z.J Ajaltouni, E. Conte
 //      PCCF RI 0601, ECT-05-15, LPNHE/2006-01, hep-ph/0602043
 
-class EvtV2VpVmForLambdaB2LambdaV:public  EvtDecayProb
-{
+class EvtV2VpVmForLambdaB2LambdaV : public EvtDecayProb {
+  public:
+    EvtV2VpVmForLambdaB2LambdaV();
 
-public:
+    EvtDecayBase* clone() override;
 
-  EvtV2VpVmForLambdaB2LambdaV();
-  virtual ~EvtV2VpVmForLambdaB2LambdaV();
-  EvtDecayBase* clone();
+    std::string getName() override;
+    void init() override;
+    void initProbMax() override;
+    void decay( EvtParticle* V ) override;
 
-  virtual std::string getName();
-  void init();
-  void initProbMax();
-  void decay(EvtParticle *V);
-  
-private:
+  private:
+    //class name for report method
+    std::string fname;
 
-  //class name for report method
-  std::string fname;
-
-  //meson vector identity 
-  VID::VectorMesonType Vtype;
-  //decay dynamics parameters 
-  double A;
+    //meson vector identity
+    VID::VectorMesonType Vtype;
+    //decay dynamics parameters
+    double A;
 };
-
 
 #endif

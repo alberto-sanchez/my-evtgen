@@ -1,121 +1,93 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtBcSMuNu.cc
-//
-// Description: Routine to implement semileptonic B->psi lnu decays 
-//
-// Modification history:
-//
-//    AVL     July 6, 2012        Module created
-//
-//------------------------------------------------------------------------
-// 
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include "EvtGenBase/EvtParticle.hh"
-#include "EvtGenBase/EvtGenKine.hh"
-#include "EvtGenBase/EvtPDL.hh"
-#include "EvtGenBase/EvtReport.hh"
-#include "EvtGenBase/EvtSemiLeptonicScalarAmp.hh"
-#include <string>
-#include <iostream>
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #include "EvtGenModels/EvtBcSMuNu.hh"
+
+#include "EvtGenBase/EvtGenKine.hh"
+#include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
+#include "EvtGenBase/EvtReport.hh"
+#include "EvtGenBase/EvtSemiLeptonicScalarAmp.hh"
+
 #include "EvtGenModels/EvtBCSFF.hh"
 
+#include <iostream>
+#include <stdlib.h>
+#include <string>
 
 using namespace std;
 
-
-
-EvtBcSMuNu::~EvtBcSMuNu() {
-//   cout<<"EvtBcSMuNu::destructor getProbMax(-1) = "<<getProbMax(-1)<<endl;
-}
-
-std::string EvtBcSMuNu::getName(){
-  return "BC_SMN";     
-}
-
-
-EvtDecayBase* EvtBcSMuNu::clone(){
-//   cout<<" === EvtBcSMuNu::clone() ============"<<endl;
-  return new EvtBcSMuNu;
-
-}
-
-void EvtBcSMuNu::decay( EvtParticle *p ){
-//  cout<<" === EvtBcSMuNu::decay() ============"<<endl;
-
-  p->initializePhaseSpace(getNDaug(),getDaugs());
-  calcamp->CalcAmp(p,_amp2,ffmodel);
-//  cout<<"EvtBcSMuNu::decay() getProbMax(-1) = "<<getProbMax(-1)<<endl;
-}
-
-
-void EvtBcSMuNu::init(){
-//   cout<<" === EvtBcSMuNu::init() ============"<<endl;
- 
-  
-  checkNArg(1);
-  checkNDaug(3);
-
-  //We expect the parent to be a scalar 
-  //and the daughters to be X lepton neutrino
-
-  checkSpinParent(EvtSpinType::SCALAR);
-
-  checkSpinDaughter(0,EvtSpinType::SCALAR);
-  checkSpinDaughter(1,EvtSpinType::DIRAC);
-  checkSpinDaughter(2,EvtSpinType::NEUTRINO);
-
-  idScalar = getDaug(0).getId();
-  whichfit = int(getArg(0)+0.1);
-  cout << "EvtBcSMuNu: whichfit =" << whichfit << "  idScalar =" << idScalar << endl;
-  ffmodel = new EvtBCSFF(idScalar,whichfit);
-  
-  calcamp = new EvtSemiLeptonicScalarAmp; 
- 
-}
-
-void EvtBcSMuNu::initProbMax() {
-  
-//   PrintMaxProbs();
-
-  //  cout<<" === EvtBcSMuNu::initProbMax() ============"<<endl;
-  if (whichfit == 0) setProbMax(0.0); // NEED TO FIX
-  else if (idScalar == EvtPDL::getId("chi_c0").getId() && whichfit == 3) setProbMax(3000.0); // NEED TO FIX
-  else {
-    cout<<"EvtBcSMuNu: Not realized yet"<<endl;
-    ::abort();
-  }
-}
-
-void EvtBcSMuNu::PrintMaxProbs()
+std::string EvtBcSMuNu::getName()
 {
-  EvtId BcID = EvtPDL::getId("B_c+");
-  EvtId Chic0ID = EvtPDL::getId("chi_c0");
-  EvtId MuID = EvtPDL::getId("mu+");
-  EvtId TauID = EvtPDL::getId("tau+");
-  EvtId NuMuID = EvtPDL::getId("nu_mu");
-  EvtId NuTauID = EvtPDL::getId("nu_tau");
-  
-  EvtBCSFF* testmodel;
-  double mu_maxprob, tau_maxprob;
+    return "BC_SMN";
+}
 
-  // CHIC0
-  testmodel = new EvtBCSFF(Chic0ID.getId(),3);
-  mu_maxprob = calcamp->CalcMaxProb(BcID,Chic0ID,MuID,NuMuID,testmodel);
-  tau_maxprob = calcamp->CalcMaxProb(BcID,Chic0ID,TauID,NuTauID,testmodel);
-  cout << "B_c => chi_c0(1P) l nu transition w/ Wang:\n";
-  cout << " --> Mu max prob should be: " << mu_maxprob << endl;
-  cout << " --> Tau max prob should be: " << tau_maxprob << endl;
-  delete testmodel;
+EvtDecayBase* EvtBcSMuNu::clone()
+{
+    return new EvtBcSMuNu;
+}
+
+void EvtBcSMuNu::decay( EvtParticle* p )
+{
+    p->initializePhaseSpace( getNDaug(), getDaugs() );
+    calcamp->CalcAmp( p, _amp2, ffmodel.get() );
+}
+
+void EvtBcSMuNu::init()
+{
+    checkNArg( 1 );
+    checkNDaug( 3 );
+
+    //We expect the parent to be a scalar
+    //and the daughters to be X lepton neutrino
+
+    checkSpinParent( EvtSpinType::SCALAR );
+
+    checkSpinDaughter( 0, EvtSpinType::SCALAR );
+    checkSpinDaughter( 1, EvtSpinType::DIRAC );
+    checkSpinDaughter( 2, EvtSpinType::NEUTRINO );
+
+    idScalar = getDaug( 0 ).getId();
+    whichfit = int( getArg( 0 ) + 0.1 );
+
+    ffmodel = std::make_unique<EvtBCSFF>( idScalar, whichfit );
+
+    calcamp = std::make_unique<EvtSemiLeptonicScalarAmp>();
+}
+
+void EvtBcSMuNu::initProbMax()
+{
+    EvtId parId = getParentId();
+    EvtId mesonId = getDaug( 0 );
+    EvtId lepId = getDaug( 1 );
+    EvtId nuId = getDaug( 2 );
+
+    int nQ2Bins = 200;
+    double maxProb = calcamp->CalcMaxProb( parId, mesonId, lepId, nuId,
+                                           ffmodel.get(), nQ2Bins );
+
+    if ( verbose() ) {
+        EvtGenReport( EVTGEN_INFO, "EvtBcSMuNu" )
+            << "Max prob = " << maxProb << endl;
+    }
+
+    setProbMax( maxProb );
 }

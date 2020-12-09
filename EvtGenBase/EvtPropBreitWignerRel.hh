@@ -1,13 +1,22 @@
-/*******************************************************************************
- * Project: BaBar detector at the SLAC PEP-II B-factory
- * Package: EvtGenBase
- *    File: $Id: EvtPropBreitWignerRel.hh,v 1.2 2009-03-16 16:42:03 robbep Exp $
- *  Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2001-2002
- *
- * Copyright (C) 2002 Caltech
- *******************************************************************************/
 
-// Relativistic Breit-Wigner Propagator
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVT_PROP_BREIT_WIGNER_REL_HH
 #define EVT_PROP_BREIT_WIGNER_REL_HH
@@ -15,19 +24,16 @@
 #include "EvtGenBase/EvtComplex.hh"
 #include "EvtGenBase/EvtPropagator.hh"
 
+// Relativistic Breit-Wigner Propagator
+
 class EvtPropBreitWignerRel : public EvtPropagator {
-public:
+  public:
+    EvtPropBreitWignerRel( double m0, double g0 );
 
-  EvtPropBreitWignerRel(double m0, double g0); 
-  EvtPropBreitWignerRel(const EvtPropBreitWignerRel& other); 
-  ~EvtPropBreitWignerRel(); 
+    EvtAmplitude<EvtPoint1D>* clone() const override;
 
-  EvtAmplitude<EvtPoint1D>* clone() const;
-
-protected:
-
-  EvtComplex amplitude(const EvtPoint1D& x) const;
+  protected:
+    EvtComplex amplitude( const EvtPoint1D& x ) const override;
 };
 
 #endif
-

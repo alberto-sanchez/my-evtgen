@@ -1,52 +1,50 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2003      Caltech
-//
-// Module: EvtGen/EvtbTosllAli.hh
-//
-// Description:Implementation of the b->sll decays according to Ali '01 et al.
-//
-// Modification history:
-//
-//    Ryd     March 30, 2003         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTBTOSLLALI_HH
 #define EVTBTOSLLALI_HH
 
-
 #include "EvtGenBase/EvtDecayAmp.hh"
 
+#include <memory>
+
 class EvtbTosllFF;
-class EvtbTosllAmp;
+#include "EvtGenModels/EvtbTosllAmp.hh"
+#include "EvtGenModels/EvtbTosllFF.hh"
 class EvtParticle;
 
-class EvtbTosllAli:public  EvtDecayAmp  {
+// Description:Implementation of the b->sll decays according to Ali '01 et al.
 
-public:
+class EvtbTosllAli : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtbTosllAli(): _aliffmodel(0), _calcamp(0) {}
-  virtual ~EvtbTosllAli();
+    void decay( EvtParticle* p ) override;
+    void init() override;
+    void initProbMax() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
-
-  void decay(EvtParticle *p);
-  void init();
-  void initProbMax();
-
-private:
-  EvtbTosllFF *_aliffmodel;
-  EvtbTosllAmp *_calcamp;
-  double _poleSize;
+  private:
+    std::unique_ptr<EvtbTosllFF> _aliffmodel;
+    std::unique_ptr<EvtbTosllAmp> _calcamp;
+    double _poleSize;
 };
 
 #endif
-

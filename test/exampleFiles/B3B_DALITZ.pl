@@ -1,10 +1,24 @@
 #!/usr/local/bin/perl
-# Project: BaBar detector at the SLAC PEP-II B-factory
-# Package: EvtGen
-# File: $Id: B3B_DALITZ.pl,v 1.1 2002/06/12 05:44:14 dvoretsk Exp $
-# Author: Alexei Dvoretskii, dvoretsk@slac.stanford.edu, 2002
-# Copyright (C) 2002 Caltech
-#
+
+########################################################################
+# Copyright 1998-2020 CERN for the benefit of the EvtGen authors       #
+#                                                                      #
+# This file is part of EvtGen.                                         #
+#                                                                      #
+# EvtGen is free software: you can redistribute it and/or modify       #
+# it under the terms of the GNU General Public License as published by #
+# the Free Software Foundation, either version 3 of the License, or    #
+# (at your option) any later version.                                  #
+#                                                                      #
+# EvtGen is distributed in the hope that it will be useful,            #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of       #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        #
+# GNU General Public License for more details.                         #
+#                                                                      #
+# You should have received a copy of the GNU General Public License    #
+# along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     #
+########################################################################
+
 # B0 ->  K+ pi- pi0
 # B+ -> pi+ pi+ pi-
 # B+ -> pi+ pi0 pi0

@@ -1,22 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtDiracParticle.hh
-//
-// Description:EvtDiracParticle particles i.e. spin 1/2 particles.
-//
-// Modification history:
-//
-//    DJL/RYD     September 25, 1996         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTDIRACPARTICLE_HH
 #define EVTDIRACPARTICLE_HH
@@ -27,31 +27,23 @@
 class EvtId;
 class EvtVector4R;
 
-class EvtDiracParticle:public EvtParticle {
+class EvtDiracParticle : public EvtParticle {
+  public:
+    EvtDiracParticle() = default;
+    void init( EvtId part_n, const EvtVector4R& p4 ) override;
+    void init( EvtId part_n, const EvtVector4R& p4, const EvtDiracSpinor&,
+               const EvtDiracSpinor&, const EvtDiracSpinor&,
+               const EvtDiracSpinor& );
+    EvtDiracSpinor spParent( int i ) const override { return _spinorParent[i]; }
+    EvtDiracSpinor sp( int i ) const override { return _spinorRest[i]; }
+    EvtSpinDensity rotateToHelicityBasis() const override;
+    EvtSpinDensity rotateToHelicityBasis( double alpha, double beta,
+                                          double gamma ) const override;
 
-public:
-
-  
-  EvtDiracParticle();
-  virtual ~EvtDiracParticle();
-  void init(EvtId part_n,const EvtVector4R& p4);
-  void init(EvtId part_n,const EvtVector4R& p4,
-	    const EvtDiracSpinor &,const EvtDiracSpinor &,
-	    const EvtDiracSpinor &,const EvtDiracSpinor &);
-  EvtDiracSpinor spParent(int i) const {return _spinorParent[i];}
-  EvtDiracSpinor sp(int i) const {return _spinorRest[i];}  
-  EvtSpinDensity rotateToHelicityBasis() const;
-  EvtSpinDensity rotateToHelicityBasis(double alpha,
-				       double beta,
-				       double gamma) const;
-
-private:
-
-  EvtDiracSpinor _spinorRest[2];
-  EvtDiracSpinor _spinorParent[2];
-  EvtDiracParticle(const EvtDiracParticle& d);
-  EvtDiracParticle& operator=(const EvtDiracParticle& d);
-
+  private:
+    EvtDiracSpinor _spinorRest[2];
+    EvtDiracSpinor _spinorParent[2];
+    EvtDiracParticle( const EvtDiracParticle& d );
+    EvtDiracParticle& operator=( const EvtDiracParticle& d );
 };
 #endif
-

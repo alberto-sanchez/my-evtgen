@@ -1,62 +1,51 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1999      Caltech, UCSB
-//
-// Module: EvtGen/EvtSVSCPLH.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    Ryd       March 29, 2001         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTSVSCPLH_HH
 #define EVTSVSCPLH_HH
 
-#include "EvtGenBase/EvtDecayAmp.hh"
 #include "EvtGenBase/EvtComplex.hh"
+#include "EvtGenBase/EvtDecayAmp.hh"
 
 class EvtParticle;
 
-class EvtSVSCPLH:public  EvtDecayAmp  {
+// Description: The decay of a scalar to a scalar and a vector particle are
+//              performed with CP violation and different widths for
+//              the cp even and odd states. E.g. B->J/psi K_S.
 
-public:
+class EvtSVSCPLH : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-  EvtSVSCPLH() {}
-  virtual ~EvtSVSCPLH();
+    void initProbMax() override;
+    void init() override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+    void decay( EvtParticle* p ) override;
 
-  void initProbMax();
-  void init();
+  private:
+    EvtComplex _Af, _Abarf;
+    EvtComplex _qop, _poq;
 
-  void decay(EvtParticle *p); 
-
-
-private:
-
-  EvtComplex _Af,_Abarf;
-  EvtComplex _qop,_poq;
-  
-  double _dm;
-  double _dgamma;
-
-  
-
-
+    double _dm;
+    double _dgamma;
 };
 
 #endif
-
-
-
-

@@ -1,60 +1,63 @@
-//--------------------------------------------------------------------------
-//
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Module: EvtItgFourCoeffFcn.hh
-//
-// Description:
-//      Class describing a function with Four vectors of coefficients. 
-//
-// Modification history:
-//
-//    Jane Tinslay                March 21, 2001       Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTITFOURCOEFFFCN_HH
 #define EVTITFOURCOEFFFCN_HH
 
-#include <vector>
 #include "EvtGenModels/EvtItgAbsFunction.hh"
 
-class EvtItgFourCoeffFcn: public EvtItgAbsFunction {
+#include <vector>
 
-public:
+// Description:
+//      Class describing a function with Four vectors of coefficients.
 
-  EvtItgFourCoeffFcn( double (*theFunction)(double, const std::vector<double> &, const std::vector<double> &, const std::vector<double> &, const std::vector<double> &),
-		     double lowerRange, double upperRange, const std::vector<double> &coeffs1, const std::vector<double> &coeffs2, const std::vector<double> &coeffs3, const std::vector<double> &coeffs4);
+class EvtItgFourCoeffFcn : public EvtItgAbsFunction {
+  public:
+    EvtItgFourCoeffFcn( double ( *theFunction )( double,
+                                                 const std::vector<double>&,
+                                                 const std::vector<double>&,
+                                                 const std::vector<double>&,
+                                                 const std::vector<double>& ),
+                        double lowerRange, double upperRange,
+                        const std::vector<double>& coeffs1,
+                        const std::vector<double>& coeffs2,
+                        const std::vector<double>& coeffs3,
+                        const std::vector<double>& coeffs4 );
 
-  virtual ~EvtItgFourCoeffFcn( );
+    void setCoeff( int, int, double ) override;
+    double getCoeff( int, int ) override;
 
-  virtual void setCoeff(int, int, double);
-  virtual double getCoeff(int, int);
+  protected:
+    double myFunction( double x ) const override;
 
-protected:
+  private:
+    // Data members
+    double ( *_myFunction )( double x, const std::vector<double>& coeffs1,
+                             const std::vector<double>& coeffs2,
+                             const std::vector<double>& coeffs3,
+                             const std::vector<double>& coeffs4 );
 
-  virtual double myFunction(double x) const;
-
-private:
- 
-  // Data members
-  double (*_myFunction)(double x, const std::vector<double> & coeffs1, const std::vector<double> & coeffs2, const std::vector<double> & coeffs3, const std::vector<double> & coeffs4);
-  
-  // Note: if your class needs a copy constructor or an assignment operator, 
-  //  make one of the following public and implement it.
-  EvtItgFourCoeffFcn( const EvtItgFourCoeffFcn& );                //// Copy Constructor
-  EvtItgFourCoeffFcn& operator= ( const EvtItgFourCoeffFcn& );    // Assignment op
-  std::vector<double> _coeffs1;
-  std::vector<double> _coeffs2;
-  std::vector<double> _coeffs3;
-  std::vector<double> _coeffs4;
-
+    std::vector<double> _coeffs1;
+    std::vector<double> _coeffs2;
+    std::vector<double> _coeffs3;
+    std::vector<double> _coeffs4;
 };
 
-#endif // EvtITGPTRFUNCTION_HH
+#endif    // EvtITGPTRFUNCTION_HH

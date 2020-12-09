@@ -4,8 +4,125 @@
 //
 //===========================================================================
 
+R02-00-00-------------------------------------------------------------------
+24th Apr 2020 Michal Kreps
+    Update particle properties file evt.pdl to 2019 version of RPP by PDG.
+
+23rd Apr 2020 Tom Latham
+    Apply copyright and licence notices to all relevant files.
+
+17th Apr 2020 Tom Latham
+    Add text of GNU GPLv3 in COPYING, add (preliminary) list of authors in
+    AUTHORS, and clean-up all source files, prior to applying copyright and
+    licence notices.
+
+9th Apr 2020 Tom Latham
+    Improve, and document use of, standalone installation script.
+    Apply clang-format formatting to all C++ source files.
+
+8th Apr 2020 Tom Latham
+    One small modernisation change to EvtPhotosEngine to match that already
+    applied in EvtTauolaEngine.
+
+8th Apr 2020 John Back
+    Fixed NonReson amplitude and the 4-momentum boosts used for angles in
+    EvtLambdacPHH, courtesy of Elisabeth Niel (LHCb).
+
+7th Apr 2020 Gerhard Raven, Tom Latham, Michal Kreps and John Back
+    Incorporate C++ modernization changes from Gerhard Raven (LHCb).
+    Merged modernize branch into master.
+
+9th Mar 2020 John Back
+    Add EvtAbsExternalGen::getDecayProb() to allow external generators to
+    return a probability that can be used in EvtDecayProb (default = 1).
+
+6th Mar 2020 Andrii Verbytskyi and Tom Latham
+    Implement HepMC3 support: EvtHepMCEvent, external engines & cmake files.
+
+15th Nov 2019 John Back
+    Added EvtPsi2JpsiPiPi model for psi2S -> J/psi pi+ pi- decays based on 
+    hep-ph/1507.07985, courtesy of Aleksei Luchinsky (LHCb).
+
+21st August 2019 Michal Kreps
+    Added the EvtDToKpienu decay model for D -> K pi e nu decays from
+    BESIII, courtesy of Liaoyuan Dong.
+
+16th July 2019 John Back
+    Correct imaginary sign for EvtComplex /= (EvtComplex c) operator.
+
+3rd July 2019 John Back
+    Added the EvtLambdacPHH decay model for Lc -> p K pi decays with K*(890), 
+    Delta++(1232) and Lambda(1520) resonances, based on the Fermilab E791
+    analysis hep-ex/9912003v1, courtesy of Elisabeth Niel and Patrick Robbe 
+    (LHCb). Modified EvtResonance2 to accept other barrier factor radii.
+
+3rd July 2019 Michal Kreps
+    Make sure minimum mass for resonances with non-zero widths is larger than
+    1e-4 GeV in EvtRelBreitWignerBarrierFact.
+
+3rd May 2019 John Back
+    Corrected EvtSLDiBaryonAmp bugs/issues in the BToDiBaryonlnupQCD model: 
+    parity, amplitude terms and B momentum reference frame variables.    
+    Corrected treament of spinor indices in EvtRareLb2Lll, courtesy of
+    Tom Blake and Michal Kreps (LHCb).
+    Updated the EvtBcVHad model to also handle Bc -> psi Ks K decays, 
+    courtesy of Aleksei Luchinsky (LHCb).
+    Add new decay model EvtBsMuMuKK (BS_MUMUKK) for Bs to J/psi (mu+mu-) K+K-,
+    courtesy of Veronika Chobanova, Jeremy Dalseno, Diego Martinez Santos and
+    Marcos Romero Lamas (LHCb).
+    Fix infinite loop during initialisation of the EvtBTo3hCP model via
+    EvtCBTo3piP00 and EvtCBTo3piMPP, courtesy of Peter Richardson (Durham).
+
+15th March 2019 Tom Latham
+    Implement cmake build system, replacing the old config method.
+
+30th Jan 2019 John Back
+    Fix modernization compiler errors and warnings.
+
+29th Jan 2019 Michal Kreps
+    Allow reading decay files which are missing end-of-line before end-of-file.
+
+21st December 2018 John Back
+    Imported C++ modernization changes from Gerhard Raven (LHCb).
+
+7th December 2018 John Back
+    Added the EvtBLLNuL (BLLNUL) model that generates rare B -> ell ell nu ell 
+    decays, where ell = e or mu, courtesy of Anna Danilina and Nikolai Nikitin 
+    (LHCb). Removed the EvtB2MuMuMuNu (BUTOMMMN) model, since its now replaced 
+    by the more general BLLNuL one.
+
+5th November 2018 John Back
+    Added the BToDiBaryonlnupQCD model for generating B to p N* l nu decays,
+    where N can be any (exited) charged baryon (spin 1/2 or 3/2), courtesy of
+    Mark Smith and Ryan Newcombe (LHCb), with added code optimisations.
+
+17th October 2018 John Back
+    Added various decay models from LHCb EvtGenExtras package:
+    EvtBcVHad ("BC_VHAD"), Evtbs2llGammaMNT ("BSTOGLLMNT"),
+    Evtbs2llGammaISRFSR ("BSTOGLLISRFSR"), EvtbTosllMS ("BTOSLLMS"),
+    EvtbTosllMSExt ("BTOSLLMSEXT"), EvtLb2Baryonlnu ("Lb2Baryonlnu"),
+    EvtLb2plnuLCSR ("Lb2plnuLCSR"), EvtLb2plnuLQCD ("Lb2plnuLQCD"),
+    EvtFlatSqDalitz ("FLATSQDALITZ") and EvtPhspFlatLifetime 
+    ("PHSPFLATLIFETIME").
+
+5th October 2018 John Back
+    Updated setupEvtGen.sh to work with the new HepForge Phabricator site.
+
+13th March 2018 John Back
+    Updated EvtPythiaEngine to correctly handle updates of various particle 
+    properties so that Pythia uses the same information as EvtGen (evt.pdl)
+    for the generic and alias PYTHIA decay model.
+
+12th March 2018 John Back
+    Updated EvtBcXMuNu models (X = Scalar, Vector, Tensor) to generate
+    Bc to D0(star) mu nu decays, with associated form factors in EvtBCXFF, 
+    courtesy of Aleksei Luchinsky (LHCb). Also generalised the calculation 
+    of their maximum probabilities by reusing the CalcMaxProb method in 
+    EvtSemiLeptonicAmp, which now allows for different Q^2 binning 
+    (default remains at 25 bins).
+
 R01-07-00-------------------------------------------------------------------
-13th December 2016 John Back
+13th December 2017 John Back
     New tag incorporating all changes below. Recommended external packages
     are HepMC 2.06.09, pythia 8.230, Photos++ 3.61 and Tauola++ 1.1.6c,
     as used in the setupEvtGen.sh script.
@@ -21,7 +138,7 @@ R01-07-00-------------------------------------------------------------------
 
 29th November 2017 John Back
     Modified EvtSVP, EvtVVP and EvtTVP models to handle both radiative and
-    two-lepton decays, courtesy of Aleksei Luchinskii (LHCb).
+    two-lepton decays, courtesy of Aleksei Luchinsky (LHCb).
 
 14th July 2017 John Back
     Only create external generator objects if they don't already exist in

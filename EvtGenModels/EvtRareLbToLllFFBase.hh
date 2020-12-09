@@ -1,4 +1,24 @@
-#ifndef EVTRARELBTOLLLFFBASE_HH 
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#ifndef EVTRARELBTOLLLFFBASE_HH
 #define EVTRARELBTOLLLFFBASE_HH 1
 
 // Include files
@@ -10,49 +30,43 @@
  *  @date   2014-10-20
  */
 
-#include "EvtGenBase/EvtParticle.hh"
 #include "EvtGenBase/EvtIdSet.hh"
+#include "EvtGenBase/EvtParticle.hh"
 
+#include <map>
 #include <string>
-#include <map> 
 
 class EvtRareLbToLllFFBase {
+  public:
+    class FormFactors {
+      public:
+        FormFactors();
 
-public:
+        virtual ~FormFactors(){};
 
-  class FormFactors 
-  {
-  public: 
-    FormFactors() ;
-    
-    virtual ~FormFactors() {} ;
-    
-    void areZero() ;
+        void areZero();
 
-    double  F_[4];
-    double  G_[4];
-    double FT_[4];
-    double GT_[4];    
-  };
+        double F_[4];
+        double G_[4];
+        double FT_[4];
+        double GT_[4];
+    };
 
-  virtual void init() = 0 ;
-  
-  virtual void getFF( EvtParticle* parent, 
-              EvtParticle* lambda, 
-              EvtRareLbToLllFFBase::FormFactors& FF ) = 0;
- 
-  bool isNatural( EvtParticle* lambda ) ;
+    virtual void init() = 0;
 
-  EvtRareLbToLllFFBase( ); 
-  virtual ~EvtRareLbToLllFFBase( ) {};
+    virtual void getFF( EvtParticle* parent, EvtParticle* lambda,
+                        EvtRareLbToLllFFBase::FormFactors& FF ) = 0;
 
-protected:
+    bool isNatural( EvtParticle* lambda );
 
-  double calculateVdotV( EvtParticle* parent, EvtParticle* lambda ) const ;
-  double calculateVdotV(EvtParticle*, EvtParticle*, double qsq) const;
+    EvtRareLbToLllFFBase();
+    virtual ~EvtRareLbToLllFFBase(){};
 
-  EvtIdSet natural_;
+  protected:
+    double calculateVdotV( EvtParticle* parent, EvtParticle* lambda ) const;
+    double calculateVdotV( EvtParticle*, EvtParticle*, double qsq ) const;
 
+    EvtIdSet natural_;
 };
 
 #endif

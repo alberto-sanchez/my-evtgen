@@ -1,3 +1,23 @@
+
+########################################################################
+# Copyright 1998-2020 CERN for the benefit of the EvtGen authors       #
+#                                                                      #
+# This file is part of EvtGen.                                         #
+#                                                                      #
+# EvtGen is free software: you can redistribute it and/or modify       #
+# it under the terms of the GNU General Public License as published by #
+# the Free Software Foundation, either version 3 of the License, or    #
+# (at your option) any later version.                                  #
+#                                                                      #
+# EvtGen is distributed in the hope that it will be useful,            #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of       #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        #
+# GNU General Public License for more details.                         #
+#                                                                      #
+# You should have received a copy of the GNU General Public License    #
+# along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     #
+########################################################################
+
 ./compareRootFiles "tauPythiaDecay1" "rootFiles/tauPythiaDecay1.root" "oldRootFiles/tauPythiaDecay1.root" "#tau^{-} #rightarrow #nu_{#tau} #gamma #pi^{-} #pi^{0}"
 ./compareRootFiles "tauPythiaDecay2" "rootFiles/tauPythiaDecay2.root" "oldRootFiles/tauPythiaDecay2.root" "#tau^{-} #rightarrow #nu_{#tau} K^{-} #pi^{0} #pi^{0}"
 ./compareRootFiles "tauPythiaDecay3" "rootFiles/tauPythiaDecay3.root" "oldRootFiles/tauPythiaDecay3.root" "#tau^{-} #rightarrow #nu_{#tau} #pi^{-} #pi^{0} #pi^{0} #pi^{0}"

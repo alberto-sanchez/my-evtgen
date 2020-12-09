@@ -1,22 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtSVVHelAmp.hh
-//
-// Description:
-//
-// Modification history:
-//
-//    DJL/RYD     August 11, 1998         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTSVVHELAMP_HH
 #define EVTSVVHELAMP_HH
@@ -32,27 +32,22 @@ class EvtAmp;
 class EvtParticle;
 class EvtId;
 
-class EvtSVVHelAmp:public  EvtDecayAmp  {
+class EvtSVVHelAmp : public EvtDecayAmp {
+  public:
+    std::string getName() override;
+    EvtDecayBase* clone() override;
 
-public:
+    void init() override;
+    void initProbMax() override;
 
-  EvtSVVHelAmp() {}
-  virtual ~EvtSVVHelAmp();
+    void decay( EvtParticle* p ) override;
 
-  std::string getName();
-  EvtDecayBase* clone();
+    static void SVVHel( EvtParticle* parent, EvtAmp& amp, EvtId n_v1,
+                        EvtId n_v2, const EvtComplex& hp, const EvtComplex& h0,
+                        const EvtComplex& hm );
 
-  void init();
-  void initProbMax();
-
-  void decay(EvtParticle *p); 
-
-  static void SVVHel(EvtParticle *parent,EvtAmp& amp,EvtId n_v1,EvtId n_v2,
-		     const EvtComplex& hp, const EvtComplex& h0,
-		     const EvtComplex& hm);
-
-  std::string getParamName(int i);
-  std::string getParamDefault(int i);
+    std::string getParamName( int i ) override;
+    std::string getParamDefault( int i ) override;
 };
 
 #endif

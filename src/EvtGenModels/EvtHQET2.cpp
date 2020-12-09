@@ -1,149 +1,123 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtHQET2.cc
-//
-// Description: Routine to implement semileptonic B->D*lnu & B->Dlnu 
-//              decays according to the model HQET
-//
-//   Lange Nov9/01 adding Dlnu and possible (w-1)^2 term
-//
-//
-// Modification history:
-//
-//    Marco Bomben     March 10, 2003       Module created
-//
-//    Brian Hamilton     Feb 12, 2016       Added "extened" functionality
-//      <brian.hamilton -=AT=- cern.ch>       to include scalar amplitude
-//
-//
-//------------------------------------------------------------------------
-// 
-#include "EvtGenBase/EvtPatches.hh"
-#include <stdlib.h>
-#include <assert.h>
-#include "EvtGenBase/EvtParticle.hh"
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#include "EvtGenModels/EvtHQET2.hh"
+
 #include "EvtGenBase/EvtGenKine.hh"
 #include "EvtGenBase/EvtPDL.hh"
+#include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenModels/EvtHQET2.hh"
-#include "EvtGenModels/EvtHQET2FF.hh"
-#include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
 #include "EvtGenBase/EvtSemiLeptonicScalarAmp.hh"
+#include "EvtGenBase/EvtSemiLeptonicVectorAmp.hh"
+
+#include "EvtGenModels/EvtHQET2FF.hh"
+
+#include <assert.h>
+#include <stdlib.h>
 #include <string>
 using std::endl;
 
-EvtHQET2::EvtHQET2():
-  hqetffmodel(0),
-  calcamp(0)
-{}
-
-EvtHQET2::~EvtHQET2() {
-  delete hqetffmodel;
-  hqetffmodel=0;
-  delete calcamp;
-  calcamp=0;
+std::string EvtHQET2::getName()
+{
+    return "HQET2";
 }
 
-std::string EvtHQET2::getName(){
-
-  return "HQET2";     
-
+EvtDecayBase* EvtHQET2::clone()
+{
+    return new EvtHQET2;
 }
 
-
-
-EvtDecayBase* EvtHQET2::clone(){
-
-  return new EvtHQET2;
-
+void EvtHQET2::decay( EvtParticle* p )
+{
+    p->initializePhaseSpace( getNDaug(), getDaugs() );
+    calcamp->CalcAmp( p, _amp2, hqetffmodel.get() );
 }
 
+void EvtHQET2::initProbMax()
+{
+    EvtId parnum, mesnum, lnum, nunum;
 
-void EvtHQET2::decay( EvtParticle *p ){
+    parnum = getParentId();
+    mesnum = getDaug( 0 );
+    lnum = getDaug( 1 );
+    nunum = getDaug( 2 );
 
-  p->initializePhaseSpace(getNDaug(),getDaugs());
-  calcamp->CalcAmp(p,_amp2,hqetffmodel);
+    double mymaxprob = calcamp->CalcMaxProb( parnum, mesnum, lnum, nunum,
+                                             hqetffmodel.get() );
 
+    setProbMax( mymaxprob );
 }
 
-void EvtHQET2::initProbMax(){
+void EvtHQET2::init()
+{
+    checkNDaug( 3 );
 
-  EvtId parnum,mesnum,lnum,nunum;
+    //We expect the parent to be a scalar
+    //and the daughters to be X lepton neutrino
+    checkSpinParent( EvtSpinType::SCALAR );
 
-  parnum = getParentId();
-  mesnum = getDaug(0);
-  lnum = getDaug(1);
-  nunum = getDaug(2);
+    checkSpinDaughter( 1, EvtSpinType::DIRAC );
+    checkSpinDaughter( 2, EvtSpinType::NEUTRINO );
 
-  double mymaxprob = calcamp->CalcMaxProb(parnum,mesnum,
-                           lnum,nunum,hqetffmodel);
+    EvtSpinType::spintype d1type = EvtPDL::getSpinType( getDaug( 0 ) );
+    if ( d1type == EvtSpinType::SCALAR ) {
+        if ( getNArg() == 2 ) {
+            hqetffmodel = std::make_unique<EvtHQET2FF>( getArg( 0 ), getArg( 1 ) );
+            calcamp = std::make_unique<EvtSemiLeptonicScalarAmp>();
 
-  setProbMax(mymaxprob);
+        } else if ( getNArg() == 3 ) {
+            hqetffmodel = std::make_unique<EvtHQET2FF>( getArg( 0 ), getArg( 1 ),
+                                                        getArg( 2 ) );
+            calcamp = std::make_unique<EvtSemiLeptonicScalarAmp>();
 
-}
+        } else {
+            EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+                << "HQET2 model for scalar meson daughters needs 2 arguments for normal mode or 3 for extended. Sorry."
+                << endl;
+            ::abort();
+        }
 
+    } else if ( d1type == EvtSpinType::VECTOR ) {
+        if ( getNArg() == 4 ) {
+            hqetffmodel = std::make_unique<EvtHQET2FF>(
+                getArg( 0 ), getArg( 1 ), getArg( 2 ), getArg( 3 ) );
+            calcamp = std::make_unique<EvtSemiLeptonicVectorAmp>();
 
-void EvtHQET2::init(){
+        } else if ( getNArg() == 5 ) {
+            hqetffmodel = std::make_unique<EvtHQET2FF>( getArg( 0 ), getArg( 1 ),
+                                                        getArg( 2 ), getArg( 3 ),
+                                                        getArg( 4 ) );
+            calcamp = std::make_unique<EvtSemiLeptonicVectorAmp>();
 
-  checkNDaug(3);
-
-  //We expect the parent to be a scalar 
-  //and the daughters to be X lepton neutrino
-  checkSpinParent(EvtSpinType::SCALAR);
-
-  checkSpinDaughter(1,EvtSpinType::DIRAC);
-  checkSpinDaughter(2,EvtSpinType::NEUTRINO);
-
-  EvtSpinType::spintype d1type = EvtPDL::getSpinType(getDaug(0));
-  if ( d1type==EvtSpinType::SCALAR) {
-
-    if ( getNArg()==2 ) {
-
-      hqetffmodel = new EvtHQET2FF(getArg(0),getArg(1)); 
-      calcamp = new EvtSemiLeptonicScalarAmp;
-
-    } else if ( getNArg()==3 ) {
-
-      hqetffmodel = new EvtHQET2FF(getArg(0),getArg(1),getArg(2)); 
-      calcamp = new EvtSemiLeptonicScalarAmp;
+        } else {
+            EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+                << "HQET2 model for vector meson daughtersneeds 4 arguments for normal mode or 5 for extended. Sorry."
+                << endl;
+            ::abort();
+        }
 
     } else {
-
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "HQET2 model for scalar meson daughters needs 2 arguments for normal mode or 3 for extended. Sorry."<<endl;
-      ::abort();
+        EvtGenReport( EVTGEN_ERROR, "EvtGen" )
+            << "HQET2 model handles only scalar and vector meson daughters. Sorry."
+            << endl;
+        ::abort();
     }
-
-  } else if ( d1type==EvtSpinType::VECTOR) {
-
-    if ( getNArg()==4 ) { 
-
-      hqetffmodel = new EvtHQET2FF(getArg(0),getArg(1),getArg(2),getArg(3));
-      calcamp = new EvtSemiLeptonicVectorAmp; 
-
-    } else if ( getNArg()==5 ) {
-
-      hqetffmodel = new EvtHQET2FF(getArg(0),getArg(1),getArg(2),getArg(3),getArg(4));
-      calcamp = new EvtSemiLeptonicVectorAmp; 
-
-    } else {
-
-      EvtGenReport(EVTGEN_ERROR,"EvtGen") << "HQET2 model for vector meson daughtersneeds 4 arguments for normal mode or 5 for extended. Sorry."<<endl;
-      ::abort();
-    }
-
-  } else {
-
-    EvtGenReport(EVTGEN_ERROR,"EvtGen") << "HQET2 model handles only scalar and vector meson daughters. Sorry."<<endl;
-    ::abort();
-  }
-  
 }
-

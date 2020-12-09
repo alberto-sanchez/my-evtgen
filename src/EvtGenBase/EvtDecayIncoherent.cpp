@@ -1,87 +1,78 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 1998      Caltech, UCSB
-//
-// Module: EvtGen/EvtDecayIncoherent.cc
-//
-// Description:
-//
-// Modification history:
-//
-//    DJL/RYD     August 11, 1998         Module created
-//
-//------------------------------------------------------------------------
-#include "EvtGenBase/EvtPatches.hh"
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
+
+#include "EvtGenBase/EvtDecayIncoherent.hh"
 
 #include "EvtGenBase/EvtDecayBase.hh"
-#include "EvtGenBase/EvtDecayIncoherent.hh"
+#include "EvtGenBase/EvtPDL.hh"
 #include "EvtGenBase/EvtParticle.hh"
+#include "EvtGenBase/EvtPatches.hh"
 #include "EvtGenBase/EvtRadCorr.hh"
 #include "EvtGenBase/EvtReport.hh"
-#include "EvtGenBase/EvtPDL.hh"
 
+void EvtDecayIncoherent::makeDecay( EvtParticle* p, bool recursive )
+{
+    //initialize this the hard way..
+    //Lange June 26, 2000
+    for ( size_t i = 0; i < static_cast<unsigned int>( MAX_DAUG ); i++ ) {
+        spinDensitySet[i] = 0;
+    }
 
-void EvtDecayIncoherent::makeDecay(EvtParticle* p, bool recursive){
+    _daugsDecayedByParentModel = false;
 
-  //initialize this the hard way..
-  //Lange June 26, 2000
-  for (size_t i=0; i<static_cast<unsigned int>(MAX_DAUG); i++ ) { 
-    spinDensitySet[i]=0;
-  }
+    decay( p );
+    p->setDecayProb( 1.0 );
 
-  _daugsDecayedByParentModel=false;
+    EvtSpinDensity rho;
 
-  decay(p);
-  p->setDecayProb(1.0);
+    rho.setDiag( p->getSpinStates() );
 
-  EvtSpinDensity rho;
+    p->setSpinDensityBackward( rho );
 
-  rho.setDiag(p->getSpinStates());
+    if ( getPHOTOS() || EvtRadCorr::alwaysRadCorr() ) {
+        EvtRadCorr::doRadCorr( p );
+    }
 
-  p->setSpinDensityBackward(rho);
+    if ( !recursive )
+        return;
 
-  if (getPHOTOS() || EvtRadCorr::alwaysRadCorr()) {
-    EvtRadCorr::doRadCorr(p);
-  }
+    //Now decay the daughters.
 
-  if(!recursive) return;
-
-  //Now decay the daughters.
-
-  if ( !daugsDecayedByParentModel()) {
-    
-    for(size_t i=0;i<p->getNDaug();i++){
-      //Need to set the spin density of the daughters to be
-      //diagonal.
-      rho.setDiag(p->getDaug(i)->getSpinStates());
-      //if (p->getDaug(i)->getNDaug()==0){
-      //only do this if the user has not already set the 
-      //spin density matrix herself.
-      //Lange June 26, 2000
-      if ( isDaughterSpinDensitySet(i)==0 ) { 
-	p->getDaug(i)->setSpinDensityForward(rho);
-      }
-      else{
-	//EvtGenReport(EVTGEN_INFO,"EvtGen") << "spinDensitymatrix already set!!!\n";
-	EvtSpinDensity temp=p->getDaug(i)->getSpinDensityForward();
-	//	EvtGenReport(EVTGEN_INFO,"EvtGen") <<temp<<endl;
-      }
-      //Now decay the daughter.  Really!
-      p->getDaug(i)->decay();
-    } 
-  }
-			    
+    if ( !daugsDecayedByParentModel() ) {
+        for ( size_t i = 0; i < p->getNDaug(); i++ ) {
+            //Need to set the spin density of the daughters to be
+            //diagonal.
+            rho.setDiag( p->getDaug( i )->getSpinStates() );
+            //if (p->getDaug(i)->getNDaug()==0){
+            //only do this if the user has not already set the
+            //spin density matrix herself.
+            //Lange June 26, 2000
+            if ( isDaughterSpinDensitySet( i ) == 0 ) {
+                p->getDaug( i )->setSpinDensityForward( rho );
+            } else {
+                //EvtGenReport(EVTGEN_INFO,"EvtGen") << "spinDensitymatrix already set!!!\n";
+                EvtSpinDensity temp = p->getDaug( i )->getSpinDensityForward();
+                //	EvtGenReport(EVTGEN_INFO,"EvtGen") <<temp<<endl;
+            }
+            //Now decay the daughter.  Really!
+            p->getDaug( i )->decay();
+        }
+    }
 }
-
-
-
-
-
-
-

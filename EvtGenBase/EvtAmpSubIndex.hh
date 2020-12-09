@@ -1,23 +1,22 @@
-//--------------------------------------------------------------------------
-//
-// Environment:
-//      This software is part of the EvtGen package developed jointly
-//      for the BaBar and CLEO collaborations.  If you use all or part
-//      of it, please give an appropriate acknowledgement.
-//
-// Copyright Information: See EvtGen/COPYRIGHT
-//      Copyright (C) 2002      Caltech
-//
-// Module: EvtAmpSubIndex.hh
-//
-// Description:This class keeps track of indices on amplitude objects.
-//             Used for a subset of indices in an EvtAmpIndex object.
-//
-// Modification history:
-//
-//    Ryd     Nov 22, 2002         Module created
-//
-//------------------------------------------------------------------------
+
+/***********************************************************************
+* Copyright 1998-2020 CERN for the benefit of the EvtGen authors       *
+*                                                                      *
+* This file is part of EvtGen.                                         *
+*                                                                      *
+* EvtGen is free software: you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by *
+* the Free Software Foundation, either version 3 of the License, or    *
+* (at your option) any later version.                                  *
+*                                                                      *
+* EvtGen is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+* GNU General Public License for more details.                         *
+*                                                                      *
+* You should have received a copy of the GNU General Public License    *
+* along with EvtGen.  If not, see <https://www.gnu.org/licenses/>.     *
+***********************************************************************/
 
 #ifndef EVTAMPSUBINDEX_HH
 #define EVTAMPSUBINDEX_HH
@@ -26,23 +25,17 @@
 class EvtAmpIndex;
 
 class EvtAmpSubIndex {
+  public:
+    EvtAmpSubIndex( EvtAmpIndex* ind, std::vector<int> sub );
+    virtual ~EvtAmpSubIndex() {}
 
-public:
+    int index();
 
-  EvtAmpSubIndex(EvtAmpIndex* ind,std::vector<int> sub);
-  virtual ~EvtAmpSubIndex() {}
-
-  int index();
-
-private:
-
-  EvtAmpIndex* _ind;
-  std::vector<int> _sub;
-  int _size;
-  std::vector<int> _nstate;
-
+  private:
+    EvtAmpIndex* _ind;
+    std::vector<int> _sub;
+    int _size;
+    std::vector<int> _nstate;
 };
 
-
 #endif
-
